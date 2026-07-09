@@ -6,7 +6,7 @@ import Aurora from '../../components/Aurora';
 import { contactService } from '../../services/contactService';
 
 const OFFICIAL_EMAIL = 'velfound1@gmail.com';
-const AURORA_COLORS = ['#7cff67', '#B497CF', '#5227FF'];
+const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });

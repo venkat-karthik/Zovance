@@ -33,7 +33,7 @@ export default function HomePage() {
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, overflow: 'hidden' }}>
-        <Aurora colorStops={['#7cff67', '#B497CF', '#5227FF']} blend={0.5} amplitude={1.0} speed={0.8} />
+        <Aurora colorStops={['#1e293b', '#2563eb', '#0f172a']} blend={0.6} amplitude={0.8} speed={0.5} />
       </div>
       <div style={{ position: 'relative', zIndex: 1 }}>
         <WebsiteNav />
@@ -241,7 +241,7 @@ export default function HomePage() {
                 {/* Stars */}
                 <div style={{ display: 'flex', gap: 2, marginBottom: 16 }}>
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={14} fill="#7cff67" color="#7cff67" />
+                    <Star key={i} size={14} fill="#38bdf8" color="#38bdf8" />
                   ))}
                 </div>
 

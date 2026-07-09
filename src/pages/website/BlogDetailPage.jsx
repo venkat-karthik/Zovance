@@ -7,7 +7,7 @@ import Aurora from '../../components/Aurora';
 import { useStore } from '../../store/useStore';
 import { subscribeToNewsletter, checkEmailSubscription } from '../../services/newsletterService';
 
-const AURORA_COLORS = ['#7cff67', '#B497CF', '#5227FF'];
+const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
 
 export default function BlogDetailPage() {
   const { id } = useParams();
@@ -137,7 +137,7 @@ export default function BlogDetailPage() {
                 background: 'rgba(124, 255, 103, 0.1)',
                 border: '1px solid rgba(124, 255, 103, 0.3)',
                 borderRadius: 999,
-                color: '#7cff67',
+                color: '#38bdf8',
                 fontSize: 12,
                 fontWeight: 700,
                 textTransform: 'uppercase',
@@ -248,7 +248,7 @@ export default function BlogDetailPage() {
                     fontSize: 'clamp(13px, 2vw, 15px)',
                     lineHeight: 1.6,
                   }}>
-                    <span style={{ color: '#7cff67', fontWeight: 700, flexShrink: 0 }}>✓</span>
+                    <span style={{ color: '#38bdf8', fontWeight: 700, flexShrink: 0 }}>✓</span>
                     <span>{takeaway}</span>
                   </li>
                 ))}

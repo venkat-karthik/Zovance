@@ -58,7 +58,7 @@ function App() {
                 </ProtectedAdminRoute>
               }
             >
-              <Route index element={<Navigate to="/admin/dashboard" replace />} />
+              <Route index element={<Navigate to="/admin/crm" replace />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="bookings" element={<Bookings />} />
               <Route path="portfolio-projects" element={<PortfolioProjects />} />

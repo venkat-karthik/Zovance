@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { TrendingUp, Award, Target, DollarSign } from 'lucide-react';
+import { TrendingUp, Award, Target, DollarSign, Sparkles, Users, Briefcase } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import { useStore } from '../../store/useStore';
 
@@ -19,7 +19,7 @@ export default function Team() {
       const totalRevenue = memberProjects.reduce((sum, p) => {
         const calc = calculateProject(p);
         if (calc && !calc.error) {
-          const payout = calc.payouts.find(py => py.memberId === member.id);
+          const payout = calc.payouts?.find(py => py.memberId === member.id);
           return sum + (payout?.finalShare || 0);
         }
         return sum;
@@ -58,52 +58,91 @@ export default function Team() {
   }));
 
   return (
-    <div>
-      {/* Header */}
-      <div style={{ marginBottom: 24 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>Team Performance</h1>
-        <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Track member metrics, earnings, and growth</p>
+    <div style={{ maxWidth: 1600, margin: '0 auto' }}>
+      {/* Top Banner */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(6, 6, 8, 0.95))',
+        border: '1px solid rgba(59, 130, 246, 0.2)',
+        borderRadius: 16,
+        padding: '24px clamp(16px, 3vw, 28px)',
+        marginBottom: 28,
+        boxShadow: '0 12px 36px rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        gap: 20
+      }}>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+            <span style={{ padding: '4px 12px', borderRadius: 999, background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', border: '1px solid rgba(56, 189, 248, 0.3)', display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Sparkles size={13} /> Team & Roster Command Center
+            </span>
+          </div>
+          <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', marginBottom: 6 }}>
+            Member Performance & Revenue Attribution
+          </h1>
+          <p style={{ color: '#94a3b8', fontSize: 14 }}>
+            Monitor active engineering capacity, conversion rates, and profit-share payouts.
+          </p>
+        </div>
+
+        {/* Quick Stats Banner Row */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
+          <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 12, padding: '12px 18px', minWidth: 140 }}>
+            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Active Roster</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8', marginTop: 4 }}>{activeMembers.length} Engineers</div>
+          </div>
+          <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 12, padding: '12px 18px', minWidth: 140 }}>
+            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Payouts</div>
+            <div style={{ fontSize: 20, fontWeight: 800, color: '#4ade80', marginTop: 4 }}>
+              ₹{(memberMetrics.reduce((s, m) => s + m.totalRevenue, 0) / 100000).toFixed(1)}L
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 24 }}>
+      {/* Stats Cards */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, marginBottom: 28 }}>
         {[
-          { label: 'Active Members', value: activeMembers.length, icon: TrendingUp, color: '#4ade80' },
-          { label: 'Total Leads', value: leads.length, icon: Target, color: '#60a5fa' },
-          { label: 'Deals Won', value: leads.filter(l => l.status === 'won').length, icon: Award, color: '#c9a84c' },
-          { label: 'Total Revenue', value: `₹${(memberMetrics.reduce((s, m) => s + m.totalRevenue, 0) / 100000).toFixed(1)}L`, icon: DollarSign, color: '#a78bfa' },
+          { label: 'Active Roster Members', value: activeMembers.length, icon: Users, color: '#38bdf8' },
+          { label: 'Total Assigned Leads', value: leads.length, icon: Target, color: '#60a5fa' },
+          { label: 'Total Closed Deals', value: leads.filter(l => l.status === 'won').length, icon: Award, color: '#818cf8' },
+          { label: 'Distributed Revenue Share', value: `₹${(memberMetrics.reduce((s, m) => s + m.totalRevenue, 0) / 100000).toFixed(1)}L`, icon: DollarSign, color: '#4ade80' },
         ].map(s => (
-          <div key={s.label} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 16 }}>
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 12 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: `${s.color}15`, border: `1px solid ${s.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <s.icon size={16} color={s.color} />
+          <div key={s.label} style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 18 }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 }}>
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: `${s.color}15`, border: `1px solid ${s.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <s.icon size={18} color={s.color} />
               </div>
             </div>
-            <div style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 4 }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: '#555' }}>{s.label}</div>
+            <div style={{ fontSize: 26, fontWeight: 800, color: '#ffffff', letterSpacing: '-0.02em', marginBottom: 4 }}>{s.value}</div>
+            <div style={{ fontSize: 12, color: '#94a3b8' }}>{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Leaderboard */}
-      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, marginBottom: 24 }}>
-        <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Leaderboard (by Revenue)</h3>
+      <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 24, marginBottom: 28 }}>
+        <h3 style={{ fontSize: 16, fontWeight: 700, color: '#ffffff', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <TrendingUp size={18} color="#38bdf8" /> Revenue Attribution Leaderboard
+        </h3>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {leaderboard.map((m, i) => (
-            <div key={m.id} style={{ background: '#0e0e0e', borderRadius: 10, padding: 14, display: 'flex', alignItems: 'center', gap: 12 }}>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#1a1a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#c9a84c' }}>
-                {i + 1}
+            <div key={m.id} style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid rgba(255, 255, 255, 0.06)', borderRadius: 12, padding: 16, display: 'flex', alignItems: 'center', gap: 14 }}>
+              <div style={{ width: 34, height: 34, borderRadius: '50%', background: i === 0 ? 'rgba(56, 189, 248, 0.2)' : 'rgba(255, 255, 255, 0.05)', border: i === 0 ? '1px solid #38bdf8' : '1px solid rgba(255, 255, 255, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: i === 0 ? '#38bdf8' : '#cbd5e1' }}>
+                #{i + 1}
               </div>
-              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#c9a84c,#e4c677)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#0a0a0a' }}>
+              <div style={{ width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 800, color: '#ffffff', boxShadow: '0 0 12px rgba(37, 99, 235, 0.3)' }}>
                 {m.avatar}
               </div>
               <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{m.name}</div>
-                <div style={{ fontSize: 11, color: '#555', marginTop: 2 }}>{m.role}</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{m.name}</div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{m.role} <span style={{ color: '#64748b' }}>•</span> {m.equity}% Equity Share</div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#c9a84c' }}>₹{(m.totalRevenue / 100000).toFixed(1)}L</div>
-                <div style={{ fontSize: 11, color: '#555', marginTop: 2 }}>{m.projectsWorked} projects</div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: '#38bdf8' }}>₹{(m.totalRevenue / 100000).toFixed(1)}L</div>
+                <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{m.projectsWorked} active projects</div>
               </div>
             </div>
           ))}
@@ -111,90 +150,98 @@ export default function Team() {
       </div>
 
       {/* Charts */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: 16, marginBottom: 28 }}>
         {/* Monthly Revenue */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Monthly Revenue</h3>
-          <ResponsiveContainer width="100%" height={250}>
+        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 22 }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 18 }}>Monthly Revenue Allocation by Engineer</h3>
+          <ResponsiveContainer width="100%" height={260}>
             <BarChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-              <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => `₹${v.toLocaleString()}`} />
-              <Legend wrapperStyle={{ fontSize: 12 }} />
-              <Bar dataKey="Arjun" fill="#c9a84c" radius={[8, 8, 0, 0]} />
-              <Bar dataKey="Priya" fill="#60a5fa" radius={[8, 8, 0, 0]} />
-              <Bar dataKey="Rohan" fill="#a78bfa" radius={[8, 8, 0, 0]} />
-              <Bar dataKey="Sneha" fill="#4ade80" radius={[8, 8, 0, 0]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
+              <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }} formatter={(v) => `₹${v.toLocaleString()}`} />
+              <Legend wrapperStyle={{ fontSize: 12, color: '#cbd5e1' }} />
+              <Bar dataKey="Arjun" fill="#38bdf8" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="Priya" fill="#60a5fa" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="Rohan" fill="#818cf8" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="Sneha" fill="#a78bfa" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
 
         {/* Conversion Rate */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Conversion Rate</h3>
-          <ResponsiveContainer width="100%" height={250}>
+        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 22 }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 18 }}>Lead Conversion Rate vs Deals Closed</h3>
+          <ResponsiveContainer width="100%" height={260}>
             <BarChart data={conversionData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
-              <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#444' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-              <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => `${v}%`} />
-              <Bar dataKey="conversion" fill="#c9a84c" radius={[8, 8, 0, 0]} />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" />
+              <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
+              <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }} formatter={(v) => `${v}%`} />
+              <Bar dataKey="conversion" fill="#38bdf8" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Member Details */}
-      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ padding: 20, borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Member Details</h3>
+      {/* Member Details Table */}
+      <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, overflow: 'hidden' }}>
+        <div style={{ padding: '18px 22px', borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(255, 255, 255, 0.02)' }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>Detailed Member Performance Metrics</h3>
         </div>
 
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Leads</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Won</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Conversion</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Projects</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Revenue</th>
+              <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(255, 255, 255, 0.01)' }}>
+                <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member / Engineer</th>
+                <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Assigned Leads</th>
+                <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Deals Won</th>
+                <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Conversion Rate</th>
+                <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Active Projects</th>
+                <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Revenue Generated</th>
               </tr>
             </thead>
             <tbody>
-              {memberMetrics.map(m => (
-                <tr key={m.id} className="table-row">
-                  <td style={{ padding: '14px 16px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,#c9a84c,#e4c677)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#0a0a0a' }}>
+              {memberMetrics.map((m, idx) => (
+                <tr
+                  key={m.id}
+                  style={{
+                    borderBottom: idx === memberMetrics.length - 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.05)',
+                    transition: 'background 0.15s ease'
+                  }}
+                  onMouseEnter={e => e.currentTarget.style.background = 'rgba(59, 130, 246, 0.05)'}
+                  onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+                >
+                  <td style={{ padding: '16px 20px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                      <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: '#ffffff' }}>
                         {m.avatar}
                       </div>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{m.name}</div>
-                        <div style={{ fontSize: 11, color: '#444', marginTop: 2 }}>{m.role}</div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: '#ffffff' }}>{m.name}</div>
+                        <div style={{ fontSize: 12, color: '#94a3b8', marginTop: 2 }}>{m.role}</div>
                       </div>
                     </div>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span className="badge" style={{ background: '#1a1a1a', color: '#888' }}>
+                  <td style={{ padding: '16px 20px' }}>
+                    <span style={{ background: 'rgba(255, 255, 255, 0.05)', color: '#cbd5e1', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 600 }}>
                       {m.leadsHandled}
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span className="badge" style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)' }}>
+                  <td style={{ padding: '16px 20px' }}>
+                    <span style={{ background: 'rgba(74, 222, 128, 0.12)', color: '#4ade80', border: '1px solid rgba(74, 222, 128, 0.25)', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
                       {m.dealsWon}
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span className="badge" style={{ background: 'rgba(201,168,76,0.1)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.2)' }}>
+                  <td style={{ padding: '16px 20px' }}>
+                    <span style={{ background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.25)', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
                       {m.conversionRate}%
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px', fontSize: 13, color: '#888' }}>{m.projectsWorked}</td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 700, color: '#c9a84c' }}>₹{(m.totalRevenue / 100000).toFixed(1)}L</div>
+                  <td style={{ padding: '16px 20px', fontSize: 13, color: '#cbd5e1' }}>{m.projectsWorked}</td>
+                  <td style={{ padding: '16px 20px', textAlign: 'right' }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: '#38bdf8' }}>₹{(m.totalRevenue / 100000).toFixed(1)}L</div>
                   </td>
                 </tr>
               ))}

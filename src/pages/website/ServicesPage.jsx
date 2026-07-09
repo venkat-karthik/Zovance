@@ -47,16 +47,16 @@ export default function ServicesPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, overflow: 'hidden' }}>
-        <Aurora colorStops={['#7cff67', '#B497CF', '#5227FF']} blend={0.5} amplitude={1.0} speed={0.8} />
+        <Aurora colorStops={['#1e293b', '#2563eb', '#0f172a']} blend={0.6} amplitude={0.8} speed={0.5} />
       </div>
       <div style={{ position: 'relative', zIndex: 1 }}>
         <WebsiteNav />
 
         {/* Header with Aurora */}
         <section className="aurora-bg-wrapper" style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 60px', textAlign: 'center', position: 'relative', minHeight: '400px' }}>
-          <p className="section-tag fade-up" style={{ marginBottom: 16 }}>Our Services</p>
-          <h1 className="fade-up" style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20, animationDelay: '0.1s' }}>
-            Every System We Build Is<br /><span className="gold-text" style={{ background: 'linear-gradient(135deg, #7cff67, #B497CF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Built to Scale</span>
+          <p className="section-tag fade-in-up" style={{ marginBottom: 16 }}>Core Capabilities</p>
+          <h1 className="slide-in-up" style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20 }}>
+            Every System We Build Is<br /><span className="gold-text" style={{ background: 'linear-gradient(135deg, #38bdf8, #B497CF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Built to Scale</span>
           </h1>
           <p className="fade-up" style={{ color: '#555', fontSize: 18, maxWidth: 520, margin: '0 auto', animationDelay: '0.2s' }}>
             We don't sell templates. We build custom AI systems, voice agents, and web solutions engineered for your specific business.
@@ -72,7 +72,7 @@ export default function ServicesPage() {
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
                   <div style={{ width: 48, height: 48, borderRadius: 12, background: 'rgba(124, 255, 103, 0.1)', border: '1px solid rgba(124, 255, 103, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <s.icon size={22} color="#7cff67" />
+                    <s.icon size={22} color="#38bdf8" />
                   </div>
                   <span className="section-tag">{s.tag}</span>
                 </div>
@@ -82,7 +82,7 @@ export default function ServicesPage() {
                   <p style={{ color: '#777', fontSize: 14, lineHeight: 1.7 }}>{s.problem}</p>
                 </div>
                 <div style={{ marginBottom: 20 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#7cff67', marginBottom: 8 }}>OUR SOLUTION</div>
+                  <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#38bdf8', marginBottom: 8 }}>OUR SOLUTION</div>
                   <p style={{ color: '#888', fontSize: 14, lineHeight: 1.7 }}>{s.solution}</p>
                 </div>
                 <div style={{ marginBottom: 28 }}>
@@ -100,7 +100,7 @@ export default function ServicesPage() {
                 <p style={{ color: '#555', fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 20 }}>What's Included</p>
                 {s.features.map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
-                    <CheckCircle2 size={15} color="#7cff67" />
+                    <CheckCircle2 size={15} color="#38bdf8" />
                     <span style={{ color: '#888', fontSize: 14 }}>{f}</span>
                   </div>
                 ))}

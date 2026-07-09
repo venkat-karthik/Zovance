@@ -3,7 +3,7 @@ import { Plus, X, Edit2, Trash2, Shield, Lock } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 const accessLevels = { founder: 'Founder', core: 'Core Member', viewer: 'Viewer' };
-const accessColors = { founder: '#c9a84c', core: '#60a5fa', viewer: '#888' };
+const accessColors = { founder: '#38bdf8', core: '#60a5fa', viewer: '#888' };
 
 export default function Members() {
   const { members, addMember, updateMember, removeMember, currentUser } = useStore();
@@ -90,8 +90,8 @@ export default function Members() {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 24 }}>
         {[
           { label: 'Active Members', value: activeMembers.length, color: '#4ade80' },
-          { label: 'Total Equity', value: `${totalEquity}%`, color: '#c9a84c' },
-          { label: 'Founders', value: activeMembers.filter(m => m.accessLevel === 'founder').length, color: '#c9a84c' },
+          { label: 'Total Equity', value: `${totalEquity}%`, color: '#38bdf8' },
+          { label: 'Founders', value: activeMembers.filter(m => m.accessLevel === 'founder').length, color: '#38bdf8' },
           { label: 'Core Members', value: activeMembers.filter(m => m.accessLevel === 'core').length, color: '#60a5fa' },
         ].map(s => (
           <div key={s.label} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 16 }}>
@@ -124,7 +124,7 @@ export default function Members() {
                 <tr key={m.id} className="table-row">
                   <td style={{ padding: '14px 16px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg,#c9a84c,#e4c677)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#0a0a0a' }}>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#ffffff' }}>
                         {m.avatar}
                       </div>
                       <div>
@@ -135,7 +135,7 @@ export default function Members() {
                   </td>
                   <td style={{ padding: '14px 16px', fontSize: 13, color: '#888' }}>{m.role}</td>
                   <td style={{ padding: '14px 16px' }}>
-                    <span className="badge" style={{ background: 'rgba(201,168,76,0.1)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.2)' }}>
+                    <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
                       {m.equity}%
                     </span>
                   </td>
@@ -160,7 +160,7 @@ export default function Members() {
                   </td>
                   <td style={{ padding: '14px 16px', textAlign: 'center' }}>
                     <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-                      <button onClick={() => handleEdit(m)} style={{ background: 'none', border: 'none', color: '#c9a84c', cursor: 'pointer', padding: 4 }}>
+                      <button onClick={() => handleEdit(m)} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', padding: 4 }}>
                         <Edit2 size={14} />
                       </button>
                       <button onClick={() => removeMember(m.id)} style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 4 }}>
@@ -199,7 +199,7 @@ export default function Members() {
                       </div>
                     </td>
                     <td colSpan="5" style={{ padding: '14px 16px', textAlign: 'right' }}>
-                      <button onClick={() => updateMember(m.id, { active: true })} style={{ background: 'none', border: 'none', color: '#c9a84c', cursor: 'pointer', fontSize: 12, fontWeight: 500 }}>
+                      <button onClick={() => updateMember(m.id, { active: true })} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontSize: 12, fontWeight: 500 }}>
                         Restore
                       </button>
                     </td>
@@ -286,16 +286,16 @@ export default function Members() {
                   className="input"
                   style={{ flex: 1 }}
                 />
-                <button onClick={handleAddSkill} className="btn-sm" style={{ background: '#1a1a1a', color: '#c9a84c', border: '1px solid #2a2a2a' }}>
+                <button onClick={handleAddSkill} className="btn-sm" style={{ background: '#1a1a1a', color: '#38bdf8', border: '1px solid #2a2a2a' }}>
                   Add
                 </button>
               </div>
               {newMember.skills.length > 0 && (
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   {newMember.skills.map(s => (
-                    <span key={s} className="badge" style={{ background: 'rgba(201,168,76,0.1)', color: '#c9a84c', border: '1px solid rgba(201,168,76,0.2)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span key={s} className="badge" style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.2)', display: 'flex', alignItems: 'center', gap: 6 }}>
                       {s}
-                      <button onClick={() => handleRemoveSkill(s)} style={{ background: 'none', border: 'none', color: '#c9a84c', cursor: 'pointer', padding: 0 }}>
+                      <button onClick={() => handleRemoveSkill(s)} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', padding: 0 }}>
                         <X size={12} />
                       </button>
                     </span>

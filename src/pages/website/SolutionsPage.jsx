@@ -5,7 +5,7 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import Aurora from '../../components/Aurora';
 
-const AURORA_COLORS = ['#7cff67', '#B497CF', '#5227FF'];
+const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
 
 const solutionsData = [
   {
@@ -163,7 +163,7 @@ export default function SolutionsPage() {
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 60px', textAlign: 'center' }}>
         <p className="section-tag fade-up" style={{ marginBottom: 16 }}>Our Solutions</p>
         <h1 className="fade-up" style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20, animationDelay: '0.1s' }}>
-          Complete Automation<br /><span className="gold-text" style={{ background: 'linear-gradient(135deg, #7cff67, #B497CF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Solutions for Every Need</span>
+          Complete Automation<br /><span className="gold-text">Solutions for Every Need</span>
         </h1>
         <p className="fade-up" style={{ color: '#555', fontSize: 18, maxWidth: 600, margin: '0 auto', animationDelay: '0.2s' }}>
           From WhatsApp automation to AI voice agents to custom web platforms — we have the solution for your business.
@@ -328,7 +328,7 @@ export default function SolutionsPage() {
             </p>
 
             <div style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: 20, marginBottom: 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#7cff67', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#38bdf8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 What You Get
               </h3>
               <p style={{ color: '#888', fontSize: 15, lineHeight: 1.8 }}>
@@ -343,7 +343,7 @@ export default function SolutionsPage() {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 {selectedSolution.benefits.map((benefit) => (
                   <div key={benefit} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <CheckCircle2 size={16} color="#7cff67" style={{ marginTop: 2, flexShrink: 0 }} />
+                    <CheckCircle2 size={16} color="#38bdf8" style={{ marginTop: 2, flexShrink: 0 }} />
                     <span style={{ color: '#888', fontSize: 13 }}>{benefit}</span>
                   </div>
                 ))}

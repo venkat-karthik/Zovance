@@ -67,7 +67,7 @@ export default function Dashboard() {
               <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Revenue Trend</h3>
               <p style={{ fontSize: 12, color: '#555' }}>Last 6 months</p>
             </div>
-            <span className="gold-text" style={{ fontSize: 20, fontWeight: 700 }}>{fmt(totalRevenue)}</span>
+            <span style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8' }}>{fmt(totalRevenue)}</span>
           </div>
           <ResponsiveContainer width="100%" height={160}>
             <AreaChart data={revenueData}>

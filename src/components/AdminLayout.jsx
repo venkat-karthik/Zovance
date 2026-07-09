@@ -9,21 +9,16 @@ import { useStore } from '../store/useStore';
 import { useAdminAuth } from '../context/AdminAuthContext';
 
 const navItems = [
-  { to: '/admin/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
-  { to: '/admin/bookings', icon: Calendar, label: 'Bookings' },
-  { to: '/admin/portfolio-projects', icon: FolderKanban, label: 'Portfolio Projects' },
-  { to: '/admin/crm', icon: FolderKanban, label: 'CRM / Leads' },
-  { to: '/admin/projects', icon: FileText, label: 'Projects' },
-  { to: '/admin/team', icon: TrendingUp, label: 'Team Performance' },
-  { to: '/admin/earnings', icon: DollarSign, label: 'Earnings' },
-  { to: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
-  { to: '/admin/disputes', icon: AlertTriangle, label: 'Disputes' },
+  { to: '/admin/crm', icon: FolderKanban, label: 'CRM & Lead Pipeline' },
+  { to: '/admin/team', icon: TrendingUp, label: 'Team & Roster Hub' },
+  { to: '/admin/projects', icon: FileText, label: 'Client Projects' },
+  { to: '/admin/portfolio-projects', icon: LayoutDashboard, label: 'Portfolio Showcase' },
+  { to: '/admin/bookings', icon: Calendar, label: 'Consultations' },
+  { to: '/admin/earnings', icon: DollarSign, label: 'Financial Overview' },
 ];
 
 const founderOnly = [
-  { to: '/admin/members', icon: UserCog, label: 'Member Management' },
-  { to: '/admin/blog', icon: Zap, label: 'Blog Manager' },
-  { to: '/admin/audit', icon: Shield, label: 'Audit Log' },
+  { to: '/admin/members', icon: UserCog, label: 'Member Access & Equity' },
 ];
 
 const roles = ['founder', 'core', 'viewer'];

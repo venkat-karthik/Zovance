@@ -145,9 +145,9 @@ export default function PreviousProjects({ projects = [] }) {
                       fontSize: '11px',
                       padding: '4px 10px',
                       borderRadius: 999,
-                      background: 'rgba(124, 255, 103, 0.1)',
-                      color: '#7cff67',
-                      border: '1px solid rgba(124, 255, 103, 0.2)',
+                      background: 'rgba(56, 189, 248, 0.1)',
+                      color: '#38bdf8',
+                      border: '1px solid rgba(56, 189, 248, 0.2)',
                       fontWeight: 500,
                     }}
                   >

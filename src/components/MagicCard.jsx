@@ -8,7 +8,7 @@ export default function MagicCard({ name, role, skills, avatar }) {
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #7cff67, #B497CF)',
+            background: 'linear-gradient(135deg, #2563eb, #38bdf8)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -25,11 +25,11 @@ export default function MagicCard({ name, role, skills, avatar }) {
             {skills.map((skill, i) => (
               <span key={i} style={{
                 fontSize: '10px',
-                background: 'rgba(124, 255, 103, 0.1)',
-                color: '#7cff67',
+                background: 'rgba(56, 189, 248, 0.1)',
+                color: '#38bdf8',
                 padding: '2px 8px',
                 borderRadius: '999px',
-                border: '1px solid rgba(124, 255, 103, 0.2)'
+                border: '1px solid rgba(56, 189, 248, 0.2)'
               }}>
                 {skill}
               </span>

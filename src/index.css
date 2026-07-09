@@ -3,11 +3,10 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #0a0a0a;
+  background: #060608;
   color: #f0f0f0;
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 #root { width: 100%; }
@@ -573,35 +572,35 @@ button, a, input, select, textarea {
   animation: pageEnter 0.5s ease-out;
 }
 
-/* Blue Gradient Text */
+/* Premium Gradient Text */
 .gold-text {
-  background: linear-gradient(135deg, #7cff67 0%, #B497CF 50%, #5227FF 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #94a3b8 60%, #3b82f6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 20px rgba(124, 255, 103, 0.4);
-  filter: drop-shadow(0 0 12px rgba(124, 255, 103, 0.3));
+  filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.25));
 }
 
 /* Buttons */
 .btn-gold {
-  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
   color: #fff;
   font-weight: 600;
   border-radius: 999px;
-  padding: 11px 28px;
+  padding: 12px 30px;
   font-size: 14px;
-  transition: all 0.3s ease;
-  border: none;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
 }
 .btn-gold:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.15);
   transform: translateY(-2px);
-  box-shadow: 0 12px 32px rgba(59,130,246,0.35);
+  box-shadow: 0 8px 28px rgba(37, 99, 235, 0.5);
 }
 .btn-gold:active {
   transform: translateY(0);
@@ -692,16 +691,16 @@ textarea.input { resize: vertical; min-height: 80px; }
 /* Section Tag */
 .section-tag {
   display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7cff67;
-  background: rgba(124, 255, 103, 0.15);
-  padding: 8px 16px;
+  color: #60a5fa;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(124, 255, 103, 0.3);
-  text-shadow: 0 0 8px rgba(124, 255, 103, 0.3);
+  border: 1px solid rgba(59, 130, 246, 0.25);
+  box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
 }
 
 /* Badge */
@@ -800,13 +799,13 @@ textarea.input { resize: vertical; min-height: 80px; }
 
 /* Magic Card */
 .magic-card {
-  --background: linear-gradient(135deg, #7cff67 0%, #B497CF 50%, #5227FF 100%);
+  --background: linear-gradient(135deg, #1e293b 0%, #3b82f6 50%, #1d4ed8 100%);
   width: 190px;
   height: 254px;
-  padding: 5px;
+  padding: 1px;
   border-radius: 1rem;
   overflow: visible;
-  background: #7cff67;
+  background: #1e293b;
   background: var(--background);
   position: relative;
   z-index: 1;
@@ -825,14 +824,14 @@ textarea.input { resize: vertical; min-height: 80px; }
   width: 100%;
   transform: scale(0.8);
   filter: blur(25px);
-  background: #7cff67;
+  background: #3b82f6;
   background: var(--background);
   transition: opacity 0.5s;
-  opacity: 1;
+  opacity: 0.6;
 }
 
 .magic-card-info {
-  --color: #181818;
+  --color: #0e1117;
   background: var(--color);
   color: var(--color);
   display: flex;
@@ -841,7 +840,7 @@ textarea.input { resize: vertical; min-height: 80px; }
   width: 100%;
   height: 100%;
   overflow: visible;
-  border-radius: 0.7rem;
+  border-radius: 0.9rem;
   padding: 16px;
 }
 
@@ -854,16 +853,16 @@ textarea.input { resize: vertical; min-height: 80px; }
 }
 
 .magic-card:hover::after {
-  opacity: 0;
+  opacity: 0.8;
 }
 
 .magic-card:hover .magic-card-info {
-  color: #7cff67;
-  transition: color 1s;
+  color: #60a5fa;
+  transition: color 0.3s;
 }
 
 .magic-card:hover .magic-card-title {
-  color: #7cff67;
+  color: #60a5fa;
 }
 
 /* Aurora Background Wrapper */
@@ -1257,9 +1256,9 @@ textarea.input { resize: vertical; min-height: 80px; }
 }
 
 .glass-badge.green {
-  background: rgba(124, 255, 103, 0.1);
-  border-color: rgba(124, 255, 103, 0.2);
-  color: #7cff67;
+  background: rgba(56, 189, 248, 0.1);
+  border-color: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
 }
 
 /* Glass Modal */

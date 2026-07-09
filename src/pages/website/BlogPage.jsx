@@ -7,10 +7,10 @@ import Aurora from '../../components/Aurora';
 import { useStore } from '../../store/useStore';
 import { subscribeToNewsletter, checkEmailSubscription } from '../../services/newsletterService';
 
-const AURORA_COLORS = ['#7cff67', '#B497CF', '#5227FF'];
+const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
 
 const categoryColors = {
-  'AI Automation': '#7cff67',
+  'AI Automation': '#38bdf8',
   'AI Voice': '#60a5fa',
   'Web Solutions': '#a78bfa',
   'Strategy': '#4ade80',
@@ -199,7 +199,7 @@ export default function BlogPage() {
                       </span>
                     </div>
                     <button style={{
-                      color: '#7cff67',
+                      color: '#38bdf8',
                       fontSize: 'clamp(11px, 2vw, 13px)',
                       background: 'none',
                       border: 'none',
@@ -217,7 +217,7 @@ export default function BlogPage() {
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.gap = '4px';
-                      e.currentTarget.style.color = '#7cff67';
+                      e.currentTarget.style.color = '#38bdf8';
                     }}
                     >
                       Read More <ArrowRight size={13} />
