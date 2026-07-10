@@ -14,6 +14,7 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 // List of authorized admin emails
 const AUTHORIZED_ADMINS = [
+  'karthikvenkat316@gmail.com',
   'velfound1@gmail.com',
   'akshath.tumkur@velfound.com',
   'sahil.ranakoti@velfound.com',
@@ -51,7 +52,7 @@ export const adminAuthService = {
         console.warn('Unauthorized admin attempt:', email);
         // Sign out unauthorized user
         await signOut(auth);
-        throw new Error(`Email "${email}" is not authorized. Authorized emails: ${AUTHORIZED_ADMINS.join(', ')}`);
+        throw new Error(`Access Denied: The email "${email}" is not authorized to access the Admin Dashboard.`);
       }
 
       console.log('User authorized, creating/updating admin document...');
