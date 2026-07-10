@@ -3,7 +3,7 @@ import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, FolderKanban, TrendingUp, DollarSign,
   BarChart3, AlertTriangle, UserCog, FileText, Zap, Bell, ChevronDown,
-  LogOut, Menu, X, ExternalLink, Shield, Calendar
+  LogOut, Menu, X, ExternalLink, Shield, Calendar, MessageCircle
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { useAdminAuth } from '../context/AdminAuthContext';
@@ -13,6 +13,7 @@ const navItems = [
   { to: '/admin/team', icon: TrendingUp, label: 'Team & Roster Hub' },
   { to: '/admin/projects', icon: FileText, label: 'Client Projects' },
   { to: '/admin/portfolio-projects', icon: LayoutDashboard, label: 'Portfolio Showcase' },
+  { to: '/admin/testimonials', icon: MessageCircle, label: 'Client Testimonials' },
   { to: '/admin/bookings', icon: Calendar, label: 'Consultations' },
   { to: '/admin/earnings', icon: DollarSign, label: 'Financial Overview' },
 ];

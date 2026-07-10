@@ -29,6 +29,7 @@ import AuditLog from './pages/admin/AuditLog';
 import BlogAdmin from './pages/admin/BlogAdmin';
 import Bookings from './pages/admin/Bookings';
 import PortfolioProjects from './pages/admin/PortfolioProjects';
+import TestimonialsAdmin from './pages/admin/TestimonialsAdmin';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="bookings" element={<Bookings />} />
               <Route path="portfolio-projects" element={<PortfolioProjects />} />
+              <Route path="testimonials" element={<TestimonialsAdmin />} />
               <Route path="crm" element={<CRM />} />
               <Route path="projects" element={<Projects />} />
               <Route path="projects/:id" element={<ProjectDetail />} />

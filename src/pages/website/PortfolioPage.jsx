@@ -1,52 +1,13 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, TrendingUp, Clock, MessageCircle } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, TrendingUp, Clock, MessageCircle, ExternalLink, CheckCircle } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
-
-const projects = [
-  {
-    client: 'EduPrime Academy',
-    tag: 'AI + Web', tagColor: '#c9a84c',
-    title: 'AI-Powered LMS & Lead Qualification',
-    challenge: 'EduPrime was losing 70% of website visitors without capturing leads. Their enrollment process was entirely manual.',
-    solution: 'Built a full LMS platform with AI chatbot, automated lead scoring, and WhatsApp follow-up sequences.',
-    results: [{ label: 'Conversion Rate', before: '4%', after: '17.6%' }, { label: 'Manual Hours/Week', before: '40hrs', after: '3hrs' }, { label: 'Monthly Enrollments', before: '28', after: '124' }],
-    timeline: '6 weeks',
-    value: '₹95,000',
-  },
-  {
-    client: 'RetailX Corp',
-    tag: 'AI Voice', tagColor: '#60a5fa',
-    title: '24/7 WhatsApp AI Support Agent',
-    challenge: `RetailX's support team was overwhelmed with 500+ daily WhatsApp queries, causing 4-hour response delays.`,
-    solution: 'Deployed a custom AI agent on WhatsApp that handles product queries, order status, returns, and complaints autonomously.',
-    results: [{ label: 'Response Time', before: '4 hours', after: '< 30 sec' }, { label: 'Resolution Rate', before: '71%', after: '96%' }, { label: 'Support Staff Required', before: '8', after: '2' }],
-    timeline: '3 weeks',
-    value: '₹1,20,000',
-  },
-  {
-    client: 'MedCare Hospitals',
-    tag: 'AI Voice', tagColor: '#60a5fa',
-    title: 'AI Voice Appointment Booking System',
-    challenge: 'Phone lines jammed daily. Staff spent 6+ hours/day manually booking appointments via calls.',
-    solution: 'AI voice agent answers all inbound calls, collects patient info, checks doctor availability, and books appointments in real-time.',
-    results: [{ label: 'Appointments/Day', before: '85', after: '210+' }, { label: 'Staff Call Time', before: '6hrs/day', after: '0.5hrs/day' }, { label: 'Patient Satisfaction', before: '3.4/5', after: '4.8/5' }],
-    timeline: '4 weeks',
-    value: '₹1,50,000',
-  },
-  {
-    client: 'FinServe Ltd',
-    tag: 'Web + Automation', tagColor: '#a78bfa',
-    title: 'Financial Services Platform Rebuild',
-    challenge: 'Outdated website with 8-second load time and 1.2% conversion rate was costing them thousands in lost leads monthly.',
-    solution: 'Complete redesign with performance-first architecture, automated lead capture, and CRM integration.',
-    results: [{ label: 'Page Load Time', before: '8.2s', after: '1.1s' }, { label: 'Lead Conversion', before: '1.2%', after: '5.8%' }, { label: 'Monthly Leads', before: '12', after: '67' }],
-    timeline: '5 weeks',
-    value: '₹2,00,000',
-  },
-];
+import { useStore } from '../../store/useStore';
 
 export default function PortfolioPage() {
+  const { getPublishedProjects } = useStore();
+  const projects = getPublishedProjects ? getPublishedProjects() : [];
+
   return (
     <div style={{ minHeight: '100vh', background: '#0a0a0a' }}>
       <WebsiteNav />
@@ -60,70 +21,114 @@ export default function PortfolioPage() {
       </section>
 
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px' }}>
-        {projects.map((p, i) => (
-          <div key={p.client} className="card" style={{ padding: '40px', marginBottom: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 24 }}>
-              <div>
-                <span className="badge" style={{ background: `${p.tagColor}15`, color: p.tagColor, border: `1px solid ${p.tagColor}30`, marginBottom: 12 }}>{p.tag}</span>
-                <h2 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>{p.title}</h2>
-                <p style={{ color: '#555', fontSize: 13, marginTop: 4 }}>{p.client}</p>
-              </div>
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ display: 'flex', gap: 16 }}>
-                  <div style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 8, padding: '10px 16px', textAlign: 'center' }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#c9a84c' }}>{p.value}</div>
-                    <div style={{ fontSize: 11, color: '#444' }}>Project Value</div>
+        {projects.length === 0 ? (
+          <div style={{
+            background: '#111',
+            border: '1px dashed #222',
+            borderRadius: 20,
+            padding: '64px 32px',
+            textAlign: 'center',
+            marginBottom: 32,
+          }}>
+            <h3 style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f0', marginBottom: 12 }}>
+              New Case Studies & Client Stories Coming Soon
+            </h3>
+            <p style={{ color: '#888', fontSize: 16, maxWidth: 600, margin: '0 auto 28px', lineHeight: 1.6 }}>
+              We are currently compiling confidential enterprise outcomes and recent AI deployments into comprehensive case studies. Check back soon or book a direct strategy call for a live demonstration of our autonomous systems.
+            </p>
+            <button
+              onClick={() => window.open('https://calendly.com', '_blank')}
+              style={{
+                background: 'linear-gradient(135deg, #38bdf8, #60a5fa)',
+                color: '#fff',
+                border: 'none',
+                padding: '14px 28px',
+                borderRadius: 10,
+                fontWeight: 600,
+                fontSize: 15,
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              Request Live Case Study Walkthrough <ArrowRight size={16} />
+            </button>
+          </div>
+        ) : (
+          projects.map((p) => (
+            <div key={p.id || p.title} className="card" style={{ padding: '40px', marginBottom: 24, background: '#111', border: '1px solid #1e1e1e', borderRadius: 16 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 24 }}>
+                <div>
+                  <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.25)', marginBottom: 12, display: 'inline-block', padding: '4px 12px', borderRadius: 999, fontSize: 12, fontWeight: 600 }}>
+                    Autonomous System
+                  </span>
+                  <h2 style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px', marginTop: 8 }}>{p.title}</h2>
+                  {p.technologies && p.technologies.length > 0 && (
+                    <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
+                      {p.technologies.map((t, idx) => (
+                        <span key={idx} style={{ background: '#18181b', color: '#a1a1aa', padding: '4px 10px', borderRadius: 6, fontSize: 12, border: '1px solid #27272a' }}>
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {p.github_link && p.github_link !== '#' && (
+                  <div>
+                    <a
+                      href={p.github_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 6,
+                        background: '#18181b',
+                        color: '#f0f0f0',
+                        padding: '8px 14px',
+                        borderRadius: 8,
+                        textDecoration: 'none',
+                        fontSize: 13,
+                        fontWeight: 600,
+                        border: '1px solid #27272a'
+                      }}
+                    >
+                      View Live / Repo <ExternalLink size={14} />
+                    </a>
                   </div>
-                  <div style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 8, padding: '10px 16px', textAlign: 'center' }}>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#f0f0f0' }}>{p.timeline}</div>
-                    <div style={{ fontSize: 11, color: '#444' }}>Delivered In</div>
+                )}
+              </div>
+
+              <p style={{ color: '#94a3b8', fontSize: 15, lineHeight: 1.7, marginBottom: 28 }}>
+                {p.description}
+              </p>
+
+              {/* Metrics */}
+              {p.metrics && p.metrics.length > 0 && (
+                <div>
+                  <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 12 }}>PROVEN OUTCOMES</div>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+                    {p.metrics.map((m, i) => (
+                      <div key={i} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 16 }}>
+                        <div style={{ fontSize: 12, color: '#888', marginBottom: 6 }}>{m.label}</div>
+                        <div style={{ fontSize: 22, fontWeight: 800, color: '#4ade80' }}>{m.value}</div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginBottom: 28 }}>
-              <div>
-                <div style={{ fontSize: 11, color: '#f03a3a', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>THE CHALLENGE</div>
-                <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7 }}>{p.challenge}</p>
-              </div>
-              <div>
-                <div style={{ fontSize: 11, color: '#c9a84c', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>THE SOLUTION</div>
-                <p style={{ color: '#666', fontSize: 14, lineHeight: 1.7 }}>{p.solution}</p>
-              </div>
-            </div>
-
-            {/* Results */}
-            <div>
-              <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 12 }}>BEFORE vs AFTER</div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 12 }}>
-                {p.results.map(r => (
-                  <div key={r.label} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 16 }}>
-                    <div style={{ fontSize: 12, color: '#555', marginBottom: 10 }}>{r.label}</div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      <div>
-                        <div style={{ fontSize: 11, color: '#444' }}>Before</div>
-                        <div style={{ fontSize: 16, fontWeight: 600, color: '#666' }}>{r.before}</div>
-                      </div>
-                      <ArrowRight size={14} color="#333" />
-                      <div>
-                        <div style={{ fontSize: 11, color: '#4ade80' }}>After</div>
-                        <div style={{ fontSize: 16, fontWeight: 600, color: '#4ade80' }}>{r.after}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        ))}
+          ))
+        )}
       </section>
 
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
         <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 56 }}>
           <h2 style={{ fontSize: 36, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Ready to Be Our Next Case Study?</h2>
           <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Let's map your automation opportunities and build something remarkable.</p>
-          <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px' }}>Book a Free Strategy Call <ArrowRight size={16} /></button>
+          <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px', cursor: 'pointer' }}>Book a Free Strategy Call <ArrowRight size={16} /></button>
         </div>
       </section>
 

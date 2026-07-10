@@ -20,53 +20,9 @@ const initialProjects = [];
 const initialBlogPosts = [];
 
 // NEW: Initial portfolio projects for homepage
-const initialPortfolioProjects = [
-  {
-    id: 1704067200000,
-    title: "EduPrime Academy - AI LMS",
-    description: "Built a full learning management system with AI-powered lead qualification that increased enrollment by 340% in just 3 months.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop",
-    github_link: "https://github.com/velfound/eduprime-lms",
-    technologies: ["React", "Node.js", "AI", "PostgreSQL", "Stripe"],
-    metrics: [
-      { label: "Conversion Rate", value: "340%", icon: "TrendingUp" },
-      { label: "Manual Hours Saved", value: "40h/wk", icon: "Clock" }
-    ],
-    status: "published",
-    createdAt: "2024-01-01T00:00:00Z",
-    updatedAt: "2024-01-15T10:30:00Z"
-  },
-  {
-    id: 1704153600000,
-    title: "RetailX Corp - WhatsApp AI Agent",
-    description: "Deployed an AI WhatsApp agent handling 500+ customer queries daily with 96% resolution rate, reducing support costs by 60%.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop",
-    github_link: "https://github.com/velfound/retailx-whatsapp-ai",
-    technologies: ["Python", "WhatsApp API", "AI", "FastAPI", "Redis"],
-    metrics: [
-      { label: "Daily Queries Handled", value: "500+", icon: "MessageCircle" },
-      { label: "Resolution Rate", value: "96%", icon: "CheckCircle" }
-    ],
-    status: "published",
-    createdAt: "2024-01-05T00:00:00Z",
-    updatedAt: "2024-01-20T14:20:00Z"
-  },
-  {
-    id: 1704240000000,
-    title: "MedCare Hospitals - AI Voice Booking",
-    description: "Replaced their IVR system with an AI voice agent that books 200+ appointments daily without human staff intervention.",
-    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=300&fit=crop",
-    github_link: "https://github.com/velfound/medcare-voice-ai",
-    technologies: ["Python", "Twilio", "AI", "PostgreSQL", "Docker"],
-    metrics: [
-      { label: "Appointments/Day", value: "200+", icon: "Calendar" },
-      { label: "Staff Cost Reduction", value: "60%", icon: "DollarSign" }
-    ],
-    status: "published",
-    createdAt: "2024-01-10T00:00:00Z",
-    updatedAt: "2024-01-22T09:15:00Z"
-  }
-];
+const initialPortfolioProjects = [];
+
+const initialTestimonials = [];
 
 export const useStore = create((set, get) => ({
   // Auth
@@ -124,6 +80,33 @@ export const useStore = create((set, get) => ({
   // Notifications
   notifications: [],
   markNotificationRead: (id) => set(s => ({ notifications: s.notifications.map(n => n.id === id ? { ...n, read: true } : n) })),
+
+  // Testimonials (for homepage)
+  testimonials: initialTestimonials,
+  addTestimonial: (testi) => set(s => ({
+    testimonials: [...s.testimonials, {
+      ...testi,
+      id: Date.now(),
+      status: testi.status || 'draft',
+      createdAt: new Date().toISOString()
+    }]
+  })),
+  updateTestimonial: (id, data) => set(s => ({
+    testimonials: s.testimonials.map(t => t.id === id ? { ...t, ...data } : t)
+  })),
+  deleteTestimonial: (id) => set(s => ({
+    testimonials: s.testimonials.filter(t => t.id !== id)
+  })),
+  publishTestimonial: (id) => set(s => ({
+    testimonials: s.testimonials.map(t => t.id === id ? { ...t, status: 'published' } : t)
+  })),
+  unpublishTestimonial: (id) => set(s => ({
+    testimonials: s.testimonials.map(t => t.id === id ? { ...t, status: 'draft' } : t)
+  })),
+  getPublishedTestimonials: () => {
+    const state = get();
+    return state.testimonials.filter(t => t.status === 'published');
+  },
 
   // NEW: Portfolio Projects (for homepage)
   portfolioProjects: initialPortfolioProjects,

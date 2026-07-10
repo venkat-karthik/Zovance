@@ -7,26 +7,7 @@ import BookingModal from '../../components/BookingModal';
 import PreviousProjects from '../../components/PreviousProjects';
 import Aurora from '../../components/Aurora';
 
-const testimonials = [
-  {
-    name: 'Rahul Verma',
-    role: 'CEO, EduPrime Academy',
-    text: 'Velfound transformed our lead pipeline completely. The AI qualification system paid for itself in 3 weeks and doubled our enrollment rate.',
-    metrics: '+140% Qualified Leads'
-  },
-  {
-    name: 'Anita Joshi',
-    role: 'COO, RetailX Corp',
-    text: 'The WhatsApp AI agent handles more queries than our entire support team with instant zero-latency responses. Total game-changer.',
-    metrics: '99.4% Automated Support'
-  },
-  {
-    name: 'Dr. Suresh Nair',
-    role: 'Director, MedCare Hospitals',
-    text: 'Our appointment booking chaos vanished overnight. The AI triages patients accurately and syncs directly into our hospital calendar.',
-    metrics: '4.8x ROI in 60 Days'
-  },
-];
+// Testimonials are now managed dynamically from the Admin Dashboard (`useStore`)
 
 const capabilities = [
   {
@@ -53,8 +34,9 @@ export default function HomePage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [teamSize, setTeamSize] = useState(25);
   const [avgHourlyCost, setAvgHourlyCost] = useState(800);
-  const { getPublishedProjects } = useStore();
+  const { getPublishedProjects, getPublishedTestimonials } = useStore();
   const publishedProjects = getPublishedProjects();
+  const publishedTestimonials = getPublishedTestimonials ? getPublishedTestimonials() : [];
 
   // ROI Calculator computation
   const hoursSavedPerEmployee = 14; // 14 hours saved per week
@@ -184,8 +166,8 @@ export default function HomePage() {
             backdropFilter: 'blur(16px)',
           }}>
             {[
-              ['₹3.8Cr+', 'Client Revenue Scaled', TrendingUp, '#38bdf8'],
-              ['65+', 'Autonomous Systems Built', Cpu, '#60a5fa'],
+              ['₹3.4 Lakh+', 'Client Revenue Scaled', TrendingUp, '#38bdf8'],
+              ['13+', 'Autonomous Systems Built', Cpu, '#60a5fa'],
               ['99.4%', 'System Uptime & SLA', ShieldCheck, '#4ade80'],
               ['4.6x', 'Avg. Enterprise ROI', BarChart3, '#93c5fd'],
             ].map(([val, label, IconComp, color], idx) => (
@@ -397,83 +379,87 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Client Reviews Section */}
-        <section style={{
-          maxWidth: 1240,
-          margin: '0 auto',
-          padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 32px)',
-        }}>
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(40px, 8vw, 64px)' }}>
-            <p className="section-tag fade-up" style={{ marginBottom: 14 }}>Proven Outcomes</p>
-            <h2 className="fade-up" style={{
-              fontSize: 'clamp(28px, 5.5vw, 50px)',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              color: '#ffffff',
-            }}>
-              Trusted By Industry Leaders
-            </h2>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 380px), 1fr))',
-            gap: 24,
+        {/* Client Reviews Section - Automatically appears when testimonials are added in Admin panel */}
+        {publishedTestimonials.length > 0 && (
+          <section style={{
+            maxWidth: 1240,
+            margin: '0 auto',
+            padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 32px)',
           }}>
-            {testimonials.map((t, idx) => (
-              <div
-                key={t.name}
-                className="glass-card scale-in"
-                style={{
-                  animationDelay: `${idx * 0.1}s`,
-                  padding: 'clamp(24px, 5vw, 36px)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
-                    <div style={{ display: 'flex', gap: 4 }}>
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} size={16} fill="#38bdf8" color="#38bdf8" />
-                      ))}
+            <div style={{ textAlign: 'center', marginBottom: 'clamp(40px, 8vw, 64px)' }}>
+              <p className="section-tag fade-up" style={{ marginBottom: 14 }}>Proven Outcomes</p>
+              <h2 className="fade-up" style={{
+                fontSize: 'clamp(28px, 5.5vw, 50px)',
+                fontWeight: 800,
+                letterSpacing: '-0.03em',
+                color: '#ffffff',
+              }}>
+                Trusted By Industry Leaders
+              </h2>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 380px), 1fr))',
+              gap: 24,
+            }}>
+              {publishedTestimonials.map((t, idx) => (
+                <div
+                  key={t.id || t.name}
+                  className="glass-card scale-in"
+                  style={{
+                    animationDelay: `${idx * 0.1}s`,
+                    padding: 'clamp(24px, 5vw, 36px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} size={16} fill="#38bdf8" color="#38bdf8" />
+                        ))}
+                      </div>
+                      {t.metrics && (
+                        <span style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          color: '#4ade80',
+                          background: 'rgba(74, 222, 128, 0.12)',
+                          padding: '4px 10px',
+                          borderRadius: 999,
+                          border: '1px solid rgba(74, 222, 128, 0.25)'
+                        }}>
+                          {t.metrics}
+                        </span>
+                      )}
                     </div>
-                    <span style={{
-                      fontSize: 11,
-                      fontWeight: 700,
-                      color: '#4ade80',
-                      background: 'rgba(74, 222, 128, 0.12)',
-                      padding: '4px 10px',
-                      borderRadius: 999,
-                      border: '1px solid rgba(74, 222, 128, 0.25)'
+
+                    <p style={{
+                      color: '#cbd5e1',
+                      fontSize: 'clamp(14px, 2vw, 16px)',
+                      lineHeight: 1.7,
+                      marginBottom: 24,
                     }}>
-                      {t.metrics}
-                    </span>
+                      "{t.text}"
+                    </p>
                   </div>
 
-                  <p style={{
-                    color: '#cbd5e1',
-                    fontSize: 'clamp(14px, 2vw, 16px)',
-                    lineHeight: 1.7,
-                    marginBottom: 24,
-                  }}>
-                    "{t.text}"
-                  </p>
-                </div>
-
-                <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: 16 }}>
-                  <div style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>
-                    {t.name}
-                  </div>
-                  <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>
-                    {t.role}
+                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: 16 }}>
+                    <div style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>
+                      {t.name}
+                    </div>
+                    <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>
+                      {t.role}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Previous Projects Section */}
         <PreviousProjects projects={publishedProjects} />
