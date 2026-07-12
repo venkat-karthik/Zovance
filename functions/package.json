@@ -1,6 +1,6 @@
 {
-  "name": "velfound-functions",
-  "description": "Cloud Functions for Velfound",
+  "name": "zovance-functions",
+  "description": "Cloud Functions for Zovance",
   "scripts": {
     "serve": "firebase emulators:start --only functions",
     "shell": "firebase functions:shell",

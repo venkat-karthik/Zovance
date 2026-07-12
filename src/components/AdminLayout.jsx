@@ -60,7 +60,7 @@ export default function AdminLayout() {
             <polygon points="45,55 70,55 85,85 60,85" fill="#3b82f6" />
             <polygon points="30,60 55,60 40,85 15,85" fill="#60a5fa" />
           </svg>
-          {sidebarOpen && <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', color: '#f0f0f0', whiteSpace: 'nowrap' }}>Velfound</span>}
+          {sidebarOpen && <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', color: '#f0f0f0', whiteSpace: 'nowrap' }}>Zovance</span>}
         </div>
 
         {/* Nav */}

@@ -6,7 +6,7 @@ import Aurora from '../../components/Aurora';
 import MagicCard from '../../components/MagicCard';
 
 const team = [
-  { name: 'Kodeboyina Venkat Karthik', role: 'Founder & Lead', skills: 'Strategy, AI, Business Development', avatar: 'KV', desc: 'Student founder who started Velfound to learn and build real solutions. Passionate about AI and entrepreneurship.' },
+  { name: 'Kodeboyina Venkat Karthik', role: 'Founder & Lead', skills: 'Strategy, AI, Business Development', avatar: 'KV', desc: 'Student founder who started Zovance to learn and build real solutions. Passionate about AI and entrepreneurship.' },
   { name: 'Akshath Tumkur', role: 'Full-Stack Developer', skills: 'React, Node.js, System Architecture', avatar: 'AT', desc: 'Student developer obsessed with building scalable systems. Loves clean code and solving complex problems.' },
   { name: 'Sahil Ranakoti', role: 'AI & ML Engineer', skills: 'Python, ML, Voice AI', avatar: 'SR', desc: 'Passionate about AI and machine learning. Specializes in building intelligent systems that solve real business problems.' },
   { name: 'Jayanth Karthik Enaganti', role: 'Product & Strategy', skills: 'Product Strategy, UX, Client Success', avatar: 'JE', desc: 'Focused on understanding client needs and ensuring every project delivers real value and measurable results.' },
@@ -31,7 +31,7 @@ export default function AboutPage() {
       {/* Hero with Aurora */}
       <section className="aurora-bg-wrapper" style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 60px', textAlign: 'center', position: 'relative', minHeight: '400px' }}>
         <Aurora colorStops={['#1e293b', '#2563eb', '#0f172a']} blend={0.6} amplitude={0.8} speed={0.5} />
-        <p className="section-tag fade-in-up" style={{ marginBottom: 16 }}>About Velfound</p>
+        <p className="section-tag fade-in-up" style={{ marginBottom: 16 }}>About Zovance</p>
         <h1 className="slide-in-up" style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20 }}>
           Built By Students,<br /><span className="gold-text">For Real Business Impact</span>
         </h1>
@@ -45,7 +45,7 @@ export default function AboutPage() {
         <div className="card fade-in-up" style={{ padding: '48px 56px' }}>
           <h2 className="slide-in-left" style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f0', marginBottom: 20 }}>Our Story</h2>
           <div style={{ color: '#666', fontSize: 15, lineHeight: 1.8 }}>
-            <p className="fade-in-up stagger-1" style={{ marginBottom: 16 }}>Velfound started in 2026 as a student project. A group of friends with a shared passion for technology and entrepreneurship came together with one goal: <span style={{ color: '#38bdf8' }}>to build real solutions while learning and earning together.</span></p>
+            <p className="fade-in-up stagger-1" style={{ marginBottom: 16 }}>Zovance started in 2026 as a student project. A group of friends with a shared passion for technology and entrepreneurship came together with one goal: <span style={{ color: '#38bdf8' }}>to build real solutions while learning and earning together.</span></p>
             <p className="fade-in-up stagger-2" style={{ marginBottom: 16 }}>We noticed businesses struggling with repetitive tasks, manual workflows, and inefficient processes. We saw an opportunity to help them automate these tasks using AI and modern technology. What started as a learning project quickly turned into something real — we were actually solving problems for real clients.</p>
             <p className="fade-in-up stagger-3" style={{ marginBottom: 16 }}>Our approach is simple: we're not a corporate agency with fancy offices. We're a tight-knit team of students and young professionals who are hungry to learn, build, and deliver results. We work directly with our clients, understand their pain points, and build custom solutions that actually work.</p>
             <p className="fade-in-up stagger-4">Today, we've delivered projects across India and Southeast Asia. Every project we build is a learning opportunity and a chance to prove that age and experience don't matter — what matters is passion, dedication, and the willingness to solve real problems. We're here to grow together with our clients, one project at a time.</p>

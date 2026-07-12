@@ -98,7 +98,7 @@ export default function CRM() {
       return;
     }
     const cleanPhone = phone.startsWith('91') ? phone : `91${phone}`;
-    const msg = encodeURIComponent(`Hi ${lead.name},\n\nWe received your inquiry regarding autonomous AI & engineering solutions from Velfound. I'm reaching out to share how we can streamline and scale your workflows.\n\nAre you available for a brief 10-minute discovery chat today?`);
+    const msg = encodeURIComponent(`Hi ${lead.name},\n\nWe received your inquiry regarding autonomous AI & engineering solutions from Zovance. I'm reaching out to share how we can streamline and scale your workflows.\n\nAre you available for a brief 10-minute discovery chat today?`);
     window.open(`https://wa.me/${cleanPhone}?text=${msg}`, '_blank');
   };
 
@@ -108,8 +108,8 @@ export default function CRM() {
       alert('No email address provided for this lead.');
       return;
     }
-    const subject = encodeURIComponent(`Scaling ${lead.name} with Autonomous AI Systems - Velfound`);
-    const body = encodeURIComponent(`Hi ${lead.name},\n\nThank you for exploring Velfound. We specialize in custom AI agent architectures and automated revenue pipelines designed to eliminate manual bottlenecks.\n\nWe would love to walk you through a tailored demonstration of our systems for your team.\n\nBest regards,\nVelfound Engineering Team`);
+    const subject = encodeURIComponent(`Scaling ${lead.name} with Autonomous AI Systems - Zovance`);
+    const body = encodeURIComponent(`Hi ${lead.name},\n\nThank you for exploring Zovance. We specialize in custom AI agent architectures and automated revenue pipelines designed to eliminate manual bottlenecks.\n\nWe would love to walk you through a tailored demonstration of our systems for your team.\n\nBest regards,\nZovance Engineering Team`);
     window.location.href = `mailto:${lead.email}?subject=${subject}&body=${body}`;
   };
 

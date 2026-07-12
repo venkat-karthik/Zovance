@@ -12,7 +12,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-const ADMIN_EMAIL = 'velfound1@gmail.com';
+const ADMIN_EMAIL = 'zovance1@gmail.com';
 
 // Add a new booking and send email notification
 export const addBooking = async (bookingData) => {

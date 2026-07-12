@@ -12,7 +12,7 @@ export default function WebsiteFooter() {
               <div style={{ width: 34, height: 34, background: 'linear-gradient(135deg, #2563eb, #38bdf8)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(56, 189, 248, 0.3)' }}>
                 <Zap size={18} color="#ffffff" fill="#ffffff" />
               </div>
-              <span style={{ fontWeight: 800, fontSize: 20, color: '#ffffff', letterSpacing: '-0.03em' }}>Velfound<span style={{ color: '#38bdf8' }}>.</span></span>
+              <span style={{ fontWeight: 800, fontSize: 20, color: '#ffffff', letterSpacing: '-0.03em' }}>Zovance<span style={{ color: '#38bdf8' }}>.</span></span>
             </div>
             <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.65, marginBottom: 22 }}>Build Less. Automate More.<br />We architect autonomous systems that scale enterprise revenue.</p>
             <div style={{ display: 'flex', gap: 12 }}>
@@ -49,7 +49,7 @@ export default function WebsiteFooter() {
           {/* Contact */}
           <div>
             <p style={{ color: '#ffffff', fontSize: 14, fontWeight: 700, marginBottom: 18, letterSpacing: '0.02em' }}>Get in Touch</p>
-            <a href="mailto:velfound1@gmail.com" style={{ display: 'block', color: '#94a3b8', fontSize: 14, marginBottom: 12, textDecoration: 'none' }}>velfound1@gmail.com</a>
+            <a href="mailto:zovance1@gmail.com" style={{ display: 'block', color: '#94a3b8', fontSize: 14, marginBottom: 12, textDecoration: 'none' }}>zovance1@gmail.com</a>
             <button onClick={() => window.open('https://wa.me/918309827125', '_blank')} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#38bdf8', fontSize: 14, background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: 12, fontWeight: 600 }}>
               <MessageCircle size={16} /> WhatsApp Us
             </button>
@@ -58,7 +58,7 @@ export default function WebsiteFooter() {
         </div>
 
         <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-          <p style={{ color: '#64748b', fontSize: 13 }}>© 2026 Velfound. All rights reserved.</p>
+          <p style={{ color: '#64748b', fontSize: 13 }}>© 2026 Zovance. All rights reserved.</p>
           <div style={{ display: 'flex', gap: 24 }}>
             {['Privacy Policy', 'Terms of Service'].map(t => (
               <a key={t} href="#" style={{ color: '#64748b', fontSize: 13, textDecoration: 'none', transition: 'all 0.15s' }}

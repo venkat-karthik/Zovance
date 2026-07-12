@@ -40,7 +40,7 @@ export default function Dashboard() {
         <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>
           Good morning, {currentUser?.name?.split(' ')[0]} 👋
         </h1>
-        <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Here's what's happening at Velfound today.</p>
+        <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Here's what's happening at Zovance today.</p>
       </div>
 
       {/* Stats */}

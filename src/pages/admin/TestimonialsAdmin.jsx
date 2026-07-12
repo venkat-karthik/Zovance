@@ -391,7 +391,7 @@ export default function TestimonialsAdmin() {
                   className="input"
                   value={formData.text}
                   onChange={(e) => setFormData(prev => ({ ...prev, text: e.target.value }))}
-                  placeholder="What did the client say about working with Velfound/Zovance?"
+                  placeholder="What did the client say about working with Zovance?"
                   style={{ minHeight: 110 }}
                 />
               </div>

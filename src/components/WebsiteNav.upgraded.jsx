@@ -62,7 +62,7 @@ export default function WebsiteNav() {
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
           }}>
-            Velfound
+            Zovance
           </span>
         </Link>
 

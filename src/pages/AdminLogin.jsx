@@ -45,7 +45,7 @@ export default function AdminLogin() {
             <div style={{ width: 40, height: 40, background: 'linear-gradient(135deg,#c9a84c,#e4c677)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={20} color="#0a0a0a" fill="#0a0a0a" />
             </div>
-            <span style={{ fontWeight: 700, fontSize: 20, letterSpacing: '-0.5px', color: '#f0f0f0' }}>Velfound</span>
+            <span style={{ fontWeight: 700, fontSize: 20, letterSpacing: '-0.5px', color: '#f0f0f0' }}>Zovance</span>
           </div>
           <h1 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', marginBottom: 8, letterSpacing: '-0.5px' }}>Admin Access</h1>
           <p style={{ color: '#555', fontSize: 14 }}>Sign in with your Google account to access the admin panel</p>

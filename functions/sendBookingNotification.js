@@ -53,7 +53,7 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
           ` : ''}
 
           <p style="color: #666; font-size: 12px; margin-top: 30px;">
-            This is an automated email from Velfound. Please log in to your admin panel to manage this booking.
+            This is an automated email from Zovance. Please log in to your admin panel to manage this booking.
           </p>
         </div>
       `,
@@ -63,14 +63,14 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
     const clientMailOptions = {
       from: process.env.EMAIL_USER,
       to: bookingData.email,
-      subject: 'Booking Confirmation - Velfound',
+      subject: 'Booking Confirmation - Zovance',
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2 style="color: #c9a84c;">Booking Confirmed!</h2>
           
           <p>Hi ${bookingData.name},</p>
           
-          <p>Thank you for booking a call with Velfound. We've received your booking request and will contact you shortly to confirm the details.</p>
+          <p>Thank you for booking a call with Zovance. We've received your booking request and will contact you shortly to confirm the details.</p>
           
           <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
             <p><strong>Booking Details:</strong></p>
@@ -79,11 +79,11 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
             <p><strong>Phone:</strong> +91 83098 27125</p>
           </div>
 
-          <p>If you need to reschedule or have any questions, please reply to this email or contact us at velfound1@gmail.com</p>
+          <p>If you need to reschedule or have any questions, please reply to this email or contact us at zovance1@gmail.com</p>
           
           <p style="color: #666; margin-top: 30px;">
             Best regards,<br/>
-            <strong>Velfound Team</strong>
+            <strong>Zovance Team</strong>
           </p>
         </div>
       `,

@@ -1,9 +1,9 @@
-# Velfound Platform 🚀
+# Zovance Platform 🚀
 
 [Live Website Link](https://project-name-generator-oc8g.vercel.app/))
 
 
-A premium, full-stack web platform for Velfound - providing AI automation, voice systems, and web solutions.
+A premium, full-stack web platform for Zovance - providing AI automation, voice systems, and web solutions.
 
 **Status: 70% Complete ✅ | Fully Functional Admin System**
 
@@ -291,7 +291,7 @@ For questions or issues:
 
 ## 🎉 Ready to Use!
 
-The Velfound platform is **70% complete** and **fully functional** for:
+The Zovance platform is **70% complete** and **fully functional** for:
 
 ✅ Lead management (CRM)
 ✅ Project management
@@ -339,7 +339,7 @@ Visit: `http://localhost:5173/admin/dashboard`
 
 ## 🙏 Thank You!
 
-The Velfound platform is ready for use. Enjoy exploring the admin system and testing all the features!
+The Zovance platform is ready for use. Enjoy exploring the admin system and testing all the features!
 
 **Happy coding! 🚀**
 
@@ -347,7 +347,7 @@ The Velfound platform is ready for use. Enjoy exploring the admin system and tes
 
 ## 📄 License
 
-This project is proprietary software for Velfound.
+This project is proprietary software for Zovance.
 
 ---
 

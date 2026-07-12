@@ -16,13 +16,21 @@ googleProvider.setCustomParameters({ prompt: 'select_account' });
 const AUTHORIZED_ADMINS = [
   'karthikvenkat316@gmail.com',
   'velfound1@gmail.com',
+  'zovance1@gmail.com',
   'akshath.tumkur@velfound.com',
+  'akshath.tumkur@zovance.com',
   'sahil.ranakoti@velfound.com',
+  'sahil.ranakoti@zovance.com',
   'jayanth.karthik@velfound.com',
+  'jayanth.karthik@zovance.com',
   'vikas.reddy@velfound.com',
+  'vikas.reddy@zovance.com',
   'nishanth.konakondu@velfound.com',
+  'nishanth.konakondu@zovance.com',
   'varshith@velfound.com',
+  'varshith@zovance.com',
   'gudipati.srinadh@velfound.com',
+  'gudipati.srinadh@zovance.com',
 ];
 
 export const adminAuthService = {

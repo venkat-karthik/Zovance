@@ -31,7 +31,7 @@ export default function WebsiteNav() {
               <polygon points="30,60 55,60 40,85 15,85" fill="#3b82f6" />
             </svg>
           </div>
-          <span style={{ fontWeight: 800, fontSize: 'clamp(16px, 3vw, 20px)', letterSpacing: '-0.03em', color: '#ffffff' }}>Velfound<span style={{ color: '#38bdf8' }}>.</span></span>
+          <span style={{ fontWeight: 800, fontSize: 'clamp(16px, 3vw, 20px)', letterSpacing: '-0.03em', color: '#ffffff' }}>Zovance<span style={{ color: '#38bdf8' }}>.</span></span>
         </Link>
 
         {/* Desktop Links */}

@@ -11,7 +11,7 @@ const testimonials = [
   {
     name: 'Rahul Verma',
     role: 'CEO, EduPrime Academy',
-    text: 'Velfound transformed our lead pipeline completely. The AI qualification system paid for itself in 3 weeks.',
+    text: 'Zovance transformed our lead pipeline completely. The AI qualification system paid for itself in 3 weeks.',
   },
   {
     name: 'Anita Joshi',

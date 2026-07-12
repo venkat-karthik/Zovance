@@ -1,7 +1,7 @@
 import { db } from '../config/firebase';
 import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
 
-const OFFICIAL_EMAIL = 'velfound1@gmail.com';
+const OFFICIAL_EMAIL = 'zovance1@gmail.com';
 
 export const contactService = {
   // Submit a contact form
