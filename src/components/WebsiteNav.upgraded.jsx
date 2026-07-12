@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import BookingModal from './BookingModal';
+import WebsiteMobileNav from './WebsiteMobileNav';
 
 const links = [
   { to: '/', label: 'Home' },
@@ -19,9 +20,11 @@ export default function WebsiteNav() {
   const { pathname } = useLocation();
 
   return (
-    <nav className="navbar-glass" style={{
-      position: 'sticky',
-      top: 0,
+    <>
+      <div className="desktop-only-ui">
+        <nav className="navbar-glass" style={{
+          position: 'sticky',
+          top: 0,
       zIndex: 40,
       borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
       background: 'rgba(10, 10, 10, 0.7)',
@@ -46,23 +49,14 @@ export default function WebsiteNav() {
           textDecoration: 'none',
           transition: 'all 0.3s ease',
         }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
-          <svg width="36" height="36" viewBox="0 0 100 100">
-            <polygon points="20,30 45,30 60,55 45,55" fill="#3b82f6" />
-            <polygon points="55,25 85,25 70,50 55,50" fill="#60a5fa" />
-            <polygon points="45,55 70,55 85,85 60,85" fill="#3b82f6" />
-            <polygon points="30,60 55,60 40,85 15,85" fill="#60a5fa" />
-          </svg>
+          <img src="/logo.png" alt="Zovance Logo" style={{ height: 42, width: 'auto', objectFit: 'contain', borderRadius: 8 }} />
           <span style={{
-            fontWeight: 700,
+            fontWeight: 800,
             fontSize: 'clamp(16px, 3vw, 20px)',
             letterSpacing: '-0.5px',
             color: '#f0f0f0',
-            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
           }}>
-            Zovance
+            Zovance<span style={{ color: '#f59e0b' }}>.</span>
           </span>
         </Link>
 
@@ -229,8 +223,14 @@ export default function WebsiteNav() {
         </div>
       )}
 
+        </nav>
+      </div>
+
+      {/* Dedicated Mobile Phone Mode Navigation */}
+      <WebsiteMobileNav onOpenBooking={() => setBookingOpen(true)} />
+
       {/* Booking Modal */}
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
-    </nav>
+    </>
   );
 }

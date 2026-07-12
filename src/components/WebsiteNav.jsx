@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Zap } from 'lucide-react';
 import BookingModal from './BookingModal';
+import WebsiteMobileNav from './WebsiteMobileNav';
 
 const links = [
   { to: '/', label: 'Home' },
@@ -19,19 +20,14 @@ export default function WebsiteNav() {
   const { pathname } = useLocation();
 
   return (
-    <nav style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(6, 6, 8, 0.85)', backdropFilter: blur('16px'), position: 'sticky', top: 0, zIndex: 40, transition: 'all 0.3s ease' }}>
-      <div style={{ maxWidth: 1240, margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)', minHeight: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+    <>
+      <div className="desktop-only-ui">
+        <nav style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(6, 6, 8, 0.85)', backdropFilter: blur('16px'), position: 'sticky', top: 0, zIndex: 40, transition: 'all 0.3s ease' }}>
+          <div style={{ maxWidth: 1240, margin: '0 auto', padding: '0 clamp(16px, 4vw, 32px)', minHeight: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' }}>
         {/* Logo */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(59, 130, 246, 0.05))', border: '1px solid rgba(59, 130, 246, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="22" height="22" viewBox="0 0 100 100">
-              <polygon points="20,30 45,30 60,55 45,55" fill="#38bdf8" />
-              <polygon points="55,25 85,25 70,50 55,50" fill="#60a5fa" />
-              <polygon points="45,55 70,55 85,85 60,85" fill="#2563eb" />
-              <polygon points="30,60 55,60 40,85 15,85" fill="#3b82f6" />
-            </svg>
-          </div>
-          <span style={{ fontWeight: 800, fontSize: 'clamp(16px, 3vw, 20px)', letterSpacing: '-0.03em', color: '#ffffff' }}>Zovance<span style={{ color: '#38bdf8' }}>.</span></span>
+          <img src="/logo.png" alt="Zovance Logo" style={{ height: 42, width: 'auto', objectFit: 'contain', borderRadius: 8 }} />
+          <span style={{ fontWeight: 800, fontSize: 'clamp(16px, 3vw, 20px)', letterSpacing: '-0.03em', color: '#ffffff' }}>Zovance<span style={{ color: '#f59e0b' }}>.</span></span>
         </Link>
 
         {/* Desktop Links */}
@@ -82,8 +78,14 @@ export default function WebsiteNav() {
         </div>
       )}
 
+        </nav>
+      </div>
+
+      {/* Dedicated Mobile Phone Mode Navigation */}
+      <WebsiteMobileNav onOpenBooking={() => setBookingOpen(true)} />
+
       {/* Booking Modal */}
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
-    </nav>
+    </>
   );
 }

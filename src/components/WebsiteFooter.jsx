@@ -9,10 +9,8 @@ export default function WebsiteFooter() {
           {/* Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18 }}>
-              <div style={{ width: 34, height: 34, background: 'linear-gradient(135deg, #2563eb, #38bdf8)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(56, 189, 248, 0.3)' }}>
-                <Zap size={18} color="#ffffff" fill="#ffffff" />
-              </div>
-              <span style={{ fontWeight: 800, fontSize: 20, color: '#ffffff', letterSpacing: '-0.03em' }}>Zovance<span style={{ color: '#38bdf8' }}>.</span></span>
+              <img src="/logo.png" alt="Zovance Logo" style={{ height: 44, width: 'auto', objectFit: 'contain', borderRadius: 8 }} />
+              <span style={{ fontWeight: 800, fontSize: 20, color: '#ffffff', letterSpacing: '-0.03em' }}>Zovance<span style={{ color: '#f59e0b' }}>.</span></span>
             </div>
             <p style={{ color: '#94a3b8', fontSize: 14, lineHeight: 1.65, marginBottom: 22 }}>Build Less. Automate More.<br />We architect autonomous systems that scale enterprise revenue.</p>
             <div style={{ display: 'flex', gap: 12 }}>

@@ -41,11 +41,9 @@ export default function AdminLogin() {
       <div style={{ width: 'calc(100% - 8px)', maxWidth: '420px', margin: '0 auto' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
-            <div style={{ width: 40, height: 40, background: 'linear-gradient(135deg,#c9a84c,#e4c677)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={20} color="#0a0a0a" fill="#0a0a0a" />
-            </div>
-            <span style={{ fontWeight: 700, fontSize: 20, letterSpacing: '-0.5px', color: '#f0f0f0' }}>Zovance</span>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
+            <img src="/logo.png" alt="Zovance Logo" style={{ width: 56, height: 56, objectFit: 'contain', borderRadius: 12 }} />
+            <span style={{ fontWeight: 800, fontSize: 24, letterSpacing: '-0.5px', color: '#f0f0f0' }}>Zovance<span style={{ color: '#f59e0b' }}>.</span></span>
           </div>
           <h1 style={{ fontSize: 'clamp(24px, 5vw, 28px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 8, letterSpacing: '-0.5px' }}>Admin Access</h1>
           <p style={{ color: '#555', fontSize: 14 }}>Sign in with your Google account to access the admin panel</p>

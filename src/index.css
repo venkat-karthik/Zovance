@@ -1027,6 +1027,26 @@ img, video, canvas, svg {
   transition: opacity 0.2s ease;
 }
 
+/* Dedicated Phone Mode UI Switchers */
+.mobile-only-ui {
+  display: none !important;
+}
+.desktop-only-ui {
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .mobile-only-ui {
+    display: block !important;
+  }
+  .desktop-only-ui {
+    display: none !important;
+  }
+  body {
+    padding-bottom: 74px !important;
+  }
+}
+
 /* ============================================
    MEDIA QUERIES & BREAKPOINTS
    ============================================ */

@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { useAdminAuth } from '../context/AdminAuthContext';
+import AdminMobileNav from './AdminMobileNav';
 
 const navItems = [
   { to: '/admin/crm', icon: FolderKanban, label: 'CRM & Lead Pipeline' },
@@ -66,7 +67,7 @@ export default function AdminLayout() {
       )}
 
       {/* Sidebar */}
-      <aside style={{
+      <aside className="desktop-only-ui" style={{
         width: isMobile ? 260 : (sidebarOpen ? 220 : 60),
         flexShrink: 0,
         background: '#0a0a0a',
@@ -84,13 +85,8 @@ export default function AdminLayout() {
         {/* Logo */}
         <div style={{ padding: '16px 16px', borderBottom: '1px solid #141414', display: 'flex', alignItems: 'center', gap: 10, minHeight: 60, justifyContent: (!sidebarOpen && !isMobile) ? 'center' : 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <svg width="28" height="28" viewBox="0 0 100 100" style={{ flexShrink: 0 }}>
-              <polygon points="20,30 45,30 60,55 45,55" fill="#3b82f6" />
-              <polygon points="55,25 85,25 70,50 55,50" fill="#60a5fa" />
-              <polygon points="45,55 70,55 85,85 60,85" fill="#3b82f6" />
-              <polygon points="30,60 55,60 40,85 15,85" fill="#60a5fa" />
-            </svg>
-            {(sidebarOpen || isMobile) && <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', color: '#f0f0f0', whiteSpace: 'nowrap' }}>Zovance</span>}
+            <img src="/logo.png" alt="Zovance Logo" style={{ width: 34, height: 34, objectFit: 'contain', borderRadius: 6, flexShrink: 0 }} />
+            {(sidebarOpen || isMobile) && <span style={{ fontWeight: 700, fontSize: 16, letterSpacing: '-0.3px', color: '#f0f0f0', whiteSpace: 'nowrap' }}>Zovance<span style={{ color: '#f59e0b' }}>.</span></span>}
           </div>
           {isMobile && (
             <button onClick={() => setSidebarOpen(false)} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', padding: 4 }}>
@@ -193,8 +189,9 @@ export default function AdminLayout() {
 
       {/* Main */}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
-        {/* Header */}
-        <header style={{ height: 60, borderBottom: '1px solid #141414', background: '#0a0a0a', display: 'flex', alignItems: 'center', padding: '0 clamp(12px, 3vw, 20px)', gap: 'clamp(8px, 2vw, 12px)', flexShrink: 0 }}>
+        {/* Header (Desktop/Tablet) */}
+        <div className="desktop-only-ui">
+          <header style={{ height: 60, borderBottom: '1px solid #141414', background: '#0a0a0a', display: 'flex', alignItems: 'center', padding: '0 clamp(12px, 3vw, 20px)', gap: 'clamp(8px, 2vw, 12px)', flexShrink: 0 }}>
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="safe-touch-target" style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', display: 'flex', padding: 6, borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
             <Menu size={20} />
           </button>
@@ -229,7 +226,16 @@ export default function AdminLayout() {
             <span style={{ fontSize: 12, color: '#888', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentUser?.name}</span>
             {!isMobile && <span className="badge" style={{ background: isFounder ? 'rgba(59,130,246,0.15)' : '#1a1a1a', color: isFounder ? '#3b82f6' : '#666', fontSize: 10 }}>{currentUser?.accessLevel}</span>}
           </div>
-        </header>
+          </header>
+        </div>
+
+        {/* Dedicated Phone Mode Admin Navigation */}
+        <AdminMobileNav 
+          currentUser={currentUser} 
+          unreadNotifications={unread} 
+          onOpenNotifications={() => setNotifOpen(!notifOpen)} 
+          onLogout={handleLogout} 
+        />
 
         {/* Page Content */}
         <main style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: 'clamp(14px, 3.5vw, 24px)', minWidth: 0 }}>
