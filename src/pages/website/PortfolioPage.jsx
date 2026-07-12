@@ -26,11 +26,11 @@ export default function PortfolioPage() {
             background: '#111',
             border: '1px dashed #222',
             borderRadius: 20,
-            padding: '64px 32px',
+            padding: 'clamp(32px, 8vw, 64px) clamp(16px, 5vw, 32px)',
             textAlign: 'center',
             marginBottom: 32,
           }}>
-            <h3 style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f0', marginBottom: 12 }}>
+            <h3 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 12 }}>
               New Case Studies & Client Stories Coming Soon
             </h3>
             <p style={{ color: '#888', fontSize: 16, maxWidth: 600, margin: '0 auto 28px', lineHeight: 1.6 }}>
@@ -38,6 +38,7 @@ export default function PortfolioPage() {
             </p>
             <button
               onClick={() => window.open('https://calendly.com', '_blank')}
+              className="safe-touch-target"
               style={{
                 background: 'linear-gradient(135deg, #38bdf8, #60a5fa)',
                 color: '#fff',
@@ -57,13 +58,13 @@ export default function PortfolioPage() {
           </div>
         ) : (
           projects.map((p) => (
-            <div key={p.id || p.title} className="card" style={{ padding: '40px', marginBottom: 24, background: '#111', border: '1px solid #1e1e1e', borderRadius: 16 }}>
+            <div key={p.id || p.title} className="card" style={{ padding: 'clamp(20px, 5vw, 40px)', marginBottom: 24, background: '#111', border: '1px solid #1e1e1e', borderRadius: 16 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 12, marginBottom: 24 }}>
                 <div>
                   <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.12)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.25)', marginBottom: 12, display: 'inline-block', padding: '4px 12px', borderRadius: 999, fontSize: 12, fontWeight: 600 }}>
                     Autonomous System
                   </span>
-                  <h2 style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px', marginTop: 8 }}>{p.title}</h2>
+                  <h2 style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px', marginTop: 8 }}>{p.title}</h2>
                   {p.technologies && p.technologies.length > 0 && (
                     <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 12 }}>
                       {p.technologies.map((t, idx) => (
@@ -81,6 +82,7 @@ export default function PortfolioPage() {
                       href={p.github_link}
                       target="_blank"
                       rel="noopener noreferrer"
+                      className="safe-touch-target"
                       style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -109,11 +111,11 @@ export default function PortfolioPage() {
               {p.metrics && p.metrics.length > 0 && (
                 <div>
                   <div style={{ fontSize: 11, color: '#4ade80', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 12 }}>PROVEN OUTCOMES</div>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 12 }}>
                     {p.metrics.map((m, i) => (
                       <div key={i} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 16 }}>
                         <div style={{ fontSize: 12, color: '#888', marginBottom: 6 }}>{m.label}</div>
-                        <div style={{ fontSize: 22, fontWeight: 800, color: '#4ade80' }}>{m.value}</div>
+                        <div style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 800, color: '#4ade80' }}>{m.value}</div>
                       </div>
                     ))}
                   </div>
@@ -124,9 +126,9 @@ export default function PortfolioPage() {
         )}
       </section>
 
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 56 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Ready to Be Our Next Case Study?</h2>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Ready to Be Our Next Case Study?</h2>
           <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Let's map your automation opportunities and build something remarkable.</p>
           <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px', cursor: 'pointer' }}>Book a Free Strategy Call <ArrowRight size={16} /></button>
         </div>

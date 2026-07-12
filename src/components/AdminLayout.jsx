@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard, Users, FolderKanban, TrendingUp, DollarSign,
@@ -22,8 +22,6 @@ const founderOnly = [
   { to: '/admin/members', icon: UserCog, label: 'Member Access & Equity' },
 ];
 
-const roles = ['founder', 'core', 'viewer'];
-
 export default function AdminLayout() {
   const { currentUser, members, notifications, setCurrentUser } = useStore();
   const { adminUser, signOut } = useAdminAuth();
@@ -31,9 +29,22 @@ export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [notifOpen, setNotifOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
   const unread = notifications.filter(n => !n.read).length;
 
   const isFounder = currentUser?.accessLevel === 'founder';
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (mobile) setSidebarOpen(false);
+      else setSidebarOpen(true);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -45,52 +56,91 @@ export default function AdminLayout() {
   };
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#080808', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: '100vh', background: '#080808', overflow: 'hidden', position: 'relative' }}>
+      {/* Mobile Backdrop Overlay */}
+      {isMobile && sidebarOpen && (
+        <div 
+          className="mobile-sidebar-backdrop" 
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <aside style={{
-        width: sidebarOpen ? 220 : 60, flexShrink: 0, background: '#0a0a0a',
-        borderRight: '1px solid #141414', display: 'flex', flexDirection: 'column',
-        transition: 'width 0.2s ease', overflow: 'hidden'
+        width: isMobile ? 260 : (sidebarOpen ? 220 : 60),
+        flexShrink: 0,
+        background: '#0a0a0a',
+        borderRight: '1px solid #141414',
+        display: 'flex',
+        flexDirection: 'column',
+        transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+        overflow: 'hidden',
+        position: isMobile ? 'fixed' : 'relative',
+        top: 0,
+        bottom: 0,
+        left: isMobile ? (sidebarOpen ? 0 : -280) : 0,
+        zIndex: isMobile ? 100 : 20,
       }}>
         {/* Logo */}
-        <div style={{ padding: '16px 16px', borderBottom: '1px solid #141414', display: 'flex', alignItems: 'center', gap: 10, minHeight: 60 }}>
-          <svg width="28" height="28" viewBox="0 0 100 100" style={{ flexShrink: 0 }}>
-            <polygon points="20,30 45,30 60,55 45,55" fill="#3b82f6" />
-            <polygon points="55,25 85,25 70,50 55,50" fill="#60a5fa" />
-            <polygon points="45,55 70,55 85,85 60,85" fill="#3b82f6" />
-            <polygon points="30,60 55,60 40,85 15,85" fill="#60a5fa" />
-          </svg>
-          {sidebarOpen && <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', color: '#f0f0f0', whiteSpace: 'nowrap' }}>Zovance</span>}
+        <div style={{ padding: '16px 16px', borderBottom: '1px solid #141414', display: 'flex', alignItems: 'center', gap: 10, minHeight: 60, justifyContent: (!sidebarOpen && !isMobile) ? 'center' : 'space-between' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <svg width="28" height="28" viewBox="0 0 100 100" style={{ flexShrink: 0 }}>
+              <polygon points="20,30 45,30 60,55 45,55" fill="#3b82f6" />
+              <polygon points="55,25 85,25 70,50 55,50" fill="#60a5fa" />
+              <polygon points="45,55 70,55 85,85 60,85" fill="#3b82f6" />
+              <polygon points="30,60 55,60 40,85 15,85" fill="#60a5fa" />
+            </svg>
+            {(sidebarOpen || isMobile) && <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.3px', color: '#f0f0f0', whiteSpace: 'nowrap' }}>Zovance</span>}
+          </div>
+          {isMobile && (
+            <button onClick={() => setSidebarOpen(false)} style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', padding: 4 }}>
+              <X size={18} />
+            </button>
+          )}
         </div>
 
         {/* Nav */}
         <nav style={{ flex: 1, padding: '12px 8px', overflowY: 'auto' }}>
           <div style={{ marginBottom: 8 }}>
-            {sidebarOpen && <p style={{ fontSize: 10, color: '#333', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 8px', marginBottom: 4 }}>Main</p>}
+            {(sidebarOpen || isMobile) && <p style={{ fontSize: 10, color: '#333', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 8px', marginBottom: 4 }}>Main</p>}
             {navItems.map(item => (
-              <NavLink key={item.to} to={item.to} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`} style={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }} title={!sidebarOpen ? item.label : undefined}>
+              <NavLink 
+                key={item.to} 
+                to={item.to} 
+                onClick={() => isMobile && setSidebarOpen(false)}
+                className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`} 
+                style={{ justifyContent: (sidebarOpen || isMobile) ? 'flex-start' : 'center' }} 
+                title={!sidebarOpen && !isMobile ? item.label : undefined}
+              >
                 <item.icon size={16} style={{ flexShrink: 0 }} />
-                {sidebarOpen && item.label}
+                {(sidebarOpen || isMobile) && item.label}
               </NavLink>
             ))}
           </div>
 
           {isFounder && (
             <div style={{ marginTop: 16 }}>
-              {sidebarOpen && <p style={{ fontSize: 10, color: '#333', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 8px', marginBottom: 4 }}>Founder Only</p>}
+              {(sidebarOpen || isMobile) && <p style={{ fontSize: 10, color: '#333', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '4px 8px', marginBottom: 4 }}>Founder Only</p>}
               {founderOnly.map(item => (
-                <NavLink key={item.to} to={item.to} className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`} style={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }} title={!sidebarOpen ? item.label : undefined}>
+                <NavLink 
+                  key={item.to} 
+                  to={item.to} 
+                  onClick={() => isMobile && setSidebarOpen(false)}
+                  className={({ isActive }) => `sidebar-link ${isActive ? 'active' : ''}`} 
+                  style={{ justifyContent: (sidebarOpen || isMobile) ? 'flex-start' : 'center' }} 
+                  title={!sidebarOpen && !isMobile ? item.label : undefined}
+                >
                   <item.icon size={16} style={{ flexShrink: 0 }} />
-                  {sidebarOpen && item.label}
+                  {(sidebarOpen || isMobile) && item.label}
                 </NavLink>
               ))}
             </div>
           )}
 
           <div style={{ marginTop: 16, borderTop: '1px solid #141414', paddingTop: 16 }}>
-            <Link to="/" className="sidebar-link" style={{ justifyContent: sidebarOpen ? 'flex-start' : 'center' }} title={!sidebarOpen ? 'View Website' : undefined}>
+            <Link key="website-link" to="/" className="sidebar-link" style={{ justifyContent: (sidebarOpen || isMobile) ? 'flex-start' : 'center' }} title={!sidebarOpen && !isMobile ? 'View Website' : undefined}>
               <ExternalLink size={16} style={{ flexShrink: 0 }} />
-              {sidebarOpen && 'View Website'}
+              {(sidebarOpen || isMobile) && 'View Website'}
             </Link>
           </div>
         </nav>
@@ -102,7 +152,7 @@ export default function AdminLayout() {
             <div style={{ width: 28, height: 28, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
               {adminUser?.displayName?.split(' ').map(n => n[0]).join('').toUpperCase() || 'A'}
             </div>
-            {sidebarOpen && (
+            {(sidebarOpen || isMobile) && (
               <div style={{ flex: 1, overflow: 'hidden' }}>
                 <div style={{ fontSize: 12, fontWeight: 600, color: '#f0f0f0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{adminUser?.displayName || 'Admin'}</div>
                 <div style={{ fontSize: 10, color: '#3b82f6', textTransform: 'capitalize' }}>Founder</div>
@@ -111,7 +161,7 @@ export default function AdminLayout() {
           </div>
 
           {/* User Menu */}
-          {userMenuOpen && sidebarOpen && (
+          {userMenuOpen && (sidebarOpen || isMobile) && (
             <div style={{ background: '#111', border: '1px solid #222', borderRadius: 8, padding: 8, marginTop: 4 }}>
               <button
                 onClick={handleLogout}
@@ -142,14 +192,14 @@ export default function AdminLayout() {
       </aside>
 
       {/* Main */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
         {/* Header */}
-        <header style={{ height: 60, borderBottom: '1px solid #141414', background: '#0a0a0a', display: 'flex', alignItems: 'center', padding: '0 20px', gap: 12, flexShrink: 0 }}>
-          <button onClick={() => setSidebarOpen(!sidebarOpen)} style={{ background: 'none', border: 'none', color: '#555', cursor: 'pointer', display: 'flex', padding: 4, borderRadius: 6 }}>
-            <Menu size={18} />
+        <header style={{ height: 60, borderBottom: '1px solid #141414', background: '#0a0a0a', display: 'flex', alignItems: 'center', padding: '0 clamp(12px, 3vw, 20px)', gap: 'clamp(8px, 2vw, 12px)', flexShrink: 0 }}>
+          <button onClick={() => setSidebarOpen(!sidebarOpen)} className="safe-touch-target" style={{ background: 'none', border: 'none', color: '#888', cursor: 'pointer', display: 'flex', padding: 6, borderRadius: 8, alignItems: 'center', justifyContent: 'center' }}>
+            <Menu size={20} />
           </button>
 
-          <div style={{ flex: 1 }} />
+          <div style={{ flex: 1, minWidth: 0 }} />
 
           {/* Notifications */}
           <div style={{ position: 'relative' }}>
@@ -158,7 +208,7 @@ export default function AdminLayout() {
               {unread > 0 && <span style={{ position: 'absolute', top: -4, right: -4, width: 16, height: 16, borderRadius: '50%', background: '#3b82f6', color: '#fff', fontSize: 9, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{unread}</span>}
             </button>
             {notifOpen && (
-              <div style={{ position: 'absolute', top: 44, right: 0, width: 300, background: '#111', border: '1px solid #222', borderRadius: 12, padding: 12, zIndex: 50, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
+              <div style={{ position: 'absolute', top: 44, right: isMobile ? -50 : 0, width: 'clamp(260px, 90vw, 300px)', background: '#111', border: '1px solid #222', borderRadius: 12, padding: 12, zIndex: 50, boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}>
                 <p style={{ fontSize: 12, fontWeight: 600, color: '#f0f0f0', marginBottom: 12, padding: '4px 8px' }}>Notifications</p>
                 {notifications.map(n => (
                   <div key={n.id} style={{ padding: '10px 8px', borderRadius: 8, background: n.read ? 'none' : '#1a1a1a', marginBottom: 4, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
@@ -174,15 +224,15 @@ export default function AdminLayout() {
           </div>
 
           {/* Role Badge */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', background: '#111', border: '1px solid #1e1e1e', borderRadius: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>{currentUser?.avatar}</div>
-            <span style={{ fontSize: 12, color: '#888' }}>{currentUser?.name}</span>
-            <span className="badge" style={{ background: isFounder ? 'rgba(59,130,246,0.15)' : '#1a1a1a', color: isFounder ? '#3b82f6' : '#666', fontSize: 10 }}>{currentUser?.accessLevel}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 10px', background: '#111', border: '1px solid #1e1e1e', borderRadius: 8, maxWidth: isMobile ? 130 : 220 }}>
+            <div style={{ width: 22, height: 22, borderRadius: '50%', background: 'linear-gradient(135deg,#3b82f6,#60a5fa)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff', flexShrink: 0 }}>{currentUser?.avatar || 'Z'}</div>
+            <span style={{ fontSize: 12, color: '#888', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{currentUser?.name}</span>
+            {!isMobile && <span className="badge" style={{ background: isFounder ? 'rgba(59,130,246,0.15)' : '#1a1a1a', color: isFounder ? '#3b82f6' : '#666', fontSize: 10 }}>{currentUser?.accessLevel}</span>}
           </div>
         </header>
 
         {/* Page Content */}
-        <main style={{ flex: 1, overflow: 'auto', padding: '24px' }}>
+        <main style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden', padding: 'clamp(14px, 3.5vw, 24px)', minWidth: 0 }}>
           <Outlet />
         </main>
       </div>

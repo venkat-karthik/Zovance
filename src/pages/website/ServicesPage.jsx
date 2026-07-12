@@ -66,8 +66,8 @@ export default function ServicesPage() {
         {/* Services */}
         <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px' }}>
           {services.map((s, i) => (
-            <div key={s.tag} className="card scale-in" style={{ padding: '48px 40px', marginBottom: 16, animationDelay: `${i * 0.1}s` }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'start' }}>
+            <div key={s.tag} className="card scale-in" style={{ padding: 'clamp(24px, 5vw, 48px) clamp(16px, 5vw, 40px)', marginBottom: 16, animationDelay: `${i * 0.1}s` }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 450px), 1fr))', gap: 'clamp(24px, 5vw, 48px)', alignItems: 'start' }}>
               {/* Left */}
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
@@ -96,7 +96,7 @@ export default function ServicesPage() {
               </div>
 
               {/* Right — Features */}
-              <div style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: 28 }}>
+              <div style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: 'clamp(18px, 4vw, 28px)' }}>
                 <p style={{ color: '#555', fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 20 }}>What's Included</p>
                 {s.features.map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14 }}>
@@ -111,9 +111,9 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-        <div className="fade-up" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 56 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Not Sure What You Need?</h2>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
+        <div className="fade-up" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Not Sure What You Need?</h2>
           <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Book a free strategy call and we'll tell you exactly what to build and why.</p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')}>Book Free Strategy Call <ArrowRight size={14} /></button>

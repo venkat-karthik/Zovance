@@ -150,37 +150,41 @@ export default function Team() {
       </div>
 
       {/* Charts */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: 16, marginBottom: 28 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 45vw, 380px), 1fr))', gap: 16, marginBottom: 28 }}>
         {/* Monthly Revenue */}
-        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 22 }}>
+        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 22, minWidth: 0 }}>
           <h3 style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 18 }}>Monthly Revenue Allocation by Engineer</h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={monthlyData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
-              <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }} formatter={(v) => `₹${v.toLocaleString()}`} />
-              <Legend wrapperStyle={{ fontSize: 12, color: '#cbd5e1' }} />
-              <Bar dataKey="Arjun" fill="#38bdf8" radius={[6, 6, 0, 0]} />
-              <Bar dataKey="Priya" fill="#60a5fa" radius={[6, 6, 0, 0]} />
-              <Bar dataKey="Rohan" fill="#818cf8" radius={[6, 6, 0, 0]} />
-              <Bar dataKey="Sneha" fill="#a78bfa" radius={[6, 6, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: 260, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={monthlyData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#94a3b8' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
+                <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }} formatter={(v) => `₹${v.toLocaleString()}`} />
+                <Legend wrapperStyle={{ fontSize: 12, color: '#cbd5e1' }} />
+                <Bar dataKey="Arjun" fill="#38bdf8" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="Priya" fill="#60a5fa" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="Rohan" fill="#818cf8" radius={[6, 6, 0, 0]} />
+                <Bar dataKey="Sneha" fill="#a78bfa" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Conversion Rate */}
-        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 22 }}>
+        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, padding: 22, minWidth: 0 }}>
           <h3 style={{ fontSize: 15, fontWeight: 700, color: '#ffffff', marginBottom: 18 }}>Lead Conversion Rate vs Deals Closed</h3>
-          <ResponsiveContainer width="100%" height={260}>
-            <BarChart data={conversionData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" />
-              <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
-              <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }} formatter={(v) => `${v}%`} />
-              <Bar dataKey="conversion" fill="#38bdf8" radius={[6, 6, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: 260, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={conversionData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(255, 255, 255, 0.06)" />
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#94a3b8' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#94a3b8' }} />
+                <Tooltip contentStyle={{ background: '#0f172a', border: '1px solid rgba(255, 255, 255, 0.15)', borderRadius: 10, fontSize: 12, color: '#fff' }} formatter={(v) => `${v}%`} />
+                <Bar dataKey="conversion" fill="#38bdf8" radius={[6, 6, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
@@ -190,8 +194,8 @@ export default function Team() {
           <h3 style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>Detailed Member Performance Metrics</h3>
         </div>
 
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
+          <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(255, 255, 255, 0.01)' }}>
                 <th style={{ padding: '14px 20px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member / Engineer</th>

@@ -183,7 +183,7 @@ export default function SolutionsPage() {
             </div>
 
             {/* Solutions Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(240px, 45vw, 320px), 1fr))', gap: 16 }}>
               {category.items.map((item, idx) => (
                 <div
                   key={item.title}
@@ -254,9 +254,9 @@ export default function SolutionsPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-        <div className="fade-up" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 56 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
+        <div className="fade-up" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>
             Not Sure Which Solution You Need?
           </h2>
           <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>
@@ -287,10 +287,11 @@ export default function SolutionsPage() {
           <div
             className="card scale-in"
             style={{
+              width: 'calc(100vw - 24px)',
               maxWidth: 600,
               maxHeight: '90vh',
               overflow: 'auto',
-              padding: 40,
+              padding: 'clamp(20px, 5vw, 40px)',
               position: 'relative',
             }}
             onClick={(e) => e.stopPropagation()}
@@ -298,18 +299,15 @@ export default function SolutionsPage() {
             {/* Close Button */}
             <button
               onClick={() => setSelectedSolution(null)}
+              className="safe-touch-target"
               style={{
                 position: 'absolute',
-                top: 20,
-                right: 20,
+                top: 16,
+                right: 16,
                 background: 'none',
                 border: 'none',
                 color: '#888',
                 cursor: 'pointer',
-                fontSize: 24,
-                padding: 0,
-                width: 32,
-                height: 32,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -319,7 +317,7 @@ export default function SolutionsPage() {
             </button>
 
             {/* Content */}
-            <h2 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', marginBottom: 16 }}>
+            <h2 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 16 }}>
               {selectedSolution.title}
             </h2>
 
@@ -340,7 +338,7 @@ export default function SolutionsPage() {
               <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Key Benefits
               </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
                 {selectedSolution.benefits.map((benefit) => (
                   <div key={benefit} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
                     <CheckCircle2 size={16} color="#38bdf8" style={{ marginTop: 2, flexShrink: 0 }} />

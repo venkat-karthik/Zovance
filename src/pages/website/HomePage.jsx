@@ -177,7 +177,6 @@ export default function HomePage() {
                   background: 'rgba(15, 23, 42, 0.75)',
                   padding: 'clamp(20px, 4vw, 32px)',
                   textAlign: 'center',
-                  borderRight: idx < 3 ? '1px solid rgba(255, 255, 255, 0.06)' : 'none',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>

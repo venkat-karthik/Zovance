@@ -161,7 +161,6 @@ export default function HomePage() {
                   background: 'rgba(255, 255, 255, 0.02)',
                   padding: 'clamp(16px, 3vw, 24px)',
                   textAlign: 'center',
-                  borderRight: '1px solid rgba(255, 255, 255, 0.05)',
                 }}
               >
                 <div className="gold-text" style={{

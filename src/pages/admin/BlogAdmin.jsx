@@ -169,7 +169,7 @@ export default function BlogAdmin() {
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Title *</label>
                 <input
@@ -214,7 +214,7 @@ export default function BlogAdmin() {
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 40vw, 180px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Category</label>
                 <select

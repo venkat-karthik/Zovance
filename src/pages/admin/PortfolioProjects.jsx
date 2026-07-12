@@ -196,7 +196,7 @@ export default function PortfolioProjects() {
       {/* Projects Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(260px, 45vw, 320px), 1fr))',
         gap: 16,
       }}>
         {filteredProjects.map(project => (
@@ -495,7 +495,7 @@ export default function PortfolioProjects() {
               {/* Technologies */}
               <div>
                 <label className="label">Technologies</label>
-                <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 8 }}>
                   <input
                     type="text"
                     className="input"
@@ -503,7 +503,7 @@ export default function PortfolioProjects() {
                     onChange={(e) => setTechInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleAddTechnology()}
                     placeholder="e.g., React"
-                    style={{ flex: 1 }}
+                    style={{ flex: '1 1 180px' }}
                   />
                   <button
                     onClick={handleAddTechnology}

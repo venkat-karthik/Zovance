@@ -138,6 +138,7 @@ export default function WebsiteNav() {
           </button>
           <button
             data-mobile-menu-btn
+            className="safe-touch-target"
             onClick={() => setOpen(!open)}
             style={{
               background: 'none',
@@ -145,6 +146,8 @@ export default function WebsiteNav() {
               color: '#888',
               cursor: 'pointer',
               display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               padding: '8px',
               borderRadius: 8,
               transition: 'all 0.3s ease',

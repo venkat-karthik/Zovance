@@ -190,7 +190,7 @@ export default function TestimonialsAdmin() {
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(260px, 45vw, 340px), 1fr))',
           gap: 16,
         }}>
           {filteredTestimonials.map(item => (

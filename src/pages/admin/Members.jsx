@@ -107,8 +107,8 @@ export default function Members() {
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Active Members ({activeMembers.length})</h3>
         </div>
 
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
+          <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
                 <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member</th>
@@ -182,8 +182,8 @@ export default function Members() {
             <h3 style={{ fontSize: 14, fontWeight: 600, color: '#666' }}>Inactive Members ({inactiveMembers.length})</h3>
           </div>
 
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', opacity: 0.6 }}>
+          <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
+            <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', opacity: 0.6 }}>
               <tbody>
                 {inactiveMembers.map(m => (
                   <tr key={m.id} className="table-row">
@@ -224,7 +224,7 @@ export default function Members() {
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Full Name *</label>
                 <input
@@ -247,7 +247,7 @@ export default function Members() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Equity %</label>
                 <input

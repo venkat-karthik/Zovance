@@ -59,9 +59,9 @@ export default function Dashboard() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16, marginBottom: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 500px), 1fr))', gap: 16, marginBottom: 16 }}>
         {/* Revenue Chart */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div>
               <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Revenue Trend</h3>
@@ -69,23 +69,25 @@ export default function Dashboard() {
             </div>
             <span style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8' }}>{fmt(totalRevenue)}</span>
           </div>
-          <ResponsiveContainer width="100%" height={160}>
-            <AreaChart data={revenueData}>
-              <defs>
-                <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.3} />
-                  <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => [fmt(v), 'Revenue']} />
-              <Area type="monotone" dataKey="revenue" stroke="#3b82f6" fill="url(#rg)" strokeWidth={2} dot={false} />
-            </AreaChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: 160, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <AreaChart data={revenueData}>
+                <defs>
+                  <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => [fmt(v), 'Revenue']} />
+                <Area type="monotone" dataKey="revenue" stroke="#3b82f6" fill="url(#rg)" strokeWidth={2} dot={false} />
+              </AreaChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Pipeline Summary */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Lead Pipeline</h3>
           {[
             { label: 'New', count: leads.filter(l => l.status === 'new').length, color: '#60a5fa' },
@@ -103,21 +105,21 @@ export default function Dashboard() {
               <span style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{s.count}</span>
             </div>
           ))}
-          <Link to="/admin/crm" style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#3b82f6', fontSize: 12, marginTop: 16, textDecoration: 'none' }}>
+          <Link to="/admin/crm" className="safe-touch-target" style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#3b82f6', fontSize: 12, marginTop: 16, textDecoration: 'none' }}>
             View CRM <ArrowRight size={12} />
           </Link>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 400px), 1fr))', gap: 16 }}>
         {/* Recent Projects */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
             <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Recent Projects</h3>
-            <Link to="/admin/projects" style={{ fontSize: 11, color: '#3b82f6', textDecoration: 'none' }}>View all</Link>
+            <Link to="/admin/projects" className="safe-touch-target" style={{ fontSize: 11, color: '#3b82f6', textDecoration: 'none' }}>View all</Link>
           </div>
           {projects.map(p => (
-            <Link key={p.id} to={`/admin/projects/${p.id}`} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #1a1a1a', textDecoration: 'none' }}>
+            <Link key={p.id} to={`/admin/projects/${p.id}`} className="safe-touch-target" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #1a1a1a', textDecoration: 'none' }}>
               <div>
                 <div style={{ fontSize: 13, color: '#f0f0f0', fontWeight: 500 }}>{p.name}</div>
                 <div style={{ fontSize: 11, color: '#444', marginTop: 2 }}>₹{p.totalValue?.toLocaleString()}</div>
@@ -131,7 +133,7 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Recent Activity</h3>
           {recentActivity.map((a, i) => (
             <div key={i} style={{ display: 'flex', gap: 12, marginBottom: 14, alignItems: 'flex-start' }}>

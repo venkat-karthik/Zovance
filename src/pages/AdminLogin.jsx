@@ -37,8 +37,8 @@ export default function AdminLogin() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div style={{ width: '100%', maxWidth: '400px' }}>
+    <div style={{ minHeight: '100vh', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(16px, 4vw, 24px)' }}>
+      <div style={{ width: 'calc(100% - 8px)', maxWidth: '420px', margin: '0 auto' }}>
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginBottom: 24 }}>
@@ -47,7 +47,7 @@ export default function AdminLogin() {
             </div>
             <span style={{ fontWeight: 700, fontSize: 20, letterSpacing: '-0.5px', color: '#f0f0f0' }}>Zovance</span>
           </div>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', marginBottom: 8, letterSpacing: '-0.5px' }}>Admin Access</h1>
+          <h1 style={{ fontSize: 'clamp(24px, 5vw, 28px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 8, letterSpacing: '-0.5px' }}>Admin Access</h1>
           <p style={{ color: '#555', fontSize: 14 }}>Sign in with your Google account to access the admin panel</p>
         </div>
 
@@ -68,6 +68,7 @@ export default function AdminLogin() {
         <button
           onClick={handleGoogleSignIn}
           disabled={isLoading}
+          className="safe-touch-target"
           style={{
             width: '100%',
             background: 'linear-gradient(135deg, #c9a84c, #e4c677)',
@@ -113,7 +114,7 @@ export default function AdminLogin() {
 
         {/* Back to Website */}
         <div style={{ textAlign: 'center', marginTop: 24 }}>
-          <a href="/" style={{ color: '#c9a84c', fontSize: 13, textDecoration: 'none', fontWeight: 500 }}>
+          <a href="/" className="safe-touch-target" style={{ color: '#c9a84c', fontSize: 13, textDecoration: 'none', fontWeight: 500, display: 'inline-block' }}>
             ← Back to Website
           </a>
         </div>

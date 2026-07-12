@@ -64,16 +64,16 @@ export default function PricingPage() {
       </section>
 
       {/* Tiers */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: 16, marginBottom: 60 }}>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px)' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(240px,45vw,320px),1fr))', gap: 16, marginBottom: 60 }}>
           {tiers.map(t => (
-            <div key={t.name} className="card" style={{ padding: 32, border: t.highlighted ? '1px solid rgba(56,189,248,0.4)' : '1px solid #1e1e1e', position: 'relative' }}>
+            <div key={t.name} className="card" style={{ padding: 'clamp(20px, 4vw, 32px)', border: t.highlighted ? '1px solid rgba(56,189,248,0.4)' : '1px solid #1e1e1e', position: 'relative' }}>
               {t.highlighted && (
                 <div style={{ position: 'absolute', top: -1, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg,#38bdf8,#3b82f6)', borderRadius: '0 0 8px 8px', padding: '4px 16px', fontSize: 11, fontWeight: 700, color: '#060608' }}>MOST POPULAR</div>
               )}
               <div style={{ marginTop: t.highlighted ? 12 : 0 }}>
                 <p style={{ color: '#555', fontSize: 12, fontWeight: 600, marginBottom: 8 }}>{t.name}</p>
-                <div style={{ fontSize: 26, fontWeight: 700, letterSpacing: '-0.5px', color: '#f0f0f0', marginBottom: 12 }}>{t.range}</div>
+                <div style={{ fontSize: 'clamp(22px, 4vw, 26px)', fontWeight: 700, letterSpacing: '-0.5px', color: '#f0f0f0', marginBottom: 12 }}>{t.range}</div>
                 <p style={{ color: '#555', fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>{t.desc}</p>
                 <div style={{ fontSize: 11, color: '#333', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Ideal for: {t.ideal}</div>
                 <div style={{ borderTop: '1px solid #1a1a1a', paddingTop: 20, marginBottom: 24 }}>
@@ -94,11 +94,11 @@ export default function PricingPage() {
       </section>
 
       {/* Pricing Factors */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 60px' }}>
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 16, padding: '40px' }}>
-          <h2 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', marginBottom: 8 }}>What Affects Your Price?</h2>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 60px' }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 16, padding: 'clamp(20px, 5vw, 40px)' }}>
+          <h2 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 8 }}>What Affects Your Price?</h2>
           <p style={{ color: '#555', fontSize: 14, marginBottom: 28 }}>Every project is unique. Here are the key factors we consider when scoping your build.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 16 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(160px,45vw,220px),1fr))', gap: 16 }}>
             {factors.map(f => (
               <div key={f.label} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 16 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0', marginBottom: 6 }}>{f.label}</div>
@@ -110,10 +110,10 @@ export default function PricingPage() {
       </section>
 
       {/* FAQ */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px' }}>
-        <h2 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px', marginBottom: 24 }}>Pricing FAQs</h2>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
+        <h2 style={{ fontSize: 'clamp(22px, 5vw, 28px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px', marginBottom: 24 }}>Pricing FAQs</h2>
         {faqs.map(f => (
-          <div key={f.q} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: '20px 24px', marginBottom: 8 }}>
+          <div key={f.q} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: '20px clamp(16px, 4vw, 24px)', marginBottom: 8 }}>
             <div style={{ fontWeight: 600, color: '#f0f0f0', fontSize: 15, marginBottom: 8 }}>{f.q}</div>
             <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6 }}>{f.a}</p>
           </div>
@@ -121,9 +121,9 @@ export default function PricingPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 56 }}>
-          <h2 style={{ fontSize: 36, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Let's Talk Numbers</h2>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
+          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Let's Talk Numbers</h2>
           <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Book a free call. We'll scope your project and give you a fixed quote with no surprises.</p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
             <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px' }}>Book Free Strategy Call <ArrowRight size={16} /></button>

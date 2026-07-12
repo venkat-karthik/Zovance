@@ -126,17 +126,19 @@ export default function Earnings() {
       </div>
 
       {/* Monthly Trend */}
-      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, marginBottom: 24 }}>
+      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, marginBottom: 24, minWidth: 0 }}>
         <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Monthly Earnings Trend</h3>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={monthlyEarnings}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
-            <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} />
-            <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-            <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => `₹${v.toLocaleString()}`} />
-            <Bar dataKey="earnings" fill="#c9a84c" radius={[8, 8, 0, 0]} />
-          </BarChart>
-        </ResponsiveContainer>
+        <div style={{ width: '100%', height: 250, minWidth: 0 }}>
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={monthlyEarnings}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
+              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} />
+              <YAxis tick={{ fontSize: 11, fill: '#444' }} />
+              <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => `₹${v.toLocaleString()}`} />
+              <Bar dataKey="earnings" fill="#c9a84c" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Member Earnings Table */}
@@ -145,8 +147,8 @@ export default function Earnings() {
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Member Earnings Summary</h3>
         </div>
 
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
+          <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
                 <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member</th>
@@ -212,7 +214,7 @@ export default function Earnings() {
               <button onClick={() => setSelectedMember(null)} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', fontSize: 20 }}>×</button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 20 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 40vw, 180px), 1fr))', gap: 12, marginBottom: 20 }}>
               {[
                 { label: 'Work Share', value: `₹${(selectedMember.totalWork / 100000).toFixed(1)}L`, color: '#60a5fa' },
                 { label: 'BD Bonus', value: `₹${(selectedMember.totalBD / 100000).toFixed(1)}L`, color: '#f59e0b' },

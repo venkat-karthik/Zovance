@@ -90,7 +90,7 @@ export default function BlogPage() {
         {blogPosts.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '80px 0', color: '#666' }}>No posts yet. Check back soon.</div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(340px,1fr))', gap: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(clamp(260px,45vw,340px),1fr))', gap: 24 }}>
             {blogPosts.map((p, idx) => (
               <article 
                 key={p.id} 

@@ -41,9 +41,9 @@ export default function AboutPage() {
       </section>
 
       {/* Story */}
-      <section style={{ maxWidth: 900, margin: '0 auto', padding: '0 24px 80px' }}>
-        <div className="card fade-in-up" style={{ padding: '48px 56px' }}>
-          <h2 className="slide-in-left" style={{ fontSize: 24, fontWeight: 700, color: '#f0f0f0', marginBottom: 20 }}>Our Story</h2>
+      <section style={{ maxWidth: 900, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
+        <div className="card fade-in-up" style={{ padding: 'clamp(24px, 5vw, 48px) clamp(16px, 5vw, 56px)' }}>
+          <h2 className="slide-in-left" style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 20 }}>Our Story</h2>
           <div style={{ color: '#666', fontSize: 15, lineHeight: 1.8 }}>
             <p className="fade-in-up stagger-1" style={{ marginBottom: 16 }}>Zovance started in 2026 as a student project. A group of friends with a shared passion for technology and entrepreneurship came together with one goal: <span style={{ color: '#38bdf8' }}>to build real solutions while learning and earning together.</span></p>
             <p className="fade-in-up stagger-2" style={{ marginBottom: 16 }}>We noticed businesses struggling with repetitive tasks, manual workflows, and inefficient processes. We saw an opportunity to help them automate these tasks using AI and modern technology. What started as a learning project quickly turned into something real — we were actually solving problems for real clients.</p>
@@ -54,14 +54,14 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px' }}>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <p className="section-tag fade-in-up" style={{ marginBottom: 12 }}>Our Values</p>
           <h2 className="slide-in-up" style={{ fontSize: 'clamp(28px,4vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px' }}>How We Work</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(220px,45vw,260px),1fr))', gap: 16 }}>
           {values.map((v, i) => (
-            <div key={v.title} className={`card fade-in-up stagger-${(i % 4) + 1} hover-lift`} style={{ padding: 28 }}>
+            <div key={v.title} className={`card fade-in-up stagger-${(i % 4) + 1} hover-lift`} style={{ padding: 'clamp(20px, 4vw, 28px)' }}>
               <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(124, 255, 103, 0.1)', border: '1px solid rgba(124, 255, 103, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
                 <v.icon size={20} color="#38bdf8" />
               </div>
@@ -73,12 +73,12 @@ export default function AboutPage() {
       </section>
 
       {/* Team */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px' }}>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
           <p className="section-tag fade-in-up" style={{ marginBottom: 12 }}>The Team</p>
           <h2 className="slide-in-up" style={{ fontSize: 'clamp(28px,4vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px' }}>Built By Builders</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(220px,45vw,260px),1fr))', gap: 16 }}>
           {team.map((m, i) => (
             <div key={m.name} className={`fade-in-up stagger-${(i % 8) + 1}`} style={{ display: 'flex', justifyContent: 'center' }}>
               <MagicCard name={m.name} role={m.role} skills={m.skills.split(', ')} avatar={m.avatar} />
@@ -88,9 +88,9 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px', textAlign: 'center' }}>
-        <div className="fade-in-up hover-lift" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 56 }}>
-          <h2 className="slide-in-up" style={{ fontSize: 36, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Join the Companies We've Helped</h2>
+      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
+        <div className="fade-in-up hover-lift" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
+          <h2 className="slide-in-up" style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Join the Companies We've Helped</h2>
           <p className="fade-in-up stagger-2" style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Let's build your automation system together.</p>
           <Link to="/contact"><button className="btn-gold hover-brightness" style={{ fontSize: 15, padding: '14px 32px' }}>Get in Touch <ArrowRight size={16} /></button></Link>
         </div>

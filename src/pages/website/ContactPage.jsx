@@ -60,13 +60,13 @@ export default function ContactPage() {
       </section>
 
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 5vw, 24px) clamp(40px, 8vw, 80px)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 'clamp(20px, 5vw, 32px)', alignItems: 'start' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 45vw, 320px), 1fr))', gap: 'clamp(20px, 5vw, 32px)', alignItems: 'start' }}>
           {/* Contact Info */}
           <div>
             <div className="card" style={{ padding: 'clamp(20px, 4vw, 32px)', marginBottom: 16 }}>
               <h3 style={{ fontSize: 16, fontWeight: 600, color: '#f0f0f0', marginBottom: 20 }}>Get In Touch</h3>
 
-              <a href="mailto:zovance6@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, textDecoration: 'none' }}>
+              <a href="mailto:zovance6@gmail.com" className="safe-touch-target" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, textDecoration: 'none' }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: '#1a1a1a', border: '1px solid #222', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Mail size={16} color="#3b82f6" />
                 </div>
@@ -76,7 +76,7 @@ export default function ContactPage() {
                 </div>
               </a>
 
-              <button onClick={() => window.open('https://wa.me/918309827125', '_blank')} style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, background: 'none', border: 'none', cursor: 'pointer', padding: 0, width: '100%' }}>
+              <button onClick={() => window.open('https://wa.me/918309827125', '_blank')} className="safe-touch-target" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, background: 'none', border: 'none', cursor: 'pointer', padding: 0, width: '100%' }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <MessageCircle size={16} color="#4ade80" />
                 </div>
@@ -126,7 +126,7 @@ export default function ContactPage() {
                     {error}
                   </div>
                 )}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 200px), 1fr))', gap: 16, marginBottom: 16 }}>
                   <div>
                     <label className="label">Full Name *</label>
                     <input className="input" placeholder="Rahul Sharma" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required disabled={loading} />
@@ -136,7 +136,7 @@ export default function ContactPage() {
                     <input className="input" type="email" placeholder="rahul@company.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required disabled={loading} />
                   </div>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16, marginBottom: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 200px), 1fr))', gap: 16, marginBottom: 16 }}>
                   <div>
                     <label className="label">Phone</label>
                     <input className="input" placeholder="+91 98765 43210" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} disabled={loading} />

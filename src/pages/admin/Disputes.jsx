@@ -110,7 +110,7 @@ export default function Disputes() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 16, opacity: 0.6 }}>
             {resolvedDisputes.map(d => (
-              <div key={d.id} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div key={d.id} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 600, color: '#666' }}>{d.projectName}</div>
                   <div style={{ fontSize: 11, color: '#444', marginTop: 2 }}>{d.reason}</div>
@@ -163,15 +163,15 @@ export default function Disputes() {
 
               {/* Add Comment */}
               {!selectedDispute.resolved && (
-                <div style={{ display: 'flex', gap: 8 }}>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                   <textarea
                     placeholder="Add a comment..."
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                     className="input"
-                    style={{ fontSize: 12, minHeight: 60, flex: 1 }}
+                    style={{ fontSize: 12, minHeight: 60, flex: '1 1 200px' }}
                   />
-                  <button className="btn-sm" onClick={handleAddComment} style={{ background: '#1a1a1a', color: '#c9a84c', border: '1px solid #2a2a2a', alignSelf: 'flex-end' }}>
+                  <button className="btn-sm" onClick={handleAddComment} style={{ background: '#1a1a1a', color: '#c9a84c', border: '1px solid #2a2a2a', alignSelf: 'stretch', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <MessageCircle size={12} />
                   </button>
                 </div>

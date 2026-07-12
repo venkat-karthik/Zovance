@@ -122,9 +122,9 @@ export default function Bookings() {
       ) : (
         <div style={{ display: 'grid', gap: '16px' }}>
           {filteredBookings.map(booking => (
-            <div key={booking.id} style={{ background: '#111', border: '1px solid #1a1a1a', borderRadius: '12px', padding: '20px' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '20px', marginBottom: '16px' }}>
-                <div>
+            <div key={booking.id} style={{ background: '#111', border: '1px solid #1a1a1a', borderRadius: '12px', padding: '20px', minWidth: 0 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(240px, 45vw, 450px), 1fr))', gap: '20px', marginBottom: '16px' }}>
+                <div style={{ minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
                     <div style={{ width: '40px', height: '40px', borderRadius: '50%', background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <User size={20} color="#3b82f6" />
@@ -165,7 +165,7 @@ export default function Bookings() {
                   )}
                 </div>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', minWidth: '150px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', minWidth: 0 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px', background: '#0e0e0e', borderRadius: '8px', color: getStatusColor(booking.status), fontWeight: 600, fontSize: '13px' }}>
                     {getStatusIcon(booking.status)}
                     {booking.status}

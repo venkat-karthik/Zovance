@@ -293,7 +293,7 @@ export default function CRM() {
 
       {/* VIEW 1: KANBAN BOARD */}
       {viewMode === 'kanban' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16, overflowX: 'auto', paddingBottom: 24 }}>
+        <div style={{ display: 'flex', gap: 16, overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: 24, minWidth: '100%' }}>
           {statuses.map(status => {
             const statusLeads = filteredLeads.filter(l => l.status === status);
             const colTotal = statusLeads.reduce((acc, curr) => acc + Number(curr.value || 0), 0);
@@ -309,6 +309,8 @@ export default function CRM() {
                   borderRadius: 14,
                   padding: 14,
                   minHeight: 480,
+                  minWidth: 'clamp(260px, 75vw, 300px)',
+                  flex: '0 0 auto',
                   display: 'flex',
                   flexDirection: 'column'
                 }}
@@ -485,8 +487,8 @@ export default function CRM() {
       {/* VIEW 2: PIPELINE TABLE VIEW */}
       {viewMode === 'table' && (
         <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, overflow: 'hidden' }}>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
+            <table style={{ width: '100%', minWidth: '760px', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
                 <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(255, 255, 255, 0.02)' }}>
                   <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Client / Company</th>
@@ -674,7 +676,7 @@ export default function CRM() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 18 }}>
               <div>
                 <label className="label">Contact Phone</label>
                 <input
@@ -697,7 +699,7 @@ export default function CRM() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 18 }}>
               <div>
                 <label className="label">Deal Value (₹)</label>
                 <input
@@ -723,7 +725,7 @@ export default function CRM() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 18 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 18 }}>
               <div>
                 <label className="label">Assigned Roster Member</label>
                 <select
@@ -805,7 +807,7 @@ export default function CRM() {
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Company / Client Name *</label>
                 <input
@@ -828,7 +830,7 @@ export default function CRM() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Email Address</label>
                 <input
@@ -853,7 +855,7 @@ export default function CRM() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
                 <label className="label">Estimated Ticket Value (₹)</label>
                 <input

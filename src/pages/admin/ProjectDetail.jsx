@@ -137,13 +137,13 @@ export default function ProjectDetail() {
         </span>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 16, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 500px), 1fr))', gap: 16, marginBottom: 24 }}>
         {/* Main Content */}
-        <div>
+        <div style={{ minWidth: 0 }}>
           {/* Project Info */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, marginBottom: 16 }}>
+          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, marginBottom: 16, minWidth: 0 }}>
             <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Project Details</h3>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16 }}>
               <div>
                 <label className="label">Total Value</label>
                 <div style={{ fontSize: 20, fontWeight: 700, color: '#c9a84c' }}>₹{project.totalValue.toLocaleString()}</div>
@@ -291,7 +291,7 @@ export default function ProjectDetail() {
         </div>
 
         {/* Sidebar */}
-        <div>
+        <div style={{ minWidth: 0 }}>
           {/* Finance Summary */}
           {calculation && !calculation.error ? (
             <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, marginBottom: 16 }}>
@@ -372,33 +372,37 @@ export default function ProjectDetail() {
 
       {/* Charts */}
       {calculation && !calculation.error && (
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 45vw, 380px), 1fr))', gap: 16 }}>
           {/* Donut Chart */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
+          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
             <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Final Payouts</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <PieChart>
-                <Pie data={chartData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={2} dataKey="value">
-                  {chartData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Pie>
-                <Tooltip formatter={(v) => `₹${v.toLocaleString()}`} contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
-              </PieChart>
-            </ResponsiveContainer>
+            <div style={{ width: '100%', height: 250, minWidth: 0 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie data={chartData} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={2} dataKey="value">
+                    {chartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(v) => `₹${v.toLocaleString()}`} contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
 
           {/* Waterfall Chart */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
+          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
             <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Money Flow</h3>
-            <ResponsiveContainer width="100%" height={250}>
-              <BarChart data={waterfall}>
-                <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#444' }} angle={-45} textAnchor="end" height={80} />
-                <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-                <Tooltip formatter={(v) => `₹${Math.abs(v).toLocaleString()}`} contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
-                <Bar dataKey="value" fill="#c9a84c" radius={[8, 8, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            <div style={{ width: '100%', height: 250, minWidth: 0 }}>
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={waterfall}>
+                  <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#444' }} angle={-45} textAnchor="end" height={80} />
+                  <YAxis tick={{ fontSize: 11, fill: '#444' }} />
+                  <Tooltip formatter={(v) => `₹${Math.abs(v).toLocaleString()}`} contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
+                  <Bar dataKey="value" fill="#c9a84c" radius={[8, 8, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       )}

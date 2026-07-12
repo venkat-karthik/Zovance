@@ -80,8 +80,8 @@ export default function AuditLog() {
       </div>
 
       {/* Search & Filter */}
-      <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
-        <div style={{ flex: 1, position: 'relative' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 24 }}>
+        <div style={{ flex: '1 1 240px', position: 'relative' }}>
           <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#444' }} />
           <input
             type="text"
@@ -96,7 +96,7 @@ export default function AuditLog() {
           value={filterUser}
           onChange={(e) => setFilterUser(e.target.value)}
           className="input"
-          style={{ width: 200 }}
+          style={{ flex: '1 1 180px', minWidth: 160 }}
         >
           <option value="">All Users</option>
           {members.filter(m => m.active).map(m => (
@@ -107,8 +107,8 @@ export default function AuditLog() {
 
       {/* Audit Log Table */}
       <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, overflow: 'hidden' }}>
-        <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
+          <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse' }}>
             <thead>
               <tr style={{ borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
                 <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>User</th>

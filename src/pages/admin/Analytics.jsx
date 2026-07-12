@@ -98,53 +98,59 @@ export default function Analytics() {
       </div>
 
       {/* Charts */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 420px), 1fr))', gap: 16, marginBottom: 24 }}>
         {/* Revenue Trend */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Revenue Trend vs Target</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={monthlyRevenue}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
-              <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-              <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => `₹${v.toLocaleString()}`} />
-              <Legend wrapperStyle={{ fontSize: 12 }} />
-              <Line type="monotone" dataKey="revenue" stroke="#c9a84c" strokeWidth={2} dot={{ fill: '#c9a84c', r: 4 }} />
-              <Line type="monotone" dataKey="target" stroke="#444" strokeWidth={2} strokeDasharray="5 5" dot={false} />
-            </LineChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: 250, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={monthlyRevenue}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#444' }} />
+                <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => `₹${v.toLocaleString()}`} />
+                <Legend wrapperStyle={{ fontSize: 12 }} />
+                <Line type="monotone" dataKey="revenue" stroke="#c9a84c" strokeWidth={2} dot={{ fill: '#c9a84c', r: 4 }} />
+                <Line type="monotone" dataKey="target" stroke="#444" strokeWidth={2} strokeDasharray="5 5" dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Revenue by Service */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Revenue by Service</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <RechartsPie data={revenueByService} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={2} dataKey="value">
-              {revenueByService.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={serviceColors[entry.name] || '#c9a84c'} />
-              ))}
-            </RechartsPie>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: 250, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <RechartsPie data={revenueByService} cx="50%" cy="50%" innerRadius={60} outerRadius={90} paddingAngle={2} dataKey="value">
+                {revenueByService.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={serviceColors[entry.name] || '#c9a84c'} />
+                ))}
+              </RechartsPie>
+            </ResponsiveContainer>
+          </div>
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 420px), 1fr))', gap: 16, marginBottom: 24 }}>
         {/* Conversion Funnel */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Lead Conversion Funnel</h3>
-          <ResponsiveContainer width="100%" height={250}>
-            <BarChart data={conversionFunnel}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
-              <XAxis dataKey="stage" tick={{ fontSize: 11, fill: '#444' }} />
-              <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-              <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
-              <Bar dataKey="count" fill="#c9a84c" radius={[8, 8, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          <div style={{ width: '100%', height: 250, minWidth: 0 }}>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={conversionFunnel}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#1a1a1a" />
+                <XAxis dataKey="stage" tick={{ fontSize: 11, fill: '#444' }} />
+                <YAxis tick={{ fontSize: 11, fill: '#444' }} />
+                <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
+                <Bar dataKey="count" fill="#c9a84c" radius={[8, 8, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
         </div>
 
         {/* Top Performers */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
+        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Top Performers</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {topPerformers.map((p, i) => (
@@ -161,7 +167,7 @@ export default function Analytics() {
       </div>
 
       {/* Detailed Metrics */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 420px), 1fr))', gap: 16 }}>
         {/* Lead Metrics */}
         <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20 }}>
           <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Lead Metrics</h3>
