@@ -5,7 +5,7 @@ import WebsiteFooter from '../../components/WebsiteFooter';
 import Aurora from '../../components/Aurora';
 import { contactService } from '../../services/contactService';
 
-const OFFICIAL_EMAIL = 'zovance1@gmail.com';
+const OFFICIAL_EMAIL = 'zovance6@gmail.com';
 const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
 
 export default function ContactPage() {
@@ -66,13 +66,13 @@ export default function ContactPage() {
             <div className="card" style={{ padding: 'clamp(20px, 4vw, 32px)', marginBottom: 16 }}>
               <h3 style={{ fontSize: 16, fontWeight: 600, color: '#f0f0f0', marginBottom: 20 }}>Get In Touch</h3>
 
-              <a href="mailto:zovance1@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, textDecoration: 'none' }}>
+              <a href="mailto:zovance6@gmail.com" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, textDecoration: 'none' }}>
                 <div style={{ width: 40, height: 40, borderRadius: 10, background: '#1a1a1a', border: '1px solid #222', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                   <Mail size={16} color="#3b82f6" />
                 </div>
                 <div>
                   <div style={{ fontSize: 11, color: '#444', marginBottom: 2 }}>Email</div>
-                  <div style={{ fontSize: 14, color: '#f0f0f0' }}>zovance1@gmail.com</div>
+                  <div style={{ fontSize: 14, color: '#f0f0f0' }}>zovance6@gmail.com</div>
                 </div>
               </a>
 

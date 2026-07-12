@@ -49,7 +49,7 @@ export default function WebsiteFooter() {
           {/* Contact */}
           <div>
             <p style={{ color: '#ffffff', fontSize: 14, fontWeight: 700, marginBottom: 18, letterSpacing: '0.02em' }}>Get in Touch</p>
-            <a href="mailto:zovance1@gmail.com" style={{ display: 'block', color: '#94a3b8', fontSize: 14, marginBottom: 12, textDecoration: 'none' }}>zovance1@gmail.com</a>
+            <a href="mailto:zovance6@gmail.com" style={{ display: 'block', color: '#94a3b8', fontSize: 14, marginBottom: 12, textDecoration: 'none' }}>zovance6@gmail.com</a>
             <button onClick={() => window.open('https://wa.me/918309827125', '_blank')} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#38bdf8', fontSize: 14, background: 'none', border: 'none', cursor: 'pointer', padding: 0, marginBottom: 12, fontWeight: 600 }}>
               <MessageCircle size={16} /> WhatsApp Us
             </button>

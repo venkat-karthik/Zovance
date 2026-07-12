@@ -17,6 +17,7 @@ const AUTHORIZED_ADMINS = [
   'karthikvenkat316@gmail.com',
   'velfound1@gmail.com',
   'zovance1@gmail.com',
+  'zovance6@gmail.com',
   'akshath.tumkur@velfound.com',
   'akshath.tumkur@zovance.com',
   'sahil.ranakoti@velfound.com',

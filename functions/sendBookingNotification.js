@@ -79,7 +79,7 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
             <p><strong>Phone:</strong> +91 83098 27125</p>
           </div>
 
-          <p>If you need to reschedule or have any questions, please reply to this email or contact us at zovance1@gmail.com</p>
+          <p>If you need to reschedule or have any questions, please reply to this email or contact us at zovance6@gmail.com</p>
           
           <p style="color: #666; margin-top: 30px;">
             Best regards,<br/>
