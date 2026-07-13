@@ -52,6 +52,12 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
             </div>
           ` : ''}
 
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Zovance Discovery Call: ' + bookingData.name)}&details=${encodeURIComponent('Client: ' + bookingData.name + '\nPhone: ' + bookingData.phone + '\nEmail: ' + bookingData.email + '\n\nAgenda:\n' + (bookingData.message || 'Discovery Call') + '\n\nClick "Add Google Meet video conferencing" in Google Calendar to attach the video link.')}&dates=${bookingData.date ? bookingData.date.replace(/-/g, '') + 'T090000Z/' + bookingData.date.replace(/-/g, '') + 'T100000Z' : ''}&add=${encodeURIComponent(bookingData.email)}" target="_blank" style="background: #4285f4; color: #ffffff; padding: 14px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block; font-size: 14px;">
+              📅 Add to Google Calendar (+ Google Meet)
+            </a>
+          </div>
+
           <p style="color: #666; font-size: 12px; margin-top: 30px;">
             This is an automated email from Zovance. Please log in to your admin panel to manage this booking.
           </p>
@@ -77,6 +83,12 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
             <p><strong>Date:</strong> ${bookingData.date}</p>
             <p><strong>Time:</strong> ${bookingData.time}</p>
             <p><strong>Phone:</strong> +91 83098 27125</p>
+          </div>
+
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Zovance Discovery Call with ' + bookingData.name)}&details=${encodeURIComponent('Consultation with Zovance AI Engineering Team.\n\nDate: ' + bookingData.date + '\nTime: ' + bookingData.time + '\n\nOfficial Contact: zovance6@gmail.com\nPhone: +91 83098 27125\n\nClick "Add Google Meet video conferencing" inside Google Calendar to join.')}&dates=${bookingData.date ? bookingData.date.replace(/-/g, '') + 'T090000Z/' + bookingData.date.replace(/-/g, '') + 'T100000Z' : ''}&add=zovance6@gmail.com" target="_blank" style="background: #4285f4; color: #ffffff; padding: 14px 24px; border-radius: 8px; font-weight: bold; text-decoration: none; display: inline-block; font-size: 14px;">
+              📅 Add to Google Calendar (+ Google Meet)
+            </a>
           </div>
 
           <p>If you need to reschedule or have any questions, please reply to this email or contact us at zovance6@gmail.com</p>

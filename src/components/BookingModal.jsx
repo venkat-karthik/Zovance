@@ -13,6 +13,7 @@ export default function BookingModal({ isOpen, onClose }) {
   });
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [submittedData, setSubmittedData] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,13 +41,14 @@ export default function BookingModal({ isOpen, onClose }) {
         });
       }
 
+      setSubmittedData({ ...formData });
       setSuccess(true);
       setFormData({ name: '', email: '', phone: '', date: '', time: '', message: '' });
       
       setTimeout(() => {
         onClose();
         setSuccess(false);
-      }, 2000);
+      }, 10000); // 10s so they can add to Google Calendar
     } catch (error) {
       console.error('Booking error:', error);
       alert('Failed to book. Please try again or contact us on WhatsApp.');
@@ -89,7 +91,7 @@ export default function BookingModal({ isOpen, onClose }) {
         {success ? (
           <div style={{
             textAlign: 'center',
-            padding: '40px 20px',
+            padding: '24px 16px',
             animation: 'fadeUp 0.3s ease-out',
           }}>
             <div style={{
@@ -104,8 +106,45 @@ export default function BookingModal({ isOpen, onClose }) {
             }}>
               <Calendar size={32} color="#fff" />
             </div>
-            <h3 style={{ fontSize: '18px', fontWeight: 600, color: '#f0f0f0', marginBottom: '8px' }}>Booking Confirmed!</h3>
-            <p style={{ color: '#888', fontSize: '14px' }}>We'll contact you shortly to confirm your call.</p>
+            <h3 style={{ fontSize: '20px', fontWeight: 700, color: '#f0f0f0', marginBottom: '8px' }}>Discovery Call Confirmed!</h3>
+            <p style={{ color: '#aaa', fontSize: '14px', lineHeight: 1.5, marginBottom: '24px' }}>
+              We've sent confirmation details to <strong style={{ color: '#fff' }}>{submittedData?.email}</strong>.<br/>
+              Add this meeting and <strong>Google Meet video link</strong> directly to your calendar right now:
+            </p>
+
+            <a
+              href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Zovance Discovery Call: ' + (submittedData?.name || 'Client'))}&details=${encodeURIComponent('Meeting with Zovance AI Engineering Team.\n\nClient Name: ' + (submittedData?.name || '') + '\nPhone: ' + (submittedData?.phone || '') + '\nAgenda: ' + (submittedData?.message || 'Discovery & Architecture Consultation') + '\n\nNote: Click "Add Google Meet video conferencing" inside Google Calendar to attach the instant video meeting link.\n\nOfficial Email: zovance6@gmail.com\nPhone: +91 83098 27125')}&dates=${submittedData?.date ? submittedData.date.replace(/-/g, '') + 'T090000Z/' + submittedData.date.replace(/-/g, '') + 'T100000Z' : ''}&add=zovance6@gmail.com`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                background: '#4285f4',
+                color: '#ffffff',
+                padding: '14px 22px',
+                borderRadius: '12px',
+                fontWeight: 600,
+                fontSize: '14px',
+                textDecoration: 'none',
+                boxShadow: '0 4px 14px rgba(66, 133, 244, 0.4)',
+                transition: 'all 0.2s ease',
+                width: '100%',
+                justifyContent: 'center',
+                marginBottom: '16px'
+              }}
+            >
+              <Calendar size={18} />
+              Add to Google Calendar (+ Google Meet)
+            </a>
+
+            <button
+              type="button"
+              onClick={() => { onClose(); setSuccess(false); }}
+              style={{ background: 'none', border: 'none', color: '#777', fontSize: '13px', cursor: 'pointer', textDecoration: 'underline' }}
+            >
+              Close window
+            </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
