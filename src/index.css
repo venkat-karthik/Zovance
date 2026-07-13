@@ -582,29 +582,28 @@ button, a, input, select, textarea {
   font-weight: 800;
 }
 
-/* Premium Shiny Royal Buttons */
+/* Premium Luxury Gold Buttons */
 .btn-gold {
-  background: linear-gradient(135deg, #1e40af 0%, #2563eb 45%, #06b6d4 100%);
-  background-size: 200% 200%;
-  color: #fff;
-  font-weight: 700;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #b45309 100%);
+  color: #ffffff;
+  font-weight: 600;
   border-radius: 999px;
   padding: 13px 32px;
   font-size: 14px;
-  letter-spacing: 0.02em;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-top: 1px solid rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.01em;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1px solid rgba(255, 255, 255, 0.55);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   box-shadow: 
-    0 8px 24px -4px rgba(37, 99, 235, 0.6),
-    0 0 16px rgba(6, 182, 212, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.55),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.35);
+    0 8px 20px -4px rgba(245, 158, 11, 0.35),
+    0 0 16px rgba(217, 119, 6, 0.25),
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -616,54 +615,55 @@ button, a, input, select, textarea {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-  transition: 0.6s ease;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transition: 0.5s ease;
   z-index: -1;
 }
 .btn-gold:hover::before {
   left: 100%;
 }
 .btn-gold:hover {
-  background-position: 100% 0;
-  transform: translateY(-4px) scale(1.03);
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  transform: translateY(-2px);
   box-shadow: 
-    0 16px 36px -4px rgba(37, 99, 235, 0.8),
-    0 0 32px rgba(6, 182, 212, 0.65),
-    inset 0 1px 3px rgba(255, 255, 255, 0.85),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.85);
+    0 14px 30px -4px rgba(245, 158, 11, 0.5),
+    0 0 24px rgba(251, 191, 36, 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.65),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.35);
+  border-color: rgba(255, 255, 255, 0.65);
 }
 .btn-gold:active {
-  transform: translateY(-1px) scale(0.99);
+  transform: translateY(-0.5px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
 }
 
 .btn-outline {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   color: #f0f0f0;
-  border: 1px solid rgba(255, 255, 255, 0.24);
-  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-top: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   padding: 12px 30px;
   font-size: 14px;
   font-weight: 600;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
   position: relative;
   overflow: hidden;
 }
 .btn-outline:hover {
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.25) 0%, rgba(6, 182, 212, 0.15) 100%);
-  border-color: rgba(96, 165, 250, 0.75);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.35);
   color: #ffffff;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.4), inset 0 1px 2px rgba(255, 255, 255, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.35);
 }
 
 .btn-sm {
@@ -680,15 +680,15 @@ button, a, input, select, textarea {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Royal Shiny Cards */
+/* Luxury Obsidian Cards */
 .card {
-  background: linear-gradient(145deg, rgba(24, 24, 34, 0.9) 0%, rgba(12, 12, 20, 0.95) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  background: linear-gradient(145deg, rgba(22, 22, 30, 0.85) 0%, rgba(10, 10, 15, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 20px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 
-    0 12px 36px -8px rgba(0, 0, 0, 0.65),
+    0 12px 32px -8px rgba(0, 0, 0, 0.7),
     inset 0 1px 1px rgba(255, 255, 255, 0.15);
   position: relative;
   overflow: hidden;
@@ -697,33 +697,33 @@ button, a, input, select, textarea {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.65), transparent);
-  opacity: 0.4;
-  transition: opacity 0.4s ease;
+  background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.6), transparent);
+  opacity: 0.3;
+  transition: opacity 0.35s ease;
 }
 .card:hover::before {
   opacity: 1;
 }
 .card:hover {
-  border-color: rgba(56, 189, 248, 0.5);
+  border-color: rgba(245, 158, 11, 0.4);
   box-shadow: 
-    0 22px 52px -10px rgba(56, 189, 248, 0.28),
-    0 0 24px rgba(59, 130, 246, 0.18),
-    inset 0 1px 2px rgba(255, 255, 255, 0.3);
-  transform: translateY(-6px);
+    0 18px 44px -10px rgba(0, 0, 0, 0.85),
+    0 0 24px rgba(245, 158, 11, 0.14),
+    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  transform: translateY(-3px);
 }
 .card-hover:hover {
-  border-color: rgba(56, 189, 248, 0.5);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px -8px rgba(56, 189, 248, 0.22);
+  border-color: rgba(245, 158, 11, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px -8px rgba(245, 158, 11, 0.15);
 }
 
 /* Input */
 .input {
-  background: #0e0e0e;
-  border: 1px solid #1a1a1a;
-  border-radius: 8px;
-  padding: 10px 14px;
+  background: #0d0d12;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 12px 16px;
   color: #f0f0f0;
   font-size: 14px;
   transition: all 0.2s ease;
@@ -732,10 +732,11 @@ button, a, input, select, textarea {
 }
 .input:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 12px rgba(59,130,246,0.2);
+  border-color: #f59e0b;
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.22);
+  background: #111118;
 }
-.input::placeholder { color: #444; }
+.input::placeholder { color: #555; }
 
 select.input { cursor: pointer; }
 textarea.input { resize: vertical; min-height: 80px; }
@@ -743,34 +744,34 @@ textarea.input { resize: vertical; min-height: 80px; }
 /* Label */
 .label {
   display: block;
-  font-size: 12px;
-  font-weight: 600;
-  color: #888;
+  font-size: 11px;
+  font-weight: 700;
+  color: #999;
   margin-bottom: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 /* Section Tag */
 .section-tag {
   display: inline-block;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #60a5fa;
-  background: rgba(59, 130, 246, 0.1);
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.12);
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(59, 130, 246, 0.25);
-  box-shadow: 0 0 16px rgba(59, 130, 246, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.16);
 }
 
 /* Badge */
 .badge {
   display: inline-flex;
   align-items: center;
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: 999px;
   font-size: 11px;
   font-weight: 600;
