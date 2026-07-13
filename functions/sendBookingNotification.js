@@ -5,8 +5,8 @@ const nodemailer = require('nodemailer');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
+    user: process.env.EMAIL_USER || 'zovance6@gmail.com',
+    pass: process.env.EMAIL_PASSWORD || 'awyd vuyg vlly imuj',
   },
 });
 
@@ -30,7 +30,7 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
 
     // Email to admin
     const adminMailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_USER || '"Zovance AI Hub" <zovance6@gmail.com>',
       to: adminEmail,
       subject: `New Booking Request from ${bookingData.name}`,
       html: `
@@ -61,7 +61,7 @@ exports.sendBookingNotification = functions.https.onRequest(async (req, res) => 
 
     // Email to client
     const clientMailOptions = {
-      from: process.env.EMAIL_USER,
+      from: process.env.EMAIL_USER || '"Zovance AI Hub" <zovance6@gmail.com>',
       to: bookingData.email,
       subject: 'Booking Confirmation - Zovance',
       html: `
