@@ -11,6 +11,7 @@ import {
   onSnapshot
 } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { sendBookingInquiryEmail } from './emailHelper';
 
 const ADMIN_EMAIL = 'zovance6@gmail.com';
 
@@ -24,37 +25,13 @@ export const addBooking = async (bookingData) => {
       updatedAt: serverTimestamp(),
     });
 
-    // Send email notification to admin
-    await sendBookingNotificationEmail(bookingData);
+    // Send email notification via free frontend dispatch in background (non-blocking)
+    sendBookingInquiryEmail(bookingData).catch(err => console.error('Background booking email failed:', err));
 
     return docRef.id;
   } catch (error) {
     console.error('Error adding booking:', error);
     throw error;
-  }
-};
-
-// Send email notification to admin
-const sendBookingNotificationEmail = async (bookingData) => {
-  try {
-    // Call Firebase Cloud Function to send email
-    const response = await fetch('https://us-central1-velfound-d7c7d.cloudfunctions.net/sendBookingNotification', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        adminEmail: ADMIN_EMAIL,
-        bookingData: bookingData,
-      }),
-    });
-
-    if (!response.ok) {
-      console.error('Failed to send email notification');
-    }
-  } catch (error) {
-    console.error('Error sending email notification:', error);
-    // Don't throw - booking should still be created even if email fails
   }
 };
 

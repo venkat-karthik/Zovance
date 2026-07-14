@@ -1,5 +1,6 @@
 import { db } from '../config/firebase';
 import { collection, addDoc, getDocs, updateDoc, doc } from 'firebase/firestore';
+import { sendContactInquiryEmail } from './emailHelper';
 
 const OFFICIAL_EMAIL = 'zovance6@gmail.com';
 
@@ -20,6 +21,9 @@ export const contactService = {
       
       // Log to audit
       console.log('Contact form submitted:', docRef.id);
+      
+      // Trigger 100% Free frontend email dispatch in background (non-blocking)
+      sendContactInquiryEmail(formData).catch(err => console.error('Background email dispatch failed:', err));
       
       return {
         success: true,
