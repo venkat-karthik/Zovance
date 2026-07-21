@@ -1,7 +1,8 @@
+/* eslint-env node */
 import nodemailer from 'nodemailer';
 
-const ADMIN_EMAIL = 'zovance6@gmail.com';
-const GMAIL_APP_PASSWORD = 'jxmh ycna qlln mctt';
+const ADMIN_EMAIL = process.env.VITE_ADMIN_EMAIL || process.env.ADMIN_EMAIL || 'zovance6@gmail.com';
+const GMAIL_APP_PASSWORD = process.env.VITE_GMAIL_APP_PASSWORD || process.env.GMAIL_APP_PASSWORD || 'jxmh ycna qlln mctt';
 
 // Create nodemailer transporter using Gmail App Password
 const transporter = nodemailer.createTransport({
