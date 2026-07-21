@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { Download, DollarSign, TrendingUp, Award } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { useStore } from '../../store/useStore';
 
 export default function Earnings() {

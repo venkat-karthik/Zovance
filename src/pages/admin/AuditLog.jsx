@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Shield, Search, Filter } from 'lucide-react';
+import { Shield, Search } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 export default function AuditLog() {
@@ -128,7 +128,7 @@ export default function AuditLog() {
                 const diffHours = Math.floor(diffMs / 3600000);
                 const diffDays = Math.floor(diffMs / 86400000);
                 
-                let timeAgo = '';
+                let timeAgo;
                 if (diffMins < 1) timeAgo = 'Just now';
                 else if (diffMins < 60) timeAgo = `${diffMins}m ago`;
                 else if (diffHours < 24) timeAgo = `${diffHours}h ago`;

@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ArrowRight, TrendingUp, Clock, MessageCircle, ExternalLink, CheckCircle } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import { useStore } from '../../store/useStore';

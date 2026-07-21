@@ -1,18 +1,19 @@
-import { useState, useEffect } from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import { 
   FolderKanban, TrendingUp, FileText, LayoutDashboard, 
-  DollarSign, MessageCircle, Calendar, UserCog, 
-  Menu, X, Bell, LogOut, Shield, ChevronRight, Grid, Zap 
+  DollarSign, MessageCircle, Calendar, UserCog, X, Bell, LogOut, ChevronRight, Grid 
 } from 'lucide-react';
 
 export default function AdminMobileNav({ currentUser, unreadNotifications, onOpenNotifications, onLogout }) {
   const [toolsOpen, setToolsOpen] = useState(false);
   const { pathname } = useLocation();
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
-  useEffect(() => {
+  if (pathname !== prevPathname) {
     setToolsOpen(false);
-  }, [pathname]);
+    setPrevPathname(pathname);
+  }
 
   const allAdminTools = [
     { to: '/admin/crm', icon: FolderKanban, label: 'CRM & Leads', desc: 'Manage lead pipeline & stages', color: '#3b82f6' },

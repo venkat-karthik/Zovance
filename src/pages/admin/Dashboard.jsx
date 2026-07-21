@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { TrendingUp, Users, DollarSign, FolderKanban, ArrowUpRight, ArrowRight, Clock, CheckCircle } from 'lucide-react';
+import { TrendingUp, Users, DollarSign, FolderKanban, ArrowRight, CheckCircle } from 'lucide-react';
 import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis } from 'recharts';
 import { useStore } from '../../store/useStore';
 

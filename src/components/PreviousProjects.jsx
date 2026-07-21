@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ArrowRight, GitBranch, TrendingUp, Clock, MessageCircle, CheckCircle, Calendar, DollarSign } from 'lucide-react';
 
 const iconMap = {

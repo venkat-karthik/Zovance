@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Clock, User, Share2, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Clock, CheckCircle } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import Aurora from '../../components/Aurora';
@@ -358,7 +358,7 @@ export default function BlogDetailPage() {
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: 20,
           }}>
-            {useStore(s => s.blogPosts)
+            {blogPosts
               .filter(p => p.category === post.category && p.id !== post.id)
               .slice(0, 3)
               .map(relatedPost => (

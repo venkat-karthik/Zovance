@@ -111,7 +111,9 @@ void main() {
 export default function Aurora(props) {
   const { colorStops = ['#1e293b', '#2563eb', '#0f172a'], amplitude = 0.8, blend = 0.6, speed = 0.5 } = props;
   const propsRef = useRef(props);
-  propsRef.current = props;
+  useEffect(() => {
+    propsRef.current = props;
+  });
 
   const ctnDom = useRef(null);
 
@@ -194,7 +196,7 @@ export default function Aurora(props) {
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [amplitude, blend, speed]);
+  }, [amplitude, blend, speed, colorStops]);
 
   return <div ref={ctnDom} className="aurora-container" />;
 }

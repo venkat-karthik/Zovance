@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Plus, X, DollarSign, Users, CheckCircle, AlertCircle, Copy, MessageCircle } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip, BarChart, Bar, XAxis, YAxis } from 'recharts';
+import { ArrowLeft, Plus, X, CheckCircle, AlertCircle, MessageCircle } from 'lucide-react';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, BarChart, Bar, XAxis, YAxis } from 'recharts';
 import { useStore } from '../../store/useStore';
 
 const effortLevels = { none: 'Not involved', helped: 'Helped a little', contributed: 'Contributed', core: 'Core worker', led: 'Led the build' };
-const effortValues = { none: 0, helped: 0.5, contributed: 1, core: 2, led: 3 };
+
 
 export default function ProjectDetail() {
   const { id } = useParams();
@@ -13,7 +13,7 @@ export default function ProjectDetail() {
   const { projects, members, leads, updateProject, approveProject, calculateProject, addAuditLog, currentUser } = useStore();
   const project = projects.find(p => p.id === parseInt(id));
 
-  const [editMode, setEditMode] = useState(false);
+
   const [showAddMember, setShowAddMember] = useState(false);
   const [showAddSub, setShowAddSub] = useState(false);
   const [selectedMemberId, setSelectedMemberId] = useState(null);
@@ -309,7 +309,7 @@ export default function ProjectDetail() {
                   <span style={{ fontSize: 12, color: '#888' }}>BD Bonus ({project.bdBonus?.percent}%)</span>
                   <span style={{ fontSize: 13, fontWeight: 600, color: '#f59e0b' }}>-₹{calculation.bdAmount.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', background: '#0e0e0e', borderRadius: 8, padding: '10px 12px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#0e0e0e', borderRadius: 8, padding: '10px 12px' }}>
                   <span style={{ fontSize: 12, fontWeight: 600, color: '#c9a84c' }}>Work Pool</span>
                   <span style={{ fontSize: 14, fontWeight: 700, color: '#c9a84c' }}>₹{calculation.workPool.toLocaleString()}</span>
                 </div>

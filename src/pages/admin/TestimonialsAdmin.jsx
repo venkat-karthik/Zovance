@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Search, Edit2, Trash2, Eye, EyeOff, X, MessageCircle, Star } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Eye, EyeOff, X, MessageCircle } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 export default function TestimonialsAdmin() {

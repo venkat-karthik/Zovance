@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, Search, Filter, X, DollarSign, Users, Calendar, ChevronRight } from 'lucide-react';
+import { Plus, Search, Filter, X, Users, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useStore } from '../../store/useStore';
 

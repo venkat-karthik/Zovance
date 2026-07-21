@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Outlet, NavLink, Link, useNavigate } from 'react-router-dom';
 import {
-  LayoutDashboard, Users, FolderKanban, TrendingUp, DollarSign,
-  BarChart3, AlertTriangle, UserCog, FileText, Zap, Bell, ChevronDown,
-  LogOut, Menu, X, ExternalLink, Shield, Calendar, MessageCircle
+  LayoutDashboard, FolderKanban, TrendingUp, DollarSign, UserCog, FileText, Bell,
+  LogOut, Menu, X, ExternalLink, Calendar, MessageCircle
 } from 'lucide-react';
 import { useStore } from '../store/useStore';
 import { useAdminAuth } from '../context/AdminAuthContext';

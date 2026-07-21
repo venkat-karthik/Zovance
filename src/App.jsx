@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { Suspense } from 'react';
 import { AdminAuthProvider } from './context/AdminAuthContext';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 

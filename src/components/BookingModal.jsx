@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, Calendar, Clock, User, Mail, Phone } from 'lucide-react';
+import { X, Calendar } from 'lucide-react';
 import { addBooking } from '../services/bookingsService';
 
 export default function BookingModal({ isOpen, onClose }) {

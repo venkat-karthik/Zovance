@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageCircle, Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { MessageCircle, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import Aurora from '../../components/Aurora';

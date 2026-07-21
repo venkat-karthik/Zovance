@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Plus, X, Edit2, Trash2, Shield, Lock } from 'lucide-react';
+import { Plus, X, Edit2, Trash2, Shield } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 const accessLevels = { founder: 'Founder', core: 'Core Member', viewer: 'Viewer' };

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Clock, ArrowRight, Tag, CheckCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { Clock, ArrowRight, CheckCircle } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import Aurora from '../../components/Aurora';

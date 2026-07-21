@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, MessageCircle, Star, CheckCircle2, Cpu, ShieldCheck, Zap, Layers, BarChart3, Clock, TrendingUp } from 'lucide-react';
+import { ArrowRight, MessageCircle, Star, Cpu, ShieldCheck, Zap, Layers, BarChart3, Clock, TrendingUp } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';

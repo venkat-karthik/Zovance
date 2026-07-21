@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Zap } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import BookingModal from './BookingModal';
 import WebsiteMobileNav from './WebsiteMobileNav';
 

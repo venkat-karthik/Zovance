@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { TrendingUp, Award, Target, DollarSign, Sparkles, Users, Briefcase } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { TrendingUp, Award, Target, DollarSign, Sparkles, Users } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useStore } from '../../store/useStore';
 
 export default function Team() {

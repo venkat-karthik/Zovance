@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
-  Home, Zap, DollarSign, Compass, X, Calendar, 
-  ArrowRight, MessageCircle, Layers, Cpu, Users, 
+  Home, Zap, DollarSign, Compass, X, Calendar, MessageCircle, Layers, Cpu, Users, 
   FileText, Phone, Sparkles, ChevronRight, Search 
 } from 'lucide-react';
 
@@ -10,11 +9,12 @@ export default function WebsiteMobileNav({ onOpenBooking }) {
   const [exploreOpen, setExploreOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const { pathname } = useLocation();
+  const [prevPathname, setPrevPathname] = useState(pathname);
 
-  // Close explore sheet on route change
-  useEffect(() => {
+  if (pathname !== prevPathname) {
     setExploreOpen(false);
-  }, [pathname]);
+    setPrevPathname(pathname);
+  }
 
   const exploreCategories = [
     {

@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Plus, Search, Filter, X, Phone, Mail, Tag, Calendar, DollarSign, User, MessageSquare, ArrowRight, TrendingUp, CheckCircle2, AlertCircle, LayoutGrid, List, Sparkles, Send } from 'lucide-react';
+import { Plus, Search, X, Phone, Mail, MessageSquare, ArrowRight, LayoutGrid, List, Sparkles } from 'lucide-react';
 import { useStore } from '../../store/useStore';
 
 const statuses = ['new', 'contacted', 'qualified', 'proposal', 'won', 'lost'];

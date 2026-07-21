@@ -5,11 +5,10 @@ const AdminAuthContext = createContext();
 
 export function AdminAuthProvider({ children }) {
   const [adminUser, setAdminUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true);
     try {
       const unsubscribe = adminAuthService.onAuthStateChanged((user) => {
         setAdminUser(user);
@@ -18,7 +17,6 @@ export function AdminAuthProvider({ children }) {
       return unsubscribe;
     } catch (err) {
       console.error('Auth error:', err);
-      setLoading(false);
     }
   }, []);
 
@@ -65,6 +63,7 @@ export function AdminAuthProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAdminAuth() {
   const context = useContext(AdminAuthContext);
   if (!context) {
