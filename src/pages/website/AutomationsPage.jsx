@@ -3,6 +3,7 @@ import { Search, Zap, Calendar, X, Phone, Mail, Building2, CheckCircle2, Loader 
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import { addBooking } from '../../services/bookingsService';
+import workflowsData from '../../data/workflows.json';
 
 export default function AutomationsPage() {
   const [workflows, setWorkflows] = useState([]);
@@ -25,34 +26,22 @@ export default function AutomationsPage() {
     time: ''
   });
 
-  // Load workflows from public JSON file
+  // Load workflows from JSON import
   useEffect(() => {
-    const loadWorkflows = async () => {
-      try {
-        console.log('Loading workflows from /n8n_workflows_data.json');
-        const response = await fetch('/n8n_workflows_data.json');
-        console.log('Fetch response status:', response.status);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        console.log('Workflows loaded:', Array.isArray(data) ? data.length : 'not an array');
-        
-        if (Array.isArray(data) && data.length > 0) {
-          setWorkflows(data);
-          setDisplayedWorkflows(data.slice(0, 12)); // Show first 12 on load
-        } else {
-          console.warn('No workflows data received');
-          setWorkflows([]);
-        }
-      } catch (error) {
-        console.error('Error loading workflows:', error);
+    try {
+      console.log('Using imported workflows data:', Array.isArray(workflowsData) ? workflowsData.length : 'not an array');
+      
+      if (Array.isArray(workflowsData) && workflowsData.length > 0) {
+        setWorkflows(workflowsData);
+        setDisplayedWorkflows(workflowsData.slice(0, 12)); // Show first 12 on load
+      } else {
+        console.warn('No workflows data imported');
         setWorkflows([]);
       }
-    };
-    loadWorkflows();
+    } catch (error) {
+      console.error('Error loading workflows:', error);
+      setWorkflows([]);
+    }
   }, []);
 
   // Search and display logic
