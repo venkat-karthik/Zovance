@@ -10,19 +10,33 @@ export default defineConfig({
     react(),
     tailwindcss(),
     {
+      name: 'copy-workflows',
+      apply: 'build',
+      generateBundle() {
+        const source = path.join(process.cwd(), 'public', 'n8n_workflows_data.json');
+        const content = fs.readFileSync(source, 'utf-8');
+        this.emitFile({
+          type: 'asset',
+          fileName: 'n8n_workflows_data.json',
+          source: content
+        });
+      }
+    },
+    {
       name: 'local-api-server',
       configureServer(server) {
-        // Serve n8n_workflows_data.json directly
-        server.middlewares.use('/n8n_workflows_data.json', (req, res, next) => {
+        // Serve n8n_workflows_data.json directly from public
+        server.middlewares.use('/n8n_workflows_data.json', (req, res) => {
           try {
             const filePath = path.join(process.cwd(), 'public', 'n8n_workflows_data.json');
             const fileContent = fs.readFileSync(filePath, 'utf-8');
             res.setHeader('Content-Type', 'application/json');
+            res.setHeader('Cache-Control', 'no-cache');
             res.end(fileContent);
           } catch (e) {
             console.error('Error serving workflows JSON:', e.message);
-            res.statusCode = 404;
-            res.end('Not found');
+            res.statusCode = 500;
+            res.end(JSON.stringify({ error: 'File not found' }));
           }
         });
 
