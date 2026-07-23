@@ -20,15 +20,37 @@ export default function AutomationsPage() {
   useEffect(() => {
     const loadWorkflows = async () => {
       try {
+        console.log('Fetching workflows...');
         const response = await fetch('/n8n_workflows_data.json');
+        console.log('Response:', response.status, response.statusText);
+        
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
+        console.log('Loaded:', data.length, 'workflows');
+        
         if (Array.isArray(data) && data.length > 0) {
           setWorkflows(data);
           setDisplayedWorkflows(data.slice(0, 12));
         }
       } catch (error) {
         console.error('Error loading workflows:', error);
+        // Fallback: use dummy data for demo
+        const dummyData = [
+          { id: '1', title: 'Google Sheets CRM Sync', summary: 'Sync your CRM data to Google Sheets automatically', author: 'Zovance', categories: ['CRM', 'Google Sheets'], nodes: { 'sheets': 1, 'crm': 1 } },
+          { id: '2', title: 'Slack Alert Bot', summary: 'Send automated alerts to Slack channels', author: 'Zovance', categories: ['Slack', 'Alerts'], nodes: { 'slack': 1 } },
+          { id: '3', title: 'Email to Database', summary: 'Store email attachments in database', author: 'Zovance', categories: ['Email', 'Database'], nodes: { 'email': 1, 'db': 1 } },
+          { id: '4', title: 'Stripe Invoice Tracker', summary: 'Track Stripe invoices in real-time', author: 'Zovance', categories: ['Stripe', 'Payments'], nodes: { 'stripe': 1 } },
+          { id: '5', title: 'Teams Notifications', summary: 'Send automated Teams messages', author: 'Zovance', categories: ['Teams', 'Notifications'], nodes: { 'teams': 1 } },
+          { id: '6', title: 'WordPress Auto-Publish', summary: 'Auto-publish content to WordPress', author: 'Zovance', categories: ['WordPress', 'Content'], nodes: { 'wp': 1 } },
+          { id: '7', title: 'Calendar Event Sync', summary: 'Sync calendar events across platforms', author: 'Zovance', categories: ['Calendar', 'Sync'], nodes: { 'calendar': 1 } },
+          { id: '8', title: 'Invoice Generator', summary: 'Generate invoices from form data', author: 'Zovance', categories: ['Invoicing', 'Forms'], nodes: { 'forms': 1, 'pdf': 1 } },
+          { id: '9', title: 'Lead Score Bot', summary: 'Automatic lead scoring system', author: 'Zovance', categories: ['CRM', 'AI'], nodes: { 'crm': 1, 'ai': 1 } },
+          { id: '10', title: 'Social Media Poster', summary: 'Post to multiple social platforms', author: 'Zovance', categories: ['Social', 'Marketing'], nodes: { 'social': 1 } },
+          { id: '11', title: 'GitHub Notifications', summary: 'Get GitHub alerts via email', author: 'Zovance', categories: ['GitHub', 'Dev'], nodes: { 'github': 1 } },
+          { id: '12', title: 'Inventory Manager', summary: 'Manage inventory across channels', author: 'Zovance', categories: ['Inventory', 'E-commerce'], nodes: { 'inventory': 1 } },
+        ];
+        setWorkflows(dummyData);
+        setDisplayedWorkflows(dummyData.slice(0, 12));
       }
     };
     loadWorkflows();
