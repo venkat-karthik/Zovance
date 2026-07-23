@@ -12,6 +12,7 @@ import BlogPage from './pages/website/BlogPage';
 import BlogDetailPage from './pages/website/BlogDetailPage';
 import AboutPage from './pages/website/AboutPage';
 import ContactPage from './pages/website/ContactPage';
+import AutomationsPage from './pages/website/AutomationsPage';
 
 // Admin Pages
 import AdminLayout from './components/AdminLayout';
@@ -41,6 +42,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/solutions" element={<SolutionsPage />} />
+            <Route path="/automations" element={<AutomationsPage />} />
             <Route path="/pricing" element={<PricingPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogDetailPage />} />

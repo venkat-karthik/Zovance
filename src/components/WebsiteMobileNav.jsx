@@ -23,6 +23,7 @@ export default function WebsiteMobileNav({ onOpenBooking }) {
         { label: 'AI & Autonomous Systems', to: '/services', icon: Cpu, desc: 'Enterprise AI workflows & bots', badge: 'Popular' },
         { label: 'AI Voice Agents', to: '/services', icon: Sparkles, desc: '24/7 intelligent voice call handling', badge: 'New' },
         { label: 'Full-Stack Web Architecture', to: '/solutions', icon: Layers, desc: 'High-converting custom web apps' },
+        { label: '9,500+ Automations Catalog', to: '/automations', icon: Zap, desc: 'Search, browse & request automations', badge: '9k+ Tools' },
       ]
     },
     {

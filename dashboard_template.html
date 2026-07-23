@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n Automations Catalog & Search Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b0f19 0%, #111827 50%, #1e1b4b 100%);
+            --glass-bg: rgba(17, 24, 39, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover-border: rgba(99, 102, 241, 0.4);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.15);
+            --secondary: #ec4899;
+            --accent: #10b981;
+            --card-bg: rgba(31, 41, 55, 0.4);
+            --sidebar-width: 320px;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Layout */
+        .app-container {
+            display: flex;
+            flex: 1;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Filters */
+        aside.sidebar {
+            width: var(--sidebar-width);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid var(--glass-border);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .stats-summary {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-val {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .filter-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .filter-title {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            font-weight: 600;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            color: white;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .filter-list {
+            max-height: 200px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding-right: 0.25rem;
+        }
+
+        .filter-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .filter-list::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 0.35rem 0.5rem;
+            border-radius: 0.375rem;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-item:hover, .filter-item.active {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .filter-item.active {
+            border-left: 3px solid var(--primary);
+            padding-left: calc(0.5rem - 3px);
+            font-weight: 600;
+        }
+
+        .filter-count {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.1rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+        }
+
+        /* Main Content */
+        main.main-content {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 2rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .results-count {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .results-count span {
+            color: white;
+            font-weight: 600;
+        }
+
+        .sort-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .sort-select {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 0.5rem;
+            padding: 0.6rem 1rem;
+            color: white;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .sort-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Grid Layout */
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Workflow Card */
+        .workflow-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .workflow-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--glass-hover-border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 15px rgba(99, 102, 241, 0.05);
+        }
+
+        .workflow-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .workflow-title {
+            font-size: 1.1rem;
+            color: white;
+            font-weight: 600;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .workflow-id {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-family: monospace;
+            color: var(--text-secondary);
+        }
+
+        .workflow-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.1);
+            color: #a5b4fc;
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .tag.node-tag {
+            background: rgba(236, 72, 153, 0.08);
+            color: #fbcfe8;
+            border-color: rgba(236, 72, 153, 0.15);
+        }
+
+        .workflow-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 0.75rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--text-secondary);
+        }
+
+        .node-count {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Pagination */
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            padding: 1rem 0;
+        }
+
+        .page-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition-smooth);
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .page-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .page-dots {
+            color: var(--text-muted);
+        }
+
+        /* Drawer Details Panel */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 99;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-smooth);
+        }
+
+        .drawer-overlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            right: -600px;
+            width: 600px;
+            height: 100vh;
+            background: #0f1422;
+            border-left: 1px solid var(--glass-border);
+            box-shadow: -15px 0 30px rgba(0, 0, 0, 0.6);
+            z-index: 100;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .drawer.open {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .drawer-body {
+            padding: 2rem;
+            overflow-y: auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .drawer-image-wrapper {
+            width: 100%;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drawer-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .meta-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .meta-lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .meta-val {
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .meta-val a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .meta-val a:hover {
+            text-decoration: underline;
+        }
+
+        .drawer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .drawer-section-title {
+            font-size: 1.1rem;
+            color: white;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .drawer-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            white-space: pre-line;
+        }
+
+        .node-list-detailed {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .node-detail-pill {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .node-detail-count {
+            background: var(--primary);
+            color: white;
+            padding: 0.05rem 0.35rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: #4f46e5;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-full {
+            grid-column: span 2;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            aside.sidebar {
+                display: none; /* simple hidden for mobile, could add hamburger */
+            }
+            main.main-content {
+                margin-left: 0;
+                padding: 1.5rem;
+            }
+            .drawer {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">8</div>
+                <div class="logo-title">n8n Catalog</div>
+            </div>
+            
+            <div class="stats-summary">
+                <div class="stat-box">
+                    <span class="stat-val" id="stat-total-workflows">0</span>
+                    <span class="stat-lbl">Workflows</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-val" id="stat-total-nodes">0</span>
+                    <span class="stat-lbl">Unique Nodes</span>
+                </div>
+            </div>
+
+            <!-- Search -->
+            <div class="filter-section">
+                <span class="filter-title">Search</span>
+                <div class="search-wrapper">
+                    <input type="text" id="search-input" class="search-input" placeholder="Type keyword, node type...">
+                </div>
+            </div>
+
+            <!-- Sort -->
+            <div class="filter-section">
+                <span class="filter-title">Sort By</span>
+                <select id="sort-select" class="sort-select">
+                    <option value="title-asc">Title: A to Z</option>
+                    <option value="title-desc">Title: Z to A</option>
+                    <option value="node-desc">Node Count: High to Low</option>
+                    <option value="id-desc">ID: High to Low</option>
+                    <option value="id-asc">ID: Low to High</option>
+                </select>
+            </div>
+
+            <!-- Categories -->
+            <div class="filter-section">
+                <span class="filter-title">Categories</span>
+                <div class="filter-list" id="category-filters">
+                    <!-- Categories will be injected here -->
+                </div>
+            </div>
+
+            <!-- Popular Nodes -->
+            <div class="filter-section">
+                <span class="filter-title">Filter by Node Type</span>
+                <div class="filter-list" id="node-filters">
+                    <!-- Nodes will be injected here -->
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="top-bar">
+                <div class="results-count">
+                    Showing <span id="displayed-count">0</span> of <span id="filtered-total">0</span> workflows
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="workflow-grid" id="workflow-grid">
+                <!-- Cards will be injected here -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-container" id="pagination">
+                <!-- Pagination buttons will be injected here -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Details Drawer Overlay -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    <!-- Details Drawer -->
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h2 id="drawer-title">Workflow Title</h2>
+            <button class="close-btn" id="drawer-close">&times;</button>
+        </div>
+        <div class="drawer-body">
+            <!-- Visual Screenshot -->
+            <div class="drawer-image-wrapper">
+                <img src="" alt="Workflow Screenshot" class="drawer-image" id="drawer-img">
+            </div>
+
+            <!-- Metadata List -->
+            <div class="meta-list">
+                <div class="meta-item">
+                    <span class="meta-lbl">Workflow ID</span>
+                    <span class="meta-val" id="drawer-meta-id">-</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-lbl">Author</span>
+                    <span class="meta-val" id="drawer-meta-author">-</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-lbl">Web Version</span>
+                    <span class="meta-val"><a href="#" target="_blank" id="drawer-meta-link">n8n.io/workflows</a></span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-lbl">Total Nodes</span>
+                    <span class="meta-val" id="drawer-meta-node-count">-</span>
+                </div>
+            </div>
+
+            <!-- Overview Description -->
+            <div class="drawer-section">
+                <h3 class="drawer-section-title">Workflow Overview</h3>
+                <p class="drawer-desc" id="drawer-meta-desc">Overview description...</p>
+            </div>
+
+            <!-- Detailed Nodes list -->
+            <div class="drawer-section">
+                <h3 class="drawer-section-title">Used Nodes</h3>
+                <div class="node-list-detailed" id="drawer-meta-nodes-list">
+                    <!-- Nodes details will go here -->
+                </div>
+            </div>
+
+            <!-- Action Buttons for Local files -->
+            <div class="drawer-section">
+                <h3 class="drawer-section-title">Local Action Utilities</h3>
+                <div class="action-buttons">
+                    <a href="#" target="_blank" class="btn btn-primary" id="btn-open-readme">Open Readme</a>
+                    <a href="#" target="_blank" class="btn btn-secondary" id="btn-open-json">Open Workflow JSON</a>
+                    <div class="btn btn-secondary btn-full" id="btn-copy-path" style="font-size: 0.8rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                        Copy Local Path
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Data Injection and Client-side Script -->
+    <script>
+        // Loaded list of all parsed workflows
+        const WORKFLOWS_DATA = /* WORKFLOWS_DATA_PLACEHOLDER */;
+
+        // App state
+        let filteredWorkflows = [];
+        let currentPage = 1;
+        const itemsPerPage = 48;
+        let selectedCategory = null;
+        let selectedNodeFilter = null;
+        let searchKeyword = '';
+        let sortBy = 'title-asc';
+
+        // Elements
+        const totalWorkflowsEl = document.getElementById('stat-total-workflows');
+        const totalNodesEl = document.getElementById('stat-total-nodes');
+        const categoryFiltersEl = document.getElementById('category-filters');
+        const nodeFiltersEl = document.getElementById('node-filters');
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const workflowGrid = document.getElementById('workflow-grid');
+        const paginationContainer = document.getElementById('pagination');
+        const displayedCountEl = document.getElementById('displayed-count');
+        const filteredTotalEl = document.getElementById('filtered-total');
+
+        // Drawer elements
+        const drawerOverlay = document.getElementById('drawer-overlay');
+        const drawer = document.getElementById('drawer');
+        const drawerClose = document.getElementById('drawer-close');
+        const drawerTitle = document.getElementById('drawer-title');
+        const drawerImg = document.getElementById('drawer-img');
+        const drawerMetaId = document.getElementById('drawer-meta-id');
+        const drawerMetaAuthor = document.getElementById('drawer-meta-author');
+        const drawerMetaLink = document.getElementById('drawer-meta-link');
+        const drawerMetaNodeCount = document.getElementById('drawer-meta-node-count');
+        const drawerMetaDesc = document.getElementById('drawer-meta-desc');
+        const drawerMetaNodesList = document.getElementById('drawer-meta-nodes-list');
+        const btnOpenReadme = document.getElementById('btn-open-readme');
+        const btnOpenJson = document.getElementById('btn-open-json');
+        const btnCopyPath = document.getElementById('btn-copy-path');
+
+        // Initial setup
+        function init() {
+            // Safety: ensure WORKFLOWS_DATA is an array
+            if (!Array.isArray(WORKFLOWS_DATA)) {
+                console.error('WORKFLOWS_DATA is not an array:', WORKFLOWS_DATA);
+                totalWorkflowsEl.textContent = '0';
+                return;
+            }
+
+            // Stats
+            totalWorkflowsEl.textContent = WORKFLOWS_DATA.length.toLocaleString();
+            
+            // Collect categories and node frequencies
+            const categoriesMap = {};
+            const nodesMap = {};
+            
+            WORKFLOWS_DATA.forEach(w => {
+                if (!w) return; // skip null/undefined workflows
+                
+                // Categories - ensure it's an array
+                const cats = Array.isArray(w.categories) ? w.categories : [];
+                cats.forEach(cat => {
+                    if (cat && typeof cat === 'string') {
+                        categoriesMap[cat] = (categoriesMap[cat] || 0) + 1;
+                    }
+                });
+                
+                // Nodes - ensure it's an object
+                const nodes = (w.nodes && typeof w.nodes === 'object') ? w.nodes : {};
+                Object.keys(nodes).forEach(node => {
+                    if (node) {
+                        const readableName = getReadableNodeName(node);
+                        nodesMap[readableName] = (nodesMap[readableName] || 0) + 1;
+                    }
+                });
+            });
+
+            totalNodesEl.textContent = Object.keys(nodesMap).length.toLocaleString();
+
+            // Populate category filter list
+            const sortedCategories = Object.keys(categoriesMap).sort((a,b) => categoriesMap[b] - categoriesMap[a]);
+            categoryFiltersEl.innerHTML = sortedCategories.map(cat => `
+                <div class="filter-item" data-category="${cat}">
+                    <span>${cat}</span>
+                    <span class="filter-count">${categoriesMap[cat]}</span>
+                </div>
+            `).join('');
+
+            // Populate node filter list (popular top 30)
+            const sortedNodes = Object.keys(nodesMap).sort((a,b) => nodesMap[b] - nodesMap[a]).slice(0, 30);
+            nodeFiltersEl.innerHTML = sortedNodes.map(node => `
+                <div class="filter-item" data-node="${node}">
+                    <span>${node}</span>
+                    <span class="filter-count">${nodesMap[node]}</span>
+                </div>
+            `).join('');
+
+            // Event listeners
+            searchInput.addEventListener('input', (e) => {
+                searchKeyword = e.target.value.toLowerCase();
+                currentPage = 1;
+                applyFilters();
+            });
+
+            sortSelect.addEventListener('change', (e) => {
+                sortBy = e.target.value;
+                currentPage = 1;
+                applyFilters();
+            });
+
+            categoryFiltersEl.addEventListener('click', (e) => {
+                const item = e.target.closest('.filter-item');
+                if (!item) return;
+                
+                const cat = item.dataset.category;
+                const wasActive = item.classList.contains('active');
+                
+                // Toggle active state
+                categoryFiltersEl.querySelectorAll('.filter-item').forEach(el => el.classList.remove('active'));
+                
+                if (wasActive) {
+                    selectedCategory = null;
+                } else {
+                    item.classList.add('active');
+                    selectedCategory = cat;
+                }
+                currentPage = 1;
+                applyFilters();
+            });
+
+            nodeFiltersEl.addEventListener('click', (e) => {
+                const item = e.target.closest('.filter-item');
+                if (!item) return;
+                
+                const nodeName = item.dataset.node;
+                const wasActive = item.classList.contains('active');
+                
+                nodeFiltersEl.querySelectorAll('.filter-item').forEach(el => el.classList.remove('active'));
+                
+                if (wasActive) {
+                    selectedNodeFilter = null;
+                } else {
+                    item.classList.add('active');
+                    selectedNodeFilter = nodeName;
+                }
+                currentPage = 1;
+                applyFilters();
+            });
+
+            drawerClose.addEventListener('click', closeDrawer);
+            drawerOverlay.addEventListener('click', closeDrawer);
+
+            // Execute initial filter/draw
+            applyFilters();
+        }
+
+        // Clean up node names
+        function getReadableNodeName(nodeType) {
+            let name = nodeType;
+            if (name.includes('.')) {
+                name = name.split('.').pop();
+            }
+            if (name.startsWith('lmChat') || name.startsWith('embeddings') || name.startsWith('vectorStore') || name.startsWith('document') || name.startsWith('textSplitter')) {
+                // Langchain nodes
+                name = name.replace(/^[a-z]+/, ''); // strip prefix
+            }
+            // Add spaces before capitals for readability
+            name = name.replace(/([A-Z])/g, ' $1').trim();
+            // Capitalize first letter
+            return name.charAt(0).toUpperCase() + name.slice(1);
+        }
+
+        function getNodeCount(nodes) {
+            if (!nodes) return 0;
+            return Object.values(nodes).reduce((acc, curr) => {
+                if (typeof curr === 'object' && curr !== null) {
+                    return acc + (curr.count || 0);
+                } else if (typeof curr === 'number') {
+                    return acc + curr;
+                }
+                return acc;
+            }, 0);
+        }
+
+        // Apply filters, search and sort
+        function applyFilters() {
+            filteredWorkflows = WORKFLOWS_DATA.filter(w => {
+                if (!w) return false; // skip null/undefined
+                
+                const cats = Array.isArray(w.categories) ? w.categories : [];
+                const nodes = (w.nodes && typeof w.nodes === 'object') ? w.nodes : {};
+
+                // Category filter
+                if (selectedCategory && !cats.includes(selectedCategory)) {
+                    return false;
+                }
+                
+                // Node filter
+                if (selectedNodeFilter) {
+                    const hasNode = Object.keys(nodes).some(nodeType => getReadableNodeName(nodeType) === selectedNodeFilter);
+                    if (!hasNode) return false;
+                }
+
+                // Keyword search
+                if (searchKeyword) {
+                    const matchTitle = (w.title || '').toLowerCase().includes(searchKeyword);
+                    const matchDesc = (w.summary || '').toLowerCase().includes(searchKeyword);
+                    const matchAuthor = (w.author || '').toLowerCase().includes(searchKeyword);
+                    const matchId = (w.id || '').toLowerCase().includes(searchKeyword);
+                    const matchCategory = cats.some(c => c && typeof c === 'string' && c.toLowerCase().includes(searchKeyword));
+                    const matchNode = Object.keys(nodes).some(n => getReadableNodeName(n).toLowerCase().includes(searchKeyword));
+                    
+                    if (!matchTitle && !matchDesc && !matchAuthor && !matchId && !matchCategory && !matchNode) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+            // Sort
+            filteredWorkflows.sort((a, b) => {
+                if (sortBy === 'title-asc') {
+                    return a.title.localeCompare(b.title);
+                } else if (sortBy === 'title-desc') {
+                    return b.title.localeCompare(a.title);
+                } else if (sortBy === 'id-desc') {
+                    return parseInt(b.id || 0) - parseInt(a.id || 0);
+                } else if (sortBy === 'id-asc') {
+                    return parseInt(a.id || 0) - parseInt(b.id || 0);
+                } else if (sortBy === 'node-desc') {
+                    const aCount = getNodeCount(a.nodes);
+                    const bCount = getNodeCount(b.nodes);
+                    return bCount - aCount;
+                }
+                return 0;
+            });
+
+            filteredTotalEl.textContent = filteredWorkflows.length.toLocaleString();
+            renderGrid();
+            renderPagination();
+        }
+
+        // Render workflow grid cards
+        function renderGrid() {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, filteredWorkflows.length);
+            const pageItems = filteredWorkflows.slice(startIndex, endIndex);
+
+            displayedCountEl.textContent = `${startIndex + 1}-${endIndex}`;
+
+            if (pageItems.length === 0) {
+                workflowGrid.innerHTML = `
+                    <div style="grid-column: span 3; text-align: center; padding: 4rem 0; color: var(--text-muted);">
+                        <h3>No workflows match your search filters</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            workflowGrid.innerHTML = pageItems.map(w => {
+                if (!w) return ''; // skip null/undefined workflows
+                
+                const totalNodes = getNodeCount(w.nodes || {});
+                const categoriesHTML = (Array.isArray(w.categories) ? w.categories : []).map(c => `<span class="tag">${c || 'Uncategorized'}</span>`).join('');
+                
+                // Show up to 3 distinct node types as tag representation
+                const nodePills = Object.keys(w.nodes || {}).slice(0, 3).map(n => 
+                    `<span class="tag node-tag">${getReadableNodeName(n)}</span>`
+                ).join('');
+
+                return `
+                    <div class="workflow-card" onclick="openDetails('${w.id || ''}')">
+                        <div class="workflow-header">
+                            <span class="workflow-id">ID: ${w.id || 'N/A'}</span>
+                        </div>
+                        <h3 class="workflow-title">${w.title || 'Untitled Workflow'}</h3>
+                        <p class="workflow-desc">${w.summary || 'No description available for this automation.'}</p>
+                        <div class="tag-row">
+                            ${categoriesHTML}
+                            ${nodePills}
+                        </div>
+                        <div class="workflow-footer">
+                            <span class="author-info">By ${w.author || 'Unknown'}</span>
+                            <span class="node-count">🎛️ ${totalNodes} nodes</span>
+                        </div>
+                    </div>
+                `;
+            }).filter(html => html).join('');
+        }
+
+        // Render pagination controls
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredWorkflows.length / itemsPerPage);
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+
+            let buttons = [];
+            
+            // Prev Button
+            buttons.push(`<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">Prev</button>`);
+
+            // Page numbers rules:
+            // Show page 1, active page surrounding pages, and last page. Dot blocks in between.
+            const range = 2; // how many pages before/after current to show
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+                    buttons.push(`<button class="page-btn ${currentPage === i ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`);
+                } else if (i === 2 || i === totalPages - 1) {
+                    buttons.push(`<span class="page-dots">...</span>`);
+                }
+            }
+
+            // Remove adjacent double dots
+            let filteredButtons = [];
+            let lastWasDots = false;
+            buttons.forEach(btn => {
+                if (btn.includes('page-dots')) {
+                    if (!lastWasDots) {
+                        filteredButtons.push(btn);
+                        lastWasDots = true;
+                    }
+                } else {
+                    filteredButtons.push(btn);
+                    lastWasDots = false;
+                }
+            });
+
+            // Next Button
+            filteredButtons.push(`<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">Next</button>`);
+
+            paginationContainer.innerHTML = filteredButtons.join('');
+        }
+
+        function changePage(page) {
+            currentPage = page;
+            renderGrid();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Drawer Controls
+        let currentWorkflow = null;
+
+        function openDetails(id) {
+            const workflow = WORKFLOWS_DATA.find(w => w.id === id);
+            if (!workflow) return;
+
+            currentWorkflow = workflow;
+
+            drawerTitle.textContent = workflow.title;
+            drawerMetaId.textContent = workflow.id;
+            drawerMetaAuthor.textContent = workflow.author;
+            
+            if (workflow.url_n8n) {
+                drawerMetaLink.href = workflow.url_n8n;
+                drawerMetaLink.textContent = "n8n.io/workflows/" + workflow.id;
+                drawerMetaLink.style.display = 'inline';
+            } else {
+                drawerMetaLink.style.display = 'none';
+            }
+
+            const totalNodes = getNodeCount(workflow.nodes);
+            drawerMetaNodeCount.textContent = totalNodes;
+
+            drawerMetaDesc.textContent = workflow.summary || "No workflow description provided.";
+
+            // Nodes breakdown
+            drawerMetaNodesList.innerHTML = Object.keys(workflow.nodes || {}).map(node => {
+                const nodeVal = workflow.nodes[node];
+                const count = (typeof nodeVal === 'object' && nodeVal !== null) ? (nodeVal.count || 0) : (nodeVal || 0);
+                return `
+                    <div class="node-detail-pill">
+                        <span>${getReadableNodeName(node)}</span>
+                        <span class="node-detail-count">${count}</span>
+                    </div>
+                `;
+            }).join('');
+
+            // File links
+            const folderEscaped = encodeURIComponent(workflow.folder_name);
+            const readmeEscaped = encodeURIComponent(workflow.readme_file || '');
+            const jsonEscaped = encodeURIComponent(workflow.workflow_json || '');
+            const imageEscaped = encodeURIComponent(workflow.image_file || '');
+
+            btnOpenReadme.href = `./n8nworkflows.xyz/workflows/${folderEscaped}/${readmeEscaped}`;
+            btnOpenReadme.style.display = workflow.readme_file ? 'inline-flex' : 'none';
+
+            btnOpenJson.href = `./n8nworkflows.xyz/workflows/${folderEscaped}/${jsonEscaped}`;
+            btnOpenJson.style.display = workflow.workflow_json ? 'inline-flex' : 'none';
+
+            if (workflow.image_file) {
+                drawerImg.src = `./n8nworkflows.xyz/workflows/${folderEscaped}/${imageEscaped}`;
+                drawerImg.parentElement.style.display = 'flex';
+            } else {
+                drawerImg.parentElement.style.display = 'none';
+            }
+
+            btnCopyPath.textContent = "Copy Local Path";
+
+            // Open animations
+            drawerOverlay.classList.add('open');
+            drawer.classList.add('open');
+        }
+
+        function closeDrawer() {
+            drawerOverlay.classList.remove('open');
+            drawer.classList.remove('open');
+            currentWorkflow = null;
+        }
+
+        // Copy path helper
+        btnCopyPath.addEventListener('click', () => {
+            if (!currentWorkflow) return;
+            const fullPath = `/Users/venkatkarthik/Desktop/Zovance/n8nworkflows.xyz/workflows/${currentWorkflow.folder_name}`;
+            navigator.clipboard.writeText(fullPath).then(() => {
+                btnCopyPath.textContent = "Copied Path!";
+                setTimeout(() => {
+                    btnCopyPath.textContent = "Copy Local Path";
+                }, 2000);
+            });
+        });
+
+        // Initialize dashboard on load
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
