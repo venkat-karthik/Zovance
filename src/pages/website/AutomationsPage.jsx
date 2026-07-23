@@ -340,15 +340,56 @@ export default function AutomationsPage() {
                   </button>
                 </div>
                 <form onSubmit={handleBookingSubmit} style={{ flex: 1, overflowY: 'auto', padding: 32, display: 'flex', flexDirection: 'column', gap: 20 }}>
-                  {/* Form fields will be added in next part */}
+                  {/* Automation Title */}
                   <div>
                     <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Automation</label>
                     <input type="text" value={formData.automationTitle} disabled style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', color: '#999', fontSize: 14, fontFamily: 'inherit', opacity: 0.6 }} />
                   </div>
-                  {/* Additional form fields... (truncated for space) */}
-                  <input type="text" name="name" placeholder="Full Name*" value={formData.name} onChange={handleFormChange} required style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', color: '#fff', fontSize: 14 }} />
-                  <input type="email" name="email" placeholder="Email*" value={formData.email} onChange={handleFormChange} required style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', color: '#fff', fontSize: 14 }} />
-                  <button type="submit" disabled={bookingLoading} style={{ marginTop: 'auto', padding: '14px 24px', borderRadius: 10, background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', border: 'none', fontWeight: 700, fontSize: 15, cursor: bookingLoading ? 'not-allowed' : 'pointer', opacity: bookingLoading ? 0.7 : 1 }}>
+
+                  {/* Full Name */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Full Name *</label>
+                    <input type="text" name="name" value={formData.name} onChange={handleFormChange} required placeholder="Your full name" style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none', transition: 'all 0.2s' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Email */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Business Email *</label>
+                    <input type="email" name="email" value={formData.email} onChange={handleFormChange} required placeholder="your@company.com" style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Company */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Company Name</label>
+                    <input type="text" name="company" value={formData.company} onChange={handleFormChange} placeholder="Your company" style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Phone */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>WhatsApp / Phone</label>
+                    <input type="tel" name="phone" value={formData.phone} onChange={handleFormChange} placeholder="+91 8309827125" style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Date */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Preferred Setup Date</label>
+                    <input type="date" name="date" value={formData.date} onChange={handleFormChange} style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Time */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Preferred Time</label>
+                    <input type="time" name="time" value={formData.time} onChange={handleFormChange} style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#9ca3af', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Additional Details</label>
+                    <textarea name="message" value={formData.message} onChange={handleFormChange} placeholder="Describe your requirements, integrations needed..." rows={4} style={{ width: '100%', padding: '12px 16px', borderRadius: 10, background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(99, 102, 241, 0.2)', color: '#fff', fontSize: 14, fontFamily: 'inherit', outline: 'none', resize: 'vertical' }} onFocus={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.6)'} onBlur={(e) => e.target.style.borderColor = 'rgba(99, 102, 241, 0.2)'} />
+                  </div>
+
+                  {/* Submit Button */}
+                  <button type="submit" disabled={bookingLoading} style={{ marginTop: 'auto', padding: '14px 24px', borderRadius: 10, background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', border: 'none', fontWeight: 700, fontSize: 15, cursor: bookingLoading ? 'not-allowed' : 'pointer', opacity: bookingLoading ? 0.7 : 1, transition: 'all 0.3s', width: '100%' }}>
                     {bookingLoading ? 'Submitting...' : 'Request Automation Setup'}
                   </button>
                 </form>
