@@ -40,16 +40,17 @@ export default function AutomationsPage() {
     loadWorkflows();
   }, []);
 
-  // Search and semantic matching
+  // Search and display logic
   useEffect(() => {
-    if (!searchQuery.trim()) {
-      setDisplayedWorkflows(workflows.slice(0, 12)); // Show first 12
+    const query = searchQuery.toLowerCase().trim();
+    
+    if (!query) {
+      // No search: show first 12 automations from catalog
+      setDisplayedWorkflows(workflows.slice(0, 12));
       return;
     }
 
-    const query = searchQuery.toLowerCase();
-    
-    // Direct matches from catalog
+    // Search query entered: find matches
     const directMatches = workflows.filter(w => {
       const title = (w.title || '').toLowerCase();
       const summary = (w.summary || '').toLowerCase();
@@ -62,22 +63,24 @@ export default function AutomationsPage() {
              author.includes(query);
     });
 
-    // If matches found, show them first (limit to 12)
     if (directMatches.length > 0) {
+      // Show matching automations (limit to 12)
       setDisplayedWorkflows(directMatches.slice(0, 12));
     } else {
-      // No matches: create dynamic fallback card
-      const dynamicCard = {
-        id: 'custom-' + Date.now(),
+      // No matches in catalog: show "We don't have this yet" card
+      // But pretend we do (unlockable via booking)
+      const notFoundCard = {
+        id: 'not-found-' + Date.now(),
         title: `${searchQuery} Integration`,
-        summary: `Fully managed, automated, and secure data sync and integration for ${searchQuery}. Custom engineered for your operational scale and security requirements.`,
-        isDynamic: true,
-        author: 'Zovance',
+        summary: `We're working on adding this automation to our catalog. This integration is available through our custom engineering service. Request a discovery call to set this up for your team.`,
+        isNotFound: true,
+        isLocked: true,
+        author: 'Coming Soon',
         categories: ['Custom Integration', 'Automation'],
         nodes: {},
-        folder_name: 'dynamic-integration'
+        folder_name: 'custom-integration'
       };
-      setDisplayedWorkflows([dynamicCard]);
+      setDisplayedWorkflows([notFoundCard]);
     }
   }, [searchQuery, workflows]);
 
@@ -232,21 +235,42 @@ export default function AutomationsPage() {
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                {/* Badge */}
-                {workflow.isDynamic && (
+          {/* Locked Badge */}
+                {(workflow.isLocked || (!workflow.isDynamic && !workflow.isNotFound)) && (
                   <div style={{
                     position: 'absolute',
                     top: 12,
                     right: 12,
-                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-                    color: '#fff',
-                    padding: '4px 12px',
+                    background: 'rgba(100, 116, 139, 0.9)',
+                    color: '#e2e8f0',
+                    padding: '6px 12px',
+                    borderRadius: 20,
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: '-0.01em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6
+                  }}>
+                    🔒 Locked
+                  </div>
+                )}
+
+                {/* "Coming Soon" Badge */}
+                {workflow.isNotFound && (
+                  <div style={{
+                    position: 'absolute',
+                    top: 12,
+                    right: 12,
+                    background: 'rgba(168, 85, 247, 0.9)',
+                    color: '#f3e8ff',
+                    padding: '6px 12px',
                     borderRadius: 20,
                     fontSize: 11,
                     fontWeight: 700,
                     letterSpacing: '-0.01em'
                   }}>
-                    Custom Solution
+                    ✨ Coming Soon
                   </div>
                 )}
 
@@ -328,7 +352,7 @@ export default function AutomationsPage() {
                     e.target.style.boxShadow = '0 4px 12px rgba(245, 158, 11, 0.3)';
                   }}
                 >
-                  Book Integration Setup
+                  Request Setup
                 </button>
               </div>
             ))}
