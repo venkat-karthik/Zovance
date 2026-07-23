@@ -29,9 +29,24 @@ export default function AutomationsPage() {
   useEffect(() => {
     const loadWorkflows = async () => {
       try {
+        console.log('Loading workflows from /n8n_workflows_data.json');
         const response = await fetch('/n8n_workflows_data.json');
+        console.log('Fetch response status:', response.status);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
-        setWorkflows(Array.isArray(data) ? data : []);
+        console.log('Workflows loaded:', Array.isArray(data) ? data.length : 'not an array');
+        
+        if (Array.isArray(data) && data.length > 0) {
+          setWorkflows(data);
+          setDisplayedWorkflows(data.slice(0, 12)); // Show first 12 on load
+        } else {
+          console.warn('No workflows data received');
+          setWorkflows([]);
+        }
       } catch (error) {
         console.error('Error loading workflows:', error);
         setWorkflows([]);
@@ -207,7 +222,18 @@ export default function AutomationsPage() {
             gap: 'clamp(20px, 3vw, 32px)',
             marginBottom: 'clamp(40px, 8vw, 80px)'
           }}>
-            {displayedWorkflows.map(workflow => (
+            {displayedWorkflows.length === 0 ? (
+              <div style={{
+                gridColumn: '1 / -1',
+                padding: '60px 20px',
+                textAlign: 'center',
+                color: '#9ca3af'
+              }}>
+                <p style={{ fontSize: 16, marginBottom: 12 }}>Loading automations catalog...</p>
+                <p style={{ fontSize: 12, color: '#666' }}>If this persists, check browser console for errors</p>
+              </div>
+            ) : (
+              displayedWorkflows.map(workflow => (
               <div
                 key={workflow.id}
                 style={{
@@ -355,7 +381,8 @@ export default function AutomationsPage() {
                   Request Setup
                 </button>
               </div>
-            ))}
+            ))
+            )}
           </div>
         </div>
       </main>
