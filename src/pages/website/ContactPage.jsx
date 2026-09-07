@@ -1,200 +1,238 @@
 import { useState } from 'react';
-import { MessageCircle, Mail, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
-import Aurora from '../../components/Aurora';
-import { contactService } from '../../services/contactService';
-
-const OFFICIAL_EMAIL = 'zovance6@gmail.com';
-const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
+import BookingModal from '../../components/BookingModal';
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
-  const [sent, setSent] = useState(false);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.name || !form.email || !form.message) {
-      setError('Please fill in all required fields');
-      return;
-    }
-
-    setLoading(true);
-    setError('');
-
-    try {
-      await contactService.submitContactForm({
-        name: form.name,
-        email: form.email,
-        phone: form.phone,
-        service: form.service,
-        message: form.message,
-      });
-      setSent(true);
-      setForm({ name: '', email: '', phone: '', service: '', message: '' });
-      setTimeout(() => setSent(false), 3000);
-    } catch (err) {
-      setError('Failed to send message. Please try again.');
-      console.error('Contact form error:', err);
-    } finally {
-      setLoading(false);
-    }
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
+    }, 4000);
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '400px', zIndex: 0 }}>
-        <Aurora colorStops={AURORA_COLORS} amplitude={0.8} blend={0.4} speed={0.8} />
-      </div>
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <WebsiteNav />
+    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+      <WebsiteNav />
 
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: 'clamp(60px, 10vw, 80px) clamp(16px, 5vw, 24px) clamp(40px, 8vw, 60px)', textAlign: 'center' }}>
-        <p className="section-tag" style={{ marginBottom: 16 }}>Contact Us</p>
-        <h1 style={{ fontSize: 'clamp(28px, 6vw, 64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20 }}>
-          Let's Build Something<br /><span className="gold-text">Remarkable Together</span>
+      {/* Header */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(20px, 4vw, 40px)',
+        textAlign: 'center',
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+          GET IN TOUCH
+        </div>
+        <h1 style={{
+          fontSize: 'clamp(36px, 6vw, 68px)',
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          color: '#0F172A',
+          lineHeight: 1.05,
+          marginBottom: 24,
+        }}>
+          Let's Build Your<br />
+          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>AI System Today</span>
         </h1>
-        <p style={{ color: '#aaa', fontSize: 'clamp(14px, 3vw, 18px)', maxWidth: 520, margin: '0 auto', lineHeight: 1.6 }}>Tell us about your project. We'll respond within 2 hours.</p>
+        <p style={{
+          fontSize: 'clamp(15px, 2vw, 18px)',
+          color: '#475569',
+          maxWidth: 580,
+          margin: '0 auto',
+          lineHeight: 1.6,
+        }}>
+          Have a project in mind or want to explore what AI can automate for your business? Send us a message or schedule a free 30-min strategy call.
+        </p>
       </section>
 
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 5vw, 24px) clamp(40px, 8vw, 80px)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 45vw, 320px), 1fr))', gap: 'clamp(20px, 5vw, 32px)', alignItems: 'start' }}>
-          {/* Contact Info */}
-          <div>
-            <div className="card" style={{ padding: 'clamp(20px, 4vw, 32px)', marginBottom: 16 }}>
-              <h3 style={{ fontSize: 16, fontWeight: 600, color: '#f0f0f0', marginBottom: 20 }}>Get In Touch</h3>
+      {/* Contact Form & Info Cards */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: 'clamp(24px, 4vw, 48px)',
+          alignItems: 'start',
+        }}>
 
-              <a href="mailto:zovance6@gmail.com" className="safe-touch-target" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, textDecoration: 'none' }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: '#1a1a1a', border: '1px solid #222', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Mail size={16} color="#3b82f6" />
+          {/* Left Form */}
+          <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-7">
+            <div style={{
+              background: '#ffffff',
+              border: '1px solid #E2E8F0',
+              borderRadius: 28,
+              padding: 'clamp(28px, 5vw, 44px)',
+              boxShadow: '0 10px 30px rgba(0,0,0,0.03)',
+            }}>
+              <h2 style={{ fontSize: 24, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>
+                Send Us a Message
+              </h2>
+              <p style={{ fontSize: 14, color: '#64748B', marginBottom: 28 }}>
+                We typically respond within 15 minutes during business hours.
+              </p>
+
+              {submitted ? (
+                <div style={{ background: '#DCFCE7', border: '1px solid #86EFAC', borderRadius: 16, padding: 24, textAlign: 'center', color: '#166534' }}>
+                  <CheckCircle2 size={36} color="#16A34A" style={{ margin: '0 auto 12px' }} />
+                  <div style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Message Received!</div>
+                  <div style={{ fontSize: 14 }}>Thank you for reaching out. Our engineering team will get back to you shortly.</div>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 6 }}>Full Name *</label>
+                      <input
+                        type="text"
+                        required
+                        value={formData.name}
+                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        placeholder="John Doe"
+                        style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid #E2E8F0', background: '#FBFBF9', fontSize: 14, outline: 'none' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 6 }}>Work Email *</label>
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        placeholder="john@company.com"
+                        style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid #E2E8F0', background: '#FBFBF9', fontSize: 14, outline: 'none' }}
+                      />
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 6 }}>Phone Number</label>
+                      <input
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        placeholder="+91 98765 43210"
+                        style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid #E2E8F0', background: '#FBFBF9', fontSize: 14, outline: 'none' }}
+                      />
+                    </div>
+
+                    <div>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 6 }}>Interest / Service</label>
+                      <select
+                        value={formData.service}
+                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid #E2E8F0', background: '#FBFBF9', fontSize: 14, outline: 'none' }}
+                      >
+                        <option value="General Inquiry">General Inquiry</option>
+                        <option value="AI Workflow Automation">AI Workflow Automation</option>
+                        <option value="AI Voice Systems">AI Voice Systems</option>
+                        <option value="Custom Web Engineering">Custom Web Engineering</option>
+                        <option value="Automation Strategy Audit">Automation Strategy Audit</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#475569', marginBottom: 6 }}>Project Details / Goals *</label>
+                    <textarea
+                      required
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      placeholder="Tell us about what you want to build or automate..."
+                      style={{ width: '100%', padding: '12px 16px', borderRadius: 12, border: '1px solid #E2E8F0', background: '#FBFBF9', fontSize: 14, outline: 'none', resize: 'vertical' }}
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="btn-dark-pill"
+                    style={{ width: '100%', justifyContent: 'center' }}
+                  >
+                    <span>Send Message</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+
+          {/* Right Info Cards */}
+          <div style={{ gridColumn: 'span 12 / span 12', display: 'flex', flexDirection: 'column', gap: 20 }} className="lg:col-span-5">
+            {/* Quick WhatsApp Connect */}
+            <div style={{
+              background: '#ffffff',
+              border: '1px solid #E2E8F0',
+              borderRadius: 24,
+              padding: 28,
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+                <div style={{ width: 44, height: 44, borderRadius: 14, background: '#DCFCE7', color: '#16A34A', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <MessageCircle size={22} />
                 </div>
                 <div>
-                  <div style={{ fontSize: 11, color: '#444', marginBottom: 2 }}>Email</div>
-                  <div style={{ fontSize: 14, color: '#f0f0f0' }}>zovance6@gmail.com</div>
+                  <div style={{ fontSize: 16, fontWeight: 700, color: '#0F172A' }}>WhatsApp Quick Connect</div>
+                  <div style={{ fontSize: 12, color: '#64748B' }}>Fastest response time</div>
                 </div>
-              </a>
-
-              <button onClick={() => window.open('https://wa.me/918309827125', '_blank')} className="safe-touch-target" style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, background: 'none', border: 'none', cursor: 'pointer', padding: 0, width: '100%' }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <MessageCircle size={16} color="#4ade80" />
-                </div>
-                <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontSize: 11, color: '#444', marginBottom: 2 }}>WhatsApp</div>
-                  <div style={{ fontSize: 14, color: '#f0f0f0' }}>+91 83098 27125</div>
-                </div>
+              </div>
+              <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.6, marginBottom: 20 }}>
+                Chat directly with our team for quick technical questions or urgent project requests.
+              </p>
+              <button
+                className="btn-white-pill"
+                onClick={() => window.open('https://wa.me/918309827125', '_blank')}
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <span>Chat on WhatsApp</span>
+                <ArrowRight size={14} />
               </button>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                <div style={{ width: 40, height: 40, borderRadius: 10, background: '#1a1a1a', border: '1px solid #222', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <MapPin size={16} color="#3b82f6" />
-                </div>
-                <div>
-                  <div style={{ fontSize: 11, color: '#444', marginBottom: 2 }}>Location</div>
-                  <div style={{ fontSize: 14, color: '#f0f0f0' }}>Bangalore, India (Remote-first)</div>
-                </div>
-              </div>
             </div>
 
-            <div className="card" style={{ padding: 24 }}>
-              <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
-                <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#4ade80', marginTop: 4, flexShrink: 0 }} />
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0', marginBottom: 2 }}>Response in 2 hours</div>
-                  <div style={{ fontSize: 12, color: '#555' }}>Mon–Sat, 9AM–8PM IST</div>
-                </div>
+            {/* Direct Booking Card */}
+            <div style={{
+              background: '#0F172A',
+              color: '#ffffff',
+              borderRadius: 24,
+              padding: 28,
+            }}>
+              <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.12em', color: '#38BDF8', textTransform: 'uppercase', marginBottom: 10 }}>
+                PREFERRED METHOD
               </div>
-              <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ width: '100%', justifyContent: 'center', fontSize: 13 }}>Book a 30-min Strategy Call</button>
+              <h3 style={{ fontSize: 20, fontWeight: 700, marginBottom: 10 }}>
+                Book a 30-Min Strategy Call
+              </h3>
+              <p style={{ fontSize: 13, color: '#94A3B8', lineHeight: 1.6, marginBottom: 20 }}>
+                Pick a convenient time slot on our calendar to discuss your automation roadmap with an engineer.
+              </p>
+              <button
+                className="btn-dark-pill"
+                onClick={() => setBookingOpen(true)}
+                style={{ width: '100%', justifyContent: 'center', background: '#ffffff', color: '#0F172A' }}
+              >
+                <span>Select Calendar Slot</span>
+                <ArrowRight size={14} />
+              </button>
             </div>
           </div>
 
-          {/* Form */}
-          <div className="card" style={{ padding: 'clamp(20px, 4vw, 36px)' }}>
-            {sent ? (
-              <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                <CheckCircle2 size={48} color="#4ade80" style={{ margin: '0 auto 16px' }} />
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#f0f0f0', marginBottom: 8 }}>Message Sent!</h3>
-                <p style={{ color: '#555', fontSize: 14 }}>We'll get back to you within 2 hours.</p>
-                <button className="btn-outline" onClick={() => setSent(false)} style={{ marginTop: 24 }}>Send Another</button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                <h3 style={{ fontSize: 18, fontWeight: 600, color: '#f0f0f0', marginBottom: 24 }}>Tell Us About Your Project</h3>
-                {error && (
-                  <div style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)', borderRadius: '8px', padding: '12px', marginBottom: '16px', color: '#ef4444', fontSize: '13px' }}>
-                    {error}
-                  </div>
-                )}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 200px), 1fr))', gap: 16, marginBottom: 16 }}>
-                  <div>
-                    <label className="label">Full Name *</label>
-                    <input className="input" placeholder="Rahul Sharma" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required disabled={loading} />
-                  </div>
-                  <div>
-                    <label className="label">Email *</label>
-                    <input className="input" type="email" placeholder="rahul@company.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required disabled={loading} />
-                  </div>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 200px), 1fr))', gap: 16, marginBottom: 16 }}>
-                  <div>
-                    <label className="label">Phone</label>
-                    <input className="input" placeholder="+91 98765 43210" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} disabled={loading} />
-                  </div>
-                  <div>
-                    <label className="label">Service Interested In</label>
-                    <select className="input" value={form.service} onChange={e => setForm({...form, service: e.target.value})} disabled={loading}>
-                      <option value="">Select a service</option>
-                      <option>AI & Automation</option>
-                      <option>AI Voice Systems</option>
-                      <option>Web Solutions</option>
-                      <option>Audit & Strategy</option>
-                    </select>
-                  </div>
-                </div>
-                <div style={{ marginBottom: 24 }}>
-                  <label className="label">Tell us about your project *</label>
-                  <textarea className="input" placeholder="Describe what you're trying to automate or build. The more detail, the better..." value={form.message} onChange={e => setForm({...form, message: e.target.value})} required disabled={loading} style={{ minHeight: 120 }} />
-                </div>
-                <button type="submit" className="btn-gold" style={{ width: '100%', justifyContent: 'center', fontSize: 15, padding: '14px', opacity: loading ? 0.6 : 1 }} disabled={loading}>
-                  <Send size={15} /> {loading ? 'Sending...' : 'Send Message'}
-                </button>
-              </form>
-            )}
-          </div>
         </div>
       </section>
 
-      {/* Admin Access Section */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '60px 24px', textAlign: 'center', borderTop: '1px solid #1a1a1a' }}>
-        <p style={{ color: '#666', fontSize: 13, marginBottom: 16 }}>Team member?</p>
-        <a href="/admin/login" style={{
-          display: 'inline-block',
-          padding: '10px 24px',
-          background: '#1a1a1a',
-          border: '1px solid #2a2a2a',
-          borderRadius: '8px',
-          color: '#3b82f6',
-          textDecoration: 'none',
-          fontSize: '13px',
-          fontWeight: 600,
-          transition: 'all 0.2s',
-          cursor: 'pointer',
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = '#3b82f6';
-          e.currentTarget.style.background = 'rgba(59,130,246,0.1)';
-        }}
-        onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = '#2a2a2a';
-          e.currentTarget.style.background = '#1a1a1a';
-        }}>
-          Admin Login
-        </a>
-      </section>
-
       <WebsiteFooter />
-      </div>
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   );
 }

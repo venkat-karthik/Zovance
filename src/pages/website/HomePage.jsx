@@ -1,865 +1,1004 @@
 import { useState } from 'react';
-import { ArrowRight, MessageCircle, Star, Cpu, ShieldCheck, Zap, Layers, BarChart3, Clock, TrendingUp, ExternalLink, Globe, Sparkles } from 'lucide-react';
-import { useStore } from '../../store/useStore';
+import { ArrowRight, MessageCircle, Zap, Phone, Layers, BarChart3, ChevronRight, Star, Sparkles, CheckCircle2, ShieldCheck, Terminal, Play, ExternalLink } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
-import PreviousProjects from '../../components/PreviousProjects';
-import Aurora from '../../components/Aurora';
+import { useStore } from '../../store/useStore';
 
-// Testimonials are now managed dynamically from the Admin Dashboard (`useStore`)
-
-const capabilities = [
+const featuredProjects = [
   {
-    title: 'Autonomous AI Sales & Lead Agents',
-    description: 'Custom-trained conversational AI agents deployed across WhatsApp, Web, and Voice to qualify, nurture, and close inbound leads 24/7.',
-    icon: Zap,
-    tag: 'Revenue Engine'
-  },
-  {
-    title: 'Enterprise Workflow & CRM Automation',
-    description: 'Seamless bi-directional integration connecting your CRM, ERP, Billing, and internal communications to eliminate manual data entry entirely.',
-    icon: Layers,
-    tag: 'Operational Speed'
-  },
-  {
-    title: 'Custom Multi-Agent AI Ecosystems',
-    description: 'Specialized autonomous agents collaborating to handle complex document analysis, automated customer support, and financial forecasting.',
-    icon: Cpu,
-    tag: 'Next-Gen Intelligence'
-  }
-];
-
-const clientServicesProvided = [
-  {
-    id: 'primalane',
-    title: 'Prima Lane Luxury Storefront',
-    category: 'E-Commerce & Retail AI',
-    url: 'https://primalane.com/',
-    description: 'Custom high-conversion e-commerce platform featuring automated catalog sync, dynamic checkout experience, and integrated customer retention flows built for Prima Lane.',
-    technologies: ['React', 'Next.js', 'Shopify API', 'Tailwind CSS', 'Stripe'],
-    metrics: [
-      { label: 'Conversion Boost', value: '4.8x' },
-      { label: 'Uptime SLA', value: '99.9%' },
-      { label: 'Revenue Scaled', value: '+340%' }
-    ],
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=500&fit=crop',
-  },
-  {
-    id: 'alluriresorts',
-    title: 'Alluri Resorts Luxury Booking Engine',
-    category: 'Hospitality & Resort Tech',
+    id: 'alluri',
+    name: 'Alluri Resorts',
+    subtitle: 'Luxury Booking Engine',
+    tag: 'Hospitality & Resort Tech',
+    desc: 'A full-stack reservation system with real-time room availability, automated guest WhatsApp communication, and zero-friction payment processing.',
     url: 'https://alluriresorts.com/',
-    description: 'Full-stack luxury resort reservation system with instant room availability engine, automated guest WhatsApp updates, and zero-friction payment processing.',
-    technologies: ['React', 'Node.js', 'Reservation Engine', 'WhatsApp API', 'Stripe'],
+    image: '/alluri-resort.jpg',
+    quote: '"Zovance transformed our booking process. It\'s fast, reliable, and effortless."',
+    author: 'Alluri Resorts Client',
     metrics: [
       { label: 'Monthly Bookings', value: '350+' },
       { label: 'Automated Flow', value: '100%' },
-      { label: 'Booking Speed', value: '< 1 sec' }
+      { label: 'Booking Speed', value: '< 1 sec' },
     ],
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=500&fit=crop',
+  },
+  {
+    id: 'primalane',
+    name: 'Prima Lane',
+    subtitle: 'Luxury E-Commerce Platform',
+    tag: 'E-Commerce & Retail AI',
+    desc: 'Custom high-conversion storefront featuring automated inventory sync, dynamic checkout experience, and integrated WhatsApp cart recovery flows.',
+    url: 'https://primalane.com/',
+    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=500&fit=crop',
+    quote: '"Our sales increased by 3.4x within 60 days of deploying Zovance\'s AI retention workflow."',
+    author: 'Prima Lane Founder',
+    metrics: [
+      { label: 'Conversion Boost', value: '4.8x' },
+      { label: 'Uptime SLA', value: '99.9%' },
+      { label: 'Revenue Scaled', value: '+340%' },
+    ],
   },
   {
     id: 'manacare',
-    title: 'Mana Care Patient Management Suite',
-    category: 'Healthcare & Clinical Workflow AI',
-    url: 'http://mana-care.vercel.app/',
-    description: 'Intelligent healthcare management platform automating doctor scheduling, electronic health records (EHR), patient triage, and automated follow-up sequences.',
-    technologies: ['React', 'Vite', 'Cloud DB', 'Patient Portal', 'Telehealth'],
+    name: 'Mana Care',
+    subtitle: 'Healthcare Voice AI Suite',
+    tag: 'Healthcare & Medical Tech',
+    desc: 'Multilingual 24/7 AI voice caller system that handles patient appointment intake, prescription reminders, and EMR calendar synchronization.',
+    url: '#',
+    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&h=500&fit=crop',
+    quote: '"No more chaotic phone lines during morning hours. The AI handles 200+ appointment calls daily."',
+    author: 'MedCare Operations',
     metrics: [
-      { label: 'Faster Check-ins', value: '60%' },
-      { label: 'Scheduling Friction', value: 'Zero' },
-      { label: 'Patient Access', value: '24/7' }
+      { label: 'Call Wait Reduction', value: '60%' },
+      { label: 'Daily Voice Calls', value: '200+' },
+      { label: 'Missed Calls', value: '0%' },
     ],
-    image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=500&fit=crop',
-  },
-  {
-    id: 'claimsdashboard',
-    title: 'Claims Automation Analytics Dashboard',
-    category: 'Enterprise Fintech & Insurance AI',
-    url: 'https://claims-bice.vercel.app/dashboard',
-    description: 'Enterprise claims processing dashboard powered by automated risk assessment workflows, real-time analytics, and automated approval pipelines.',
-    technologies: ['React', 'Claims Engine', 'Chart.js', 'Document AI', 'Analytics'],
-    metrics: [
-      { label: 'Reduced Claim Time', value: '75%' },
-      { label: 'Processing Accuracy', value: '99.2%' },
-      { label: 'Claims Automated', value: '10k+' }
-    ],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop',
-  },
-  {
-    id: 'kesarkosmetics',
-    title: 'Kesar Kosmetics Digital Storefront',
-    category: 'Beauty & Cosmetics E-Commerce',
-    url: 'https://www.kesarkosmetics.com/',
-    description: 'Ultra-fast digital storefront engineered for Kesar Kosmetics, featuring interactive product showcases, personalized beauty consultation quizzes, and one-click cart checkout.',
-    technologies: ['React', 'E-Commerce Engine', 'Inventory API', 'Tailwind CSS'],
-    metrics: [
-      { label: 'Mobile Conversion', value: '3.2x' },
-      { label: 'Repeat Buyer Growth', value: '45%' },
-      { label: 'Page Load', value: '< 800ms' }
-    ],
-    image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&h=500&fit=crop',
-  },
-  {
-    id: 'weatherwiz',
-    title: 'Weather Wiz Analytics & Forecast Engine',
-    category: 'Weather Intelligence & Geospatial Analytics',
-    url: 'https://weather-wiz-ta32.vercel.app/',
-    description: 'Hyper-local weather forecasting application with live atmospheric data visualization, severe weather alert triggers, and interactive climate charts.',
-    technologies: ['React', 'OpenWeather API', 'GeoLocation', 'Chart.js', 'Vite'],
-    metrics: [
-      { label: 'Weather Intelligence', value: 'Real-time' },
-      { label: 'Active Queries', value: '50k+' },
-      { label: 'Alert Accuracy', value: '99.8%' }
-    ],
-    image: 'https://images.unsplash.com/photo-1592210454359-9043f067919b?w=800&h=500&fit=crop',
   },
 ];
 
 export default function HomePage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [teamSize, setTeamSize] = useState(25);
-  const [avgHourlyCost, setAvgHourlyCost] = useState(800);
-  const { getPublishedProjects, getPublishedTestimonials } = useStore();
-  const publishedProjects = getPublishedProjects();
-  const publishedTestimonials = getPublishedTestimonials ? getPublishedTestimonials() : [];
-
-  // ROI Calculator computation
-  const hoursSavedPerEmployee = 14; // 14 hours saved per week
-  const monthlySavings = Math.round((teamSize * hoursSavedPerEmployee * avgHourlyCost * 4.33) / 1000) * 1000;
-  const annualSavings = monthlySavings * 12;
+  const [activeProjectIdx, setActiveProjectIdx] = useState(0);
+  const activeProj = featuredProjects[activeProjectIdx];
 
   return (
-    <div style={{ minHeight: '100vh', background: '#060608', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, overflow: 'hidden' }}>
-        <Aurora colorStops={['#1e293b', '#2563eb', '#0f172a']} blend={0.6} amplitude={0.8} speed={0.5} />
-      </div>
+    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+      <WebsiteNav />
 
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <WebsiteNav />
+      {/* ================= HERO SECTION WITH ANIMATED AMBIENT MESH GLOW ================= */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: 'clamp(40px, 6vw, 80px) clamp(16px, 4vw, 36px)',
+        position: 'relative',
+      }}>
+        {/* Animated Mesh Glow Background */}
+        <div
+          className="ambient-mesh-glow"
+          style={{
+            position: 'absolute',
+            top: -80,
+            left: '15%',
+            width: 500,
+            height: 450,
+            background: 'radial-gradient(circle, rgba(52, 211, 153, 0.16) 0%, rgba(99, 102, 241, 0.1) 40%, rgba(251, 113, 133, 0.08) 80%, transparent 100%)',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
 
-        {/* Hero Section */}
-        <section className="aurora-bg-wrapper" style={{
-          maxWidth: 1240,
-          margin: '0 auto',
-          padding: 'clamp(70px, 12vw, 130px) clamp(20px, 5vw, 32px) clamp(60px, 10vw, 100px)',
-          textAlign: 'center',
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: 'clamp(24px, 4vw, 48px)',
+          alignItems: 'center',
           position: 'relative',
+          zIndex: 1,
         }}>
-          <div className="fade-up">
-            {/* Status Badge */}
+
+          {/* Hero Content Block with Laptop Mockup beside text */}
+          <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-12">
+            
+            {/* Top Studio Pill Badge + Live Availability */}
             <div style={{
-              display: 'inline-flex',
+              display: 'flex',
               alignItems: 'center',
-              gap: 10,
-              padding: 'clamp(8px, 2vw, 10px) clamp(16px, 3vw, 22px)',
-              borderRadius: 999,
-              border: '1px solid rgba(59, 130, 246, 0.3)',
-              background: 'rgba(59, 130, 246, 0.08)',
-              marginBottom: 'clamp(24px, 5vw, 36px)',
-              boxShadow: '0 0 24px rgba(59, 130, 246, 0.15)',
+              gap: 12,
+              flexWrap: 'wrap',
+              marginBottom: 24,
             }}>
               <div style={{
-                width: 8,
-                height: 8,
-                borderRadius: '50%',
-                background: '#38bdf8',
-                boxShadow: '0 0 10px #38bdf8',
-                animation: 'pulse 2s ease-in-out infinite',
-              }} />
-              <span style={{ fontSize: 'clamp(12px, 2vw, 13px)', color: '#93c5fd', fontWeight: 600, letterSpacing: '0.02em' }}>
-                Next-Gen Autonomous AI Systems for High-Growth Enterprises
-              </span>
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 16px',
+                borderRadius: 9999,
+                background: '#ffffff',
+                border: '1px solid #E2E8F0',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
+              }}>
+                <div style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: '50%',
+                  background: '#22c55e',
+                  boxShadow: '0 0 10px #22c55e',
+                }} />
+                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#0F172A', textTransform: 'uppercase' }}>
+                  NEXT-GEN AI AUTOMATION STUDIO
+                </span>
+              </div>
+
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '6px 14px',
+                borderRadius: 9999,
+                background: '#DCFCE7',
+                border: '1px solid #86EFAC',
+                color: '#166534',
+                fontSize: 12,
+                fontWeight: 700,
+              }}>
+                <Sparkles size={13} color="#15803D" />
+                <span>🟢 2 Execution Slots Open for Sep 2026</span>
+              </div>
             </div>
 
-            {/* Main Heading */}
-            <h1 style={{
-              fontSize: 'clamp(36px, 7.5vw, 84px)',
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
-              lineHeight: 1.08,
-              color: '#ffffff',
-              marginBottom: 28,
-              maxWidth: 1080,
-              margin: '0 auto 28px',
-            }}>
-              Turn Your Enterprise Into An
-              <br />
-              <span className="gold-text">Autonomous AI Powerhouse</span>
-            </h1>
+            {/* Headline + Laptop Image Beside Text Container */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'clamp(20px, 4vw, 40px)', flexWrap: 'wrap', marginBottom: 28 }}>
+              <div style={{ flex: '1 1 300px', minWidth: 280 }}>
+                <h1 style={{
+                  fontSize: 'clamp(38px, 5.5vw, 68px)',
+                  fontWeight: 700,
+                  lineHeight: 1.04,
+                  letterSpacing: '-0.03em',
+                  color: '#0F172A',
+                  marginBottom: 16,
+                }}>
+                  Turn Ideas<br />
+                  Into Real<br />
+                  <span className="impact-gradient font-serif" style={{ fontStyle: 'italic', paddingRight: 8 }}>
+                    Impact.
+                  </span>
+                </h1>
+                <p style={{
+                  fontSize: 'clamp(14px, 1.8vw, 17px)',
+                  color: '#475569',
+                  lineHeight: 1.6,
+                  maxWidth: 480,
+                }}>
+                  We design, build, and deploy AI-powered systems that automate, scale, and create measurable growth for modern businesses.
+                </p>
+              </div>
 
-            {/* Subheading */}
-            <p style={{
-              color: '#94a3b8',
-              fontSize: 'clamp(16px, 3vw, 20px)',
-              maxWidth: 680,
-              margin: '0 auto 44px',
-              lineHeight: 1.65,
-              fontWeight: 400,
+              {/* Laptop Mockup Image Card directly beside text (~2cm Larger) */}
+              <div style={{ flex: '0 1 620px', minWidth: 340 }}>
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  borderRadius: 24,
+                  overflow: 'hidden',
+                  boxShadow: '0 20px 48px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04)',
+                  border: '1px solid #E2E8F0',
+                  background: '#ffffff',
+                  transition: 'transform 0.3s ease',
+                }}>
+                  <img
+                    src="/hero-mockup.jpg"
+                    alt="Zovance Laptop Workplace Dashboard"
+                    style={{
+                      width: '100%',
+                      height: 'auto',
+                      maxHeight: 420,
+                      display: 'block',
+                      objectFit: 'cover',
+                    }}
+                  />
+
+                  {/* Floating Glassmorphic Badges Stack */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 8,
+                    width: 155,
+                  }}>
+                    <div className="glass-float-card" style={{ padding: '8px 12px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <div style={{ width: 24, height: 24, borderRadius: 6, background: '#ede9fe', color: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <MessageCircle size={13} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>AI Agents</div>
+                          <div style={{ fontSize: 9, color: '#64748B' }}>24/7 support</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="glass-float-card" style={{ padding: '8px 12px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                        <div style={{ width: 24, height: 24, borderRadius: 6, background: '#fee2e2', color: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <Zap size={13} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>Workflows</div>
+                          <div style={{ fontSize: 9, color: '#64748B' }}>Save 100+ hrs</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Bottom Book Overlay Tag */}
+                  <div style={{
+                    position: 'absolute',
+                    bottom: 14,
+                    left: 14,
+                    background: 'rgba(15, 23, 42, 0.75)',
+                    backdropFilter: 'blur(10px)',
+                    color: '#ffffff',
+                    padding: '6px 12px',
+                    borderRadius: 8,
+                    fontSize: 10,
+                    fontWeight: 600,
+                    letterSpacing: '0.05em',
+                  }}>
+                    A MORE AUTOMATED WORLD
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Tech Stack Badge Pills */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              flexWrap: 'wrap',
+              marginBottom: 32,
             }}>
-              We architect, train, and deploy custom AI automation systems that eliminate bottlenecks, scale revenue effortlessly, and operate with zero downtime.
-            </p>
+              {['WhatsApp API', 'Voice AI Agents', 'OpenAI GPT-4o', 'N8N Pipelines', 'Stripe Billing'].map((tech) => (
+                <span key={tech} style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#475569',
+                  background: '#ffffff',
+                  border: '1px solid #E2E8F0',
+                  padding: '4px 12px',
+                  borderRadius: 9999,
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.02)',
+                }}>
+                  {tech}
+                </span>
+              ))}
+            </div>
 
             {/* CTA Buttons */}
             <div style={{
               display: 'flex',
-              gap: 16,
-              justifyContent: 'center',
+              alignItems: 'center',
+              gap: 14,
               flexWrap: 'wrap',
+              marginBottom: 28,
             }}>
               <button
-                className="btn-gold"
+                className="btn-dark-pill"
                 onClick={() => setBookingOpen(true)}
-                style={{
-                  fontSize: 'clamp(14px, 2vw, 16px)',
-                  padding: '16px 36px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                }}
               >
-                Schedule AI Architecture Call
-                <ArrowRight size={18} />
+                <span>Book a Strategy Call</span>
+                <ArrowRight size={16} />
               </button>
+
               <button
-                className="btn-outline"
+                className="btn-white-pill"
                 onClick={() => window.open('https://wa.me/918309827125', '_blank')}
-                style={{
-                  fontSize: 'clamp(14px, 2vw, 16px)',
-                  padding: '16px 36px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                }}
-              >
-                <MessageCircle size={18} color="#38bdf8" />
-                Live WhatsApp Consult
-              </button>
-            </div>
-          </div>
-
-          {/* Premium Enterprise Stats Bar */}
-          <div style={{
-            marginTop: 'clamp(50px, 9vw, 90px)',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 22vw, 220px), 1fr))',
-            gap: 1,
-            background: 'rgba(255, 255, 255, 0.08)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: 20,
-            overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(16px)',
-          }}>
-            {[
-              ['₹3.4 Lakh+', 'Client Revenue Scaled', TrendingUp, '#38bdf8'],
-              ['13+', 'Autonomous Systems Built', Cpu, '#60a5fa'],
-              ['99.4%', 'System Uptime & SLA', ShieldCheck, '#4ade80'],
-              ['4.6x', 'Avg. Enterprise ROI', BarChart3, '#93c5fd'],
-            ].map(([val, label, IconComp, color], idx) => (
-              <div
-                key={label}
-                style={{
-                  background: 'rgba(15, 23, 42, 0.75)',
-                  padding: 'clamp(20px, 4vw, 32px)',
-                  textAlign: 'center',
-                }}
-              >
-                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 8 }}>
-                  <IconComp size={20} color={color} />
-                </div>
-                <div style={{
-                  fontSize: 'clamp(24px, 4.5vw, 34px)',
-                  fontWeight: 800,
-                  color: '#ffffff',
-                  letterSpacing: '-0.03em',
-                }}>
-                  {val}
-                </div>
-                <div style={{
-                  color: '#94a3b8',
-                  fontSize: 'clamp(11px, 2vw, 13px)',
-                  fontWeight: 500,
-                  marginTop: 4,
-                }}>
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Core Capabilities Section */}
-        <section style={{
-          maxWidth: 1240,
-          margin: '0 auto',
-          padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 32px)',
-        }}>
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(40px, 8vw, 64px)' }}>
-            <p className="section-tag fade-up" style={{ marginBottom: 14 }}>
-              System Architecture
-            </p>
-            <h2 className="fade-up" style={{
-              fontSize: 'clamp(28px, 5.5vw, 50px)',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              color: '#ffffff',
-            }}>
-              What We Build For Your Business
-            </h2>
-          </div>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 380px), 1fr))',
-            gap: 24,
-          }}>
-            {capabilities.map((cap, idx) => (
-              <div
-                key={cap.title}
-                className="glass-card scale-in"
-                style={{
-                  animationDelay: `${idx * 0.1}s`,
-                  padding: 'clamp(24px, 5vw, 36px)',
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
               >
                 <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  padding: '4px 12px',
-                  borderRadius: 999,
-                  background: 'rgba(59, 130, 246, 0.12)',
-                  color: '#60a5fa',
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                  marginBottom: 20,
-                  border: '1px solid rgba(59, 130, 246, 0.25)',
-                }}>
-                  {cap.tag}
-                </div>
-
-                <div style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 14,
-                  background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(59, 130, 246, 0.05))',
-                  border: '1px solid rgba(59, 130, 246, 0.3)',
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  background: '#22c55e',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: 20,
-                }}>
-                  <cap.icon size={24} color="#38bdf8" />
-                </div>
-
-                <h3 style={{
-                  fontSize: 'clamp(18px, 3vw, 22px)',
-                  fontWeight: 700,
                   color: '#ffffff',
-                  marginBottom: 12,
-                  letterSpacing: '-0.02em',
                 }}>
-                  {cap.title}
-                </h3>
-
-                <p style={{
-                  color: '#94a3b8',
-                  fontSize: 'clamp(13px, 2vw, 15px)',
-                  lineHeight: 1.65,
-                }}>
-                  {cap.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Services Provided To Our Clients Section */}
-        <section style={{
-          maxWidth: 1240,
-          margin: '0 auto',
-          padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 32px)',
-        }}>
-          <div style={{ textAlign: 'center', marginBottom: 'clamp(40px, 8vw, 64px)' }}>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '6px 16px',
-              borderRadius: 999,
-              background: 'rgba(56, 189, 248, 0.1)',
-              border: '1px solid rgba(56, 189, 248, 0.3)',
-              color: '#38bdf8',
-              fontSize: 13,
-              fontWeight: 600,
-              marginBottom: 16,
-            }}>
-              <Globe size={14} />
-              <span>Proven Client Impact</span>
+                  <MessageCircle size={12} />
+                </div>
+                <span>Chat on WhatsApp</span>
+              </button>
             </div>
-            <h2 className="fade-up" style={{
-              fontSize: 'clamp(28px, 5.5vw, 52px)',
-              fontWeight: 800,
-              letterSpacing: '-0.03em',
-              color: '#ffffff',
+
+            {/* Social Proof Founder Rating Chip */}
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 10,
+              marginBottom: 44,
             }}>
-              Services Provided To Our Clients
-            </h2>
-            <p style={{
-              color: '#94a3b8',
-              fontSize: 'clamp(14px, 2.5vw, 17px)',
-              maxWidth: 680,
-              margin: '12px auto 0',
-              lineHeight: 1.6,
+              <div style={{ display: 'flex', gap: 2 }}>
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={14} fill="#f59e0b" color="#f59e0b" />
+                ))}
+              </div>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>
+                4.9/5 Average Rating
+              </span>
+              <span style={{ fontSize: 12, color: '#64748B' }}>
+                • Trusted by 30+ Companies
+              </span>
+            </div>
+
+            {/* Integrated Client Trust Marquee with Continuous Motion (Above Metrics) */}
+            <div style={{
+              marginTop: 36,
+              paddingTop: 20,
+              paddingBottom: 24,
+              borderTop: '1px solid #E2E8F0',
+              borderBottom: '1px solid #E2E8F0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 20,
+              overflow: 'hidden',
             }}>
-              Explore custom e-commerce stores, healthcare portals, booking platforms, and automated dashboards built and deployed by our team for live client operations.
-            </p>
-          </div>
+              <div style={{
+                fontSize: 10,
+                fontWeight: 700,
+                letterSpacing: '0.14em',
+                color: '#64748B',
+                textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                paddingRight: 16,
+                borderRight: '1px solid #E2E8F0',
+              }}>
+                TRUSTED BY
+              </div>
 
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 380px), 1fr))',
-            gap: 24,
-          }}>
-            {clientServicesProvided.map((service, idx) => (
-              <div
-                key={service.id}
-                className="glass-card scale-in"
-                style={{
-                  animationDelay: `${idx * 0.08}s`,
-                  background: 'rgba(15, 23, 42, 0.75)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  borderRadius: 22,
-                  overflow: 'hidden',
-                  transition: 'all 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  boxShadow: '0 12px 36px rgba(0, 0, 0, 0.45)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(56, 189, 248, 0.4)';
-                  e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.boxShadow = '0 20px 45px rgba(56, 189, 248, 0.18)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.12)';
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 12px 36px rgba(0, 0, 0, 0.45)';
-                }}
-              >
-                {/* Image Header with Category Badge */}
-                <div style={{
-                  width: '100%',
-                  height: 200,
-                  background: `url(${service.image}) center/cover no-repeat`,
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}>
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(180deg, rgba(6, 6, 8, 0.25) 0%, rgba(15, 23, 42, 0.95) 100%)',
-                  }} />
-
-                  <div style={{
-                    position: 'absolute',
-                    top: 14,
-                    left: 14,
-                    background: 'rgba(15, 23, 42, 0.85)',
-                    backdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(56, 189, 248, 0.35)',
-                    color: '#38bdf8',
-                    fontSize: 11,
-                    fontWeight: 600,
-                    padding: '5px 12px',
-                    borderRadius: 999,
-                    letterSpacing: '0.03em',
-                  }}>
-                    {service.category}
-                  </div>
-                </div>
-
-                {/* Content Body */}
-                <div style={{
-                  padding: 'clamp(20px, 4vw, 28px)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flex: 1,
-                }}>
-                  <h3 style={{
-                    fontSize: 'clamp(18px, 3vw, 22px)',
-                    fontWeight: 700,
-                    color: '#ffffff',
-                    marginBottom: 10,
-                    lineHeight: 1.3,
-                    letterSpacing: '-0.02em',
-                  }}>
-                    {service.title}
-                  </h3>
-
-                  <p style={{
-                    color: '#94a3b8',
-                    fontSize: 'clamp(13px, 2vw, 15px)',
-                    lineHeight: 1.65,
-                    marginBottom: 20,
-                    flex: 1,
-                  }}>
-                    {service.description}
-                  </p>
-
-                  {/* Technologies */}
-                  <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 6,
-                    marginBottom: 20,
-                  }}>
-                    {service.technologies.map((tech, i) => (
-                      <span
-                        key={i}
-                        style={{
-                          fontSize: '11px',
-                          padding: '4px 10px',
-                          borderRadius: 999,
-                          background: 'rgba(59, 130, 246, 0.12)',
-                          color: '#60a5fa',
-                          border: '1px solid rgba(59, 130, 246, 0.25)',
-                          fontWeight: 500,
-                        }}
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Metrics */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: 8,
-                    marginBottom: 24,
-                  }}>
-                    {service.metrics.map((m, i) => (
-                      <div
-                        key={i}
-                        style={{
-                          background: 'rgba(15, 23, 42, 0.6)',
-                          border: '1px solid rgba(255, 255, 255, 0.08)',
-                          borderRadius: 12,
-                          padding: '8px 10px',
-                          textAlign: 'center',
-                        }}
-                      >
-                        <div style={{
-                          fontSize: '13px',
-                          fontWeight: 700,
-                          color: '#38bdf8',
-                        }}>
-                          {m.value}
-                        </div>
-                        <div style={{
-                          fontSize: '10px',
-                          color: '#64748b',
-                          marginTop: 2,
-                          fontWeight: 500,
-                        }}>
-                          {m.label}
-                        </div>
+              <div className="marquee-container">
+                <div className="marquee-track">
+                  {[...Array(3)].map((_, loopIdx) => (
+                    <div key={loopIdx} style={{ display: 'flex', alignItems: 'center', gap: 'clamp(28px, 4vw, 52px)' }}>
+                      {/* Alluri Resorts */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, color: '#334155' }}>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                          <circle cx="12" cy="12" r="3" />
+                        </svg>
+                        <span>Alluri Resorts</span>
                       </div>
-                    ))}
-                  </div>
 
-                  {/* Action Link Button */}
-                  <a
-                    href={service.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-gold safe-touch-target"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 8,
-                      width: '100%',
-                      padding: '12px 20px',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      borderRadius: 12,
-                      textDecoration: 'none',
-                      boxSizing: 'border-box',
-                    }}
-                  >
-                    Visit Client Site / Live App
-                    <ExternalLink size={15} />
-                  </a>
+                      {/* PRIMA LANE */}
+                      <div style={{ fontWeight: 800, fontSize: 16, letterSpacing: '0.08em', color: '#1E293B', fontFamily: 'Instrument Serif, serif' }}>
+                        PRIMA LANE
+                      </div>
+
+                      {/* Mana Care */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 15, color: '#334155' }}>
+                        <div style={{ width: 17, height: 17, background: '#475569', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 11, fontWeight: 900 }}>+</div>
+                        <span>Mana Care</span>
+                      </div>
+
+                      {/* Kesar Kosmetics */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontWeight: 600, fontSize: 14, color: '#334155' }}>
+                        <span style={{ fontSize: 15 }}>✦</span>
+                        <span>Kesar Kosmetics</span>
+                      </div>
+
+                      {/* Weather Wiz */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 600, fontSize: 14, color: '#334155' }}>
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                          <path d="M17.5 19.5A4.5 4.5 0 0 0 21 12c-1.07 0-2.07.38-2.85 1.02A7 7 0 0 0 5 13.5a5 5 0 0 0 1 9.9" />
+                        </svg>
+                        <span>Weather Wiz</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
+            </div>
 
-        {/* Interactive AI Automation ROI Calculator Section */}
-        <section style={{
-          maxWidth: 1240,
-          margin: '0 auto',
-          padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 32px)',
+            {/* Metrics Row (Below Marquee) */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(4, 1fr)',
+              gap: 16,
+              paddingTop: 28,
+            }}>
+              <div>
+                <div style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+                  ₹2.4Cr+
+                </div>
+                <div style={{ fontSize: 11, color: '#64748B', marginTop: 2, fontWeight: 500 }}>
+                  Revenue<br />Generated
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+                  50+
+                </div>
+                <div style={{ fontSize: 11, color: '#64748B', marginTop: 2, fontWeight: 500 }}>
+                  Projects<br />Delivered
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+                  95%
+                </div>
+                <div style={{ fontSize: 11, color: '#64748B', marginTop: 2, fontWeight: 500 }}>
+                  Client<br />Retention
+                </div>
+              </div>
+              <div>
+                <div style={{ fontSize: 'clamp(20px, 3vw, 26px)', fontWeight: 800, color: '#0F172A', letterSpacing: '-0.02em' }}>
+                  3x
+                </div>
+                <div style={{ fontSize: 11, color: '#64748B', marginTop: 2, fontWeight: 500 }}>
+                  Average<br />Client ROI
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ================= WHAT WE DO (SERIF WATERMARK PASTEL CARDS) ================= */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: 'clamp(60px, 8vw, 100px) clamp(16px, 4vw, 36px)',
+      }}>
+        
+        {/* Section Header */}
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-end',
+          flexWrap: 'wrap',
+          gap: 24,
+          marginBottom: 48,
         }}>
-          <div style={{
-            background: 'rgba(15, 23, 42, 0.65)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
+              WHAT WE DO
+            </div>
+            <h2 style={{
+              fontSize: 'clamp(28px, 4vw, 48px)',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              color: '#0F172A',
+              lineHeight: 1.15,
+            }}>
+              End-to-end solutions<br />
+              for modern businesses.
+            </h2>
+          </div>
+
+          <div style={{ maxWidth: 360 }}>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6, marginBottom: 16 }}>
+              From AI agents to full-stack platforms, we build what your business needs next.
+            </p>
+            <button
+              className="btn-white-pill"
+              onClick={() => setBookingOpen(true)}
+              style={{ fontSize: 13, padding: '10px 20px' }}
+            >
+              <span>Explore all services</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        </div>
+
+        {/* 4 Card Pastel Grid with Giant Watermark Numbers */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: 24,
+        }}>
+          
+          {/* Card 01: AI & Workflow Automation */}
+          <div className="card-pastel-peach" style={{
             borderRadius: 24,
-            padding: 'clamp(32px, 6vw, 60px)',
-            boxShadow: '0 24px 60px rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(16px)',
+            padding: 32,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            minHeight: 300,
+            position: 'relative',
+            overflow: 'hidden',
           }}>
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(36px, 6vw, 50px)' }}>
-              <p className="section-tag" style={{ marginBottom: 12 }}>Interactive ROI Simulator</p>
-              <h2 style={{ fontSize: 'clamp(26px, 5vw, 42px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em' }}>
-                Calculate Your Annual Automation Impact
-              </h2>
-              <p style={{ color: '#94a3b8', fontSize: 'clamp(14px, 2.5vw, 16px)', marginTop: 8 }}>
-                See how much time and operational budget our autonomous AI systems unlock for your team.
+            <div className="watermark-num">01</div>
+            <div>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 16,
+                background: '#FFEDD5',
+                color: '#EA580C',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 24,
+                boxShadow: '0 10px 25px rgba(234, 88, 12, 0.18)',
+              }}>
+                <Zap size={24} />
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                AI & Workflow Automation
+              </h3>
+              <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
+                Eliminate manual work with autonomous AI agents and smart workflows.
               </p>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 440px), 1fr))', gap: 40, alignItems: 'center' }}>
-              {/* Sliders */}
-              <div style={{ background: 'rgba(0, 0, 0, 0.3)', padding: 'clamp(20px, 4vw, 32px)', borderRadius: 18, border: '1px solid rgba(255, 255, 255, 0.08)' }}>
-                <div style={{ marginBottom: 28 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-                    <label style={{ color: '#e2e8f0', fontWeight: 600, fontSize: 14 }}>Team Size (Employees)</label>
-                    <span style={{ color: '#38bdf8', fontWeight: 700, fontSize: 16 }}>{teamSize} members</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="5"
-                    max="200"
-                    step="5"
-                    value={teamSize}
-                    onChange={(e) => setTeamSize(parseInt(e.target.value))}
-                    style={{ width: '100%', accentColor: '#3b82f6', cursor: 'pointer', height: 6 }}
-                  />
-                </div>
-
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
-                    <label style={{ color: '#e2e8f0', fontWeight: 600, fontSize: 14 }}>Avg. Hourly Cost per Employee</label>
-                    <span style={{ color: '#38bdf8', fontWeight: 700, fontSize: 16 }}>₹{avgHourlyCost}/hr</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="300"
-                    max="3000"
-                    step="100"
-                    value={avgHourlyCost}
-                    onChange={(e) => setAvgHourlyCost(parseInt(e.target.value))}
-                    style={{ width: '100%', accentColor: '#3b82f6', cursor: 'pointer', height: 6 }}
-                  />
-                </div>
-              </div>
-
-              {/* Output Results */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <div style={{ background: 'linear-gradient(135deg, rgba(37, 99, 235, 0.2), rgba(30, 58, 138, 0.4))', border: '1px solid rgba(59, 130, 246, 0.4)', borderRadius: 18, padding: 'clamp(24px, 4vw, 32px)', textAlign: 'center' }}>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#93c5fd', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
-                    Estimated Annual Financial Value
-                  </div>
-                  <div style={{ fontSize: 'clamp(32px, 6vw, 48px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.04em' }}>
-                    ₹{(annualSavings / 100000).toFixed(1)} Lakhs
-                  </div>
-                  <div style={{ fontSize: 13, color: '#cbd5e1', marginTop: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6 }}>
-                    <Clock size={15} color="#38bdf8" /> Saves approx. {(teamSize * hoursSavedPerEmployee * 52).toLocaleString()} hours annually
-                  </div>
-                </div>
-
-                <button
-                  className="btn-gold"
-                  onClick={() => setBookingOpen(true)}
-                  style={{ width: '100%', justifyContent: 'center', padding: '16px 28px', fontSize: 15 }}
-                >
-                  Claim Your Custom AI Roadmap <ArrowRight size={18} />
-                </button>
-              </div>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 32, position: 'relative', zIndex: 1 }}>
+              <button
+                onClick={() => setBookingOpen(true)}
+                style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 700, color: '#0F172A', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+              >
+                <span>Learn more</span>
+                <ArrowRight size={14} />
+              </button>
+              <span style={{ fontSize: 14, fontWeight: 800, color: '#EA580C' }}>01</span>
             </div>
           </div>
-        </section>
 
-        {/* Client Reviews Section - Automatically appears when testimonials are added in Admin panel */}
-        {publishedTestimonials.length > 0 && (
-          <section style={{
-            maxWidth: 1240,
-            margin: '0 auto',
-            padding: 'clamp(60px, 10vw, 100px) clamp(20px, 5vw, 32px)',
+          {/* Card 02: AI Voice Systems */}
+          <div className="card-pastel-blue" style={{
+            borderRadius: 24,
+            padding: 32,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            minHeight: 300,
+            position: 'relative',
+            overflow: 'hidden',
           }}>
-            <div style={{ textAlign: 'center', marginBottom: 'clamp(40px, 8vw, 64px)' }}>
-              <p className="section-tag fade-up" style={{ marginBottom: 14 }}>Proven Outcomes</p>
-              <h2 className="fade-up" style={{
-                fontSize: 'clamp(28px, 5.5vw, 50px)',
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                color: '#ffffff',
+            <div className="watermark-num">02</div>
+            <div>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 16,
+                background: '#DBEAFE',
+                color: '#2563EB',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 24,
+                boxShadow: '0 10px 25px rgba(37, 99, 235, 0.18)',
               }}>
-                Trusted By Industry Leaders
-              </h2>
+                <Phone size={24} />
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                AI Voice Systems
+              </h3>
+              <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
+                24/7 multilingual voice agents for support, sales, and bookings.
+              </p>
             </div>
 
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 32, position: 'relative', zIndex: 1 }}>
+              <button
+                onClick={() => setBookingOpen(true)}
+                style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 700, color: '#0F172A', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+              >
+                <span>Learn more</span>
+                <ArrowRight size={14} />
+              </button>
+              <span style={{ fontSize: 14, fontWeight: 800, color: '#2563EB' }}>02</span>
+            </div>
+          </div>
+
+          {/* Card 03: Custom Web Engineering */}
+          <div className="card-pastel-pink" style={{
+            borderRadius: 24,
+            padding: 32,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            minHeight: 300,
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div className="watermark-num">03</div>
+            <div>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 16,
+                background: '#FCE7F3',
+                color: '#DB2777',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 24,
+                boxShadow: '0 10px 25px rgba(219, 39, 119, 0.18)',
+              }}>
+                <Layers size={24} />
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                Custom Web Engineering
+              </h3>
+              <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
+                High-performance web apps, e-commerce platforms, and internal tools.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 32, position: 'relative', zIndex: 1 }}>
+              <button
+                onClick={() => setBookingOpen(true)}
+                style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 700, color: '#0F172A', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+              >
+                <span>Learn more</span>
+                <ArrowRight size={14} />
+              </button>
+              <span style={{ fontSize: 14, fontWeight: 800, color: '#DB2777' }}>03</span>
+            </div>
+          </div>
+
+          {/* Card 04: Strategy & Audits */}
+          <div className="card-pastel-mint" style={{
+            borderRadius: 24,
+            padding: 32,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            minHeight: 300,
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            <div className="watermark-num">04</div>
+            <div>
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 16,
+                background: '#D1FAE5',
+                color: '#059669',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 24,
+                boxShadow: '0 10px 25px rgba(5, 150, 105, 0.18)',
+              }}>
+                <BarChart3 size={24} />
+              </div>
+              <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                Strategy & Audits
+              </h3>
+              <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
+                Discover opportunities, get a 90-day automation roadmap, and achieve measurable ROI.
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 32, position: 'relative', zIndex: 1 }}>
+              <button
+                onClick={() => setBookingOpen(true)}
+                style={{ background: 'none', border: 'none', fontSize: 13, fontWeight: 700, color: '#0F172A', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+              >
+                <span>Learn more</span>
+                <ArrowRight size={14} />
+              </button>
+              <span style={{ fontSize: 14, fontWeight: 800, color: '#059669' }}>04</span>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ================= INTERACTIVE FEATURED PROJECTS SHOWCASE ================= */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+      }}>
+        {/* Project Switcher Bar */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: 16,
+          marginBottom: 32,
+          borderBottom: '1px solid #E2E8F0',
+          paddingBottom: 16,
+        }}>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 6 }}>
+              FEATURED CLIENT SHOWCASE
+            </div>
+            <h2 style={{ fontSize: 24, fontWeight: 700, color: '#0F172A' }}>
+              Explore Working Systems We Built
+            </h2>
+          </div>
+
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {featuredProjects.map((proj, idx) => (
+              <button
+                key={proj.id}
+                onClick={() => setActiveProjectIdx(idx)}
+                style={{
+                  padding: '8px 18px',
+                  borderRadius: 9999,
+                  border: '1px solid',
+                  borderColor: activeProjectIdx === idx ? '#0F172A' : '#E2E8F0',
+                  background: activeProjectIdx === idx ? '#0F172A' : '#ffffff',
+                  color: activeProjectIdx === idx ? '#ffffff' : '#475569',
+                  fontSize: 13,
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {proj.name}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Selected Project Dynamic Showcase */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(12, 1fr)',
+          gap: 'clamp(24px, 4vw, 48px)',
+          alignItems: 'center',
+        }}>
+          
+          {/* Left Project Info */}
+          <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-5">
+            <h3 style={{
+              fontSize: 'clamp(28px, 4vw, 44px)',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
+              color: '#0F172A',
+              marginBottom: 16,
+            }}>
+              {activeProj.name}<br />
+              <span className="font-serif" style={{ fontWeight: 400, fontStyle: 'italic' }}>{activeProj.subtitle}</span>
+            </h3>
+
+            <p style={{ fontSize: 15, color: '#475569', lineHeight: 1.6, marginBottom: 32 }}>
+              {activeProj.desc}
+            </p>
+
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 40 }}>
+              <button
+                className="btn-dark-pill"
+                onClick={() => window.open(activeProj.url, '_blank')}
+              >
+                <span>View Live Platform</span>
+                <ExternalLink size={15} />
+              </button>
+            </div>
+
+            {/* Metrics */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 380px), 1fr))',
-              gap: 24,
+              gridTemplateColumns: `repeat(${activeProj.metrics.length}, 1fr)`,
+              gap: 16,
+              paddingTop: 24,
+              borderTop: '1px solid #E2E8F0',
             }}>
-              {publishedTestimonials.map((t, idx) => (
-                <div
-                  key={t.id || t.name}
-                  className="glass-card scale-in"
-                  style={{
-                    animationDelay: `${idx * 0.1}s`,
-                    padding: 'clamp(24px, 5vw, 36px)',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                  }}
-                >
-                  <div>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 18 }}>
-                      <div style={{ display: 'flex', gap: 4 }}>
-                        {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={16} fill="#38bdf8" color="#38bdf8" />
-                        ))}
-                      </div>
-                      {t.metrics && (
-                        <span style={{
-                          fontSize: 11,
-                          fontWeight: 700,
-                          color: '#4ade80',
-                          background: 'rgba(74, 222, 128, 0.12)',
-                          padding: '4px 10px',
-                          borderRadius: 999,
-                          border: '1px solid rgba(74, 222, 128, 0.25)'
-                        }}>
-                          {t.metrics}
-                        </span>
-                      )}
-                    </div>
-
-                    <p style={{
-                      color: '#cbd5e1',
-                      fontSize: 'clamp(14px, 2vw, 16px)',
-                      lineHeight: 1.7,
-                      marginBottom: 24,
-                    }}>
-                      "{t.text}"
-                    </p>
-                  </div>
-
-                  <div style={{ borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: 16 }}>
-                    <div style={{ fontSize: 15, fontWeight: 700, color: '#ffffff' }}>
-                      {t.name}
-                    </div>
-                    <div style={{ fontSize: 13, color: '#64748b', marginTop: 2 }}>
-                      {t.role}
-                    </div>
-                  </div>
+              {activeProj.metrics.map((m) => (
+                <div key={m.label}>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: '#0F172A' }}>{m.value}</div>
+                  <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>{m.label}</div>
                 </div>
               ))}
             </div>
-          </section>
-        )}
+          </div>
 
-        {/* Previous Projects Section */}
-        <PreviousProjects projects={publishedProjects} />
+          {/* Right Project Media Showcase */}
+          <div style={{ gridColumn: 'span 12 / span 12', position: 'relative' }} className="lg:col-span-7">
+            <div style={{
+              borderRadius: 24,
+              overflow: 'hidden',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
+              position: 'relative',
+              border: '1px solid #E2E8F0',
+              background: '#0F172A',
+            }}>
+              <img
+                src={activeProj.image}
+                alt={activeProj.name}
+                style={{
+                  width: '100%',
+                  height: '420px',
+                  objectFit: 'cover',
+                  display: 'block',
+                  transition: 'all 0.4s ease',
+                }}
+              />
 
-        {/* Final CTA Section */}
-        <section style={{
-          maxWidth: 1240,
-          margin: '0 auto',
-          padding: 'clamp(40px, 8vw, 100px) clamp(20px, 5vw, 32px)',
+              {/* Tag Badge Top-Left */}
+              <div style={{
+                position: 'absolute',
+                top: 20,
+                left: 20,
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(10px)',
+                padding: '6px 16px',
+                borderRadius: 9999,
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#0F172A',
+                boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
+              }}>
+                {activeProj.tag}
+              </div>
+
+              {/* Testimonial Overlay Top-Right */}
+              <div style={{
+                position: 'absolute',
+                top: 20,
+                right: 20,
+                maxWidth: 260,
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(12px)',
+                padding: 16,
+                borderRadius: 16,
+                boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+              }} className="hidden sm:block">
+                <div style={{ fontSize: 24, lineHeight: 1, color: '#0F172A', fontFamily: 'serif', marginBottom: 4 }}>
+                  “
+                </div>
+                <p style={{ fontSize: 12, color: '#334155', lineHeight: 1.4, marginBottom: 12, fontStyle: 'italic' }}>
+                  {activeProj.quote}
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ width: 24, height: 24, borderRadius: 6, background: '#0F172A', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 900 }}>
+                    ▲
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>{activeProj.author}</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Counter Indicator Bottom-Right */}
+              <div style={{
+                position: 'absolute',
+                bottom: 20,
+                right: 20,
+                background: 'rgba(255, 255, 255, 0.95)',
+                backdropFilter: 'blur(10px)',
+                padding: '6px 14px',
+                borderRadius: 9999,
+                fontSize: 12,
+                fontWeight: 700,
+                color: '#0F172A',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+              }}>
+                <span>{activeProjectIdx + 1} / {featuredProjects.length}</span>
+                <ChevronRight size={14} />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ================= CALL TO ACTION FOOTER BANNER ================= */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto 60px',
+        padding: '0 clamp(16px, 4vw, 36px)',
+      }}>
+        <div style={{
+          position: 'relative',
+          borderRadius: 32,
+          overflow: 'hidden',
+          minHeight: 380,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: 'clamp(40px, 6vw, 64px)',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
         }}>
-          <div style={{
-            background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9))',
-            border: '1px solid rgba(59, 130, 246, 0.3)',
-            borderRadius: 28,
-            padding: 'clamp(40px, 8vw, 80px) clamp(20px, 5vw, 50px)',
-            textAlign: 'center',
-            position: 'relative',
-            overflow: 'hidden',
-            boxShadow: '0 30px 70px rgba(0, 0, 0, 0.6)',
-          }}>
-            <div style={{
+          {/* Background Image with Warm Soft Overlay */}
+          <img
+            src="/mountain-cta.jpg"
+            alt="Mountain sunrise horizon"
+            style={{
               position: 'absolute',
-              top: -120,
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 500,
-              height: 500,
-              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
-              pointerEvents: 'none',
-            }} />
+              inset: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              zIndex: 0,
+            }}
+          />
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(90deg, rgba(251, 251, 249, 0.95) 0%, rgba(251, 251, 249, 0.75) 50%, rgba(251, 251, 249, 0.4) 100%)',
+            zIndex: 1,
+          }} />
 
-            <p className="section-tag" style={{ marginBottom: 16 }}>
-              Scale Without Limits
-            </p>
+          {/* Content Left */}
+          <div style={{ position: 'relative', zIndex: 2, maxWidth: 560 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+              LET'S BUILD TOGETHER
+            </div>
+
             <h2 style={{
-              fontSize: 'clamp(28px, 6vw, 56px)',
-              fontWeight: 800,
-              letterSpacing: '-0.04em',
-              color: '#ffffff',
-              marginBottom: 18,
-              maxWidth: 800,
-              margin: '0 auto 18px',
+              fontSize: 'clamp(32px, 5vw, 56px)',
+              fontWeight: 700,
+              lineHeight: 1.1,
+              letterSpacing: '-0.02em',
+              color: '#0F172A',
+              marginBottom: 20,
             }}>
-              Ready To Build Your Custom AI Ecosystem?
+              A more efficient<br />
+              tomorrow starts <span className="text-terracotta font-serif" style={{ fontStyle: 'italic' }}>today.</span>
             </h2>
-            <p style={{
-              color: '#94a3b8',
-              fontSize: 'clamp(15px, 2.8vw, 18px)',
-              maxWidth: 580,
-              margin: '0 auto 40px',
-              lineHeight: 1.65,
-            }}>
-              Schedule a 30-minute technical discovery session. We will map your operational bottlenecks and provide an exact architecture blueprint.
+
+            <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.6, marginBottom: 32 }}>
+              Tell us about your project — we'll help you turn it into a scalable, future-ready solution.
             </p>
 
-            <div style={{
-              display: 'flex',
-              gap: 16,
-              justifyContent: 'center',
-              flexWrap: 'wrap',
-            }}>
+            {/* Buttons */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
               <button
-                className="btn-gold"
+                className="btn-dark-pill"
                 onClick={() => setBookingOpen(true)}
-                style={{
-                  fontSize: 'clamp(14px, 2vw, 16px)',
-                  padding: '16px 36px',
-                }}
               >
-                Schedule Discovery Call
-                <ArrowRight size={18} />
+                <span>Book a Call</span>
+                <ArrowRight size={16} />
               </button>
+
               <button
-                className="btn-outline"
+                className="btn-white-pill"
                 onClick={() => window.open('https://wa.me/918309827125', '_blank')}
-                style={{
-                  fontSize: 'clamp(14px, 2vw, 16px)',
-                  padding: '16px 36px',
-                }}
               >
-                <MessageCircle size={18} color="#38bdf8" />
-                Connect on WhatsApp
+                <div style={{
+                  width: 20,
+                  height: 20,
+                  borderRadius: '50%',
+                  background: '#22c55e',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                }}>
+                  <MessageCircle size={12} />
+                </div>
+                <span>Chat on WhatsApp</span>
               </button>
             </div>
           </div>
-        </section>
 
-        <WebsiteFooter />
-        <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
-      </div>
+          {/* Tagline Right */}
+          <div style={{
+            position: 'relative',
+            zIndex: 2,
+            textAlign: 'right',
+            color: '#64748B',
+            fontSize: 11,
+            fontWeight: 800,
+            letterSpacing: '0.18em',
+            lineHeight: 1.6,
+          }} className="hidden md:block">
+            SAME<br />
+            PEOPLE.<br />
+            BIGGER<br />
+            TOMORROWS.
+          </div>
+
+        </div>
+      </section>
+
+      <WebsiteFooter />
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   );
 }

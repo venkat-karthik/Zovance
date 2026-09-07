@@ -1,102 +1,136 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, Target, Users2, Heart, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, CheckCircle2, Users, Target, Shield, Heart, Sparkles } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
-import Aurora from '../../components/Aurora';
-import MagicCard from '../../components/MagicCard';
-
-const team = [
-  { name: 'Kodeboyina Venkat Karthik', role: 'Founder & Lead', skills: 'Strategy, AI, Business Development', avatar: 'KV', desc: 'Student founder who started Zovance to learn and build real solutions. Passionate about AI and entrepreneurship.' },
-  { name: 'Akshath Tumkur', role: 'Full-Stack Developer', skills: 'React, Node.js, System Architecture', avatar: 'AT', desc: 'Student developer obsessed with building scalable systems. Loves clean code and solving complex problems.' },
-  { name: 'Sahil Ranakoti', role: 'AI & ML Engineer', skills: 'Python, ML, Voice AI', avatar: 'SR', desc: 'Passionate about AI and machine learning. Specializes in building intelligent systems that solve real business problems.' },
-  { name: 'Jayanth Karthik Enaganti', role: 'Product & Strategy', skills: 'Product Strategy, UX, Client Success', avatar: 'JE', desc: 'Focused on understanding client needs and ensuring every project delivers real value and measurable results.' },
-  { name: 'Vikas Reddy Kalamalla', role: 'Infrastructure Engineer', skills: 'Cloud Infrastructure, Deployment', avatar: 'VK', desc: 'Ensures our systems are reliable, scalable, and always running. Passionate about DevOps and cloud technologies.' },
-  { name: 'Nishanth Konakondu', role: 'Backend Engineer', skills: 'APIs, Databases, Integrations', avatar: 'NK', desc: 'Builds robust backend systems that power our automation platform. Detail-oriented and quality-focused.' },
-  { name: 'Varshith', role: 'Frontend Engineer', skills: 'React, UI/UX, Performance', avatar: 'V', desc: 'Creates beautiful, responsive interfaces that users love. Passionate about great user experiences.' },
-  { name: 'Gudipati Srinadh', role: 'QA & Testing', skills: 'Testing, Quality Assurance, Automation', avatar: 'GS', desc: 'Ensures every system meets high quality standards. Meticulous about testing and quality assurance.' },
-];
+import BookingModal from '../../components/BookingModal';
 
 const values = [
-  { icon: Target, title: 'Learning First', desc: 'Every project is a chance to learn something new. We grow with every client we work with.' },
-  { icon: Zap, title: 'Speed & Quality', desc: 'We move fast because we\'re hungry to prove ourselves. But we never compromise on quality.' },
-  { icon: Users2, title: 'Transparency', desc: 'We\'re honest about what we can do and what we\'re learning. No BS, just real talk.' },
-  { icon: Heart, title: 'Genuine Care', desc: 'We\'re not just building for money. We genuinely care about our clients\' success.' },
+  {
+    title: 'No Corporate BS',
+    desc: 'We speak plain English, move fast, and build actual working systems rather than presenting 80-page decks.',
+    icon: Target,
+  },
+  {
+    title: 'Result-Driven ROI',
+    desc: 'Every workflow and line of code we ship is measured by time saved, error reduction, or direct revenue growth.',
+    icon: Sparkles,
+  },
+  {
+    title: 'Full Code Ownership',
+    desc: 'You own 100% of your platform, code repositories, and automation blueprints. No vendor lock-in ever.',
+    icon: Shield,
+  },
+  {
+    title: 'Continuous Innovation',
+    desc: 'We obsessively test the latest AI model updates, voice APIs, and autonomous agent frameworks so you stay ahead.',
+    icon: Users,
+  },
 ];
 
 export default function AboutPage() {
+  const [bookingOpen, setBookingOpen] = useState(false);
+
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a' }}>
+    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
-      {/* Hero with Aurora */}
-      <section className="aurora-bg-wrapper" style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 60px', textAlign: 'center', position: 'relative', minHeight: '400px' }}>
-        <Aurora colorStops={['#1e293b', '#2563eb', '#0f172a']} blend={0.6} amplitude={0.8} speed={0.5} />
-        <p className="section-tag fade-in-up" style={{ marginBottom: 16 }}>About Zovance</p>
-        <h1 className="slide-in-up" style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20 }}>
-          Built By Students,<br /><span className="gold-text">For Real Business Impact</span>
+      {/* Hero Header */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        textAlign: 'center',
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+          OUR MISSION & STORY
+        </div>
+        <h1 style={{
+          fontSize: 'clamp(36px, 6vw, 68px)',
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          color: '#0F172A',
+          lineHeight: 1.05,
+          marginBottom: 24,
+        }}>
+          Student-Built AI For<br />
+          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Real Business Impact</span>
         </h1>
-        <p className="fade-in-up stagger-2" style={{ color: '#555', fontSize: 18, maxWidth: 600, margin: '0 auto', lineHeight: 1.7 }}>
-          A group of friends united by a shared vision: to learn, build, and grow together while creating real value for businesses.
+        <p style={{
+          fontSize: 'clamp(15px, 2vw, 18px)',
+          color: '#475569',
+          maxWidth: 640,
+          margin: '0 auto 40px',
+          lineHeight: 1.6,
+        }}>
+          Zovance started as a collective of passionate software engineers and builders obsessed with artificial intelligence. Today, we architect autonomous AI pipelines for forward-thinking brands across India & SEA.
         </p>
+
+        <button
+          className="btn-dark-pill"
+          onClick={() => setBookingOpen(true)}
+        >
+          <span>Meet Our Engineering Team</span>
+          <ArrowRight size={16} />
+        </button>
       </section>
 
-      {/* Story */}
-      <section style={{ maxWidth: 900, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
-        <div className="card fade-in-up" style={{ padding: 'clamp(24px, 5vw, 48px) clamp(16px, 5vw, 56px)' }}>
-          <h2 className="slide-in-left" style={{ fontSize: 'clamp(20px, 4vw, 24px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 20 }}>Our Story</h2>
-          <div style={{ color: '#666', fontSize: 15, lineHeight: 1.8 }}>
-            <p className="fade-in-up stagger-1" style={{ marginBottom: 16 }}>Zovance started in 2026 as a student project. A group of friends with a shared passion for technology and entrepreneurship came together with one goal: <span style={{ color: '#38bdf8' }}>to build real solutions while learning and earning together.</span></p>
-            <p className="fade-in-up stagger-2" style={{ marginBottom: 16 }}>We noticed businesses struggling with repetitive tasks, manual workflows, and inefficient processes. We saw an opportunity to help them automate these tasks using AI and modern technology. What started as a learning project quickly turned into something real — we were actually solving problems for real clients.</p>
-            <p className="fade-in-up stagger-3" style={{ marginBottom: 16 }}>Our approach is simple: we're not a corporate agency with fancy offices. We're a tight-knit team of students and young professionals who are hungry to learn, build, and deliver results. We work directly with our clients, understand their pain points, and build custom solutions that actually work.</p>
-            <p className="fade-in-up stagger-4">Today, we've delivered projects across India and Southeast Asia. Every project we build is a learning opportunity and a chance to prove that age and experience don't matter — what matters is passion, dedication, and the willingness to solve real problems. We're here to grow together with our clients, one project at a time.</p>
+      {/* Values Grid */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+      }}>
+        <div style={{ textAlign: 'center', marginBottom: 48 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
+            OUR GUIDING PRINCIPLES
           </div>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: '#0F172A' }}>
+            How We Work & Deliver
+          </h2>
         </div>
-      </section>
 
-      {/* Values */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <p className="section-tag fade-in-up" style={{ marginBottom: 12 }}>Our Values</p>
-          <h2 className="slide-in-up" style={{ fontSize: 'clamp(28px,4vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px' }}>How We Work</h2>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(220px,45vw,260px),1fr))', gap: 16 }}>
-          {values.map((v, i) => (
-            <div key={v.title} className={`card fade-in-up stagger-${(i % 4) + 1} hover-lift`} style={{ padding: 'clamp(20px, 4vw, 28px)' }}>
-              <div style={{ width: 44, height: 44, borderRadius: 12, background: 'rgba(124, 255, 103, 0.1)', border: '1px solid rgba(124, 255, 103, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
-                <v.icon size={20} color="#38bdf8" />
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: 24,
+        }}>
+          {values.map((v) => (
+            <div
+              key={v.title}
+              style={{
+                background: '#ffffff',
+                border: '1px solid #E2E8F0',
+                borderRadius: 24,
+                padding: 32,
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+              }}
+            >
+              <div style={{
+                width: 48,
+                height: 48,
+                borderRadius: 16,
+                background: '#F1F5F9',
+                color: '#0F172A',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginBottom: 20,
+              }}>
+                <v.icon size={22} />
               </div>
-              <h3 style={{ fontSize: 15, fontWeight: 600, color: '#f0f0f0', marginBottom: 8 }}>{v.title}</h3>
-              <p style={{ color: '#555', fontSize: 13, lineHeight: 1.6 }}>{v.desc}</p>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 10 }}>
+                {v.title}
+              </h3>
+              <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
+                {v.desc}
+              </p>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Team */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <p className="section-tag fade-in-up" style={{ marginBottom: 12 }}>The Team</p>
-          <h2 className="slide-in-up" style={{ fontSize: 'clamp(28px,4vw,40px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px' }}>Built By Builders</h2>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(220px,45vw,260px),1fr))', gap: 16 }}>
-          {team.map((m, i) => (
-            <div key={m.name} className={`fade-in-up stagger-${(i % 8) + 1}`} style={{ display: 'flex', justifyContent: 'center' }}>
-              <MagicCard name={m.name} role={m.role} skills={m.skills.split(', ')} avatar={m.avatar} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
-        <div className="fade-in-up hover-lift" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
-          <h2 className="slide-in-up" style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Join the Companies We've Helped</h2>
-          <p className="fade-in-up stagger-2" style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Let's build your automation system together.</p>
-          <Link to="/contact"><button className="btn-gold hover-brightness" style={{ fontSize: 15, padding: '14px 32px' }}>Get in Touch <ArrowRight size={16} /></button></Link>
         </div>
       </section>
 
       <WebsiteFooter />
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   );
 }

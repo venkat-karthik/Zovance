@@ -1,366 +1,212 @@
 import { useState } from 'react';
-import { ArrowRight, X, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Building2, ShoppingCart, Stethoscope, Home, Landmark, Headset } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
-import Aurora from '../../components/Aurora';
+import BookingModal from '../../components/BookingModal';
 
-const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
-
-const solutionsData = [
+const industries = [
   {
-    category: 'AI & Automation',
-    color: '#c9a84c',
-    items: [
-      {
-        title: 'WhatsApp Business Automation',
-        shortDesc: 'End-to-end automated WhatsApp interactions.',
-        fullDesc: 'Automate your entire WhatsApp communication flow. Handle customer inquiries, send order updates, process payments, and manage conversations 24/7 without manual intervention. Perfect for e-commerce, support, and lead nurturing.',
-        benefits: ['24/7 automated responses', 'Lead qualification', 'Order updates', 'Payment processing', 'Multi-language support', 'CRM integration']
-      },
-      {
-        title: 'AI Lead Qualification',
-        shortDesc: 'Automatic scoring and filtering for every lead.',
-        fullDesc: 'Let AI automatically qualify your leads based on custom criteria. Score leads by engagement level, budget, timeline, and fit. Automatically route hot leads to your sales team and nurture cold leads with automated sequences.',
-        benefits: ['Automatic lead scoring', 'Custom qualification rules', 'Smart routing', 'Lead nurturing sequences', 'Real-time notifications', 'Sales team efficiency']
-      },
-      {
-        title: 'Appointment Booking Automation',
-        shortDesc: 'Zero-touch scheduling and reminders.',
-        fullDesc: 'Eliminate back-and-forth emails. Let customers book appointments directly through WhatsApp, SMS, or your website. Automatic reminders reduce no-shows by 80%. Integrates with your calendar and sends confirmations instantly.',
-        benefits: ['Direct booking links', 'Automatic reminders', 'No-show reduction', 'Calendar sync', 'Timezone handling', 'Instant confirmations']
-      },
-      {
-        title: 'Follow-up Sequence Automation',
-        shortDesc: 'Multi-channel automated engagement sequences.',
-        fullDesc: 'Create sophisticated follow-up sequences that run automatically across email, SMS, and WhatsApp. Personalize based on user behavior. Increase conversion rates by 3-5x with perfectly timed touchpoints.',
-        benefits: ['Multi-channel sequences', 'Behavior-based triggers', 'Personalization', 'A/B testing', 'Performance analytics', 'Conversion tracking']
-      },
-      {
-        title: 'Cart Abandonment Recovery',
-        shortDesc: 'Automated recovery sequences for lost sales.',
-        fullDesc: 'Recover 20-30% of abandoned carts automatically. Send personalized recovery messages at the perfect time. Offer discounts, highlight product benefits, or address objections — all without manual work.',
-        benefits: ['Automatic detection', 'Personalized messages', 'Smart timing', 'Discount automation', 'Product recommendations', 'Revenue recovery']
-      },
-      {
-        title: 'Invoice & Payment Reminder',
-        shortDesc: 'Hands-free payment collection systems.',
-        fullDesc: 'Stop chasing payments. Automatically send invoices, payment reminders, and follow-ups. Accept payments directly through WhatsApp or email. Reduce payment cycles from 45 days to 7 days.',
-        benefits: ['Automatic invoicing', 'Payment reminders', 'Direct payment links', 'Late payment alerts', 'Payment tracking', 'Faster cash flow']
-      },
-      {
-        title: 'Internal Workflow Automation',
-        shortDesc: 'Seamless data bridging across your daily tools.',
-        fullDesc: 'Connect your CRM, email, spreadsheets, and tools. Automate data entry, task creation, and notifications. Eliminate manual data transfer and keep everything in sync automatically.',
-        benefits: ['Tool integration', 'Data sync', 'Task automation', 'Notification routing', 'Error reduction', 'Team efficiency']
-      },
-      {
-        title: 'Custom AI & Automation',
-        shortDesc: 'Bespoke systems engineered for your bottleneck.',
-        fullDesc: 'Every business is unique. We engineer custom automation solutions for your specific workflows. From complex approval processes to specialized integrations — we build exactly what you need.',
-        benefits: ['Custom logic', 'Deep integrations', 'Scalable architecture', 'Future-proof design', 'Dedicated support', 'Continuous optimization']
-      },
-    ]
+    id: 'hospitality',
+    icon: Building2,
+    title: 'Hospitality & Resorts',
+    tag: 'Hotel & Villa Tech',
+    desc: 'Instant booking engines, 24/7 guest WhatsApp concierge, automated check-in flows, and billing sync.',
+    metrics: '350+ monthly bookings automated | <1s availability search',
+    color: '#FFEDD5',
+    accent: '#EA580C',
+    features: ['WhatsApp guest assistant', 'Direct booking engine', 'PMS & Stripe payment sync', 'Automated feedback collection'],
   },
   {
-    category: 'AI Voice',
-    color: '#60a5fa',
-    items: [
-      {
-        title: 'Inbound AI Voice Agent',
-        shortDesc: '24/7 intelligent answering and lead routing.',
-        fullDesc: 'Never miss a call again. AI voice agents answer calls 24/7, qualify leads, book appointments, and route to the right team member. Reduce call handling costs by 70% while improving customer satisfaction.',
-        benefits: ['24/7 availability', 'Lead qualification', 'Appointment booking', 'Smart routing', 'Call recording', 'Performance analytics']
-      },
-      {
-        title: 'Outbound AI Voice Agent',
-        shortDesc: 'Scalable proactive calling and engagement.',
-        fullDesc: 'Make thousands of calls simultaneously. AI voice agents conduct surveys, follow-ups, payment reminders, and appointment confirmations. Perfect for campaigns, collections, and customer engagement at scale.',
-        benefits: ['Mass calling', 'Campaign automation', 'Survey collection', 'Payment reminders', 'Appointment confirmation', 'Cost efficiency']
-      },
-      {
-        title: 'Custom Voice Agent',
-        shortDesc: 'Complex voice logic and deep system integrations.',
-        fullDesc: 'Build sophisticated voice agents for complex scenarios. Handle multi-step conversations, access real-time data, integrate with your systems, and provide personalized responses based on customer history.',
-        benefits: ['Complex conversations', 'Real-time data access', 'System integration', 'Personalization', 'Advanced logic', 'Custom workflows']
-      },
-    ]
+    id: 'ecommerce',
+    icon: ShoppingCart,
+    title: 'E-Commerce & Retail',
+    tag: 'Conversion & Retention AI',
+    desc: 'High-conversion storefronts, AI customer support, cart recovery follow-ups, and automated inventory sync.',
+    metrics: '4.8x conversion boost | 99.9% uptime SLA',
+    color: '#DBEAFE',
+    accent: '#2563EB',
+    features: ['AI product recommendation engine', 'WhatsApp order status & shipping tracking', '1-click checkout flow', 'Inventory ERP sync'],
   },
   {
-    category: 'Web',
-    color: '#a78bfa',
-    items: [
-      {
-        title: 'Business Website',
-        shortDesc: 'Professional, conversion-focused online presence.',
-        fullDesc: 'A beautiful, fast website that converts visitors into leads. Built for speed, SEO, and conversions. Includes contact forms, service pages, testimonials, and everything you need to establish credibility online.',
-        benefits: ['Mobile responsive', 'SEO optimized', 'Fast loading', 'Contact forms', 'Testimonials', 'Analytics tracking']
-      },
-      {
-        title: 'Landing Page',
-        shortDesc: 'High-velocity standalone pages for campaigns.',
-        fullDesc: 'Single-purpose pages designed to convert. Perfect for campaigns, product launches, or lead generation. Optimized for a specific audience and action. Includes A/B testing and conversion tracking.',
-        benefits: ['Campaign focused', 'High conversion', 'A/B testing', 'Analytics', 'Fast deployment', 'Mobile optimized']
-      },
-      {
-        title: 'Website Redesign',
-        shortDesc: 'Total overhaul of speed, structure, and conversion.',
-        fullDesc: 'Your website is costing you leads. We redesign for speed, user experience, and conversions. Modern design, faster loading, better navigation, and optimized conversion funnels.',
-        benefits: ['Speed improvement', 'UX redesign', 'Conversion optimization', 'Modern design', 'Mobile first', 'SEO boost']
-      },
-      {
-        title: 'Website + Lead Pipeline',
-        shortDesc: 'High-converting site fully wired into CRM.',
-        fullDesc: 'Your website automatically feeds leads into your CRM. Visitors fill forms, get instant follow-ups via email/WhatsApp, and are automatically qualified. Your sales team only sees hot leads.',
-        benefits: ['Auto lead capture', 'CRM integration', 'Instant follow-up', 'Lead qualification', 'Sales efficiency', 'Conversion tracking']
-      },
-      {
-        title: 'E-commerce Store',
-        shortDesc: 'Optimized storefront with recovery systems.',
-        fullDesc: 'A complete e-commerce solution with product catalog, shopping cart, payment processing, and automated recovery for abandoned carts. Includes inventory management and order tracking.',
-        benefits: ['Product catalog', 'Payment processing', 'Cart recovery', 'Inventory management', 'Order tracking', 'Analytics']
-      },
-      {
-        title: 'Custom Web Solution',
-        shortDesc: 'Tailored portals, dashboards, and platforms.',
-        fullDesc: 'Need something unique? We build custom web applications — internal dashboards, client portals, booking platforms, or specialized tools. Built to scale with your business.',
-        benefits: ['Custom design', 'Scalable architecture', 'Real-time data', 'User management', 'Advanced features', 'Future-proof']
-      },
-    ]
+    id: 'healthcare',
+    icon: Stethoscope,
+    title: 'Healthcare & Clinics',
+    tag: 'Patient Booking & Reminders',
+    desc: 'Multilingual voice agents for appointment scheduling, patient intake automation, and prescription notification reminders.',
+    metrics: '60% reduction in call wait times | 0 missed appointments',
+    color: '#FCE7F3',
+    accent: '#DB2777',
+    features: ['24/7 voice appointment booking', 'HIPAA-compliant data handling', 'Automated SMS / WhatsApp reminders', 'EMR calendar sync'],
   },
   {
-    category: 'Audit & Strategy',
-    color: '#4ade80',
-    items: [
-      {
-        title: 'Business Automation Audit',
-        shortDesc: 'Comprehensive mapping of operational leaks.',
-        fullDesc: 'We map your entire business workflow and identify automation opportunities. Detailed report with ROI projections for each opportunity, prioritized roadmap, and implementation timeline.',
-        benefits: ['Workflow mapping', 'Opportunity identification', 'ROI projections', 'Prioritized roadmap', 'Implementation plan', 'Cost analysis']
-      },
-      {
-        title: 'Conversion & Website Audit',
-        shortDesc: 'Deep analysis of digital friction points.',
-        fullDesc: 'Why aren\'t visitors converting? We analyze your website, landing pages, and funnels to identify friction points. Detailed report with specific recommendations to improve conversion rates.',
-        benefits: ['Funnel analysis', 'Friction identification', 'UX recommendations', 'Copy optimization', 'CTA improvements', 'Conversion roadmap']
-      },
-    ]
+    id: 'realestate',
+    icon: Home,
+    title: 'Real Estate & Property',
+    tag: 'Inbound Lead Qualification',
+    desc: 'Instant lead response within 30 seconds, automated virtual tour scheduling, and CRM buyer matching.',
+    metrics: '5x faster lead response time | 3.2x tour booking rate',
+    color: '#D1FAE5',
+    accent: '#059669',
+    features: ['Instant WhatsApp property brochure sender', 'Buyer budget & location qualification', 'Agent calendar auto-booking', 'Property portal lead parsing'],
+  },
+  {
+    id: 'finance',
+    icon: Landmark,
+    title: 'Financial & Legal Services',
+    tag: 'Document OCR & Compliance',
+    desc: 'AI document parsing, client onboarding workflows, automated KYC checks, and invoice reconciliation.',
+    metrics: '90% faster document processing | 100% audit trail',
+    color: '#FEF3C7',
+    accent: '#D97706',
+    features: ['Automated bank statement & invoice OCR', 'KYC & client onboarding portal', 'CRM & QuickBooks integration', 'Audit log tracking'],
+  },
+  {
+    id: 'support',
+    icon: Headset,
+    title: 'Customer Support & BPO',
+    tag: 'Omnichannel AI Support',
+    desc: 'Autonomous multi-channel AI agents that resolve 70%+ of customer tickets instantly across Web, WhatsApp, and Email.',
+    metrics: '70%+ instant resolution rate | 24/7 coverage',
+    color: '#EDE9FE',
+    accent: '#7C3AED',
+    features: ['Omnichannel bot deployment', 'Live human agent hand-off', 'Knowledge base auto-training', 'CSAT & sentiment analytics'],
   },
 ];
 
 export default function SolutionsPage() {
-  const [selectedSolution, setSelectedSolution] = useState(null);
+  const [bookingOpen, setBookingOpen] = useState(false);
 
   return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '400px', zIndex: 0 }}>
-        <Aurora colorStops={AURORA_COLORS} amplitude={0.8} blend={0.4} speed={0.8} />
-      </div>
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <WebsiteNav />
+    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+      <WebsiteNav />
 
       {/* Header */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 60px', textAlign: 'center' }}>
-        <p className="section-tag fade-up" style={{ marginBottom: 16 }}>Our Solutions</p>
-        <h1 className="fade-up" style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20, animationDelay: '0.1s' }}>
-          Complete Automation<br /><span className="gold-text">Solutions for Every Need</span>
-        </h1>
-        <p className="fade-up" style={{ color: '#555', fontSize: 18, maxWidth: 600, margin: '0 auto', animationDelay: '0.2s' }}>
-          From WhatsApp automation to AI voice agents to custom web platforms — we have the solution for your business.
-        </p>
-      </section>
-
-      {/* Solutions Grid */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 80px' }}>
-        {solutionsData.map((category, catIdx) => (
-          <div key={category.category} style={{ marginBottom: catIdx !== solutionsData.length - 1 ? 60 : 0 }}>
-            {/* Category Header */}
-            <div className="slide-in-left" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 32, animationDelay: `${catIdx * 0.1}s` }}>
-              <div style={{ width: 4, height: 32, background: category.color, borderRadius: 2 }} />
-              <h2 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>
-                {category.category}
-              </h2>
-            </div>
-
-            {/* Solutions Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(240px, 45vw, 320px), 1fr))', gap: 16 }}>
-              {category.items.map((item, idx) => (
-                <div
-                  key={item.title}
-                  className="card scale-in"
-                  onClick={() => setSelectedSolution(item)}
-                  style={{
-                    padding: 28,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    cursor: 'pointer',
-                    animationDelay: `${idx * 0.05}s`,
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'translateY(-8px) scale(1.02)';
-                    e.currentTarget.style.boxShadow = `0 20px 40px ${category.color}20`;
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                    e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.5)';
-                  }}
-                >
-                  {/* Animated background gradient */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: `linear-gradient(135deg, ${category.color}10, transparent)`,
-                    opacity: 0,
-                    transition: 'opacity 0.3s ease',
-                    pointerEvents: 'none',
-                  }} className="gradient-bg" />
-
-                  <div style={{ position: 'relative', zIndex: 1 }}>
-                    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12, marginBottom: 16 }}>
-                      <div style={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: 10,
-                        background: `${category.color}15`,
-                        border: `1px solid ${category.color}30`,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                      }}>
-                        <CheckCircle2 size={20} color={category.color} />
-                      </div>
-                      <h3 style={{ fontSize: 16, fontWeight: 600, color: '#f0f0f0', lineHeight: 1.3 }}>
-                        {item.title}
-                      </h3>
-                    </div>
-                    <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6, flex: 1 }}>
-                      {item.shortDesc}
-                    </p>
-                    <div style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 8, color: category.color, fontSize: 13, fontWeight: 600 }}>
-                      Click to learn more <ArrowRight size={14} />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </section>
-
-      {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
-        <div className="fade-up" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
-          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>
-            Not Sure Which Solution You Need?
-          </h2>
-          <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>
-            Book a free strategy call and we'll recommend the perfect solution for your business.
-          </p>
-          <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px' }}>
-            Book Free Strategy Call <ArrowRight size={16} />
-          </button>
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        textAlign: 'center',
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+          INDUSTRY SOLUTIONS
         </div>
+        <h1 style={{
+          fontSize: 'clamp(36px, 6vw, 68px)',
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          color: '#0F172A',
+          lineHeight: 1.05,
+          marginBottom: 24,
+        }}>
+          Tailored AI Systems Built For<br />
+          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Your Industry</span>
+        </h1>
+        <p style={{
+          fontSize: 'clamp(15px, 2vw, 18px)',
+          color: '#475569',
+          maxWidth: 580,
+          margin: '0 auto 40px',
+          lineHeight: 1.6,
+        }}>
+          Whether you run a resort, an e-commerce brand, a medical clinic, or a law firm, we build solutions tuned to your specific domain.
+        </p>
+
+        <button
+          className="btn-dark-pill"
+          onClick={() => setBookingOpen(true)}
+        >
+          <span>Schedule Industry Discovery Call</span>
+          <ArrowRight size={16} />
+        </button>
       </section>
 
-      {/* Modal */}
-      {selectedSolution && (
+      {/* Industry Solutions Grid */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+      }}>
         <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(0,0,0,0.8)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 50,
-          padding: '20px',
-          animation: 'fadeUp 0.3s ease-out',
-        }} onClick={() => setSelectedSolution(null)}>
-          <div
-            className="card scale-in"
-            style={{
-              width: 'calc(100vw - 24px)',
-              maxWidth: 600,
-              maxHeight: '90vh',
-              overflow: 'auto',
-              padding: 'clamp(20px, 5vw, 40px)',
-              position: 'relative',
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedSolution(null)}
-              className="safe-touch-target"
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 28,
+        }}>
+          {industries.map((ind) => (
+            <div
+              key={ind.id}
               style={{
-                position: 'absolute',
-                top: 16,
-                right: 16,
-                background: 'none',
-                border: 'none',
-                color: '#888',
-                cursor: 'pointer',
+                background: '#ffffff',
+                border: '1px solid #E2E8F0',
+                borderRadius: 24,
+                padding: 32,
                 display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                transition: 'all 0.3s ease',
               }}
             >
-              <X size={24} />
-            </button>
-
-            {/* Content */}
-            <h2 style={{ fontSize: 'clamp(20px, 4vw, 28px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 16 }}>
-              {selectedSolution.title}
-            </h2>
-
-            <p style={{ color: '#888', fontSize: 14, marginBottom: 24, fontStyle: 'italic' }}>
-              {selectedSolution.shortDesc}
-            </p>
-
-            <div style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: 20, marginBottom: 24 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#38bdf8', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                What You Get
-              </h3>
-              <p style={{ color: '#888', fontSize: 15, lineHeight: 1.8 }}>
-                {selectedSolution.fullDesc}
-              </p>
-            </div>
-
-            <div>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                Key Benefits
-              </h3>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
-                {selectedSolution.benefits.map((benefit) => (
-                  <div key={benefit} style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
-                    <CheckCircle2 size={16} color="#38bdf8" style={{ marginTop: 2, flexShrink: 0 }} />
-                    <span style={{ color: '#888', fontSize: 13 }}>{benefit}</span>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+                  <div style={{
+                    width: 48,
+                    height: 48,
+                    borderRadius: 16,
+                    background: ind.color,
+                    color: ind.accent,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                    <ind.icon size={24} />
                   </div>
-                ))}
-              </div>
-            </div>
+                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#64748B' }}>
+                    {ind.tag}
+                  </span>
+                </div>
 
-            {/* CTA */}
-            <button
-              className="btn-gold"
-              onClick={() => window.open('https://calendly.com', '_blank')}
-              style={{ width: '100%', justifyContent: 'center', marginTop: 28, fontSize: 14, padding: '12px 24px' }}
-            >
-              Get Started <ArrowRight size={14} />
-            </button>
-          </div>
+                <h3 style={{ fontSize: 22, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                  {ind.title}
+                </h3>
+
+                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, marginBottom: 24 }}>
+                  {ind.desc}
+                </p>
+
+                <div style={{ background: '#FBFBF9', border: '1px solid #E2E8F0', borderRadius: 16, padding: 16, marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                    VERIFIED METRICS
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>
+                    {ind.metrics}
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
+                  {ind.features.map((f) => (
+                    <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <CheckCircle2 size={16} color="#16A34A" />
+                      <span style={{ fontSize: 13, color: '#334155', fontWeight: 600 }}>{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                className="btn-white-pill"
+                onClick={() => setBookingOpen(true)}
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <span>Deploy For {ind.title}</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+          ))}
         </div>
-      )}
+      </section>
 
       <WebsiteFooter />
-      </div>
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   );
 }

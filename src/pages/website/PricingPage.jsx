@@ -1,139 +1,199 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle2, MessageCircle } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, CheckCircle2, Zap, ShieldCheck, Sparkles, HelpCircle } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
-import Aurora from '../../components/Aurora';
+import BookingModal from '../../components/BookingModal';
 
-const AURORA_COLORS = ['#1e293b', '#2563eb', '#0f172a'];
-
-const tiers = [
+const pricingTiers = [
   {
-    name: 'Starter',
-    range: '₹25,000 – ₹60,000',
-    desc: 'For small businesses looking to automate their first workflow or launch a clean web presence.',
-    features: ['Single workflow automation', 'Landing page or basic website', 'WhatsApp chatbot setup', 'Analytics integration', '30-day support'],
-    ideal: 'Freelancers, startups, solo founders',
+    name: 'Starter Automation',
+    tag: 'For Growing Businesses',
+    price: '₹49,999',
+    period: 'one-time build',
+    desc: 'Perfect for businesses seeking to automate key repetitive workflows like lead qualification or booking.',
+    features: [
+      '1 Core AI Workflow / Bot',
+      'WhatsApp or Web Chatbot Integration',
+      'Google Calendar & CRM Sync',
+      '14 Days Hyper-Care Support',
+      'Weekly Analytics Report',
+    ],
+    popular: false,
+    cta: 'Get Started',
   },
   {
-    name: 'Growth',
-    range: '₹60,000 – ₹1,50,000',
-    desc: 'For growing businesses ready to deploy serious AI systems and conversion-focused platforms.',
-    features: ['Multi-workflow automation suite', 'Full business website', 'AI voice agent (inbound)', 'CRM integration & automation', 'Lead scoring & nurturing', '60-day support & iterations'],
-    ideal: 'SMBs, clinics, schools, retailers',
-    highlighted: true,
+    name: 'Pro System Architecture',
+    tag: 'Most Popular Choice',
+    price: '₹1,49,999',
+    period: 'one-time build',
+    desc: 'Full-stack AI automation system with voice caller capabilities, OCR parsing, and custom dashboards.',
+    features: [
+      'Up to 4 Custom AI Workflows',
+      'AI Inbound/Outbound Voice Agent',
+      'OCR Document & Receipt Parsing',
+      'Multi-App Webhook Integrations (N8N / Zapier)',
+      '30 Days Dedicated Hyper-Care Support',
+      'Live Admin Dashboard & SLA Guarantee',
+    ],
+    popular: true,
+    cta: 'Build Pro System',
   },
   {
-    name: 'Enterprise',
-    range: '₹1,50,000 – ₹5,00,000+',
-    desc: 'For companies that want to fully automate operations and deploy AI across departments.',
-    features: ['Full AI automation suite', 'Custom SaaS / internal tools', 'Multi-channel AI voice system', 'Team training & documentation', 'Monthly advisory retainer', 'Dedicated account manager', 'Custom integrations & APIs'],
-    ideal: 'Hospitals, education groups, e-commerce',
+    name: 'Enterprise AI Pipeline',
+    tag: 'For Scale Operations',
+    price: 'Custom Quote',
+    period: 'tailored roadmap',
+    desc: 'End-to-end multi-agent AI ecosystems built strictly to your corporate infrastructure and compliance standards.',
+    features: [
+      'Unlimited Autonomous Multi-Agent Pipelines',
+      'Custom LLM Fine-Tuning & Private RAG',
+      'Dedicated Solutions Engineer',
+      'SOC-2 Compliant Security & Data Vaults',
+      '24/7 SLA Priority Support & Maintenance',
+      'Quarterly Automation Optimization Audits',
+    ],
+    popular: false,
+    cta: 'Contact Enterprise Team',
   },
-];
-
-const factors = [
-  { label: 'Project Complexity', desc: 'Number of systems, APIs, and integrations involved' },
-  { label: 'AI Customisation', desc: 'Depth of custom training vs. off-the-shelf models' },
-  { label: 'Team Size', desc: 'Number of users accessing the system' },
-  { label: 'Timeline', desc: 'Rush projects or standard delivery windows' },
-  { label: 'Ongoing Support', desc: 'Monthly retainer vs. one-time delivery' },
-];
-
-const faqs = [
-  { q: 'Do you charge upfront?', a: 'We typically work with a 50% deposit upfront and 50% on delivery. For larger projects, we offer milestone-based payment.' },
-  { q: 'Do you offer monthly retainers?', a: 'Yes. We offer ongoing support and advisory retainers starting at ₹15,000/month for maintenance and optimization.' },
-  { q: 'Can you work within a tight budget?', a: 'We\'ll always be transparent about what\'s achievable at different price points. Book a call and we\'ll work with your constraints.' },
-  { q: 'How long does a typical project take?', a: 'Most automation projects take 2–6 weeks. Complex SaaS or multi-system builds can take 6–12 weeks.' },
 ];
 
 export default function PricingPage() {
-  return (
-    <div style={{ minHeight: '100vh', background: '#0a0a0a', position: 'relative', overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '400px', zIndex: 0 }}>
-        <Aurora colorStops={AURORA_COLORS} amplitude={0.8} blend={0.4} speed={0.8} />
-      </div>
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <WebsiteNav />
+  const [bookingOpen, setBookingOpen] = useState(false);
 
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 60px', textAlign: 'center' }}>
-        <p className="section-tag" style={{ marginBottom: 16 }}>Pricing</p>
-        <h1 style={{ fontSize: 'clamp(36px,5vw,64px)', fontWeight: 700, letterSpacing: '-2px', color: '#f0f0f0', marginBottom: 20 }}>
-          Transparent Pricing.<br /><span className="gold-text">Custom to Your Needs.</span>
+  return (
+    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+      <WebsiteNav />
+
+      {/* Header */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        textAlign: 'center',
+      }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+          TRANSPARENT PRICING IN INR
+        </div>
+        <h1 style={{
+          fontSize: 'clamp(36px, 6vw, 68px)',
+          fontWeight: 700,
+          letterSpacing: '-0.03em',
+          color: '#0F172A',
+          lineHeight: 1.05,
+          marginBottom: 24,
+        }}>
+          Invest in Systems That<br />
+          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Pay For Themselves</span>
         </h1>
-        <p style={{ color: '#555', fontSize: 18, maxWidth: 520, margin: '0 auto' }}>We don't do one-size-fits-all. Every project is scoped based on your specific needs and goals.</p>
+        <p style={{
+          fontSize: 'clamp(15px, 2vw, 18px)',
+          color: '#475569',
+          maxWidth: 580,
+          margin: '0 auto 40px',
+          lineHeight: 1.6,
+        }}>
+          No hidden fees or bloated retainers. One-time build investment with 100% code ownership and optional ongoing SLA support.
+        </p>
       </section>
 
-      {/* Tiers */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(240px,45vw,320px),1fr))', gap: 16, marginBottom: 60 }}>
-          {tiers.map(t => (
-            <div key={t.name} className="card" style={{ padding: 'clamp(20px, 4vw, 32px)', border: t.highlighted ? '1px solid rgba(56,189,248,0.4)' : '1px solid #1e1e1e', position: 'relative' }}>
-              {t.highlighted && (
-                <div style={{ position: 'absolute', top: -1, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg,#38bdf8,#3b82f6)', borderRadius: '0 0 8px 8px', padding: '4px 16px', fontSize: 11, fontWeight: 700, color: '#060608' }}>MOST POPULAR</div>
-              )}
-              <div style={{ marginTop: t.highlighted ? 12 : 0 }}>
-                <p style={{ color: '#555', fontSize: 12, fontWeight: 600, marginBottom: 8 }}>{t.name}</p>
-                <div style={{ fontSize: 'clamp(22px, 4vw, 26px)', fontWeight: 700, letterSpacing: '-0.5px', color: '#f0f0f0', marginBottom: 12 }}>{t.range}</div>
-                <p style={{ color: '#555', fontSize: 14, lineHeight: 1.6, marginBottom: 24 }}>{t.desc}</p>
-                <div style={{ fontSize: 11, color: '#333', marginBottom: 12, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Ideal for: {t.ideal}</div>
-                <div style={{ borderTop: '1px solid #1a1a1a', paddingTop: 20, marginBottom: 24 }}>
-                  {t.features.map(f => (
-                    <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
-                      <CheckCircle2 size={14} color="#38bdf8" />
-                      <span style={{ color: '#777', fontSize: 13 }}>{f}</span>
-                    </div>
-                  ))}
+      {/* Pricing Cards Grid */}
+      <section style={{
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 28,
+          alignItems: 'stretch',
+        }}>
+          {pricingTiers.map((tier) => (
+            <div
+              key={tier.name}
+              style={{
+                background: tier.popular ? '#ffffff' : '#ffffff',
+                border: tier.popular ? '2px solid #0F172A' : '1px solid #E2E8F0',
+                borderRadius: 28,
+                padding: 36,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                position: 'relative',
+                boxShadow: tier.popular ? '0 20px 40px rgba(15, 23, 42, 0.1)' : '0 4px 20px rgba(0,0,0,0.03)',
+              }}
+            >
+              {tier.popular && (
+                <div style={{
+                  position: 'absolute',
+                  top: -14,
+                  right: 28,
+                  background: '#0F172A',
+                  color: '#ffffff',
+                  fontSize: 11,
+                  fontWeight: 800,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  padding: '4px 14px',
+                  borderRadius: 999,
+                }}>
+                  MOST POPULAR CHOICE
                 </div>
-                <Link to="/contact">
-                  <button className={t.highlighted ? 'btn-gold' : 'btn-outline'} style={{ width: '100%', justifyContent: 'center' }}>Get a Custom Quote <ArrowRight size={14} /></button>
-                </Link>
+              )}
+
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#64748B', marginBottom: 12 }}>
+                  {tier.tag}
+                </div>
+
+                <h3 style={{ fontSize: 24, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>
+                  {tier.name}
+                </h3>
+
+                <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 16 }}>
+                  <span style={{ fontSize: 38, fontWeight: 900, color: '#0F172A', letterSpacing: '-0.03em' }}>
+                    {tier.price}
+                  </span>
+                  <span style={{ fontSize: 13, color: '#64748B', fontWeight: 600 }}>
+                    / {tier.period}
+                  </span>
+                </div>
+
+                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, marginBottom: 32 }}>
+                  {tier.desc}
+                </p>
+
+                <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: 24, marginBottom: 32 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
+                    WHAT'S INCLUDED:
+                  </div>
+
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    {tier.features.map((f) => (
+                      <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <CheckCircle2 size={16} color="#16A34A" />
+                        <span style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>{f}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
+
+              <button
+                className={tier.popular ? "btn-dark-pill" : "btn-white-pill"}
+                onClick={() => setBookingOpen(true)}
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                <span>{tier.cta}</span>
+                <ArrowRight size={14} />
+              </button>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Pricing Factors */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 60px' }}>
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 16, padding: 'clamp(20px, 5vw, 40px)' }}>
-          <h2 style={{ fontSize: 'clamp(18px, 4vw, 22px)', fontWeight: 700, color: '#f0f0f0', marginBottom: 8 }}>What Affects Your Price?</h2>
-          <p style={{ color: '#555', fontSize: 14, marginBottom: 28 }}>Every project is unique. Here are the key factors we consider when scoping your build.</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(clamp(160px,45vw,220px),1fr))', gap: 16 }}>
-            {factors.map(f => (
-              <div key={f.label} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 16 }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0', marginBottom: 6 }}>{f.label}</div>
-                <div style={{ fontSize: 12, color: '#555', lineHeight: 1.5 }}>{f.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px' }}>
-        <h2 style={{ fontSize: 'clamp(22px, 5vw, 28px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px', marginBottom: 24 }}>Pricing FAQs</h2>
-        {faqs.map(f => (
-          <div key={f.q} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 12, padding: '20px clamp(16px, 4vw, 24px)', marginBottom: 8 }}>
-            <div style={{ fontWeight: 600, color: '#f0f0f0', fontSize: 15, marginBottom: 8 }}>{f.q}</div>
-            <p style={{ color: '#666', fontSize: 14, lineHeight: 1.6 }}>{f.a}</p>
-          </div>
-        ))}
-      </section>
-
-      {/* CTA */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
-          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Let's Talk Numbers</h2>
-          <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Book a free call. We'll scope your project and give you a fixed quote with no surprises.</p>
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px' }}>Book Free Strategy Call <ArrowRight size={16} /></button>
-            <button className="btn-outline" onClick={() => window.open('https://wa.me/918309827125', '_blank')} style={{ fontSize: 15, padding: '14px 32px' }}><MessageCircle size={14} /> WhatsApp Us</button>
-          </div>
-        </div>
-      </section>
-
       <WebsiteFooter />
-      </div>
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
   );
 }
