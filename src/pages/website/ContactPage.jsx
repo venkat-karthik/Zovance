@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, MessageCircle, ArrowRight, CheckCircle2, Clock } f
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 export default function ContactPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
@@ -231,6 +232,7 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

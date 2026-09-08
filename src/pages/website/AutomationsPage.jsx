@@ -3,6 +3,7 @@ import { ArrowRight, Zap, Code2, Cpu, Globe, MessageCircle, Database, Lock, Refr
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 const templates = [
   {
@@ -203,6 +204,7 @@ export default function AutomationsPage() {
         </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

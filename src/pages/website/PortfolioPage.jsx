@@ -1,6 +1,7 @@
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 import { useStore } from '../../store/useStore';
 
 export default function PortfolioPage() {
@@ -126,14 +127,7 @@ export default function PortfolioPage() {
         )}
       </section>
 
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px, 4vw, 24px) 80px', textAlign: 'center' }}>
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 20, padding: 'clamp(28px, 6vw, 56px)' }}>
-          <h2 style={{ fontSize: 'clamp(24px, 5vw, 36px)', fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 12 }}>Ready to Be Our Next Case Study?</h2>
-          <p style={{ color: '#555', fontSize: 16, marginBottom: 32 }}>Let's map your automation opportunities and build something remarkable.</p>
-          <button className="btn-gold" onClick={() => window.open('https://calendly.com', '_blank')} style={{ fontSize: 15, padding: '14px 32px', cursor: 'pointer' }}>Book a Free Strategy Call <ArrowRight size={16} /></button>
-        </div>
-      </section>
-
+      <ClosingCtaBanner />
       <WebsiteFooter />
     </div>
   );

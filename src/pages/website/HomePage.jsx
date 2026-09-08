@@ -3,6 +3,7 @@ import { ArrowRight, MessageCircle, Zap, Phone, Layers, BarChart3, ChevronRight,
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 import { useStore } from '../../store/useStore';
 
 const featuredProjects = [
@@ -71,19 +72,23 @@ export default function HomePage() {
       <section style={{
         maxWidth: 1280,
         margin: '0 auto',
-        padding: 'clamp(40px, 6vw, 80px) clamp(16px, 4vw, 36px)',
+        padding: 'clamp(32px, 5vw, 64px) clamp(16px, 4vw, 36px)',
         position: 'relative',
       }}>
-        {/* Animated Mesh Glow Background */}
+        {/* Animated Perfectly Light Pastel Mesh Glow Background */}
         <div
           className="ambient-mesh-glow"
           style={{
             position: 'absolute',
-            top: -80,
-            left: '15%',
-            width: 500,
-            height: 450,
-            background: 'radial-gradient(circle, rgba(52, 211, 153, 0.16) 0%, rgba(99, 102, 241, 0.1) 40%, rgba(251, 113, 133, 0.08) 80%, transparent 100%)',
+            top: -60,
+            left: '10%',
+            width: 'clamp(400px, 50vw, 650px)',
+            height: 'clamp(400px, 50vw, 580px)',
+            background: darkMode
+              ? 'radial-gradient(circle, rgba(45, 212, 191, 0.28) 0%, rgba(96, 165, 250, 0.22) 38%, rgba(244, 114, 182, 0.16) 75%, transparent 100%)'
+              : 'radial-gradient(circle, rgba(45, 212, 191, 0.42) 0%, rgba(96, 165, 250, 0.35) 38%, rgba(244, 114, 182, 0.24) 75%, transparent 100%)',
+            filter: 'blur(34px)',
+            willChange: 'transform, opacity',
             pointerEvents: 'none',
             zIndex: 0,
           }}
@@ -100,158 +105,31 @@ export default function HomePage() {
 
           {/* Hero Content Block with Laptop Mockup beside text */}
           <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-12">
-            
-            {/* Top Studio Pill Badge + Live Availability */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 12,
-              flexWrap: 'wrap',
-              marginBottom: 24,
-            }}>
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '6px 16px',
-                borderRadius: 9999,
-                background: '#ffffff',
-                border: '1px solid #E2E8F0',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.04)',
-              }}>
-                <div style={{
-                  width: 8,
-                  height: 8,
-                  borderRadius: '50%',
-                  background: '#22c55e',
-                  boxShadow: '0 0 10px #22c55e',
-                }} />
-                <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#0F172A', textTransform: 'uppercase' }}>
-                  NEXT-GEN AI AUTOMATION STUDIO
-                </span>
-              </div>
 
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '6px 14px',
-                borderRadius: 9999,
-                background: '#DCFCE7',
-                border: '1px solid #86EFAC',
-                color: '#166534',
-                fontSize: 12,
+            {/* Headline + Subtitle Statement */}
+            <div style={{ marginBottom: 28 }}>
+              <h1 style={{
+                fontSize: 'clamp(42px, 6.5vw, 76px)',
                 fontWeight: 700,
+                lineHeight: 1.04,
+                letterSpacing: '-0.03em',
+                color: darkMode ? '#F8FAFC' : '#0F172A',
+                marginBottom: 20,
+                maxWidth: 760,
               }}>
-                <Sparkles size={13} color="#15803D" />
-                <span>🟢 2 Execution Slots Open for Sep 2026</span>
-              </div>
-            </div>
-
-            {/* Headline + Laptop Image Beside Text Container */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 'clamp(20px, 4vw, 40px)', flexWrap: 'wrap', marginBottom: 28 }}>
-              <div style={{ flex: '1 1 300px', minWidth: 280 }}>
-                <h1 style={{
-                  fontSize: 'clamp(38px, 5.5vw, 68px)',
-                  fontWeight: 700,
-                  lineHeight: 1.04,
-                  letterSpacing: '-0.03em',
-                  color: '#0F172A',
-                  marginBottom: 16,
-                }}>
-                  Turn Ideas<br />
-                  Into Real<br />
-                  <span className="impact-gradient font-serif" style={{ fontStyle: 'italic', paddingRight: 8 }}>
-                    Impact.
-                  </span>
-                </h1>
-                <p style={{
-                  fontSize: 'clamp(14px, 1.8vw, 17px)',
-                  color: '#475569',
-                  lineHeight: 1.6,
-                  maxWidth: 480,
-                }}>
-                  We design, build, and deploy AI-powered systems that automate, scale, and create measurable growth for modern businesses.
-                </p>
-              </div>
-
-              {/* Laptop Mockup Image Card directly beside text (~2cm Larger) */}
-              <div style={{ flex: '0 1 620px', minWidth: 340 }}>
-                <div style={{
-                  position: 'relative',
-                  width: '100%',
-                  borderRadius: 24,
-                  overflow: 'hidden',
-                  boxShadow: '0 20px 48px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04)',
-                  border: '1px solid #E2E8F0',
-                  background: '#ffffff',
-                  transition: 'transform 0.3s ease',
-                }}>
-                  <img
-                    src="/hero-mockup.jpg"
-                    alt="Zovance Laptop Workplace Dashboard"
-                    style={{
-                      width: '100%',
-                      height: 'auto',
-                      maxHeight: 420,
-                      display: 'block',
-                      objectFit: 'cover',
-                    }}
-                  />
-
-                  {/* Floating Glassmorphic Badges Stack */}
-                  <div style={{
-                    position: 'absolute',
-                    top: 16,
-                    right: 16,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: 8,
-                    width: 155,
-                  }}>
-                    <div className="glass-float-card" style={{ padding: '8px 12px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div style={{ width: 24, height: 24, borderRadius: 6, background: '#ede9fe', color: '#7c3aed', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <MessageCircle size={13} />
-                        </div>
-                        <div>
-                          <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>AI Agents</div>
-                          <div style={{ fontSize: 9, color: '#64748B' }}>24/7 support</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="glass-float-card" style={{ padding: '8px 12px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <div style={{ width: 24, height: 24, borderRadius: 6, background: '#fee2e2', color: '#ef4444', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <Zap size={13} />
-                        </div>
-                        <div>
-                          <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>Workflows</div>
-                          <div style={{ fontSize: 9, color: '#64748B' }}>Save 100+ hrs</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Book Overlay Tag */}
-                  <div style={{
-                    position: 'absolute',
-                    bottom: 14,
-                    left: 14,
-                    background: 'rgba(15, 23, 42, 0.75)',
-                    backdropFilter: 'blur(10px)',
-                    color: '#ffffff',
-                    padding: '6px 12px',
-                    borderRadius: 8,
-                    fontSize: 10,
-                    fontWeight: 600,
-                    letterSpacing: '0.05em',
-                  }}>
-                    A MORE AUTOMATED WORLD
-                  </div>
-                </div>
-              </div>
+                Turn Ideas Into Real{' '}
+                <span className="impact-gradient font-serif" style={{ fontStyle: 'italic', paddingRight: 8 }}>
+                  Impact.
+                </span>
+              </h1>
+              <p style={{
+                fontSize: 'clamp(16px, 2vw, 19px)',
+                color: darkMode ? '#CBD5E1' : '#475569',
+                lineHeight: 1.6,
+                maxWidth: 620,
+              }}>
+                We design, build, and deploy AI-powered systems that automate, scale, and create measurable growth for modern businesses.
+              </p>
             </div>
 
 
@@ -327,11 +205,11 @@ export default function HomePage() {
                   <Star key={i} size={14} fill="#f59e0b" color="#f59e0b" />
                 ))}
               </div>
-              <span style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>
-                4.9/5 Average Rating
+              <span style={{ fontSize: 13, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
+                4.5/5 Average Rating
               </span>
-              <span style={{ fontSize: 12, color: '#64748B' }}>
-                • Trusted by 30+ Companies
+              <span style={{ fontSize: 12, color: darkMode ? '#94A3B8' : '#64748B' }}>
+                • Trusted by 10 Companies
               </span>
             </div>
 
@@ -987,115 +865,7 @@ export default function HomePage() {
       </div>
     </section>
 
-      {/* ================= CALL TO ACTION FOOTER BANNER ================= */}
-      <section style={{
-        maxWidth: 1280,
-        margin: '0 auto 60px',
-        padding: '0 clamp(16px, 4vw, 36px)',
-      }}>
-        <div style={{
-          position: 'relative',
-          borderRadius: 32,
-          overflow: 'hidden',
-          minHeight: 380,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: 'clamp(40px, 6vw, 64px)',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
-        }}>
-          {/* Background Image with Warm Soft Overlay */}
-          <img
-            src="/mountain-cta.jpg"
-            alt="Mountain sunrise horizon"
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              zIndex: 0,
-            }}
-          />
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'linear-gradient(90deg, rgba(251, 251, 249, 0.95) 0%, rgba(251, 251, 249, 0.75) 50%, rgba(251, 251, 249, 0.4) 100%)',
-            zIndex: 1,
-          }} />
-
-          {/* Content Left */}
-          <div style={{ position: 'relative', zIndex: 2, maxWidth: 560 }}>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-              LET'S BUILD TOGETHER
-            </div>
-
-            <h2 style={{
-              fontSize: 'clamp(32px, 5vw, 56px)',
-              fontWeight: 700,
-              lineHeight: 1.1,
-              letterSpacing: '-0.02em',
-              color: '#0F172A',
-              marginBottom: 20,
-            }}>
-              A more efficient<br />
-              tomorrow starts <span className="text-terracotta font-serif" style={{ fontStyle: 'italic' }}>today.</span>
-            </h2>
-
-            <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.6, marginBottom: 32 }}>
-              Tell us about your project — we'll help you turn it into a scalable, future-ready solution.
-            </p>
-
-            {/* Buttons */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-              <button
-                className="btn-dark-pill"
-                onClick={() => setBookingOpen(true)}
-              >
-                <span>Book a Call</span>
-                <ArrowRight size={16} />
-              </button>
-
-              <button
-                className="btn-white-pill"
-                onClick={() => window.open('https://wa.me/918309827125', '_blank')}
-              >
-                <div style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: '50%',
-                  background: '#22c55e',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                }}>
-                  <MessageCircle size={12} />
-                </div>
-                <span>Chat on WhatsApp</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Tagline Right */}
-          <div style={{
-            position: 'relative',
-            zIndex: 2,
-            textAlign: 'right',
-            color: '#64748B',
-            fontSize: 11,
-            fontWeight: 800,
-            letterSpacing: '0.18em',
-            lineHeight: 1.6,
-          }} className="hidden md:block">
-            SAME<br />
-            PEOPLE.<br />
-            BIGGER<br />
-            TOMORROWS.
-          </div>
-
-        </div>
-      </section>
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
 
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />

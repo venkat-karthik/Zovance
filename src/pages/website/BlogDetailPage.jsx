@@ -4,6 +4,7 @@ import { ArrowLeft, Clock, Calendar, ArrowRight, MessageCircle } from 'lucide-re
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 export default function BlogDetailPage() {
   const { id } = useParams();
@@ -81,19 +82,9 @@ export default function BlogDetailPage() {
           </p>
         </div>
 
-        {/* Bottom CTA Banner */}
-        <div style={{ background: '#0F172A', color: '#ffffff', borderRadius: 24, padding: 36, marginTop: 56, textAlign: 'center' }}>
-          <h3 style={{ fontSize: 24, fontWeight: 700, marginBottom: 12 }}>Ready to Deploy AI Agents in Your Business?</h3>
-          <p style={{ fontSize: 14, color: '#94A3B8', maxWidth: 480, margin: '0 auto 24px' }}>
-            Book a 30-min discovery call to see how custom AI workflows can scale your ops.
-          </p>
-          <button className="btn-dark-pill" onClick={() => setBookingOpen(true)} style={{ background: '#ffffff', color: '#0F172A' }}>
-            <span>Book Free Strategy Call</span>
-            <ArrowRight size={16} />
-          </button>
-        </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

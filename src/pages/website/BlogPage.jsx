@@ -4,6 +4,7 @@ import { ArrowRight, Clock, User, Tag } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 const articles = [
   {
@@ -130,6 +131,7 @@ export default function BlogPage() {
         </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

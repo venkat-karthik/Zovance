@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, Zap, ShieldCheck, Sparkles, HelpCircle } from
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 const pricingTiers = [
   {
@@ -192,6 +193,7 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

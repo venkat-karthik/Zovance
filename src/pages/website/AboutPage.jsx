@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2, Users, Target, Shield, Heart, Sparkles } from
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 const values = [
   {
@@ -129,6 +130,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

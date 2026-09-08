@@ -3,6 +3,7 @@ import { Zap, Phone, Layers, BarChart3, ArrowRight, CheckCircle2, MessageCircle,
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ClosingCtaBanner from '../../components/ClosingCtaBanner';
 
 const serviceCategories = [
   {
@@ -503,6 +504,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
