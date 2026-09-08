@@ -59,7 +59,9 @@ const featuredProjects = [
 export default function HomePage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [activeProjectIdx, setActiveProjectIdx] = useState(0);
+  const [viewportMode, setViewportMode] = useState('desktop');
   const activeProj = featuredProjects[activeProjectIdx];
+  const { darkMode } = useStore();
 
   return (
     <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
@@ -687,9 +689,7 @@ export default function HomePage() {
               <span style={{ fontSize: 14, fontWeight: 800, color: '#059669' }}>04</span>
             </div>
           </div>
-
         </div>
-
       </section>
 
       {/* ================= INTERACTIVE FEATURED PROJECTS SHOWCASE ================= */}
@@ -698,51 +698,61 @@ export default function HomePage() {
         margin: '0 auto',
         padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
       }}>
-        {/* Project Switcher Bar */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          gap: 16,
-          marginBottom: 32,
-          borderBottom: '1px solid #E2E8F0',
-          paddingBottom: 16,
-        }}>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 6 }}>
-              FEATURED CLIENT SHOWCASE
-            </div>
-            <h2 style={{ fontSize: 24, fontWeight: 700, color: '#0F172A' }}>
-              Explore Working Systems We Built
-            </h2>
+        {/* Section Title */}
+        <div style={{ marginBottom: 32 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 6 }}>
+            FEATURED CLIENT SHOWCASE
           </div>
+          <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 40px)', fontWeight: 800, color: darkMode ? '#F8FAFC' : '#0F172A', letterSpacing: '-0.02em' }}>
+            Explore Working Systems We Built
+          </h2>
+        </div>
 
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-            {featuredProjects.map((proj, idx) => (
-              <button
+        {/* Interactive Visual Project Selector Cards Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+          gap: 16,
+          marginBottom: 36,
+        }}>
+          {featuredProjects.map((proj, idx) => {
+            const isSelected = activeProjectIdx === idx;
+            return (
+              <div
                 key={proj.id}
                 onClick={() => setActiveProjectIdx(idx)}
                 style={{
-                  padding: '8px 18px',
-                  borderRadius: 9999,
-                  border: '1px solid',
-                  borderColor: activeProjectIdx === idx ? '#0F172A' : '#E2E8F0',
-                  background: activeProjectIdx === idx ? '#0F172A' : '#ffffff',
-                  color: activeProjectIdx === idx ? '#ffffff' : '#475569',
-                  fontSize: 13,
-                  fontWeight: 700,
+                  padding: '18px 22px',
+                  borderRadius: 20,
+                  border: isSelected
+                    ? '2px solid #3B82F6'
+                    : (darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E2E8F0'),
+                  background: isSelected
+                    ? (darkMode ? '#1E293B' : '#0F172A')
+                    : (darkMode ? '#131B2E' : '#ffffff'),
+                  color: isSelected ? '#ffffff' : (darkMode ? '#CBD5E1' : '#0F172A'),
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease',
+                  transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                  boxShadow: isSelected ? '0 12px 28px rgba(59, 130, 246, 0.25)' : '0 2px 8px rgba(0,0,0,0.02)',
+                  transform: isSelected ? 'translateY(-3px)' : 'none',
                 }}
               >
-                {proj.name}
-              </button>
-            ))}
-          </div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, color: isSelected ? '#60A5FA' : '#64748B', letterSpacing: '0.08em' }}>
+                    0{idx + 1} • {proj.tag.split(' ')[0]}
+                  </span>
+                  {isSelected && (
+                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#60A5FA', boxShadow: '0 0 10px #60A5FA' }} />
+                  )}
+                </div>
+                <div style={{ fontSize: 17, fontWeight: 800, lineHeight: 1.2 }}>{proj.name}</div>
+                <div style={{ fontSize: 12, opacity: 0.8, marginTop: 4 }}>{proj.subtitle}</div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Selected Project Dynamic Showcase */}
+        {/* Selected Project Dynamic Showcase Container */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(12, 1fr)',
@@ -752,140 +762,230 @@ export default function HomePage() {
           
           {/* Left Project Info */}
           <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-5">
-            <h3 style={{
-              fontSize: 'clamp(28px, 4vw, 44px)',
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '4px 12px',
+              borderRadius: 9999,
+              background: darkMode ? 'rgba(59, 130, 246, 0.15)' : '#EFF6FF',
+              border: darkMode ? '1px solid rgba(59, 130, 246, 0.3)' : '1px solid #BFDBFE',
+              color: darkMode ? '#60A5FA' : '#2563EB',
+              fontSize: 12,
               fontWeight: 700,
+              marginBottom: 16,
+            }}>
+              <Sparkles size={13} />
+              <span>{activeProj.tag}</span>
+            </div>
+
+            <h3 style={{
+              fontSize: 'clamp(28px, 4vw, 42px)',
+              fontWeight: 800,
               lineHeight: 1.1,
               letterSpacing: '-0.02em',
-              color: '#0F172A',
+              color: darkMode ? '#F8FAFC' : '#0F172A',
               marginBottom: 16,
             }}>
               {activeProj.name}<br />
-              <span className="font-serif" style={{ fontWeight: 400, fontStyle: 'italic' }}>{activeProj.subtitle}</span>
+              <span className="font-serif" style={{ fontWeight: 400, fontStyle: 'italic', color: darkMode ? '#CBD5E1' : '#475569' }}>{activeProj.subtitle}</span>
             </h3>
 
-            <p style={{ fontSize: 15, color: '#475569', lineHeight: 1.6, marginBottom: 32 }}>
+            <p style={{ fontSize: 15, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 28 }}>
               {activeProj.desc}
             </p>
 
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 40 }}>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 36 }}>
               <button
                 className="btn-dark-pill"
                 onClick={() => window.open(activeProj.url, '_blank')}
               >
-                <span>View Live Platform</span>
+                <span>Launch Live System</span>
                 <ExternalLink size={15} />
               </button>
             </div>
 
-            {/* Metrics */}
+            {/* Metrics Grid */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: `repeat(${activeProj.metrics.length}, 1fr)`,
               gap: 16,
               paddingTop: 24,
-              borderTop: '1px solid #E2E8F0',
+              borderTop: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E2E8F0',
             }}>
               {activeProj.metrics.map((m) => (
                 <div key={m.label}>
-                  <div style={{ fontSize: 24, fontWeight: 800, color: '#0F172A' }}>{m.value}</div>
-                  <div style={{ fontSize: 11, color: '#64748B', marginTop: 2 }}>{m.label}</div>
+                  <div style={{ fontSize: 24, fontWeight: 800, color: darkMode ? '#F8FAFC' : '#0F172A' }}>{m.value}</div>
+                  <div style={{ fontSize: 11, color: darkMode ? '#94A3B8' : '#64748B', marginTop: 2, fontWeight: 500 }}>{m.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right Project Media Showcase */}
+          {/* Right Project Media Showcase (Unique Browser Window Frame) */}
           <div style={{ gridColumn: 'span 12 / span 12', position: 'relative' }} className="lg:col-span-7">
+            
+            {/* Browser Chrome Window Mockup */}
             <div style={{
               borderRadius: 24,
               overflow: 'hidden',
-              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)',
-              position: 'relative',
-              border: '1px solid #E2E8F0',
-              background: '#0F172A',
+              boxShadow: darkMode ? '0 24px 60px rgba(0, 0, 0, 0.5)' : '0 20px 48px rgba(15, 23, 42, 0.12)',
+              border: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #E2E8F0',
+              background: darkMode ? '#0F1420' : '#ffffff',
             }}>
-              <img
-                src={activeProj.image}
-                alt={activeProj.name}
-                style={{
-                  width: '100%',
-                  height: '420px',
-                  objectFit: 'cover',
-                  display: 'block',
-                  transition: 'all 0.4s ease',
-                }}
-              />
-
-              {/* Tag Badge Top-Left */}
+              
+              {/* Browser Header Bar */}
               <div style={{
-                position: 'absolute',
-                top: 20,
-                left: 20,
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(10px)',
-                padding: '6px 16px',
-                borderRadius: 9999,
-                fontSize: 12,
-                fontWeight: 700,
-                color: '#0F172A',
-                boxShadow: '0 4px 14px rgba(0,0,0,0.1)',
-              }}>
-                {activeProj.tag}
-              </div>
-
-              {/* Testimonial Overlay Top-Right */}
-              <div style={{
-                position: 'absolute',
-                top: 20,
-                right: 20,
-                maxWidth: 260,
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(12px)',
-                padding: 16,
-                borderRadius: 16,
-                boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
-              }} className="hidden sm:block">
-                <div style={{ fontSize: 24, lineHeight: 1, color: '#0F172A', fontFamily: 'serif', marginBottom: 4 }}>
-                  “
-                </div>
-                <p style={{ fontSize: 12, color: '#334155', lineHeight: 1.4, marginBottom: 12, fontStyle: 'italic' }}>
-                  {activeProj.quote}
-                </p>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <div style={{ width: 24, height: 24, borderRadius: 6, background: '#0F172A', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 900 }}>
-                    ▲
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 11, fontWeight: 700, color: '#0F172A' }}>{activeProj.author}</div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Counter Indicator Bottom-Right */}
-              <div style={{
-                position: 'absolute',
-                bottom: 20,
-                right: 20,
-                background: 'rgba(255, 255, 255, 0.95)',
-                backdropFilter: 'blur(10px)',
-                padding: '6px 14px',
-                borderRadius: 9999,
-                fontSize: 12,
-                fontWeight: 700,
-                color: '#0F172A',
+                background: darkMode ? '#1E293B' : '#0F172A',
+                padding: '12px 18px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 6,
+                justifyContent: 'space-between',
+                gap: 16,
               }}>
-                <span>{activeProjectIdx + 1} / {featuredProjects.length}</span>
-                <ChevronRight size={14} />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#EF4444' }} />
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#F59E0B' }} />
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10B981' }} />
+                </div>
+
+                <div style={{
+                  background: 'rgba(255, 255, 255, 0.12)',
+                  borderRadius: 8,
+                  padding: '4px 14px',
+                  fontSize: 12,
+                  color: '#E2E8F0',
+                  fontFamily: 'monospace',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  maxWidth: 320,
+                  width: '100%',
+                }}>
+                  <span style={{ color: '#34D399', fontSize: 10 }}>🔒 https://</span>
+                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {activeProj.url !== '#' ? activeProj.url.replace('https://', '') : `${activeProj.id}.zovance.ai`}
+                  </span>
+                </div>
+
+                {/* Viewport Mode Controls */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                  <button
+                    onClick={() => setViewportMode('desktop')}
+                    style={{
+                      background: viewportMode === 'desktop' ? 'rgba(255,255,255,0.2)' : 'transparent',
+                      border: 'none',
+                      borderRadius: 6,
+                      padding: '4px 8px',
+                      color: '#ffffff',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    💻 <span className="hidden sm:inline">Desktop</span>
+                  </button>
+                  <button
+                    onClick={() => setViewportMode('mobile')}
+                    style={{
+                      background: viewportMode === 'mobile' ? 'rgba(255,255,255,0.2)' : 'transparent',
+                      border: 'none',
+                      borderRadius: 6,
+                      padding: '4px 8px',
+                      color: '#ffffff',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    📱 <span className="hidden sm:inline">Mobile</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Viewport Frame Window */}
+              <div style={{
+                position: 'relative',
+                background: '#0F172A',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: viewportMode === 'mobile' ? '24px 16px' : 0,
+                minHeight: 420,
+                transition: 'all 0.3s ease',
+              }}>
+                <div style={{
+                  width: viewportMode === 'mobile' ? '300px' : '100%',
+                  borderRadius: viewportMode === 'mobile' ? 24 : 0,
+                  overflow: 'hidden',
+                  border: viewportMode === 'mobile' ? '4px solid #334155' : 'none',
+                  boxShadow: viewportMode === 'mobile' ? '0 16px 36px rgba(0,0,0,0.5)' : 'none',
+                  transition: 'all 0.3s ease',
+                  position: 'relative',
+                }}>
+                  <img
+                    src={activeProj.image}
+                    alt={activeProj.name}
+                    style={{
+                      width: '100%',
+                      height: viewportMode === 'mobile' ? '450px' : '420px',
+                      objectFit: 'cover',
+                      display: 'block',
+                      transition: 'all 0.4s ease',
+                    }}
+                  />
+                </div>
+
+                {/* Floating Testimonial Quote Overlay */}
+                <div style={{
+                  position: 'absolute',
+                  top: 20,
+                  right: 20,
+                  maxWidth: 250,
+                  background: darkMode ? 'rgba(19, 27, 46, 0.9)' : 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(12px)',
+                  padding: 14,
+                  borderRadius: 16,
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+                  border: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E2E8F0',
+                }} className="hidden sm:block">
+                  <div style={{ fontSize: 20, lineHeight: 1, color: darkMode ? '#F8FAFC' : '#0F172A', fontFamily: 'serif', marginBottom: 2 }}>
+                    “
+                  </div>
+                  <p style={{ fontSize: 11, color: darkMode ? '#CBD5E1' : '#334155', lineHeight: 1.4, marginBottom: 10, fontStyle: 'italic' }}>
+                    {activeProj.quote}
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <div style={{ width: 20, height: 20, borderRadius: 5, background: '#3B82F6', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 900 }}>
+                      ✓
+                    </div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>{activeProj.author}</div>
+                  </div>
+                </div>
+
+                {/* Carousel Counter Chip */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 16,
+                  right: 16,
+                  background: 'rgba(15, 23, 42, 0.85)',
+                  backdropFilter: 'blur(10px)',
+                  padding: '6px 14px',
+                  borderRadius: 9999,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  border: '1px solid rgba(255,255,255,0.15)',
+                }}>
               </div>
             </div>
           </div>
-
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* ================= CALL TO ACTION FOOTER BANNER ================= */}
       <section style={{
