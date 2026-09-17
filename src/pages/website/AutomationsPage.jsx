@@ -4,6 +4,7 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
+import { useStore } from '../../store/useStore';
 
 const templates = [
   {
@@ -38,15 +39,15 @@ const templates = [
     title: 'Real Estate Property Matching Bot',
     category: 'Property & Sales',
     desc: 'Parses incoming portal leads, matches preferences with active listings database, and texts property brochures instantly.',
-    tools: ['Meta Lead Ads', 'PostgreSQL', 'WhatsApp API', 'Make.com'],
+    tools: ['Property Finder API', 'OpenAI RAG', 'WhatsApp API', 'Salesforce'],
     timeSaved: '22 hrs / week',
   },
   {
-    title: 'Executive AI Digest & Report Generator',
-    category: 'Management & Analytics',
-    desc: 'Aggregates sales performance, ad spend, and support tickets into a crisp daily morning Slack / WhatsApp summary.',
-    tools: ['Stripe API', 'Google Analytics 4', 'Slack API', 'OpenAI'],
-    timeSaved: '10 hrs / week',
+    title: 'Automated Client Onboarding Vault',
+    category: 'Agency & B2B',
+    desc: 'Generates client Google Drive folders, sends contract e-signatures, creates Slack channels, and posts kickoff invites.',
+    tools: ['DocuSign API', 'Google Drive API', 'Slack API', 'Make.com'],
+    timeSaved: '12 hrs / week',
   },
 ];
 
@@ -56,9 +57,10 @@ const integrations = [
 
 export default function AutomationsPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const { darkMode } = useStore();
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* Header */}
@@ -68,14 +70,14 @@ export default function AutomationsPage() {
         padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
           AUTOMATION PIPELINES
         </div>
         <h1 style={{
           fontSize: 'clamp(36px, 6vw, 68px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
-          color: '#0F172A',
+          color: darkMode ? '#F8FAFC' : '#0F172A',
           lineHeight: 1.05,
           marginBottom: 24,
         }}>
@@ -84,7 +86,7 @@ export default function AutomationsPage() {
         </h1>
         <p style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#475569',
+          color: darkMode ? '#CBD5E1' : '#475569',
           maxWidth: 580,
           margin: '0 auto 40px',
           lineHeight: 1.6,
@@ -95,6 +97,10 @@ export default function AutomationsPage() {
         <button
           className="btn-dark-pill"
           onClick={() => setBookingOpen(true)}
+          style={{
+            background: darkMode ? '#38BDF8' : '#111827',
+            color: darkMode ? '#0F172A' : '#ffffff',
+          }}
         >
           <span>Build Custom Workflow</span>
           <ArrowRight size={16} />
@@ -103,14 +109,14 @@ export default function AutomationsPage() {
 
       {/* Integration Logos Bar */}
       <section style={{
-        background: '#ffffff',
-        borderTop: '1px solid #E2E8F0',
-        borderBottom: '1px solid #E2E8F0',
+        background: darkMode ? '#131B2E' : '#ffffff',
+        borderTop: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0',
+        borderBottom: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0',
         padding: '24px clamp(16px, 4vw, 36px)',
         marginBottom: 60,
       }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
             NATIVELY CONNECTED WITH 100+ APPS & PLATFORMS
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
@@ -120,11 +126,11 @@ export default function AutomationsPage() {
                 style={{
                   fontSize: 13,
                   fontWeight: 700,
-                  color: '#334155',
+                  color: darkMode ? '#F8FAFC' : '#334155',
                   padding: '6px 16px',
                   borderRadius: 999,
-                  background: '#F1F5F9',
-                  border: '1px solid #E2E8F0',
+                  background: darkMode ? '#1E293B' : '#F1F5F9',
+                  border: darkMode ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid #E2E8F0',
                 }}
               >
                 {tool}
@@ -149,41 +155,42 @@ export default function AutomationsPage() {
             <div
               key={tmpl.title}
               style={{
-                background: '#ffffff',
-                border: '1px solid #E2E8F0',
+                background: darkMode ? '#131B2E' : '#ffffff',
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
                 borderRadius: 24,
                 padding: 32,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
+                transition: 'all 0.3s ease',
               }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#2563EB', padding: '4px 10px', background: '#DBEAFE', borderRadius: 999 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: darkMode ? '#60A5FA' : '#2563EB', padding: '4px 10px', background: darkMode ? 'rgba(59, 130, 246, 0.15)' : '#DBEAFE', borderRadius: 999 }}>
                     {tmpl.category}
                   </span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: '#16A34A' }}>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: darkMode ? '#34D399' : '#16A34A' }}>
                     ⚡ {tmpl.timeSaved}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 12 }}>
                   {tmpl.title}
                 </h3>
 
-                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, marginBottom: 24 }}>
+                <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 24 }}>
                   {tmpl.desc}
                 </p>
 
                 <div style={{ marginBottom: 28 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
                     INTEGRATED TECH STACK:
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {tmpl.tools.map((t) => (
-                      <span key={t} style={{ fontSize: 11, fontWeight: 600, color: '#475569', background: '#FBFBF9', border: '1px solid #E2E8F0', borderRadius: 6, padding: '4px 8px' }}>
+                      <span key={t} style={{ fontSize: 11, fontWeight: 600, color: darkMode ? '#CBD5E1' : '#475569', background: darkMode ? '#0F1420' : '#FBFBF9', border: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0', borderRadius: 6, padding: '4px 8px' }}>
                         {t}
                       </span>
                     ))}
@@ -194,7 +201,12 @@ export default function AutomationsPage() {
               <button
                 className="btn-dark-pill"
                 onClick={() => setBookingOpen(true)}
-                style={{ width: '100%', justifyContent: 'center' }}
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  background: darkMode ? '#38BDF8' : '#111827',
+                  color: darkMode ? '#0F172A' : '#ffffff',
+                }}
               >
                 <span>Deploy This Workflow</span>
                 <ArrowRight size={14} />
