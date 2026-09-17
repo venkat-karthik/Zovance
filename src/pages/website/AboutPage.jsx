@@ -4,6 +4,7 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
+import { useStore } from '../../store/useStore';
 
 const values = [
   {
@@ -30,9 +31,10 @@ const values = [
 
 export default function AboutPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const { darkMode } = useStore();
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* Hero Header */}
@@ -42,14 +44,14 @@ export default function AboutPage() {
         padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
           OUR MISSION & STORY
         </div>
         <h1 style={{
           fontSize: 'clamp(36px, 6vw, 68px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
-          color: '#0F172A',
+          color: darkMode ? '#F8FAFC' : '#0F172A',
           lineHeight: 1.05,
           marginBottom: 24,
         }}>
@@ -58,7 +60,7 @@ export default function AboutPage() {
         </h1>
         <p style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#475569',
+          color: darkMode ? '#CBD5E1' : '#475569',
           maxWidth: 640,
           margin: '0 auto 40px',
           lineHeight: 1.6,
@@ -69,6 +71,10 @@ export default function AboutPage() {
         <button
           className="btn-dark-pill"
           onClick={() => setBookingOpen(true)}
+          style={{
+            background: darkMode ? '#38BDF8' : '#111827',
+            color: darkMode ? '#0F172A' : '#ffffff',
+          }}
         >
           <span>Meet Our Engineering Team</span>
           <ArrowRight size={16} />
@@ -82,10 +88,10 @@ export default function AboutPage() {
         padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
       }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
             OUR GUIDING PRINCIPLES
           </div>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: '#0F172A' }}>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
             How We Work & Deliver
           </h2>
         </div>
@@ -99,19 +105,19 @@ export default function AboutPage() {
             <div
               key={v.title}
               style={{
-                background: '#ffffff',
-                border: '1px solid #E2E8F0',
+                background: darkMode ? '#131B2E' : '#ffffff',
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
                 borderRadius: 24,
                 padding: 32,
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
               }}
             >
               <div style={{
                 width: 48,
                 height: 48,
                 borderRadius: 16,
-                background: '#F1F5F9',
-                color: '#0F172A',
+                background: darkMode ? 'rgba(56, 189, 248, 0.2)' : '#F1F5F9',
+                color: darkMode ? '#38BDF8' : '#0F172A',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -119,10 +125,10 @@ export default function AboutPage() {
               }}>
                 <v.icon size={22} />
               </div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: '#0F172A', marginBottom: 10 }}>
+              <h3 style={{ fontSize: 18, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 10 }}>
                 {v.title}
               </h3>
-              <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
+              <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#64748B', lineHeight: 1.6 }}>
                 {v.desc}
               </p>
             </div>

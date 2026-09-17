@@ -4,6 +4,7 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
+import { useStore } from '../../store/useStore';
 
 const pricingTiers = [
   {
@@ -40,29 +41,30 @@ const pricingTiers = [
     cta: 'Build Pro System',
   },
   {
-    name: 'Enterprise AI Pipeline',
-    tag: 'For Scale Operations',
-    price: 'Custom Quote',
-    period: 'tailored roadmap',
-    desc: 'End-to-end multi-agent AI ecosystems built strictly to your corporate infrastructure and compliance standards.',
+    name: 'Enterprise Custom Build',
+    tag: 'Custom Roadmap',
+    price: 'Custom',
+    period: 'tailored scope',
+    desc: 'Bespoke AI system architecture, dedicated engineer allocation, custom LLM fine-tuning, and on-prem deployment.',
     features: [
-      'Unlimited Autonomous Multi-Agent Pipelines',
+      'Unlimited AI Workflows & Voice Callers',
       'Custom LLM Fine-Tuning & Private RAG',
+      'On-Premises or Private Cloud Hosting',
       'Dedicated Solutions Engineer',
-      'SOC-2 Compliant Security & Data Vaults',
-      '24/7 SLA Priority Support & Maintenance',
-      'Quarterly Automation Optimization Audits',
+      '24/7 SLA Priority Phone Support',
+      'Custom API & Legacy ERP Connections',
     ],
     popular: false,
-    cta: 'Contact Enterprise Team',
+    cta: 'Talk to Architect',
   },
 ];
 
 export default function PricingPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const { darkMode } = useStore();
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* Header */}
@@ -72,14 +74,14 @@ export default function PricingPage() {
         padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
           TRANSPARENT PRICING IN INR
         </div>
         <h1 style={{
           fontSize: 'clamp(36px, 6vw, 68px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
-          color: '#0F172A',
+          color: darkMode ? '#F8FAFC' : '#0F172A',
           lineHeight: 1.05,
           marginBottom: 24,
         }}>
@@ -88,7 +90,7 @@ export default function PricingPage() {
         </h1>
         <p style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#475569',
+          color: darkMode ? '#CBD5E1' : '#475569',
           maxWidth: 580,
           margin: '0 auto 40px',
           lineHeight: 1.6,
@@ -113,15 +115,15 @@ export default function PricingPage() {
             <div
               key={tier.name}
               style={{
-                background: tier.popular ? '#ffffff' : '#ffffff',
-                border: tier.popular ? '2px solid #0F172A' : '1px solid #E2E8F0',
+                background: darkMode ? (tier.popular ? '#1E293B' : '#131B2E') : '#ffffff',
+                border: tier.popular ? (darkMode ? '2px solid #38BDF8' : '2px solid #0F172A') : (darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0'),
                 borderRadius: 28,
                 padding: 36,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 position: 'relative',
-                boxShadow: tier.popular ? '0 20px 40px rgba(15, 23, 42, 0.1)' : '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.5)' : (tier.popular ? '0 20px 40px rgba(15, 23, 42, 0.1)' : '0 4px 20px rgba(0,0,0,0.03)'),
               }}
             >
               {tier.popular && (
@@ -129,8 +131,8 @@ export default function PricingPage() {
                   position: 'absolute',
                   top: -14,
                   right: 28,
-                  background: '#0F172A',
-                  color: '#ffffff',
+                  background: darkMode ? '#38BDF8' : '#0F172A',
+                  color: darkMode ? '#0F172A' : '#ffffff',
                   fontSize: 11,
                   fontWeight: 800,
                   letterSpacing: '0.1em',
@@ -143,47 +145,47 @@ export default function PricingPage() {
               )}
 
               <div>
-                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#64748B', marginBottom: 12 }}>
+                <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: darkMode ? '#94A3B8' : '#64748B', marginBottom: 12 }}>
                   {tier.tag}
                 </div>
 
-                <h3 style={{ fontSize: 24, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>
+                <h3 style={{ fontSize: 24, fontWeight: 800, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 16 }}>
                   {tier.name}
                 </h3>
 
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, marginBottom: 16 }}>
-                  <span style={{ fontSize: 38, fontWeight: 900, color: '#0F172A', letterSpacing: '-0.03em' }}>
+                  <span style={{ fontSize: 38, fontWeight: 900, color: darkMode ? '#F8FAFC' : '#0F172A', letterSpacing: '-0.03em' }}>
                     {tier.price}
                   </span>
-                  <span style={{ fontSize: 13, color: '#64748B', fontWeight: 600 }}>
+                  <span style={{ fontSize: 13, color: darkMode ? '#94A3B8' : '#64748B', fontWeight: 600 }}>
                     / {tier.period}
                   </span>
                 </div>
 
-                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, marginBottom: 32 }}>
+                <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 28 }}>
                   {tier.desc}
                 </p>
 
-                <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: 24, marginBottom: 32 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 16 }}>
-                    WHAT'S INCLUDED:
-                  </div>
-
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                    {tier.features.map((f) => (
-                      <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <CheckCircle2 size={16} color="#16A34A" />
-                        <span style={{ fontSize: 14, color: '#334155', fontWeight: 600 }}>{f}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 36 }}>
+                  {tier.features.map((f) => (
+                    <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <CheckCircle2 size={16} color="#16A34A" />
+                      <span style={{ fontSize: 13, color: darkMode ? '#CBD5E1' : '#334155', fontWeight: 600 }}>{f}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <button
-                className={tier.popular ? "btn-dark-pill" : "btn-white-pill"}
+                className={tier.popular ? 'btn-dark-pill' : 'btn-white-pill'}
                 onClick={() => setBookingOpen(true)}
-                style={{ width: '100%', justifyContent: 'center' }}
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  background: tier.popular ? (darkMode ? '#38BDF8' : '#0F172A') : (darkMode ? '#1E293B' : '#ffffff'),
+                  color: tier.popular ? (darkMode ? '#0F172A' : '#ffffff') : (darkMode ? '#F8FAFC' : '#0F172A'),
+                  borderColor: darkMode ? 'rgba(255,255,255,0.15)' : '#E2E8F0',
+                }}
               >
                 <span>{tier.cta}</span>
                 <ArrowRight size={14} />
