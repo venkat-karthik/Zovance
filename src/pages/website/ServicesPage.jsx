@@ -4,6 +4,7 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
+import { useStore } from '../../store/useStore';
 
 const serviceCategories = [
   {
@@ -127,6 +128,7 @@ const serviceCategories = [
 export default function ServicesPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('automation');
+  const { darkMode } = useStore();
 
   // Solution Quiz State
   const [quizStep, setQuizStep] = useState(0);
@@ -135,7 +137,7 @@ export default function ServicesPage() {
   const selectedService = serviceCategories.find((s) => s.id === activeTab) || serviceCategories[0];
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* Hero Header */}
@@ -154,7 +156,9 @@ export default function ServicesPage() {
           transform: 'translateX(-50%)',
           width: 500,
           height: 300,
-          background: 'radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(52, 211, 153, 0.05) 60%, transparent 80%)',
+          background: darkMode
+            ? 'radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(52, 211, 153, 0.1) 60%, transparent 80%)'
+            : 'radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(52, 211, 153, 0.05) 60%, transparent 80%)',
           pointerEvents: 'none',
         }} />
 
@@ -164,13 +168,13 @@ export default function ServicesPage() {
           gap: 8,
           padding: '6px 16px',
           borderRadius: 9999,
-          background: '#ffffff',
-          border: '1px solid #E2E8F0',
-          boxShadow: '0 2px 10px rgba(0,0,0,0.04)',
+          background: darkMode ? '#1E293B' : '#ffffff',
+          border: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #E2E8F0',
+          boxShadow: darkMode ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 10px rgba(0,0,0,0.04)',
           marginBottom: 20,
         }}>
-          <Sparkles size={14} color="#059669" />
-          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: '#0F172A', textTransform: 'uppercase' }}>
+          <Sparkles size={14} color={darkMode ? '#34D399' : '#059669'} />
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: darkMode ? '#F8FAFC' : '#0F172A', textTransform: 'uppercase' }}>
             ENGINEERED FOR MEASURABLE ROI
           </span>
         </div>
@@ -179,7 +183,7 @@ export default function ServicesPage() {
           fontSize: 'clamp(36px, 6vw, 68px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
-          color: '#0F172A',
+          color: darkMode ? '#F8FAFC' : '#0F172A',
           lineHeight: 1.05,
           marginBottom: 20,
         }}>
@@ -189,7 +193,7 @@ export default function ServicesPage() {
 
         <p style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#475569',
+          color: darkMode ? '#CBD5E1' : '#475569',
           maxWidth: 600,
           margin: '0 auto 36px',
           lineHeight: 1.6,
@@ -202,10 +206,10 @@ export default function ServicesPage() {
           display: 'inline-flex',
           gap: 8,
           padding: 6,
-          background: '#ffffff',
-          border: '1px solid #E2E8F0',
+          background: darkMode ? '#131B2E' : '#ffffff',
+          border: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #E2E8F0',
           borderRadius: 9999,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+          boxShadow: darkMode ? '0 8px 24px rgba(0,0,0,0.4)' : '0 4px 16px rgba(0,0,0,0.04)',
           flexWrap: 'wrap',
           justifyContent: 'center',
         }}>
@@ -225,8 +229,8 @@ export default function ServicesPage() {
                   fontSize: 13,
                   fontWeight: 700,
                   cursor: 'pointer',
-                  background: isActive ? '#0F172A' : 'transparent',
-                  color: isActive ? '#ffffff' : '#64748B',
+                  background: isActive ? (darkMode ? '#38BDF8' : '#0F172A') : 'transparent',
+                  color: isActive ? (darkMode ? '#0F172A' : '#ffffff') : (darkMode ? '#94A3B8' : '#64748B'),
                   transition: 'all 0.25s ease',
                 }}
               >
@@ -245,11 +249,11 @@ export default function ServicesPage() {
         padding: '0 clamp(16px, 4vw, 36px)',
       }}>
         <div style={{
-          background: '#ffffff',
-          border: `2px solid ${selectedService.accentBorder}`,
+          background: darkMode ? '#131B2E' : '#ffffff',
+          border: `2px solid ${darkMode ? 'rgba(56, 189, 248, 0.4)' : selectedService.accentBorder}`,
           borderRadius: 32,
           padding: 'clamp(32px, 6vw, 56px)',
-          boxShadow: '0 16px 40px rgba(15, 23, 42, 0.06)',
+          boxShadow: darkMode ? '0 24px 60px rgba(0, 0, 0, 0.5)' : '0 16px 40px rgba(15, 23, 42, 0.06)',
           transition: 'all 0.3s ease',
         }}>
           <div style={{
@@ -265,8 +269,8 @@ export default function ServicesPage() {
                   width: 48,
                   height: 48,
                   borderRadius: 16,
-                  background: selectedService.color,
-                  color: selectedService.iconColor,
+                  background: darkMode ? 'rgba(56, 189, 248, 0.2)' : selectedService.color,
+                  color: darkMode ? '#38BDF8' : selectedService.iconColor,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -274,17 +278,17 @@ export default function ServicesPage() {
                   <selectedService.icon size={24} />
                 </div>
                 <div>
-                  <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', color: selectedService.iconColor, textTransform: 'uppercase' }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', color: darkMode ? '#38BDF8' : selectedService.iconColor, textTransform: 'uppercase' }}>
                     {selectedService.tag}
                   </span>
-                  <div style={{ fontSize: 13, color: '#64748B', fontWeight: 600 }}>{selectedService.pricing}</div>
+                  <div style={{ fontSize: 13, color: darkMode ? '#94A3B8' : '#64748B', fontWeight: 600 }}>{selectedService.pricing}</div>
                 </div>
               </div>
 
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: '#0F172A', lineHeight: 1.15, marginBottom: 12 }}>
+              <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: darkMode ? '#F8FAFC' : '#0F172A', lineHeight: 1.15, marginBottom: 12 }}>
                 {selectedService.title}
               </h2>
-              <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.6, marginBottom: 28 }}>
+              <p style={{ fontSize: 16, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 28 }}>
                 {selectedService.subtitle}
               </p>
 
@@ -295,20 +299,30 @@ export default function ServicesPage() {
                 gap: 16,
                 marginBottom: 32,
               }}>
-                <div style={{ background: '#FEF2F2', border: '1px solid #FCA5A5', borderRadius: 16, padding: 16 }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#DC2626', textTransform: 'uppercase', marginBottom: 4 }}>
+                <div style={{
+                  background: darkMode ? 'rgba(239, 68, 68, 0.15)' : '#FEF2F2',
+                  border: darkMode ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid #FCA5A5',
+                  borderRadius: 16,
+                  padding: 16,
+                }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: darkMode ? '#F87171' : '#DC2626', textTransform: 'uppercase', marginBottom: 4 }}>
                     ❌ WITHOUT AUTOMATION
                   </div>
-                  <div style={{ fontSize: 13, color: '#7F1D1D', fontWeight: 600 }}>
+                  <div style={{ fontSize: 13, color: darkMode ? '#FCA5A5' : '#7F1D1D', fontWeight: 600 }}>
                     {selectedService.beforeAfter.before}
                   </div>
                 </div>
 
-                <div style={{ background: '#ECFDF5', border: '1px solid #6EE7B7', borderRadius: 16, padding: 16 }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: '#059669', textTransform: 'uppercase', marginBottom: 4 }}>
+                <div style={{
+                  background: darkMode ? 'rgba(16, 185, 129, 0.15)' : '#ECFDF5',
+                  border: darkMode ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid #6EE7B7',
+                  borderRadius: 16,
+                  padding: 16,
+                }}>
+                  <div style={{ fontSize: 11, fontWeight: 800, color: darkMode ? '#34D399' : '#059669', textTransform: 'uppercase', marginBottom: 4 }}>
                     ✅ WITH ZOVANCE AI
                   </div>
-                  <div style={{ fontSize: 13, color: '#064E3B', fontWeight: 700 }}>
+                  <div style={{ fontSize: 13, color: darkMode ? '#6EE7B7' : '#064E3B', fontWeight: 700 }}>
                     {selectedService.beforeAfter.after}
                   </div>
                 </div>
@@ -318,6 +332,10 @@ export default function ServicesPage() {
               <button
                 className="btn-dark-pill"
                 onClick={() => setBookingOpen(true)}
+                style={{
+                  background: darkMode ? '#38BDF8' : '#111827',
+                  color: darkMode ? '#0F172A' : '#ffffff',
+                }}
               >
                 <span>Book Strategy Call For {selectedService.title}</span>
                 <ArrowRight size={16} />
@@ -329,26 +347,49 @@ export default function ServicesPage() {
               
               {/* Process Flow Graphic Card */}
               <div style={{
-                background: '#FBFBF9',
-                border: '1px solid #E2E8F0',
+                background: darkMode ? '#0F1420' : '#FBFBF9',
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
                 borderRadius: 24,
                 padding: 24,
                 marginBottom: 20,
               }}>
-                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
                   ⚡ HOW IT WORKS IN REAL-TIME
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <div style={{ background: '#ffffff', border: '1px solid #E2E8F0', borderRadius: 12, padding: '10px 14px', fontSize: 13, fontWeight: 600, color: '#475569' }}>
-                    1. <span style={{ color: '#0F172A', fontWeight: 700 }}>{selectedService.flow.input}</span>
+                  <div style={{
+                    background: darkMode ? '#1E293B' : '#ffffff',
+                    border: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E2E8F0',
+                    borderRadius: 12,
+                    padding: '10px 14px',
+                    fontSize: 13,
+                    fontWeight: 600,
+                    color: darkMode ? '#CBD5E1' : '#475569',
+                  }}>
+                    1. <span style={{ color: darkMode ? '#F8FAFC' : '#0F172A', fontWeight: 700 }}>{selectedService.flow.input}</span>
                   </div>
-                  <div style={{ textAlign: 'center', color: '#64748B', fontSize: 12 }}>↓</div>
-                  <div style={{ background: '#0F172A', color: '#ffffff', borderRadius: 12, padding: '10px 14px', fontSize: 13, fontWeight: 700 }}>
+                  <div style={{ textAlign: 'center', color: darkMode ? '#94A3B8' : '#64748B', fontSize: 12 }}>↓</div>
+                  <div style={{
+                    background: darkMode ? '#38BDF8' : '#0F172A',
+                    color: darkMode ? '#0F172A' : '#ffffff',
+                    borderRadius: 12,
+                    padding: '10px 14px',
+                    fontSize: 13,
+                    fontWeight: 700,
+                  }}>
                     2. 🤖 {selectedService.flow.process}
                   </div>
-                  <div style={{ textAlign: 'center', color: '#64748B', fontSize: 12 }}>↓</div>
-                  <div style={{ background: '#DCFCE7', border: '1px solid #86EFAC', color: '#166534', borderRadius: 12, padding: '10px 14px', fontSize: 13, fontWeight: 700 }}>
+                  <div style={{ textAlign: 'center', color: darkMode ? '#94A3B8' : '#64748B', fontSize: 12 }}>↓</div>
+                  <div style={{
+                    background: darkMode ? 'rgba(34, 197, 94, 0.2)' : '#DCFCE7',
+                    border: darkMode ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid #86EFAC',
+                    color: darkMode ? '#4ADE80' : '#166534',
+                    borderRadius: 12,
+                    padding: '10px 14px',
+                    fontSize: 13,
+                    fontWeight: 700,
+                  }}>
                     3. ✨ {selectedService.flow.output}
                   </div>
                 </div>
@@ -356,15 +397,15 @@ export default function ServicesPage() {
 
               {/* Client Quote Overlay */}
               <div style={{
-                background: selectedService.color,
+                background: darkMode ? 'rgba(30, 41, 59, 0.9)' : selectedService.color,
                 borderRadius: 20,
                 padding: 20,
-                border: `1px solid ${selectedService.accentBorder}`,
+                border: darkMode ? '1px solid rgba(255,255,255,0.1)' : `1px solid ${selectedService.accentBorder}`,
               }}>
-                <p style={{ fontSize: 13, color: '#0F172A', fontStyle: 'italic', lineHeight: 1.5, marginBottom: 10, fontWeight: 600 }}>
+                <p style={{ fontSize: 13, color: darkMode ? '#F8FAFC' : '#0F172A', fontStyle: 'italic', lineHeight: 1.5, marginBottom: 10, fontWeight: 600 }}>
                   {selectedService.quote}
                 </p>
-                <div style={{ fontSize: 11, fontWeight: 800, color: selectedService.iconColor }}>
+                <div style={{ fontSize: 11, fontWeight: 800, color: darkMode ? '#38BDF8' : selectedService.iconColor }}>
                   — {selectedService.author}
                 </div>
               </div>
@@ -381,10 +422,10 @@ export default function ServicesPage() {
         padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
       }}>
         <div style={{ textAlign: 'center', marginBottom: 44 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
             COMPLETE TECHNICAL SPECS
           </div>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: '#0F172A' }}>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
             What's Included in Every Deployment
           </h2>
         </div>
@@ -398,25 +439,34 @@ export default function ServicesPage() {
             <div
               key={srv.id}
               style={{
-                background: '#ffffff',
-                border: '1px solid #E2E8F0',
+                background: darkMode ? '#131B2E' : '#ffffff',
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
                 borderRadius: 24,
                 padding: 28,
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: darkMode ? '0 12px 30px rgba(0, 0, 0, 0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                <div style={{ width: 36, height: 36, borderRadius: 10, background: srv.color, color: srv.iconColor, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <div style={{
+                  width: 36,
+                  height: 36,
+                  borderRadius: 10,
+                  background: darkMode ? 'rgba(56, 189, 248, 0.2)' : srv.color,
+                  color: darkMode ? '#38BDF8' : srv.iconColor,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
                   <srv.icon size={18} />
                 </div>
-                <h3 style={{ fontSize: 18, fontWeight: 700, color: '#0F172A' }}>{srv.title}</h3>
+                <h3 style={{ fontSize: 18, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>{srv.title}</h3>
               </div>
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {srv.features.map((f) => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                     <CheckCircle2 size={15} color="#16A34A" />
-                    <span style={{ fontSize: 13, color: '#334155', fontWeight: 600 }}>{f}</span>
+                    <span style={{ fontSize: 13, color: darkMode ? '#CBD5E1' : '#334155', fontWeight: 600 }}>{f}</span>
                   </div>
                 ))}
               </div>

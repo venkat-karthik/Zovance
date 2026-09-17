@@ -4,6 +4,7 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
+import { useStore } from '../../store/useStore';
 
 const industries = [
   {
@@ -76,9 +77,10 @@ const industries = [
 
 export default function SolutionsPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
+  const { darkMode } = useStore();
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* Header */}
@@ -88,14 +90,14 @@ export default function SolutionsPage() {
         padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
+        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
           INDUSTRY SOLUTIONS
         </div>
         <h1 style={{
           fontSize: 'clamp(36px, 6vw, 68px)',
           fontWeight: 700,
           letterSpacing: '-0.03em',
-          color: '#0F172A',
+          color: darkMode ? '#F8FAFC' : '#0F172A',
           lineHeight: 1.05,
           marginBottom: 24,
         }}>
@@ -104,7 +106,7 @@ export default function SolutionsPage() {
         </h1>
         <p style={{
           fontSize: 'clamp(15px, 2vw, 18px)',
-          color: '#475569',
+          color: darkMode ? '#CBD5E1' : '#475569',
           maxWidth: 580,
           margin: '0 auto 40px',
           lineHeight: 1.6,
@@ -115,6 +117,10 @@ export default function SolutionsPage() {
         <button
           className="btn-dark-pill"
           onClick={() => setBookingOpen(true)}
+          style={{
+            background: darkMode ? '#38BDF8' : '#111827',
+            color: darkMode ? '#0F172A' : '#ffffff',
+          }}
         >
           <span>Schedule Industry Discovery Call</span>
           <ArrowRight size={16} />
@@ -136,14 +142,14 @@ export default function SolutionsPage() {
             <div
               key={ind.id}
               style={{
-                background: '#ffffff',
-                border: '1px solid #E2E8F0',
+                background: darkMode ? '#131B2E' : '#ffffff',
+                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
                 borderRadius: 24,
                 padding: 32,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
                 transition: 'all 0.3s ease',
               }}
             >
@@ -153,32 +159,38 @@ export default function SolutionsPage() {
                     width: 48,
                     height: 48,
                     borderRadius: 16,
-                    background: ind.color,
-                    color: ind.accent,
+                    background: darkMode ? 'rgba(56, 189, 248, 0.2)' : ind.color,
+                    color: darkMode ? '#38BDF8' : ind.accent,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
                     <ind.icon size={24} />
                   </div>
-                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#64748B' }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: darkMode ? '#94A3B8' : '#64748B' }}>
                     {ind.tag}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: '#0F172A', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 22, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 12 }}>
                   {ind.title}
                 </h3>
 
-                <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6, marginBottom: 24 }}>
+                <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 24 }}>
                   {ind.desc}
                 </p>
 
-                <div style={{ background: '#FBFBF9', border: '1px solid #E2E8F0', borderRadius: 16, padding: 16, marginBottom: 24 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
+                <div style={{
+                  background: darkMode ? '#0F1420' : '#FBFBF9',
+                  border: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0',
+                  borderRadius: 16,
+                  padding: 16,
+                  marginBottom: 24,
+                }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: darkMode ? '#34D399' : '#16A34A', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
                     VERIFIED METRICS
                   </div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#0F172A' }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
                     {ind.metrics}
                   </div>
                 </div>
@@ -187,7 +199,7 @@ export default function SolutionsPage() {
                   {ind.features.map((f) => (
                     <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <CheckCircle2 size={16} color="#16A34A" />
-                      <span style={{ fontSize: 13, color: '#334155', fontWeight: 600 }}>{f}</span>
+                      <span style={{ fontSize: 13, color: darkMode ? '#CBD5E1' : '#334155', fontWeight: 600 }}>{f}</span>
                     </div>
                   ))}
                 </div>
@@ -196,7 +208,13 @@ export default function SolutionsPage() {
               <button
                 className="btn-white-pill"
                 onClick={() => setBookingOpen(true)}
-                style={{ width: '100%', justifyContent: 'center' }}
+                style={{
+                  width: '100%',
+                  justifyContent: 'center',
+                  background: darkMode ? '#1E293B' : '#ffffff',
+                  color: darkMode ? '#F8FAFC' : '#0F172A',
+                  borderColor: darkMode ? 'rgba(255,255,255,0.15)' : '#E2E8F0',
+                }}
               >
                 <span>Deploy For {ind.title}</span>
                 <ArrowRight size={14} />
