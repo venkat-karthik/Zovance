@@ -2,6 +2,11 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+::selection {
+  background: rgba(56, 189, 248, 0.25);
+  color: #38BDF8;
+}
+
 body {
   background: #FBFBF9;
   color: #1E293B;
@@ -13,7 +18,7 @@ body {
   font-family: 'Instrument Serif', Georgia, serif;
 }
 
-/* Impact Gradient Text */
+/* Impact Gradient Text & Glow Text */
 .impact-gradient {
   background: linear-gradient(135deg, #22c55e 0%, #14b8a6 35%, #ec4899 80%, #f43f5e 100%);
   -webkit-background-clip: text;
@@ -21,8 +26,18 @@ body {
   display: inline-block;
 }
 
+.glow-text-cyan {
+  text-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+}
+
 .text-terracotta {
   color: #e07a5f;
+}
+
+/* Background Subtle Grid Overlay */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Continuous Infinite Marquee Motion */
