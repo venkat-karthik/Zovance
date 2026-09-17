@@ -65,7 +65,7 @@ export default function HomePage() {
   const { darkMode } = useStore();
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* ================= HERO SECTION WITH ANIMATED AMBIENT MESH GLOW ================= */}

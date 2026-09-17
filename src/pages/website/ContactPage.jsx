@@ -4,23 +4,35 @@ import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
+import { contactService } from '../../services/contactService';
+import { useStore } from '../../store/useStore';
 
 export default function ContactPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
+  const { darkMode } = useStore();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => {
-      setSubmitted(false);
-      setFormData({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
-    }, 4000);
+    setSubmitting(true);
+    try {
+      await contactService.submitContactForm(formData);
+    } catch (err) {
+      console.error('Failed submitting contact form:', err);
+    } finally {
+      setSubmitting(false);
+      setSubmitted(true);
+      setTimeout(() => {
+        setSubmitted(false);
+        setFormData({ name: '', email: '', phone: '', service: 'General Inquiry', message: '' });
+      }, 5000);
+    }
   };
 
   return (
-    <div style={{ background: '#FBFBF9', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
       <WebsiteNav />
 
       {/* Header */}

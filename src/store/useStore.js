@@ -545,6 +545,16 @@ const initialPortfolioProjects = [
 const initialTestimonials = [];
 
 export const useStore = create((set, get) => ({
+  // Theme Mode State
+  darkMode: typeof window !== 'undefined' ? localStorage.getItem('zovance_theme') === 'dark' : false,
+  setDarkMode: (val) => set(s => {
+    const nextMode = typeof val === 'function' ? val(s.darkMode) : (typeof val === 'boolean' ? val : !s.darkMode);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('zovance_theme', nextMode ? 'dark' : 'light');
+    }
+    return { darkMode: nextMode };
+  }),
+
   // Auth
   currentUser: initialMembers[0],
   setCurrentUser: (user) => set({ currentUser: user }),
