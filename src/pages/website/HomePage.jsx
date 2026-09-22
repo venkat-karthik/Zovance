@@ -47,9 +47,9 @@ export default function HomePage() {
           zIndex: 0,
         }} />
 
-        <div style={{ maxWidth: 960, margin: '0 auto', position: 'relative', zIndex: 2, marginBottom: 44 }}>
+        <div className="animate-fade-up" style={{ maxWidth: 960, margin: '0 auto', position: 'relative', zIndex: 2, marginBottom: 44 }}>
           {/* Subtle brand tag */}
-          <div style={{
+          <div className="shimmer-badge animate-levitate" style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
@@ -59,14 +59,13 @@ export default function HomePage() {
             color: '#38A85B',
             textTransform: 'uppercase',
             marginBottom: 20,
-            background: 'rgba(255, 255, 255, 0.85)',
             border: '1px solid #DCE9EE',
             padding: '6px 16px',
             borderRadius: 9999,
-            boxShadow: '0 2px 8px rgba(16, 44, 66, 0.04)',
+            boxShadow: '0 2px 12px rgba(56, 168, 91, 0.12)',
           }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
-            <span>ZOVANCE</span>
+            <span className="animate-pulse-ring" style={{ width: 8, height: 8, borderRadius: '50%', background: '#38A85B' }} />
+            <span>ZOVANCE SYSTEMS</span>
           </div>
 
           <h1 style={{
@@ -153,7 +152,7 @@ export default function HomePage() {
           zIndex: 2,
         }}>
           <div
-            className="editorial-media-frame"
+            className="editorial-media-frame animate-scale-in delay-200 interactive-hover-card"
             style={{
               aspectRatio: '16/9',
               maxHeight: 640,

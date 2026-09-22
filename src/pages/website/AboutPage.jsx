@@ -13,20 +13,24 @@ export default function AboutPage() {
       <WebsiteNav />
 
       {/* Hero Header */}
-      <section style={{
+      <section className="animate-fade-up" style={{
         maxWidth: 1320,
         margin: '0 auto',
         padding: 'clamp(120px, 14vw, 150px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
         textAlign: 'center',
       }}>
-        <span style={{
+        <span className="shimmer-badge animate-levitate" style={{
           fontSize: 12,
           fontWeight: 700,
           letterSpacing: '0.12em',
           color: '#38A85B',
           textTransform: 'uppercase',
-          display: 'block',
+          display: 'inline-block',
           marginBottom: 16,
+          padding: '6px 16px',
+          borderRadius: 9999,
+          border: '1px solid #DCE9EE',
+          boxShadow: '0 2px 10px rgba(56, 168, 91, 0.12)',
         }}>
           OUR STORY
         </span>
@@ -57,7 +61,7 @@ export default function AboutPage() {
       </section>
 
       {/* Cinematic Banner */}
-      <div style={{ maxWidth: 1320, margin: '0 auto 80px', padding: '0 clamp(20px, 5vw, 64px)' }}>
+      <div className="animate-scale-in delay-200" style={{ maxWidth: 1320, margin: '0 auto 80px', padding: '0 clamp(20px, 5vw, 64px)' }}>
         <div className="editorial-media-frame" style={{ aspectRatio: '21/9', minHeight: 'clamp(200px, 30vw, 360px)' }}>
           <img
             src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&auto=format&fit=crop&q=80"

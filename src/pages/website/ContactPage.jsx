@@ -45,20 +45,24 @@ export default function ContactPage() {
       <WebsiteNav />
 
       {/* Header */}
-      <section style={{
+      <section className="animate-fade-up" style={{
         maxWidth: 1320,
         margin: '0 auto',
         padding: 'clamp(120px, 14vw, 150px) clamp(20px, 5vw, 64px) clamp(30px, 4vw, 50px)',
         textAlign: 'center',
       }}>
-        <span style={{
+        <span className="shimmer-badge animate-levitate" style={{
           fontSize: 12,
           fontWeight: 700,
           letterSpacing: '0.12em',
           color: '#38A85B',
           textTransform: 'uppercase',
-          display: 'block',
+          display: 'inline-block',
           marginBottom: 16,
+          padding: '6px 16px',
+          borderRadius: 9999,
+          border: '1px solid #DCE9EE',
+          boxShadow: '0 2px 10px rgba(56, 168, 91, 0.12)',
         }}>
           GET IN TOUCH
         </span>

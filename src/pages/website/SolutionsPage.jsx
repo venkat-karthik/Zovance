@@ -109,8 +109,8 @@ export default function SolutionsPage() {
           zIndex: 0,
         }} />
 
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <span style={{
+        <div className="animate-fade-up" style={{ position: 'relative', zIndex: 1 }}>
+          <span className="shimmer-badge animate-levitate" style={{
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: '0.12em',
@@ -120,12 +120,12 @@ export default function SolutionsPage() {
             alignItems: 'center',
             gap: 8,
             marginBottom: 16,
-            background: '#F2FAFD',
             border: '1px solid #DCE9EE',
             padding: '6px 16px',
             borderRadius: 9999,
+            boxShadow: '0 2px 10px rgba(56, 168, 91, 0.12)',
           }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
+            <span className="animate-pulse-ring" style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
             INDUSTRY SPECIFIC SYSTEMS
           </span>
 
