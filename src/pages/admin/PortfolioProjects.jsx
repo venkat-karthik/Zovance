@@ -132,11 +132,11 @@ export default function PortfolioProjects() {
         gap: 16,
       }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', marginBottom: 8 }}>
-            Portfolio Projects
+          <h1 style={{ fontSize: 26, fontWeight: 800, color: '#102C42', marginBottom: 8, letterSpacing: '-0.5px' }}>
+            Showcase & Portfolio Hub
           </h1>
-          <p style={{ color: '#888', fontSize: 14 }}>
-            Manage projects displayed on your homepage
+          <p style={{ color: '#526673', fontSize: 14 }}>
+            Manage client case studies and high-impact engineering work displayed on the public site
           </p>
         </div>
         <button
@@ -145,23 +145,15 @@ export default function PortfolioProjects() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-            color: '#fff',
+            background: '#102C42',
+            color: '#FFFFFF',
             border: 'none',
-            padding: '10px 20px',
-            borderRadius: 8,
-            fontWeight: 600,
+            padding: '11px 20px',
+            borderRadius: 10,
+            fontWeight: 700,
             cursor: 'pointer',
             fontSize: 14,
-            transition: 'all 0.3s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(59, 130, 246, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
+            boxShadow: '0 2px 8px rgba(16,44,66,0.15)',
           }}
         >
           <Plus size={18} />
@@ -176,19 +168,24 @@ export default function PortfolioProjects() {
       }}>
         <Search size={16} style={{
           position: 'absolute',
-          left: 12,
+          left: 14,
           top: '50%',
           transform: 'translateY(-50%)',
-          color: '#666',
+          color: '#526673',
         }} />
         <input
           type="text"
-          placeholder="Search projects..."
+          placeholder="Search projects by name, technologies, or tags..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input"
           style={{
-            paddingLeft: 40,
+            width: '100%',
+            padding: '12px 14px 12px 42px',
+            background: '#FFFFFF',
+            border: '1px solid #DCE9EE',
+            borderRadius: 10,
+            color: '#102C42',
+            fontSize: 14,
           }}
         />
       </div>
@@ -197,25 +194,26 @@ export default function PortfolioProjects() {
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(260px, 45vw, 320px), 1fr))',
-        gap: 16,
+        gap: 18,
       }}>
         {filteredProjects.map(project => (
           <div
             key={project.id}
             style={{
-              background: '#111',
-              border: '1px solid #1a1a1a',
-              borderRadius: 12,
+              background: '#FFFFFF',
+              border: '1px solid #DCE9EE',
+              borderRadius: 14,
               overflow: 'hidden',
-              transition: 'all 0.3s ease',
+              boxShadow: '0 2px 8px rgba(16,44,66,0.03)',
+              transition: 'all 0.2s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = '#2a2a2a';
-              e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
+              e.currentTarget.style.borderColor = '#102C42';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(16,44,66,0.08)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = '#1a1a1a';
-              e.currentTarget.style.boxShadow = 'none';
+              e.currentTarget.style.borderColor = '#DCE9EE';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(16,44,66,0.03)';
             }}
           >
             {/* Image */}
@@ -235,9 +233,9 @@ export default function PortfolioProjects() {
                 <button
                   onClick={() => handleTogglePublish(project.id, project.status)}
                   style={{
-                    background: project.status === 'published' ? 'rgba(74, 222, 128, 0.2)' : 'rgba(107, 114, 128, 0.2)',
-                    border: `1px solid ${project.status === 'published' ? 'rgba(74, 222, 128, 0.4)' : 'rgba(107, 114, 128, 0.4)'}`,
-                    color: project.status === 'published' ? '#4ade80' : '#888',
+                    background: project.status === 'published' ? '#DCFCE7' : '#F1F5F9',
+                    border: `1px solid ${project.status === 'published' ? '#BBF7D0' : '#E2E8F0'}`,
+                    color: project.status === 'published' ? '#16A34A' : '#526673',
                     padding: '6px 10px',
                     borderRadius: 6,
                     cursor: 'pointer',
@@ -245,14 +243,7 @@ export default function PortfolioProjects() {
                     alignItems: 'center',
                     gap: 4,
                     fontSize: 12,
-                    fontWeight: 600,
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = project.status === 'published' ? 'rgba(74, 222, 128, 0.3)' : 'rgba(107, 114, 128, 0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = project.status === 'published' ? 'rgba(74, 222, 128, 0.2)' : 'rgba(107, 114, 128, 0.2)';
+                    fontWeight: 700,
                   }}
                 >
                   {project.status === 'published' ? <Eye size={14} /> : <EyeOff size={14} />}
@@ -261,11 +252,11 @@ export default function PortfolioProjects() {
             </div>
 
             {/* Content */}
-            <div style={{ padding: 16 }}>
+            <div style={{ padding: 18 }}>
               <h3 style={{
                 fontSize: 16,
-                fontWeight: 600,
-                color: '#f0f0f0',
+                fontWeight: 800,
+                color: '#102C42',
                 marginBottom: 8,
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -275,8 +266,8 @@ export default function PortfolioProjects() {
               </h3>
 
               <p style={{
-                fontSize: 12,
-                color: '#888',
+                fontSize: 13,
+                color: '#526673',
                 marginBottom: 12,
                 lineHeight: 1.5,
                 display: '-webkit-box',
@@ -291,19 +282,20 @@ export default function PortfolioProjects() {
               <div style={{
                 display: 'flex',
                 flexWrap: 'wrap',
-                gap: 4,
-                marginBottom: 12,
+                gap: 6,
+                marginBottom: 14,
               }}>
                 {project.technologies?.slice(0, 2).map((tech, i) => (
                   <span
                     key={i}
                     style={{
-                      fontSize: 10,
-                      padding: '2px 8px',
-                      borderRadius: 4,
-                      background: 'rgba(59, 130, 246, 0.1)',
-                      color: '#3b82f6',
-                      border: '1px solid rgba(59, 130, 246, 0.2)',
+                      fontSize: 11,
+                      padding: '3px 8px',
+                      borderRadius: 6,
+                      background: '#F2FAFD',
+                      color: '#102C42',
+                      border: '1px solid #DCE9EE',
+                      fontWeight: 600,
                     }}
                   >
                     {tech}
@@ -311,12 +303,13 @@ export default function PortfolioProjects() {
                 ))}
                 {project.technologies?.length > 2 && (
                   <span style={{
-                    fontSize: 10,
-                    padding: '2px 8px',
-                    borderRadius: 4,
-                    background: 'rgba(56, 189, 248, 0.1)',
-                    color: '#38bdf8',
-                    border: '1px solid rgba(56, 189, 248, 0.2)',
+                    fontSize: 11,
+                    padding: '3px 8px',
+                    borderRadius: 6,
+                    background: '#F8FAFC',
+                    color: '#526673',
+                    border: '1px solid #E2E8F0',
+                    fontWeight: 600,
                   }}>
                     +{project.technologies.length - 2}
                   </span>
@@ -333,14 +326,15 @@ export default function PortfolioProjects() {
                     display: 'flex',
                     alignItems: 'center',
                     gap: 4,
-                    color: '#3b82f6',
-                    fontSize: 11,
+                    color: '#102C42',
+                    fontSize: 12,
                     textDecoration: 'none',
-                    marginBottom: 12,
+                    marginBottom: 14,
+                    fontWeight: 600,
                   }}
                 >
-                  <GitBranch size={12} />
-                  GitHub
+                  <GitBranch size={13} />
+                  Repository
                 </a>
               )}
 
@@ -353,56 +347,42 @@ export default function PortfolioProjects() {
                   onClick={() => handleOpenModal(project)}
                   style={{
                     flex: 1,
-                    background: 'rgba(59, 130, 246, 0.1)',
-                    border: '1px solid rgba(59, 130, 246, 0.2)',
-                    color: '#3b82f6',
+                    background: '#F2FAFD',
+                    border: '1px solid #DCE9EE',
+                    color: '#102C42',
                     padding: '8px 12px',
-                    borderRadius: 6,
+                    borderRadius: 8,
                     cursor: 'pointer',
                     fontSize: 12,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 4,
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(59, 130, 246, 0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(59, 130, 246, 0.1)';
                   }}
                 >
-                  <Edit2 size={12} />
+                  <Edit2 size={13} />
                   Edit
                 </button>
                 <button
                   onClick={() => handleDeleteProject(project.id)}
                   style={{
                     flex: 1,
-                    background: 'rgba(239, 68, 68, 0.1)',
-                    border: '1px solid rgba(239, 68, 68, 0.2)',
-                    color: '#ef4444',
+                    background: '#FEF2F2',
+                    border: '1px solid #FECACA',
+                    color: '#DC2626',
                     padding: '8px 12px',
-                    borderRadius: 6,
+                    borderRadius: 8,
                     cursor: 'pointer',
                     fontSize: 12,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 4,
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.2)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
                   }}
                 >
-                  <Trash2 size={12} />
+                  <Trash2 size={13} />
                   Delete
                 </button>
               </div>
@@ -413,11 +393,15 @@ export default function PortfolioProjects() {
 
       {/* Modal */}
       {showModal && (
-        <div className="modal-backdrop" onClick={handleCloseModal}>
+        <div className="modal-backdrop" onClick={handleCloseModal} style={{ background: 'rgba(16,44,66,0.6)', backdropFilter: 'blur(4px)' }}>
           <div className="modal" onClick={(e) => e.stopPropagation()} style={{
             maxWidth: 600,
             maxHeight: '90vh',
             overflowY: 'auto',
+            background: '#FFFFFF',
+            border: '1px solid #DCE9EE',
+            borderRadius: 16,
+            boxShadow: '0 20px 40px rgba(16,44,66,0.2)'
           }}>
             <div style={{
               display: 'flex',
@@ -425,20 +409,25 @@ export default function PortfolioProjects() {
               alignItems: 'center',
               marginBottom: 24,
             }}>
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: '#f0f0f0' }}>
+              <h2 style={{ fontSize: 20, fontWeight: 800, color: '#102C42' }}>
                 {editingId ? 'Edit Project' : 'Add New Project'}
               </h2>
               <button
                 onClick={handleCloseModal}
                 style={{
-                  background: 'none',
+                  background: '#F1F5F9',
                   border: 'none',
-                  color: '#888',
+                  borderRadius: '50%',
+                  width: 32,
+                  height: 32,
+                  color: '#526673',
                   cursor: 'pointer',
-                  padding: 8,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
                 }}
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
 

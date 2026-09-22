@@ -92,11 +92,11 @@ export default function TestimonialsAdmin() {
         gap: 16,
       }}>
         <div>
-          <h1 style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', marginBottom: 8 }}>
-            Client Testimonials & Reviews
+          <h1 style={{ fontSize: 26, fontWeight: 800, color: '#102C42', marginBottom: 8, letterSpacing: '-0.5px' }}>
+            Client Testimonials & Endorsements
           </h1>
-          <p style={{ color: '#888', fontSize: 14 }}>
-            Manage real client feedback displayed dynamically on your homepage
+          <p style={{ color: '#526673', fontSize: 14 }}>
+            Manage verified client feedback and metrics displayed dynamically on the public site
           </p>
         </div>
         <button
@@ -105,23 +105,15 @@ export default function TestimonialsAdmin() {
             display: 'flex',
             alignItems: 'center',
             gap: 8,
-            background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-            color: '#fff',
+            background: '#102C42',
+            color: '#FFFFFF',
             border: 'none',
-            padding: '10px 20px',
-            borderRadius: 8,
-            fontWeight: 600,
+            padding: '11px 20px',
+            borderRadius: 10,
+            fontWeight: 700,
             cursor: 'pointer',
             fontSize: 14,
-            transition: 'all 0.3s ease',
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-2px)';
-            e.currentTarget.style.boxShadow = '0 8px 24px rgba(59, 130, 246, 0.3)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = 'none';
+            boxShadow: '0 2px 8px rgba(16,44,66,0.15)',
           }}
         >
           <Plus size={18} />
@@ -136,21 +128,26 @@ export default function TestimonialsAdmin() {
       }}>
         <Search size={16} style={{
           position: 'absolute',
-          left: 12,
+          left: 14,
           top: '50%',
           transform: 'translateY(-50%)',
-          color: '#666',
+          color: '#526673',
         }} />
         <input
           type="text"
-          placeholder="Search testimonials by client name, company, or text..."
+          placeholder="Search testimonials by name, role, or review text..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input"
           style={{
-            paddingLeft: 40,
+            paddingLeft: 42,
             width: '100%',
-            maxWidth: 400
+            maxWidth: 420,
+            padding: '12px 14px 12px 42px',
+            background: '#FFFFFF',
+            border: '1px solid #DCE9EE',
+            borderRadius: 10,
+            color: '#102C42',
+            fontSize: 14,
           }}
         />
       </div>
@@ -158,28 +155,28 @@ export default function TestimonialsAdmin() {
       {/* Testimonials List / Grid */}
       {filteredTestimonials.length === 0 ? (
         <div style={{
-          background: '#111',
-          border: '1px dashed #222',
+          background: '#FFFFFF',
+          border: '1px dashed #DCE9EE',
           borderRadius: 16,
           padding: '60px 24px',
           textAlign: 'center',
         }}>
-          <MessageCircle size={48} color="#444" style={{ margin: '0 auto 16px' }} />
-          <h3 style={{ fontSize: 18, fontWeight: 600, color: '#e2e8f0', marginBottom: 8 }}>
+          <MessageCircle size={48} color="#526673" style={{ margin: '0 auto 16px', opacity: 0.5 }} />
+          <h3 style={{ fontSize: 18, fontWeight: 700, color: '#102C42', marginBottom: 8 }}>
             No Testimonials Added Yet
           </h3>
-          <p style={{ color: '#64748b', fontSize: 14, maxWidth: 460, margin: '0 auto 24px' }}>
+          <p style={{ color: '#526673', fontSize: 14, maxWidth: 460, margin: '0 auto 24px' }}>
             When you add testimonials here and publish them, the testimonials block will automatically appear on your public Homepage!
           </p>
           <button
             onClick={() => handleOpenModal()}
             style={{
-              background: 'linear-gradient(135deg, #3b82f6, #60a5fa)',
-              color: '#fff',
+              background: '#102C42',
+              color: '#FFFFFF',
               border: 'none',
               padding: '12px 24px',
-              borderRadius: 8,
-              fontWeight: 600,
+              borderRadius: 10,
+              fontWeight: 700,
               cursor: 'pointer',
               fontSize: 14,
             }}
@@ -191,37 +188,38 @@ export default function TestimonialsAdmin() {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(260px, 45vw, 340px), 1fr))',
-          gap: 16,
+          gap: 18,
         }}>
           {filteredTestimonials.map(item => (
             <div
               key={item.id}
               style={{
-                background: '#111',
-                border: '1px solid #1a1a1a',
-                borderRadius: 12,
-                padding: 20,
+                background: '#FFFFFF',
+                border: '1px solid #DCE9EE',
+                borderRadius: 14,
+                padding: 22,
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                transition: 'all 0.3s ease',
+                boxShadow: '0 2px 8px rgba(16,44,66,0.03)',
+                transition: 'all 0.2s ease',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = '#2a2a2a';
-                e.currentTarget.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.5)';
+                e.currentTarget.style.borderColor = '#102C42';
+                e.currentTarget.style.boxShadow = '0 8px 24px rgba(16,44,66,0.08)';
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '#1a1a1a';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.borderColor = '#DCE9EE';
+                e.currentTarget.style.boxShadow = '0 2px 8px rgba(16,44,66,0.03)';
               }}
             >
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                   <div>
-                    <h3 style={{ fontSize: 16, fontWeight: 700, color: '#f0f0f0', marginBottom: 2 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 800, color: '#102C42', marginBottom: 2 }}>
                       {item.name}
                     </h3>
-                    <p style={{ fontSize: 13, color: '#38bdf8', fontWeight: 500 }}>
+                    <p style={{ fontSize: 13, color: '#526673', fontWeight: 600 }}>
                       {item.role}
                     </p>
                   </div>
@@ -229,17 +227,17 @@ export default function TestimonialsAdmin() {
                     onClick={() => handleTogglePublish(item.id, item.status)}
                     title={item.status === 'published' ? 'Click to Unpublish' : 'Click to Publish'}
                     style={{
-                      background: item.status === 'published' ? 'rgba(74, 222, 128, 0.15)' : 'rgba(107, 114, 128, 0.15)',
-                      border: `1px solid ${item.status === 'published' ? 'rgba(74, 222, 128, 0.4)' : 'rgba(107, 114, 128, 0.4)'}`,
-                      color: item.status === 'published' ? '#4ade80' : '#888',
-                      padding: '6px 10px',
-                      borderRadius: 6,
+                      background: item.status === 'published' ? '#DCFCE7' : '#F1F5F9',
+                      border: `1px solid ${item.status === 'published' ? '#BBF7D0' : '#E2E8F0'}`,
+                      color: item.status === 'published' ? '#16A34A' : '#526673',
+                      padding: '6px 12px',
+                      borderRadius: 8,
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
                       gap: 6,
                       fontSize: 12,
-                      fontWeight: 600,
+                      fontWeight: 700,
                     }}
                   >
                     {item.status === 'published' ? <Eye size={14} /> : <EyeOff size={14} />}
@@ -248,8 +246,8 @@ export default function TestimonialsAdmin() {
                 </div>
 
                 <p style={{
-                  fontSize: 14,
-                  color: '#94a3b8',
+                  fontSize: 13,
+                  color: '#102C42',
                   lineHeight: 1.6,
                   marginBottom: 16,
                   fontStyle: 'italic',
@@ -260,13 +258,13 @@ export default function TestimonialsAdmin() {
                 {item.metrics && (
                   <div style={{
                     display: 'inline-block',
-                    background: 'rgba(59, 130, 246, 0.1)',
-                    border: '1px solid rgba(59, 130, 246, 0.3)',
-                    color: '#60a5fa',
+                    background: '#F2FAFD',
+                    border: '1px solid #DCE9EE',
+                    color: '#102C42',
                     padding: '4px 10px',
                     borderRadius: 6,
                     fontSize: 12,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     marginBottom: 16,
                   }}>
                     ⚡ {item.metrics}
@@ -278,49 +276,49 @@ export default function TestimonialsAdmin() {
               <div style={{
                 display: 'flex',
                 gap: 8,
-                borderTop: '1px solid #1a1a1a',
+                borderTop: '1px solid #F1F5F9',
                 paddingTop: 16,
               }}>
                 <button
                   onClick={() => handleOpenModal(item)}
                   style={{
                     flex: 1,
-                    background: 'rgba(59, 130, 246, 0.1)',
-                    border: '1px solid rgba(59, 130, 246, 0.2)',
-                    color: '#3b82f6',
+                    background: '#F2FAFD',
+                    border: '1px solid #DCE9EE',
+                    color: '#102C42',
                     padding: '8px 12px',
-                    borderRadius: 6,
+                    borderRadius: 8,
                     cursor: 'pointer',
                     fontSize: 12,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 6,
                   }}
                 >
-                  <Edit2 size={12} />
+                  <Edit2 size={13} />
                   Edit
                 </button>
                 <button
                   onClick={() => handleDeleteTestimonial(item.id)}
                   style={{
                     flex: 1,
-                    background: 'rgba(239, 68, 68, 0.1)',
-                    border: '1px solid rgba(239, 68, 68, 0.2)',
-                    color: '#ef4444',
+                    background: '#FEF2F2',
+                    border: '1px solid #FECACA',
+                    color: '#DC2626',
                     padding: '8px 12px',
-                    borderRadius: 6,
+                    borderRadius: 8,
                     cursor: 'pointer',
                     fontSize: 12,
-                    fontWeight: 600,
+                    fontWeight: 700,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 6,
                   }}
                 >
-                  <Trash2 size={12} />
+                  <Trash2 size={13} />
                   Delete
                 </button>
               </div>

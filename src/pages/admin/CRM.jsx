@@ -119,12 +119,12 @@ export default function CRM() {
     <div style={{ maxWidth: 1600, margin: '0 auto' }}>
       {/* Top Banner / Pipeline Intelligence Header */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(6, 6, 8, 0.95))',
-        border: '1px solid rgba(59, 130, 246, 0.2)',
-        borderRadius: 16,
-        padding: '24px clamp(16px, 3vw, 28px)',
+        background: '#FFFFFF',
+        border: '1px solid #DCE9EE',
+        borderRadius: 24,
+        padding: '24px clamp(20px, 3vw, 32px)',
         marginBottom: 28,
-        boxShadow: '0 12px 36px rgba(0, 0, 0, 0.5)',
+        boxShadow: '0 8px 24px -4px rgba(16, 44, 66, 0.05)',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
@@ -133,11 +133,11 @@ export default function CRM() {
       }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-            <span style={{ padding: '4px 12px', borderRadius: 999, background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', border: '1px solid rgba(56, 189, 248, 0.3)', display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ padding: '4px 12px', borderRadius: 999, background: '#F0FDF4', color: '#16A34A', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', border: '1px solid #BBF7D0', display: 'flex', alignItems: 'center', gap: 6 }}>
               <Sparkles size={13} /> Automated CRM Command Center
             </span>
           </div>
-          <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 800, color: '#102C42', letterSpacing: '-0.03em', marginBottom: 6 }}>
+          <h1 style={{ fontSize: 'clamp(22px, 3vw, 28px)', fontWeight: 800, color: '#102C42', letterSpacing: '-0.03em', marginBottom: 6 }}>
             Lead Pipeline & Deal Automations
           </h1>
           <p style={{ color: '#526673', fontSize: 14 }}>
@@ -147,28 +147,28 @@ export default function CRM() {
 
         {/* Intelligence Metrics Row */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: '14px 20px', minWidth: 140, boxShadow: '0 2px 8px rgba(16,44,66,0.04)' }}>
+          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 14, padding: '14px 20px', minWidth: 140 }}>
             <div style={{ fontSize: 11, color: '#526673', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Total Pipeline</div>
             <div style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginTop: 4 }}>
               ₹{(pipelineMetrics.totalValue / 100000).toFixed(1)}L
             </div>
-            <div style={{ fontSize: 11, color: '#526673', marginTop: 2 }}>{leads.length} total deals</div>
+            <div style={{ fontSize: 11, color: '#8A9CA8', marginTop: 2 }}>{leads.length} total deals</div>
           </div>
 
-          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: '14px 20px', minWidth: 140, boxShadow: '0 2px 8px rgba(16,44,66,0.04)' }}>
+          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 14, padding: '14px 20px', minWidth: 140 }}>
             <div style={{ fontSize: 11, color: '#526673', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Weighted Forecast</div>
-            <div style={{ fontSize: 22, fontWeight: 800, color: '#38A85B', marginTop: 4 }}>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#16A34A', marginTop: 4 }}>
               ₹{(pipelineMetrics.weightedForecast / 100000).toFixed(1)}L
             </div>
-            <div style={{ fontSize: 11, color: '#526673', marginTop: 2 }}>Probability adjusted</div>
+            <div style={{ fontSize: 11, color: '#8A9CA8', marginTop: 2 }}>Probability adjusted</div>
           </div>
 
-          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: '14px 20px', minWidth: 130, boxShadow: '0 2px 8px rgba(16,44,66,0.04)' }}>
+          <div style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 14, padding: '14px 20px', minWidth: 130 }}>
             <div style={{ fontSize: 11, color: '#526673', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Active Leads</div>
             <div style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginTop: 4 }}>
               {pipelineMetrics.activeLeadsCount}
             </div>
-            <div style={{ fontSize: 11, color: '#38A85B', fontWeight: 600, marginTop: 2 }}>{pipelineMetrics.winRate}% win rate</div>
+            <div style={{ fontSize: 11, color: '#16A34A', fontWeight: 600, marginTop: 2 }}>{pipelineMetrics.winRate}% win rate</div>
           </div>
 
           <button
@@ -200,7 +200,7 @@ export default function CRM() {
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
         <div style={{ display: 'flex', gap: 12, flex: '1 1 320px', maxWidth: 600 }}>
           <div style={{ flex: 1, position: 'relative' }}>
-            <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
+            <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#8A9CA8' }} />
             <input
               type="text"
               placeholder="Search leads by name, email, or keywords..."
@@ -208,20 +208,21 @@ export default function CRM() {
               onChange={(e) => setSearch(e.target.value)}
               style={{
                 width: '100%',
-                background: 'rgba(15, 23, 42, 0.6)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
-                borderRadius: 10,
+                background: '#FFFFFF',
+                border: '1px solid #DCE9EE',
+                borderRadius: 12,
                 padding: '10px 14px 10px 42px',
-                color: '#ffffff',
+                color: '#102C42',
                 fontSize: 13,
                 outline: 'none',
+                boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)',
                 transition: 'all 0.2s ease'
               }}
-              onFocus={e => e.currentTarget.style.borderColor = '#38bdf8'}
-              onBlur={e => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}
+              onFocus={e => { e.currentTarget.style.borderColor = '#102C42'; e.currentTarget.style.boxShadow = '0 0 0 3px rgba(16, 44, 66, 0.08)'; }}
+              onBlur={e => { e.currentTarget.style.borderColor = '#DCE9EE'; e.currentTarget.style.boxShadow = '0 1px 3px rgba(16, 44, 66, 0.04)'; }}
             />
             {search && (
-              <button onClick={() => setSearch('')} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#64748b', cursor: 'pointer' }}>
+              <button onClick={() => setSearch('')} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#8A9CA8', cursor: 'pointer' }}>
                 <X size={14} />
               </button>
             )}
@@ -231,14 +232,16 @@ export default function CRM() {
             value={selectedStatusFilter}
             onChange={(e) => setSelectedStatusFilter(e.target.value)}
             style={{
-              background: 'rgba(15, 23, 42, 0.8)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: 10,
+              background: '#FFFFFF',
+              border: '1px solid #DCE9EE',
+              borderRadius: 12,
               padding: '10px 14px',
-              color: '#cbd5e1',
+              color: '#102C42',
               fontSize: 13,
+              fontWeight: 500,
               cursor: 'pointer',
-              outline: 'none'
+              outline: 'none',
+              boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)'
             }}
           >
             <option value="all">All Stages ({leads.length})</option>
@@ -249,13 +252,13 @@ export default function CRM() {
         </div>
 
         {/* View Toggle */}
-        <div style={{ display: 'flex', background: 'rgba(15, 23, 42, 0.8)', border: '1px solid rgba(255, 255, 255, 0.1)', borderRadius: 10, padding: 4, gap: 4 }}>
+        <div style={{ display: 'flex', background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 12, padding: 4, gap: 4, boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)' }}>
           <button
             onClick={() => setViewMode('kanban')}
             style={{
-              background: viewMode === 'kanban' ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
-              color: viewMode === 'kanban' ? '#38bdf8' : '#64748b',
-              border: viewMode === 'kanban' ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid transparent',
+              background: viewMode === 'kanban' ? '#102C42' : 'transparent',
+              color: viewMode === 'kanban' ? '#FFFFFF' : '#526673',
+              border: 'none',
               borderRadius: 8,
               padding: '6px 14px',
               fontSize: 12,
@@ -272,9 +275,9 @@ export default function CRM() {
           <button
             onClick={() => setViewMode('table')}
             style={{
-              background: viewMode === 'table' ? 'rgba(59, 130, 246, 0.25)' : 'transparent',
-              color: viewMode === 'table' ? '#38bdf8' : '#64748b',
-              border: viewMode === 'table' ? '1px solid rgba(59, 130, 246, 0.4)' : '1px solid transparent',
+              background: viewMode === 'table' ? '#102C42' : 'transparent',
+              color: viewMode === 'table' ? '#FFFFFF' : '#526673',
+              border: 'none',
               borderRadius: 8,
               padding: '6px 14px',
               fontSize: 12,

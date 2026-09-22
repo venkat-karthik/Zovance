@@ -78,92 +78,92 @@ export default function Members() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>Team Members</h1>
-          <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Manage team members, roles, and equity</p>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#102C42', letterSpacing: '-0.5px' }}>Member Access & Equity</h1>
+          <p style={{ color: '#526673', fontSize: 14, marginTop: 4 }}>Manage internal team members, access roles, and verified equity allocation</p>
         </div>
-        <button className="btn-gold" onClick={() => { setEditingId(null); setNewMember({ name: '', role: '', equity: 0, skills: [], accessLevel: 'core', avatar: '' }); setShowModal(true); }} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button onClick={() => { setEditingId(null); setNewMember({ name: '', role: '', equity: 0, skills: [], accessLevel: 'core', avatar: '' }); setShowModal(true); }} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#102C42', color: '#FFFFFF', border: 'none', padding: '10px 18px', borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: 'pointer', boxShadow: '0 2px 8px rgba(16,44,66,0.15)' }}>
           <Plus size={16} /> Add Member
         </button>
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 24 }}>
         {[
-          { label: 'Active Members', value: activeMembers.length, color: '#4ade80' },
-          { label: 'Total Equity', value: `${totalEquity}%`, color: '#38bdf8' },
-          { label: 'Founders', value: activeMembers.filter(m => m.accessLevel === 'founder').length, color: '#38bdf8' },
-          { label: 'Core Members', value: activeMembers.filter(m => m.accessLevel === 'core').length, color: '#60a5fa' },
+          { label: 'Active Members', value: activeMembers.length, color: '#16a34a', bg: '#DCFCE7' },
+          { label: 'Total Equity', value: `${totalEquity}%`, color: '#2563eb', bg: '#DBEAFE' },
+          { label: 'Founders', value: activeMembers.filter(m => m.accessLevel === 'founder').length, color: '#7c3aed', bg: '#EDE9FE' },
+          { label: 'Core Members', value: activeMembers.filter(m => m.accessLevel === 'core').length, color: '#102C42', bg: '#F2FAFD' },
         ].map(s => (
-          <div key={s.label} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 16 }}>
-            <div style={{ fontSize: 28, fontWeight: 700, color: s.color, letterSpacing: '-1px', marginBottom: 4 }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: '#555' }}>{s.label}</div>
+          <div key={s.label} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 18, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+            <div style={{ fontSize: 28, fontWeight: 800, color: s.color, letterSpacing: '-0.5px', marginBottom: 4 }}>{s.value}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#526673' }}>{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Active Members */}
-      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, overflow: 'hidden', marginBottom: 24 }}>
-        <div style={{ padding: 20, borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Active Members ({activeMembers.length})</h3>
+      <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, overflow: 'hidden', marginBottom: 24, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+        <div style={{ padding: '18px 20px', borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#102C42' }}>Active Members ({activeMembers.length})</h3>
         </div>
 
         <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
           <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Role</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Equity</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Access Level</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Skills</th>
-                <th style={{ padding: '12px 16px', textAlign: 'center', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
+              <tr style={{ borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+                <th style={{ padding: '12px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Member</th>
+                <th style={{ padding: '12px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Role</th>
+                <th style={{ padding: '12px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Equity</th>
+                <th style={{ padding: '12px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Access Level</th>
+                <th style={{ padding: '12px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Skills</th>
+                <th style={{ padding: '12px 18px', textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {activeMembers.map(m => (
-                <tr key={m.id} className="table-row">
-                  <td style={{ padding: '14px 16px' }}>
+                <tr key={m.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                  <td style={{ padding: '14px 18px' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#ffffff' }}>
+                      <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#102C42', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: '#FFFFFF' }}>
                         {m.avatar}
                       </div>
                       <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{m.name}</div>
-                        <div style={{ fontSize: 11, color: '#444', marginTop: 2 }}>ID: {m.id}</div>
+                        <div style={{ fontSize: 13, fontWeight: 700, color: '#102C42' }}>{m.name}</div>
+                        <div style={{ fontSize: 11, color: '#526673', marginTop: 1 }}>ID: {m.id}</div>
                       </div>
                     </div>
                   </td>
-                  <td style={{ padding: '14px 16px', fontSize: 13, color: '#888' }}>{m.role}</td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span className="badge" style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.2)' }}>
+                  <td style={{ padding: '14px 18px', fontSize: 13, color: '#102C42', fontWeight: 600 }}>{m.role}</td>
+                  <td style={{ padding: '14px 18px' }}>
+                    <span style={{ background: '#F2FAFD', color: '#102C42', border: '1px solid #DCE9EE', padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
                       {m.equity}%
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <span className="badge" style={{ background: `${accessColors[m.accessLevel]}15`, color: accessColors[m.accessLevel], border: `1px solid ${accessColors[m.accessLevel]}30` }}>
+                  <td style={{ padding: '14px 18px' }}>
+                    <span style={{ background: `${accessColors[m.accessLevel]}15`, color: accessColors[m.accessLevel], border: `1px solid ${accessColors[m.accessLevel]}30`, padding: '4px 10px', borderRadius: 6, fontSize: 12, fontWeight: 700 }}>
                       {accessLevels[m.accessLevel]}
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
+                  <td style={{ padding: '14px 18px' }}>
                     <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
                       {m.skills.slice(0, 2).map(s => (
-                        <span key={s} className="badge" style={{ background: '#1a1a1a', color: '#888', fontSize: 10 }}>
+                        <span key={s} style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#526673', fontSize: 11, padding: '2px 8px', borderRadius: 6, fontWeight: 600 }}>
                           {s}
                         </span>
                       ))}
                       {m.skills.length > 2 && (
-                        <span className="badge" style={{ background: '#1a1a1a', color: '#666', fontSize: 10 }}>
+                        <span style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', color: '#526673', fontSize: 11, padding: '2px 8px', borderRadius: 6, fontWeight: 600 }}>
                           +{m.skills.length - 2}
                         </span>
                       )}
                     </div>
                   </td>
-                  <td style={{ padding: '14px 16px', textAlign: 'center' }}>
+                  <td style={{ padding: '14px 18px', textAlign: 'center' }}>
                     <div style={{ display: 'flex', gap: 8, justifyContent: 'center' }}>
-                      <button onClick={() => handleEdit(m)} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', padding: 4 }}>
+                      <button onClick={() => handleEdit(m)} style={{ background: '#F2FAFD', border: '1px solid #DCE9EE', color: '#102C42', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                         <Edit2 size={14} />
                       </button>
-                      <button onClick={() => removeMember(m.id)} style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 4 }}>
+                      <button onClick={() => removeMember(m.id)} style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                         <Trash2 size={14} />
                       </button>
                     </div>
@@ -177,29 +177,29 @@ export default function Members() {
 
       {/* Inactive Members */}
       {inactiveMembers.length > 0 && (
-        <div style={{ background: '#111', border: '1px solid #1a1a1a', borderRadius: 12, overflow: 'hidden' }}>
-          <div style={{ padding: 20, borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#666' }}>Inactive Members ({inactiveMembers.length})</h3>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, overflow: 'hidden', boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+          <div style={{ padding: '18px 20px', borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: '#526673' }}>Inactive Members ({inactiveMembers.length})</h3>
           </div>
 
           <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
-            <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', opacity: 0.6 }}>
+            <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', opacity: 0.75 }}>
               <tbody>
                 {inactiveMembers.map(m => (
-                  <tr key={m.id} className="table-row">
-                    <td style={{ padding: '14px 16px' }}>
+                  <tr key={m.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                    <td style={{ padding: '14px 18px' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#1a1a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#444' }}>
+                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#F1F5F9', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#526673' }}>
                           {m.avatar}
                         </div>
                         <div>
-                          <div style={{ fontSize: 13, fontWeight: 600, color: '#666' }}>{m.name}</div>
-                          <div style={{ fontSize: 11, color: '#333', marginTop: 2 }}>Removed</div>
+                          <div style={{ fontSize: 13, fontWeight: 700, color: '#526673' }}>{m.name}</div>
+                          <div style={{ fontSize: 11, color: '#94A3B8', marginTop: 1 }}>Removed</div>
                         </div>
                       </div>
                     </td>
-                    <td colSpan="5" style={{ padding: '14px 16px', textAlign: 'right' }}>
-                      <button onClick={() => updateMember(m.id, { active: true })} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontSize: 12, fontWeight: 500 }}>
+                    <td colSpan="5" style={{ padding: '14px 18px', textAlign: 'right' }}>
+                      <button onClick={() => updateMember(m.id, { active: true })} style={{ background: '#F2FAFD', border: '1px solid #DCE9EE', color: '#102C42', cursor: 'pointer', fontSize: 12, fontWeight: 600, padding: '6px 14px', borderRadius: 8 }}>
                         Restore
                       </button>
                     </td>
@@ -213,43 +213,43 @@ export default function Members() {
 
       {/* Add/Edit Member Modal */}
       {showModal && (
-        <div className="modal-backdrop" onClick={() => setShowModal(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: '#f0f0f0' }}>
+        <div className="modal-backdrop" onClick={() => setShowModal(false)} style={{ background: 'rgba(16,44,66,0.6)', backdropFilter: 'blur(4px)' }}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, boxShadow: '0 20px 40px rgba(16,44,66,0.2)' }}>
+            <div style={{ display: 'flex', borderBottom: '1px solid #E2E8F0', paddingBottom: 16, justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: '#102C42' }}>
                 {editingId ? 'Edit Member' : 'Add New Member'}
               </h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', padding: 4 }}>
+              <button onClick={() => setShowModal(false)} style={{ background: '#F1F5F9', border: 'none', borderRadius: '50%', width: 32, height: 32, color: '#526673', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} />
               </button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
-                <label className="label">Full Name *</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Full Name *</label>
                 <input
                   type="text"
                   placeholder="e.g., Arjun Sharma"
                   value={newMember.name}
                   onChange={(e) => setNewMember({ ...newMember, name: e.target.value })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
               </div>
               <div>
-                <label className="label">Role *</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Role *</label>
                 <input
                   type="text"
                   placeholder="e.g., Lead Developer"
                   value={newMember.role}
                   onChange={(e) => setNewMember({ ...newMember, role: e.target.value })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
               </div>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
-                <label className="label">Equity %</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Equity %</label>
                 <input
                   type="number"
                   placeholder="20"
@@ -257,15 +257,15 @@ export default function Members() {
                   max="100"
                   value={newMember.equity}
                   onChange={(e) => setNewMember({ ...newMember, equity: parseInt(e.target.value) })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
               </div>
               <div>
-                <label className="label">Access Level</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Access Level</label>
                 <select
                   value={newMember.accessLevel}
                   onChange={(e) => setNewMember({ ...newMember, accessLevel: e.target.value })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13, fontWeight: 600 }}
                 >
                   {Object.entries(accessLevels).map(([k, v]) => (
                     <option key={k} value={k}>{v}</option>
@@ -274,8 +274,8 @@ export default function Members() {
               </div>
             </div>
 
-            <div style={{ marginBottom: 16 }}>
-              <label className="label">Skills</label>
+            <div style={{ marginBottom: 20 }}>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Skills</label>
               <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
                 <input
                   type="text"
@@ -283,19 +283,18 @@ export default function Members() {
                   value={skillInput}
                   onChange={(e) => setSkillInput(e.target.value)}
                   onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
-                  className="input"
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
-                <button onClick={handleAddSkill} className="btn-sm" style={{ background: '#1a1a1a', color: '#38bdf8', border: '1px solid #2a2a2a' }}>
+                <button onClick={handleAddSkill} style={{ background: '#F2FAFD', color: '#102C42', border: '1px solid #DCE9EE', padding: '0 16px', borderRadius: 8, fontWeight: 700, fontSize: 13, cursor: 'pointer' }}>
                   Add
                 </button>
               </div>
               {newMember.skills.length > 0 && (
                 <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                   {newMember.skills.map(s => (
-                    <span key={s} className="badge" style={{ background: 'rgba(56, 189, 248, 0.1)', color: '#38bdf8', border: '1px solid rgba(56, 189, 248, 0.2)', display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <span key={s} style={{ background: '#F2FAFD', color: '#102C42', border: '1px solid #DCE9EE', padding: '4px 10px', borderRadius: 6, display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600 }}>
                       {s}
-                      <button onClick={() => handleRemoveSkill(s)} style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', padding: 0 }}>
+                      <button onClick={() => handleRemoveSkill(s)} style={{ background: 'none', border: 'none', color: '#526673', cursor: 'pointer', padding: 0 }}>
                         <X size={12} />
                       </button>
                     </span>
@@ -305,10 +304,10 @@ export default function Members() {
             </div>
 
             <div style={{ display: 'flex', gap: 12 }}>
-              <button className="btn-gold" style={{ flex: 1 }} onClick={handleAddMember}>
+              <button style={{ flex: 1, background: '#102C42', color: '#FFFFFF', padding: '12px', borderRadius: 10, fontWeight: 700, fontSize: 14, border: 'none', cursor: 'pointer' }} onClick={handleAddMember}>
                 {editingId ? 'Update Member' : 'Add Member'}
               </button>
-              <button className="btn-outline" style={{ flex: 1 }} onClick={() => setShowModal(false)}>Cancel</button>
+              <button style={{ flex: 1, background: '#FFFFFF', color: '#526673', border: '1px solid #DCE9EE', padding: '12px', borderRadius: 10, fontWeight: 600, fontSize: 14, cursor: 'pointer' }} onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>
         </div>

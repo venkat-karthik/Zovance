@@ -63,10 +63,10 @@ export default function Projects() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#102C42', letterSpacing: '-0.5px' }}>Projects</h1>
-          <p style={{ color: '#526673', fontSize: 14, marginTop: 4 }}>Manage all active enterprise deployments and financial splits</p>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#102C42', letterSpacing: '-0.5px' }}>Projects & Deployments</h1>
+          <p style={{ color: '#526673', fontSize: 14, marginTop: 4 }}>Manage all active enterprise deployments, team allocations, and financial splits</p>
         </div>
-        <button className="btn-gold" onClick={() => setShowModal(true)} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button onClick={() => setShowModal(true)} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#102C42', color: '#FFFFFF', border: 'none', padding: '10px 18px', borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: 'pointer', boxShadow: '0 2px 8px rgba(16,44,66,0.15)' }}>
           <Plus size={16} /> New Project
         </button>
       </div>
@@ -164,13 +164,13 @@ export default function Projects() {
         )}
       </div>
 
-      {/* Add Project Modal */}
+      {/* New Project Modal */}
       {showModal && (
-        <div className="modal-backdrop" onClick={() => setShowModal(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" onClick={() => setShowModal(false)} style={{ background: 'rgba(16,44,66,0.6)', backdropFilter: 'blur(4px)' }}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, boxShadow: '0 20px 40px rgba(16,44,66,0.2)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 800, color: '#102C42' }}>Create New Project</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#526673', cursor: 'pointer', padding: 4 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: '#102C42' }}>Create New Project</h2>
+              <button onClick={() => setShowModal(false)} style={{ background: '#F1F5F9', border: 'none', borderRadius: '50%', width: 32, height: 32, color: '#526673', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} />
               </button>
             </div>
@@ -180,10 +180,11 @@ export default function Projects() {
                 <label className="label">Project Name *</label>
                 <input
                   type="text"
-                  placeholder="e.g., EduPrime LMS"
+                  placeholder="e.g., Enterprise CRM Revamp"
                   value={newProject.name}
                   onChange={(e) => setNewProject({ ...newProject, name: e.target.value })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42' }}
                 />
               </div>
               <div>
@@ -192,9 +193,10 @@ export default function Projects() {
                   value={newProject.clientId}
                   onChange={(e) => setNewProject({ ...newProject, clientId: parseInt(e.target.value) })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42', fontWeight: 600 }}
                 >
                   <option value="">Select a client</option>
-                  {leads.filter(l => l.status === 'won').map(l => (
+                  {leads.map(l => (
                     <option key={l.id} value={l.id}>{l.name}</option>
                   ))}
                 </select>
@@ -210,6 +212,7 @@ export default function Projects() {
                   value={newProject.totalValue}
                   onChange={(e) => setNewProject({ ...newProject, totalValue: parseInt(e.target.value) })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42' }}
                 />
               </div>
               <div>
@@ -222,6 +225,7 @@ export default function Projects() {
                   value={newProject.companyReserve}
                   onChange={(e) => setNewProject({ ...newProject, companyReserve: parseInt(e.target.value) })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42' }}
                 />
               </div>
             </div>
@@ -233,6 +237,7 @@ export default function Projects() {
                   value={newProject.paymentStatus}
                   onChange={(e) => setNewProject({ ...newProject, paymentStatus: e.target.value })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42', fontWeight: 600 }}
                 >
                   <option value="not_paid">Not Paid</option>
                   <option value="partial">Partial</option>
@@ -245,6 +250,7 @@ export default function Projects() {
                   value={newProject.bdBonus.memberId || ''}
                   onChange={(e) => setNewProject({ ...newProject, bdBonus: { ...newProject.bdBonus, memberId: e.target.value ? parseInt(e.target.value) : null } })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42', fontWeight: 600 }}
                 >
                   <option value="">None</option>
                   {members.filter(m => m.active).map(m => (
@@ -265,13 +271,14 @@ export default function Projects() {
                   value={newProject.bdBonus.percent}
                   onChange={(e) => setNewProject({ ...newProject, bdBonus: { ...newProject.bdBonus, percent: parseInt(e.target.value) } })}
                   className="input"
+                  style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42' }}
                 />
               </div>
             )}
 
             <div style={{ display: 'flex', gap: 12 }}>
-              <button className="btn-gold" style={{ flex: 1 }} onClick={handleAddProject}>Create Project</button>
-              <button className="btn-outline" style={{ flex: 1 }} onClick={() => setShowModal(false)}>Cancel</button>
+              <button style={{ flex: 1, background: '#102C42', color: '#FFFFFF', padding: '12px', borderRadius: 10, fontWeight: 700, fontSize: 14, border: 'none', cursor: 'pointer' }} onClick={handleAddProject}>Create Project</button>
+              <button style={{ flex: 1, background: '#FFFFFF', color: '#526673', border: '1px solid #DCE9EE', padding: '12px', borderRadius: 10, fontWeight: 600, fontSize: 14, cursor: 'pointer' }} onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>
         </div>

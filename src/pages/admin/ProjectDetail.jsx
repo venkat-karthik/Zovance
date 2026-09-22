@@ -129,10 +129,10 @@ export default function ProjectDetail() {
           <ArrowLeft size={20} />
         </button>
         <div style={{ flex: 1 }}>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>{project.name}</h1>
-          <p style={{ color: '#555', fontSize: 13, marginTop: 2 }}>{client?.name} • ₹{project.totalValue.toLocaleString()}</p>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#102C42', letterSpacing: '-0.5px' }}>{project.name}</h1>
+          <p style={{ color: '#526673', fontSize: 13, marginTop: 2 }}>{client?.name} • ₹{project.totalValue.toLocaleString()}</p>
         </div>
-        <span className="badge" style={{ background: project.status === 'approved' ? 'rgba(74,222,128,0.1)' : 'rgba(228,198,119,0.1)', color: project.status === 'approved' ? '#4ade80' : '#e4c677' }}>
+        <span className="badge" style={{ background: project.status === 'approved' ? 'rgba(22,163,74,0.1)' : 'rgba(217,119,6,0.1)', color: project.status === 'approved' ? '#16A34A' : '#D97706' }}>
           {project.status === 'approved' ? 'Approved' : 'Under Review'}
         </span>
       </div>
@@ -141,12 +141,12 @@ export default function ProjectDetail() {
         {/* Main Content */}
         <div style={{ minWidth: 0 }}>
           {/* Project Info */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, marginBottom: 16, minWidth: 0 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Project Details</h3>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 24, marginBottom: 16, minWidth: 0, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Project Details</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16 }}>
               <div>
                 <label className="label">Total Value</label>
-                <div style={{ fontSize: 20, fontWeight: 700, color: '#c9a84c' }}>₹{project.totalValue.toLocaleString()}</div>
+                <div style={{ fontSize: 22, fontWeight: 800, color: '#16a34a' }}>₹{project.totalValue.toLocaleString()}</div>
               </div>
               <div>
                 <label className="label">Payment Status</label>
@@ -155,7 +155,7 @@ export default function ProjectDetail() {
                   onChange={(e) => updateProject(project.id, { paymentStatus: e.target.value })}
                   disabled={isLocked}
                   className="input"
-                  style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer' }}
+                  style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer', background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#102C42', fontWeight: 600 }}
                 >
                   <option value="not_paid">Not Paid</option>
                   <option value="partial">Partial</option>
@@ -170,7 +170,7 @@ export default function ProjectDetail() {
                   onChange={(e) => updateProject(project.id, { companyReserve: parseInt(e.target.value) })}
                   disabled={isLocked}
                   className="input"
-                  style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer' }}
+                  style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer', background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#102C42' }}
                 />
               </div>
               <div>
@@ -180,7 +180,7 @@ export default function ProjectDetail() {
                   onChange={(e) => updateProject(project.id, { bdBonus: { ...project.bdBonus, memberId: e.target.value ? parseInt(e.target.value) : null } })}
                   disabled={isLocked}
                   className="input"
-                  style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer' }}
+                  style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer', background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#102C42', fontWeight: 600 }}
                 >
                   <option value="">None</option>
                   {members.filter(m => m.active).map(m => (
@@ -197,7 +197,7 @@ export default function ProjectDetail() {
                     onChange={(e) => updateProject(project.id, { bdBonus: { ...project.bdBonus, percent: parseInt(e.target.value) } })}
                     disabled={isLocked}
                     className="input"
-                    style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer' }}
+                    style={{ opacity: isLocked ? 0.5 : 1, cursor: isLocked ? 'not-allowed' : 'pointer', background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#102C42' }}
                   />
                 </div>
               )}
@@ -205,34 +205,34 @@ export default function ProjectDetail() {
           </div>
 
           {/* Team Members */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, marginBottom: 16 }}>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 24, marginBottom: 16, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Team Members</h3>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#102C42' }}>Team Members</h3>
               {!isLocked && (
-                <button className="btn-sm" onClick={() => setShowAddMember(true)} style={{ background: '#1a1a1a', color: '#c9a84c', border: '1px solid #2a2a2a' }}>
+                <button className="btn-sm" onClick={() => setShowAddMember(true)} style={{ background: '#102C42', color: '#FFFFFF', border: 'none', borderRadius: 8, padding: '6px 14px', fontWeight: 600, cursor: 'pointer' }}>
                   <Plus size={14} /> Add Member
                 </button>
               )}
             </div>
 
             {project.teamMembers.length === 0 ? (
-              <p style={{ color: '#555', fontSize: 13 }}>No team members assigned yet.</p>
+              <p style={{ color: '#526673', fontSize: 13 }}>No team members assigned yet.</p>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                 {project.teamMembers.map(tm => (
-                  <div key={tm.memberId} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 14 }}>
+                  <div key={tm.memberId} style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 10, padding: 14 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div style={{ width: 32, height: 32, borderRadius: '50%', background: '#1a1a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#c9a84c' }}>
+                        <div style={{ width: 34, height: 34, borderRadius: '50%', background: '#102C42', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700, color: '#FFFFFF' }}>
                           {getMemberAvatar(tm.memberId)}
                         </div>
                         <div>
-                          <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{getMemberName(tm.memberId)}</div>
-                          <div style={{ fontSize: 11, color: '#555', marginTop: 2 }}>Effort: {effortLevels[tm.effort]}</div>
+                          <div style={{ fontSize: 14, fontWeight: 700, color: '#102C42' }}>{getMemberName(tm.memberId)}</div>
+                          <div style={{ fontSize: 12, color: '#526673', marginTop: 1 }}>Effort: {effortLevels[tm.effort]}</div>
                         </div>
                       </div>
                       {!isLocked && (
-                        <button onClick={() => handleRemoveMember(tm.memberId)} style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 4 }}>
+                        <button onClick={() => handleRemoveMember(tm.memberId)} style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', padding: 4 }}>
                           <X size={16} />
                         </button>
                       )}
@@ -245,7 +245,7 @@ export default function ProjectDetail() {
                           value={tm.effort}
                           onChange={(e) => handleUpdateEffort(tm.memberId, e.target.value)}
                           className="input"
-                          style={{ fontSize: 12 }}
+                          style={{ fontSize: 12, background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#102C42' }}
                         >
                           {Object.entries(effortLevels).map(([k, v]) => (
                             <option key={k} value={k}>{v}</option>
@@ -256,15 +256,15 @@ export default function ProjectDetail() {
 
                     {/* Sub-employees */}
                     {tm.subEmployees.length > 0 && (
-                      <div style={{ background: '#1a1a1a', borderRadius: 8, padding: 10, marginBottom: 10 }}>
-                        <p style={{ fontSize: 11, fontWeight: 600, color: '#888', marginBottom: 8 }}>Sub-employees ({tm.subEmployees.length})</p>
+                      <div style={{ background: '#FFFFFF', borderRadius: 8, padding: 10, marginBottom: 10, border: '1px solid #E2E8F0' }}>
+                        <p style={{ fontSize: 11, fontWeight: 600, color: '#526673', marginBottom: 8 }}>Sub-employees ({tm.subEmployees.length})</p>
                         {tm.subEmployees.map(se => (
-                          <div key={se.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px solid #222' }}>
-                            <span style={{ fontSize: 11, color: '#ccc' }}>{se.name}</span>
+                          <div key={se.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '6px 0', borderBottom: '1px solid #F1F5F9' }}>
+                            <span style={{ fontSize: 11, color: '#102C42' }}>{se.name}</span>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                              <span style={{ fontSize: 11, color: '#c9a84c', fontWeight: 600 }}>{se.percent}%</span>
+                              <span style={{ fontSize: 11, color: '#16A34A', fontWeight: 600 }}>{se.percent}%</span>
                               {!isLocked && (
-                                <button onClick={() => handleRemoveSubEmployee(tm.memberId, se.id)} style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 2 }}>
+                                <button onClick={() => handleRemoveSubEmployee(tm.memberId, se.id)} style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer', padding: 2 }}>
                                   <X size={12} />
                                 </button>
                               )}
@@ -278,7 +278,7 @@ export default function ProjectDetail() {
                       <button
                         className="btn-sm"
                         onClick={() => { setSelectedMemberId(tm.memberId); setShowAddSub(true); }}
-                        style={{ background: '#1a1a1a', color: '#888', border: '1px solid #222', width: '100%' }}
+                        style={{ background: '#FFFFFF', color: '#526673', border: '1px solid #DCE9EE', width: '100%', borderRadius: 8, padding: '6px 12px', fontWeight: 600, cursor: 'pointer' }}
                       >
                         <Plus size={12} /> Add Sub-employee
                       </button>
@@ -294,49 +294,49 @@ export default function ProjectDetail() {
         <div style={{ minWidth: 0 }}>
           {/* Finance Summary */}
           {calculation && !calculation.error ? (
-            <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, marginBottom: 16 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Finance Summary</h3>
+            <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 22, marginBottom: 16, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Finance Summary</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #1a1a1a' }}>
-                  <span style={{ fontSize: 12, color: '#888' }}>Total Value</span>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>₹{calculation.totalValue.toLocaleString()}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #F1F5F9' }}>
+                  <span style={{ fontSize: 13, color: '#526673' }}>Total Value</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: '#102C42' }}>₹{calculation.totalValue.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #1a1a1a' }}>
-                  <span style={{ fontSize: 12, color: '#888' }}>Company Reserve ({project.companyReserve}%)</span>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#f87171' }}>-₹{calculation.reserve.toLocaleString()}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #F1F5F9' }}>
+                  <span style={{ fontSize: 13, color: '#526673' }}>Company Reserve ({project.companyReserve}%)</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: '#DC2626' }}>-₹{calculation.reserve.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #1a1a1a' }}>
-                  <span style={{ fontSize: 12, color: '#888' }}>BD Bonus ({project.bdBonus?.percent}%)</span>
-                  <span style={{ fontSize: 13, fontWeight: 600, color: '#f59e0b' }}>-₹{calculation.bdAmount.toLocaleString()}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #F1F5F9' }}>
+                  <span style={{ fontSize: 13, color: '#526673' }}>BD Bonus ({project.bdBonus?.percent}%)</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: '#D97706' }}>-₹{calculation.bdAmount.toLocaleString()}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#0e0e0e', borderRadius: 8, padding: '10px 12px' }}>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: '#c9a84c' }}>Work Pool</span>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: '#c9a84c' }}>₹{calculation.workPool.toLocaleString()}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#F0FDF4', borderRadius: 10, padding: '12px 14px', border: '1px solid #BBF7D0' }}>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#16A34A' }}>Work Pool</span>
+                  <span style={{ fontSize: 16, fontWeight: 800, color: '#16A34A' }}>₹{calculation.workPool.toLocaleString()}</span>
                 </div>
               </div>
             </div>
           ) : calculation?.error ? (
-            <div style={{ background: '#111', border: '1px solid #f87171', borderRadius: 12, padding: 16, marginBottom: 16, display: 'flex', gap: 12 }}>
-              <AlertCircle size={16} color="#f87171" style={{ flexShrink: 0 }} />
+            <div style={{ background: '#FEF2F2', border: '1px solid #FECACA', borderRadius: 14, padding: 16, marginBottom: 16, display: 'flex', gap: 12 }}>
+              <AlertCircle size={18} color="#DC2626" style={{ flexShrink: 0 }} />
               <div>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#f87171', marginBottom: 4 }}>Calculation Error</p>
-                <p style={{ fontSize: 11, color: '#f87171' }}>{calculation.error}</p>
+                <p style={{ fontSize: 13, fontWeight: 700, color: '#DC2626', marginBottom: 4 }}>Calculation Error</p>
+                <p style={{ fontSize: 12, color: '#DC2626' }}>{calculation.error}</p>
               </div>
             </div>
           ) : null}
 
           {/* Payouts */}
           {calculation && !calculation.error && (
-            <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, marginBottom: 16 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Payouts (Sorted)</h3>
+            <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 22, marginBottom: 16, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Payouts (Sorted)</h3>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {calculation.payouts.map((p, i) => (
-                  <div key={i} style={{ background: '#0e0e0e', borderRadius: 8, padding: 12 }}>
+                  <div key={i} style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 10, padding: 12 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
-                      <span style={{ fontSize: 12, fontWeight: 600, color: '#f0f0f0' }}>{getMemberName(p.memberId)}</span>
-                      <span style={{ fontSize: 13, fontWeight: 700, color: '#c9a84c' }}>₹{p.finalShare.toLocaleString()}</span>
+                      <span style={{ fontSize: 13, fontWeight: 700, color: '#102C42' }}>{getMemberName(p.memberId)}</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: '#16A34A' }}>₹{p.finalShare.toLocaleString()}</span>
                     </div>
-                    <div style={{ fontSize: 10, color: '#555' }}>
+                    <div style={{ fontSize: 11, color: '#526673' }}>
                       Work: ₹{p.share.toLocaleString()} {p.subDeductions > 0 && `- Sub: ₹${p.subDeductions.toLocaleString()}`}
                     </div>
                   </div>
@@ -348,21 +348,21 @@ export default function ProjectDetail() {
           {/* Actions */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {!isLocked && isFounder && (
-              <button className="btn-gold" onClick={handleApprove} style={{ width: '100%', justifyContent: 'center' }}>
+              <button className="btn-gold" onClick={handleApprove} style={{ width: '100%', justifyContent: 'center', background: '#102C42', color: '#FFFFFF', border: 'none', borderRadius: 10, padding: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <CheckCircle size={16} /> Approve & Lock
               </button>
             )}
             {calculation && !calculation.error && (
-              <button className="btn-outline" onClick={generateWhatsAppSummary} style={{ width: '100%', justifyContent: 'center' }}>
+              <button className="btn-outline" onClick={generateWhatsAppSummary} style={{ width: '100%', justifyContent: 'center', background: '#FFFFFF', color: '#102C42', border: '1px solid #DCE9EE', borderRadius: 10, padding: '12px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }}>
                 <MessageCircle size={16} /> WhatsApp Summary
               </button>
             )}
             {isLocked && (
-              <div style={{ background: 'rgba(74,222,128,0.1)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: 8, padding: 12, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
-                <CheckCircle size={14} color="#4ade80" style={{ flexShrink: 0, marginTop: 2 }} />
+              <div style={{ background: 'rgba(22,163,74,0.1)', border: '1px solid rgba(22,163,74,0.2)', borderRadius: 10, padding: 12, display: 'flex', gap: 8, alignItems: 'flex-start' }}>
+                <CheckCircle size={14} color="#16A34A" style={{ flexShrink: 0, marginTop: 2 }} />
                 <div>
-                  <p style={{ fontSize: 11, fontWeight: 600, color: '#4ade80' }}>Project Approved</p>
-                  <p style={{ fontSize: 10, color: '#4ade80', opacity: 0.7 }}>No further edits allowed</p>
+                  <p style={{ fontSize: 12, fontWeight: 700, color: '#16A34A' }}>Project Approved</p>
+                  <p style={{ fontSize: 11, color: '#16A34A', opacity: 0.8 }}>No further edits allowed</p>
                 </div>
               </div>
             )}
@@ -374,8 +374,8 @@ export default function ProjectDetail() {
       {calculation && !calculation.error && (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 45vw, 380px), 1fr))', gap: 16 }}>
           {/* Donut Chart */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Final Payouts</h3>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 20, minWidth: 0, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Final Payouts</h3>
             <div style={{ width: '100%', height: 250, minWidth: 0 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -384,22 +384,22 @@ export default function ProjectDetail() {
                       <Cell key={`cell-${index}`} fill={entry.fill} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(v) => `₹${v.toLocaleString()}`} contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
+                  <Tooltip formatter={(v) => `₹${v.toLocaleString()}`} contentStyle={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 8, fontSize: 12, color: '#102C42' }} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
           </div>
 
           {/* Waterfall Chart */}
-          <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 20, minWidth: 0 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Money Flow</h3>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 20, minWidth: 0, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+            <h3 style={{ fontSize: 14, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Money Flow</h3>
             <div style={{ width: '100%', height: 250, minWidth: 0 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={waterfall}>
-                  <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#444' }} angle={-45} textAnchor="end" height={80} />
-                  <YAxis tick={{ fontSize: 11, fill: '#444' }} />
-                  <Tooltip formatter={(v) => `₹${Math.abs(v).toLocaleString()}`} contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} />
-                  <Bar dataKey="value" fill="#c9a84c" radius={[8, 8, 0, 0]} />
+                  <XAxis dataKey="name" tick={{ fontSize: 11, fill: '#526673' }} angle={-45} textAnchor="end" height={80} />
+                  <YAxis tick={{ fontSize: 11, fill: '#526673' }} />
+                  <Tooltip formatter={(v) => `₹${Math.abs(v).toLocaleString()}`} contentStyle={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 8, fontSize: 12, color: '#102C42' }} />
+                  <Bar dataKey="value" fill="#102C42" radius={[6, 6, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -409,11 +409,11 @@ export default function ProjectDetail() {
 
       {/* Add Member Modal */}
       {showAddMember && (
-        <div className="modal-backdrop" onClick={() => setShowAddMember(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" onClick={() => setShowAddMember(false)} style={{ background: 'rgba(16,44,66,0.6)', backdropFilter: 'blur(4px)' }}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, boxShadow: '0 20px 40px rgba(16,44,66,0.2)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f0f0f0' }}>Add Team Member</h2>
-              <button onClick={() => setShowAddMember(false)} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer' }}>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: '#102C42' }}>Add Team Member</h2>
+              <button onClick={() => setShowAddMember(false)} style={{ background: '#F1F5F9', border: 'none', borderRadius: '50%', width: 32, height: 32, color: '#526673', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} />
               </button>
             </div>
@@ -424,6 +424,7 @@ export default function ProjectDetail() {
                 value={newMember.memberId}
                 onChange={(e) => setNewMember({ ...newMember, memberId: e.target.value })}
                 className="input"
+                style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#102C42', fontWeight: 600 }}
               >
                 <option value="">Select a member</option>
                 {members.filter(m => m.active && !project.teamMembers.find(tm => tm.memberId === m.id)).map(m => (
@@ -446,8 +447,8 @@ export default function ProjectDetail() {
             </div>
 
             <div style={{ display: 'flex', gap: 12 }}>
-              <button className="btn-gold" style={{ flex: 1 }} onClick={handleAddMember}>Add Member</button>
-              <button className="btn-outline" style={{ flex: 1 }} onClick={() => setShowAddMember(false)}>Cancel</button>
+              <button style={{ flex: 1, background: '#102C42', color: '#FFFFFF', padding: '12px', borderRadius: 10, fontWeight: 700, fontSize: 14, border: 'none', cursor: 'pointer' }} onClick={handleAddMember}>Add Member</button>
+              <button style={{ flex: 1, background: '#FFFFFF', color: '#526673', border: '1px solid #DCE9EE', padding: '12px', borderRadius: 10, fontWeight: 600, fontSize: 14, cursor: 'pointer' }} onClick={() => setShowAddMember(false)}>Cancel</button>
             </div>
           </div>
         </div>
@@ -455,11 +456,11 @@ export default function ProjectDetail() {
 
       {/* Add Sub-employee Modal */}
       {showAddSub && (
-        <div className="modal-backdrop" onClick={() => setShowAddSub(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-backdrop" onClick={() => setShowAddSub(false)} style={{ background: 'rgba(16,44,66,0.6)', backdropFilter: 'blur(4px)' }}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, boxShadow: '0 20px 40px rgba(16,44,66,0.2)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: '#f0f0f0' }}>Add Sub-employee</h2>
-              <button onClick={() => setShowAddSub(false)} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer' }}>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: '#102C42' }}>Add Sub-employee</h2>
+              <button onClick={() => setShowAddSub(false)} style={{ background: '#F1F5F9', border: 'none', borderRadius: '50%', width: 32, height: 32, color: '#526673', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} />
               </button>
             </div>
@@ -472,6 +473,7 @@ export default function ProjectDetail() {
                 value={newSub.name}
                 onChange={(e) => setNewSub({ ...newSub, name: e.target.value })}
                 className="input"
+                style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42' }}
               />
             </div>
 
@@ -485,12 +487,13 @@ export default function ProjectDetail() {
                 value={newSub.percent}
                 onChange={(e) => setNewSub({ ...newSub, percent: parseInt(e.target.value) })}
                 className="input"
+                style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', color: '#102C42' }}
               />
             </div>
 
             <div style={{ display: 'flex', gap: 12 }}>
-              <button className="btn-gold" style={{ flex: 1 }} onClick={() => handleAddSubEmployee(selectedMemberId)}>Add Sub-employee</button>
-              <button className="btn-outline" style={{ flex: 1 }} onClick={() => setShowAddSub(false)}>Cancel</button>
+              <button style={{ flex: 1, background: '#102C42', color: '#FFFFFF', padding: '12px', borderRadius: 10, fontWeight: 700, fontSize: 14, border: 'none', cursor: 'pointer' }} onClick={() => handleAddSubEmployee(selectedMemberId)}>Add Sub-employee</button>
+              <button style={{ flex: 1, background: '#FFFFFF', color: '#526673', border: '1px solid #DCE9EE', padding: '12px', borderRadius: 10, fontWeight: 600, fontSize: 14, cursor: 'pointer' }} onClick={() => setShowAddSub(false)}>Cancel</button>
             </div>
           </div>
         </div>

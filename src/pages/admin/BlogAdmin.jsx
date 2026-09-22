@@ -47,66 +47,67 @@ export default function BlogAdmin() {
   return (
     <div>
       {/* Header */}
+      {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>Blog Manager</h1>
-          <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Create and manage blog posts</p>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#102C42', letterSpacing: '-0.5px' }}>Knowledge Hub & Blog Admin</h1>
+          <p style={{ color: '#526673', fontSize: 14, marginTop: 4 }}>Compose, publish, and curate insights for the Zovance publications</p>
         </div>
-        <button className="btn-gold" onClick={() => { setEditingId(null); setNewPost({ title: '', slug: '', excerpt: '', content: '', category: 'AI Automation', readTime: 5, published: false }); setShowModal(true); }} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <button onClick={() => { setEditingId(null); setNewPost({ title: '', slug: '', excerpt: '', content: '', category: 'AI Automation', readTime: 5, published: false }); setShowModal(true); }} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#102C42', color: '#FFFFFF', border: 'none', padding: '10px 18px', borderRadius: 10, fontWeight: 700, fontSize: 13, cursor: 'pointer', boxShadow: '0 2px 8px rgba(16,44,66,0.15)' }}>
           <Plus size={16} /> New Post
         </button>
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 24 }}>
         {[
-          { label: 'Total Posts', value: blogPosts.length, color: '#c9a84c' },
-          { label: 'Published', value: publishedPosts.length, color: '#4ade80' },
-          { label: 'Drafts', value: draftPosts.length, color: '#f59e0b' },
+          { label: 'Total Articles', value: blogPosts.length, color: '#102C42', bg: '#F2FAFD' },
+          { label: 'Published', value: publishedPosts.length, color: '#16a34a', bg: '#DCFCE7' },
+          { label: 'Drafts', value: draftPosts.length, color: '#d97706', bg: '#FEF3C7' },
         ].map(s => (
-          <div key={s.label} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 16 }}>
-            <div style={{ fontSize: 28, fontWeight: 700, color: s.color, letterSpacing: '-1px', marginBottom: 4 }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: '#555' }}>{s.label}</div>
+          <div key={s.label} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: 18, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+            <div style={{ fontSize: 28, fontWeight: 800, color: s.color, letterSpacing: '-0.5px', marginBottom: 4 }}>{s.value}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: '#526673' }}>{s.label}</div>
           </div>
         ))}
       </div>
 
       {/* Published Posts */}
-      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, overflow: 'hidden', marginBottom: 24 }}>
-        <div style={{ padding: 20, borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Published Posts ({publishedPosts.length})</h3>
+      <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, overflow: 'hidden', marginBottom: 24, boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+        <div style={{ padding: '18px 20px', borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#102C42' }}>Published Articles ({publishedPosts.length})</h3>
         </div>
 
         {publishedPosts.length === 0 ? (
-          <div style={{ padding: 40, textAlign: 'center', color: '#555' }}>
-            <p>No published posts yet.</p>
+          <div style={{ padding: 40, textAlign: 'center', color: '#526673' }}>
+            <p>No published articles yet.</p>
           </div>
         ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 20 }}>
             {publishedPosts.map(post => (
-              <div key={post.id} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 14 }}>
+              <div key={post.id} style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 12, padding: 16 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                   <div style={{ flex: 1 }}>
-                    <h4 style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0', marginBottom: 4 }}>{post.title}</h4>
-                    <p style={{ fontSize: 12, color: '#555', lineHeight: 1.4, marginBottom: 8 }}>{post.excerpt}</p>
+                    <h4 style={{ fontSize: 15, fontWeight: 700, color: '#102C42', marginBottom: 4 }}>{post.title}</h4>
+                    <p style={{ fontSize: 13, color: '#526673', lineHeight: 1.5, marginBottom: 8 }}>{post.excerpt}</p>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                      <span className="badge" style={{ background: 'rgba(74,222,128,0.1)', color: '#4ade80', border: '1px solid rgba(74,222,128,0.2)', fontSize: 10 }}>
+                      <span style={{ background: '#DCFCE7', color: '#16a34a', border: '1px solid #BBF7D0', padding: '3px 8px', borderRadius: 6, fontSize: 11, fontWeight: 700 }}>
                         {post.category}
                       </span>
-                      <span style={{ fontSize: 11, color: '#444' }}>{post.readTime} min read</span>
-                      <span style={{ fontSize: 11, color: '#444' }}>
+                      <span style={{ fontSize: 12, color: '#526673', fontWeight: 600 }}>{post.readTime} min read</span>
+                      <span style={{ fontSize: 12, color: '#94A3B8' }}>
                         {new Date(post.date).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}
                       </span>
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    <button onClick={() => handleEdit(post)} style={{ background: 'none', border: 'none', color: '#c9a84c', cursor: 'pointer', padding: 4 }}>
+                    <button onClick={() => handleEdit(post)} style={{ background: '#F2FAFD', border: '1px solid #DCE9EE', color: '#102C42', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                       <Edit2 size={14} />
                     </button>
-                    <button onClick={() => handleTogglePublish(post)} style={{ background: 'none', border: 'none', color: '#4ade80', cursor: 'pointer', padding: 4 }}>
+                    <button onClick={() => handleTogglePublish(post)} style={{ background: '#DCFCE7', border: '1px solid #BBF7D0', color: '#16a34a', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                       <Eye size={14} />
                     </button>
-                    <button style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 4 }}>
+                    <button style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                       <Trash2 size={14} />
                     </button>
                   </div>
@@ -119,33 +120,33 @@ export default function BlogAdmin() {
 
       {/* Draft Posts */}
       {draftPosts.length > 0 && (
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, overflow: 'hidden' }}>
-          <div style={{ padding: 20, borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Drafts ({draftPosts.length})</h3>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, overflow: 'hidden', boxShadow: '0 2px 8px rgba(16,44,66,0.03)' }}>
+          <div style={{ padding: '18px 20px', borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: '#526673' }}>Drafts ({draftPosts.length})</h3>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 16 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: 20 }}>
             {draftPosts.map(post => (
-              <div key={post.id} style={{ background: '#0e0e0e', border: '1px solid #1a1a1a', borderRadius: 10, padding: 14, opacity: 0.7 }}>
+              <div key={post.id} style={{ background: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: 12, padding: 16 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 10 }}>
                   <div style={{ flex: 1 }}>
-                    <h4 style={{ fontSize: 13, fontWeight: 600, color: '#888', marginBottom: 4 }}>{post.title}</h4>
-                    <p style={{ fontSize: 12, color: '#555', lineHeight: 1.4, marginBottom: 8 }}>{post.excerpt}</p>
+                    <h4 style={{ fontSize: 15, fontWeight: 700, color: '#526673', marginBottom: 4 }}>{post.title}</h4>
+                    <p style={{ fontSize: 13, color: '#94A3B8', lineHeight: 1.5, marginBottom: 8 }}>{post.excerpt}</p>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                      <span className="badge" style={{ background: 'rgba(245,158,11,0.1)', color: '#f59e0b', border: '1px solid rgba(245,158,11,0.2)', fontSize: 10 }}>
+                      <span style={{ background: '#FEF3C7', color: '#d97706', border: '1px solid #FDE68A', padding: '3px 8px', borderRadius: 6, fontSize: 11, fontWeight: 700 }}>
                         Draft
                       </span>
-                      <span style={{ fontSize: 11, color: '#444' }}>{post.readTime} min read</span>
+                      <span style={{ fontSize: 12, color: '#526673', fontWeight: 600 }}>{post.readTime} min read</span>
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: 8 }}>
-                    <button onClick={() => handleEdit(post)} style={{ background: 'none', border: 'none', color: '#c9a84c', cursor: 'pointer', padding: 4 }}>
+                    <button onClick={() => handleEdit(post)} style={{ background: '#F2FAFD', border: '1px solid #DCE9EE', color: '#102C42', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                       <Edit2 size={14} />
                     </button>
-                    <button onClick={() => handleTogglePublish(post)} style={{ background: 'none', border: 'none', color: '#f59e0b', cursor: 'pointer', padding: 4 }}>
+                    <button onClick={() => handleTogglePublish(post)} style={{ background: '#FEF3C7', border: '1px solid #FDE68A', color: '#d97706', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                       <EyeOff size={14} />
                     </button>
-                    <button style={{ background: 'none', border: 'none', color: '#f87171', cursor: 'pointer', padding: 4 }}>
+                    <button style={{ background: '#FEF2F2', border: '1px solid #FECACA', color: '#DC2626', cursor: 'pointer', padding: 6, borderRadius: 6 }}>
                       <Trash2 size={14} />
                     </button>
                   </div>
@@ -158,69 +159,67 @@ export default function BlogAdmin() {
 
       {/* Blog Post Modal */}
       {showModal && (
-        <div className="modal-backdrop" onClick={() => setShowModal(false)}>
-          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 700 }}>
+        <div className="modal-backdrop" onClick={() => setShowModal(false)} style={{ background: 'rgba(16,44,66,0.6)', backdropFilter: 'blur(4px)' }}>
+          <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 700, background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, boxShadow: '0 20px 40px rgba(16,44,66,0.2)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: '#f0f0f0' }}>
+              <h2 style={{ fontSize: 18, fontWeight: 800, color: '#102C42' }}>
                 {editingId ? 'Edit Post' : 'New Blog Post'}
               </h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', padding: 4 }}>
+              <button onClick={() => setShowModal(false)} style={{ background: '#F1F5F9', border: 'none', borderRadius: '50%', width: 32, height: 32, color: '#526673', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={18} />
               </button>
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(160px, 45vw, 220px), 1fr))', gap: 16, marginBottom: 16 }}>
               <div>
-                <label className="label">Title *</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Title *</label>
                 <input
                   type="text"
                   placeholder="Post title"
                   value={newPost.title}
                   onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
               </div>
               <div>
-                <label className="label">Slug *</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Slug *</label>
                 <input
                   type="text"
                   placeholder="post-slug"
                   value={newPost.slug}
                   onChange={(e) => setNewPost({ ...newPost, slug: e.target.value })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
               </div>
             </div>
 
             <div style={{ marginBottom: 16 }}>
-              <label className="label">Excerpt</label>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Excerpt</label>
               <textarea
                 placeholder="Brief summary of the post..."
                 value={newPost.excerpt}
                 onChange={(e) => setNewPost({ ...newPost, excerpt: e.target.value })}
-                className="input"
-                style={{ minHeight: 60 }}
+                style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13, minHeight: 60 }}
               />
             </div>
 
             <div style={{ marginBottom: 16 }}>
-              <label className="label">Content</label>
+              <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Content</label>
               <textarea
                 placeholder="Full post content..."
                 value={newPost.content}
                 onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-                className="input"
-                style={{ minHeight: 150 }}
+                style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13, minHeight: 150 }}
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 40vw, 180px), 1fr))', gap: 16, marginBottom: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(140px, 40vw, 180px), 1fr))', gap: 16, marginBottom: 20 }}>
               <div>
-                <label className="label">Category</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Category</label>
                 <select
                   value={newPost.category}
                   onChange={(e) => setNewPost({ ...newPost, category: e.target.value })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13, fontWeight: 600 }}
                 >
                   {categories.map(c => (
                     <option key={c} value={c}>{c}</option>
@@ -228,22 +227,22 @@ export default function BlogAdmin() {
                 </select>
               </div>
               <div>
-                <label className="label">Read Time (min)</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Read Time (min)</label>
                 <input
                   type="number"
                   placeholder="5"
                   min="1"
                   value={newPost.readTime}
                   onChange={(e) => setNewPost({ ...newPost, readTime: parseInt(e.target.value) })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13 }}
                 />
               </div>
               <div>
-                <label className="label">Status</label>
+                <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#102C42', marginBottom: 6 }}>Status</label>
                 <select
                   value={newPost.published ? 'published' : 'draft'}
                   onChange={(e) => setNewPost({ ...newPost, published: e.target.value === 'published' })}
-                  className="input"
+                  style={{ width: '100%', padding: '10px 12px', background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 8, color: '#102C42', fontSize: 13, fontWeight: 600 }}
                 >
                   <option value="draft">Draft</option>
                   <option value="published">Published</option>
@@ -252,10 +251,10 @@ export default function BlogAdmin() {
             </div>
 
             <div style={{ display: 'flex', gap: 12 }}>
-              <button className="btn-gold" style={{ flex: 1 }} onClick={handleAddPost}>
+              <button style={{ flex: 1, background: '#102C42', color: '#FFFFFF', padding: '12px', borderRadius: 10, fontWeight: 700, fontSize: 14, border: 'none', cursor: 'pointer' }} onClick={handleAddPost}>
                 {editingId ? 'Update Post' : 'Create Post'}
               </button>
-              <button className="btn-outline" style={{ flex: 1 }} onClick={() => setShowModal(false)}>Cancel</button>
+              <button style={{ flex: 1, background: '#FFFFFF', color: '#526673', border: '1px solid #DCE9EE', padding: '12px', borderRadius: 10, fontWeight: 600, fontSize: 14, cursor: 'pointer' }} onClick={() => setShowModal(false)}>Cancel</button>
             </div>
           </div>
         </div>
