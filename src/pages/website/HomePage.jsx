@@ -524,16 +524,19 @@ export default function HomePage() {
           {/* 4 Storytelling Visual Feature Panels */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             {/* Panel 1: Voice AI */}
-            <div style={{
-              background: '#FFFFFF',
-              borderRadius: 32,
-              border: '1px solid #DCE9EE',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(12, 1fr)',
-              alignItems: 'center',
-              boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
-            }}>
+            <div
+              className="interactive-hover-card"
+              style={{
+                background: '#FFFFFF',
+                borderRadius: 32,
+                border: '1px solid #DCE9EE',
+                overflow: 'hidden',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                alignItems: 'center',
+                boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
+              }}
+            >
               <div style={{ gridColumn: 'span 12 / span 12', padding: 'clamp(36px, 5vw, 64px)' }} className="lg:col-span-5">
                 <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
                   Voice AI
@@ -562,16 +565,19 @@ export default function HomePage() {
             </div>
 
             {/* Panel 2: AI & Automation */}
-            <div style={{
-              background: '#FFFFFF',
-              borderRadius: 32,
-              border: '1px solid #DCE9EE',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(12, 1fr)',
-              alignItems: 'center',
-              boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
-            }}>
+            <div
+              className="interactive-hover-card"
+              style={{
+                background: '#FFFFFF',
+                borderRadius: 32,
+                border: '1px solid #DCE9EE',
+                overflow: 'hidden',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                alignItems: 'center',
+                boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
+              }}
+            >
               <div style={{ gridColumn: 'span 12 / span 12', height: 'clamp(240px, 40vw, 420px)' }} className="lg:col-span-7 order-2 lg:order-1">
                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                   <img
@@ -600,16 +606,19 @@ export default function HomePage() {
             </div>
 
             {/* Panel 3: Business Systems & Custom Technology */}
-            <div style={{
-              background: '#FFFFFF',
-              borderRadius: 32,
-              border: '1px solid #DCE9EE',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(12, 1fr)',
-              alignItems: 'center',
-              boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
-            }}>
+            <div
+              className="interactive-hover-card"
+              style={{
+                background: '#FFFFFF',
+                borderRadius: 32,
+                border: '1px solid #DCE9EE',
+                overflow: 'hidden',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                alignItems: 'center',
+                boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
+              }}
+            >
               <div style={{ gridColumn: 'span 12 / span 12', padding: 'clamp(36px, 5vw, 64px)' }} className="lg:col-span-5">
                 <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
                   Business Platforms
@@ -769,16 +778,19 @@ export default function HomePage() {
             </div>
 
             {/* Panel 4: Enterprise Intelligence & Data Reliability */}
-            <div style={{
-              background: '#FFFFFF',
-              borderRadius: 32,
-              border: '1px solid #DCE9EE',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(12, 1fr)',
-              alignItems: 'center',
-              boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
-            }}>
+            <div
+              className="interactive-hover-card"
+              style={{
+                background: '#FFFFFF',
+                borderRadius: 32,
+                border: '1px solid #DCE9EE',
+                overflow: 'hidden',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                alignItems: 'center',
+                boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
+              }}
+            >
               <div style={{ gridColumn: 'span 12 / span 12', height: 'clamp(240px, 40vw, 420px)' }} className="lg:col-span-7 order-2 lg:order-1">
                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                   <img
@@ -948,22 +960,15 @@ export default function HomePage() {
               <div
                 key={card.title}
                 onClick={() => openVideo(card.videoTitle)}
+                className="card-3d"
                 style={{
                   borderRadius: 24,
                   overflow: 'hidden',
                   background: '#F2FAFD',
                   border: '1px solid #DCE9EE',
                   cursor: 'pointer',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                   position: 'relative',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-4px)';
-                  e.currentTarget.style.boxShadow = '0 16px 32px rgba(16, 44, 66, 0.08)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'none';
-                  e.currentTarget.style.boxShadow = 'none';
+                  boxShadow: '0 8px 24px rgba(16, 44, 66, 0.04)',
                 }}
               >
                 <div style={{ height: 230, overflow: 'hidden', position: 'relative' }}>

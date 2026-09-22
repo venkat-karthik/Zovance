@@ -1655,13 +1655,27 @@ img, video, canvas, svg {
 
 /* Modern Card Glow and Lift */
 .interactive-hover-card {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
   will-change: transform, box-shadow;
 }
 
 .interactive-hover-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 40px -15px rgba(16, 44, 66, 0.12), 0 0 0 1px rgba(56, 168, 91, 0.25) !important;
+  transform: translateY(-10px) scale(1.01) !important;
+  box-shadow: 0 28px 60px -15px rgba(16, 44, 66, 0.18), 0 0 0 2px rgba(56, 168, 91, 0.4) !important;
+  border-color: #38A85B !important;
+}
+
+/* 3D Card Hover - Much More Prominent */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease !important;
+  will-change: transform;
+}
+
+.card-3d:hover {
+  transform: translateY(-12px) rotateX(4deg) rotateY(-3deg) scale(1.015) !important;
+  box-shadow: 0 32px 64px -12px rgba(16, 44, 66, 0.18), 0 0 0 2px rgba(56, 168, 91, 0.35) !important;
+  border-color: #38A85B !important;
 }
 
 /* Page Smooth Loading Fade */
@@ -1675,4 +1689,46 @@ img, video, canvas, svg {
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 .delay-500 { animation-delay: 500ms; }
+
+/* Continuous Ambient Breathing Glow for Badges & Accents */
+@keyframes ambient-pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 168, 91, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px 4px rgba(56, 168, 91, 0.25);
+  }
+}
+
+.animate-pulse-badge {
+  animation: ambient-pulse 3s infinite ease-in-out;
+}
+
+/* High-tech Gradient Border Stream */
+@keyframes border-rainbow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.glowing-tech-border {
+  position: relative;
+}
+.glowing-tech-border::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, #38A85B, #3E9FD0, #102C42);
+  z-index: -1;
+  opacity: 0.6;
+  filter: blur(8px);
+  transition: opacity 0.3s ease;
+}
+.glowing-tech-border:hover::before {
+  opacity: 1;
+  filter: blur(14px);
+}
+
 
