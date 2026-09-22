@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, CheckCircle2, Building2, ShoppingCart, Stethoscope, Home, Landmark, Headset, Sparkles, TrendingUp, Bot, Workflow, Layers, ShieldCheck } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Building2, ShoppingCart, Stethoscope, Home, Landmark, Headset, Sparkles, TrendingUp, Bot, Workflow, Layers, ShieldCheck, ExternalLink } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
@@ -16,6 +16,9 @@ const industries = [
     color: '#F0FDF4',
     accent: '#38A85B',
     borderColor: '#BBF7D0',
+    clientSolutions: [
+      { name: 'Alluri Resorts', url: 'https://alluriresorts.com' }
+    ],
     features: ['24/7 WhatsApp guest concierge', 'Direct zero-commission booking engine', 'PMS & payment gateway sync', 'Automated guest feedback collection'],
   },
   {
@@ -28,6 +31,9 @@ const industries = [
     color: '#FFF7ED',
     accent: '#EA580C',
     borderColor: '#FFEDD5',
+    clientSolutions: [
+      { name: 'Kesar Kosmetics', url: 'https://kesarkosmetics.com' }
+    ],
     features: ['Automated cart abandonment WhatsApp/call sequence', 'WhatsApp order status & shipping tracking', '1-click checkout conversion flow', 'Inventory ERP sync'],
   },
   {
@@ -252,15 +258,56 @@ export default function SolutionsPage() {
                   </div>
                 </div>
 
-                {/* Key Capabilities Bullet Points */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
-                  {ind.features.map((f) => (
-                    <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <CheckCircle2 size={16} color="#38A85B" style={{ flexShrink: 0 }} />
-                      <span style={{ fontSize: 13, color: '#102C42', fontWeight: 600 }}>{f}</span>
+                {/* Previous Client Solutions Link (if available) */}
+                {ind.clientSolutions && ind.clientSolutions.length > 0 && (
+                  <div style={{
+                    background: '#F2FAFD',
+                    border: '1px solid #DCE9EE',
+                    borderRadius: 12,
+                    padding: '10px 14px',
+                    marginBottom: 20,
+                  }}>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#38A85B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
+                      LIVE CUSTOMER SOLUTION
                     </div>
-                  ))}
-                </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {ind.clientSolutions.map(cs => (
+                        <a
+                          key={cs.url}
+                          href={cs.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 5,
+                            fontSize: 12,
+                            fontWeight: 700,
+                            color: '#102C42',
+                            background: '#FFFFFF',
+                            border: '1px solid #DCE9EE',
+                            padding: '4px 10px',
+                            borderRadius: 999,
+                            textDecoration: 'none',
+                            transition: 'all 0.2s ease',
+                            boxShadow: '0 1px 4px rgba(16, 44, 66, 0.04)'
+                          }}
+                          onMouseEnter={e => {
+                            e.currentTarget.style.borderColor = '#38A85B';
+                            e.currentTarget.style.color = '#38A85B';
+                          }}
+                          onMouseLeave={e => {
+                            e.currentTarget.style.borderColor = '#DCE9EE';
+                            e.currentTarget.style.color = '#102C42';
+                          }}
+                        >
+                          <span>{cs.name}</span>
+                          <ExternalLink size={12} />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <button

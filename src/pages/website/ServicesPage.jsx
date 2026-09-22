@@ -23,7 +23,8 @@ import {
   Zap,
   TrendingUp,
   ShieldCheck,
-  Cpu
+  Cpu,
+  ExternalLink
 } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
@@ -204,6 +205,10 @@ export default function ServicesPage() {
       subtitle: 'Professional, conversion-focused online presence.',
       details: 'Mobile-first, built to convert. Every page has one goal — getting the visitor to take action. Up to 8 pages, SEO basics, lead form.',
       roi: 'Sub-second speed & guaranteed conversion focus',
+      clientSolutions: [
+        { name: 'Primalane', url: 'https://primalane.com' },
+        { name: 'Kesar Kosmetics', url: 'https://kesarkosmetics.com' }
+      ],
       color: '#102C42',
       accentBg: '#F2FAFD',
       borderAccent: '#DCE9EE',
@@ -218,6 +223,9 @@ export default function ServicesPage() {
       subtitle: 'High-velocity standalone pages for campaigns.',
       details: 'One page, one goal. Built for ad campaigns, launches, or lead magnets. Designed to convert, not just look good.',
       roi: 'Tuned specifically for Google & Meta ad ROAS',
+      clientSolutions: [
+        { name: 'Primalane', url: 'https://primalane.com' }
+      ],
       color: '#38A85B',
       accentBg: '#F0FDF4',
       borderAccent: '#BBF7D0',
@@ -232,6 +240,9 @@ export default function ServicesPage() {
       subtitle: 'Total overhaul of speed, structure, and conversion flow.',
       details: 'Your current site is losing leads. We audit it and rebuild — speed, structure, mobile, and conversion flow fixed completely.',
       roi: 'Eliminates bounce rates & rejuvenates company brand',
+      clientSolutions: [
+        { name: 'Claims Dashboard App', url: 'https://claims-bice.vercel.app/dashboard' }
+      ],
       color: '#3E9FD0',
       accentBg: '#F0F9FF',
       borderAccent: '#BAE6FD',
@@ -260,6 +271,9 @@ export default function ServicesPage() {
       subtitle: 'Optimized storefront with integrated recovery systems.',
       details: 'Full store with product pages, payment gateway, and post-purchase WhatsApp flows that bring customers back.',
       roi: 'Integrated payment gateways and post-purchase retention',
+      clientSolutions: [
+        { name: 'Kesar Kosmetics', url: 'https://kesarkosmetics.com' }
+      ],
       color: '#EA580C',
       accentBg: '#FFF7ED',
       borderAccent: '#FFEDD5',
@@ -274,6 +288,9 @@ export default function ServicesPage() {
       subtitle: 'Tailored portals, dashboards, and booking platforms.',
       details: 'Portals, dashboards, booking platforms — scoped after discovery, built around the actual business problem.',
       roi: 'Enterprise architecture with 100% custom codebase ownership',
+      clientSolutions: [
+        { name: 'Alluri Resorts', url: 'https://alluriresorts.com' }
+      ],
       color: '#102C42',
       accentBg: '#F2FAFD',
       borderAccent: '#DCE9EE',
@@ -681,9 +698,56 @@ export default function ServicesPage() {
                     {service.subtitle}
                   </p>
 
-                  <p style={{ fontSize: 14, color: '#526673', lineHeight: 1.65, marginBottom: 20 }}>
-                    {service.details}
-                  </p>
+                  {/* Previous Client Solutions Link (if available) */}
+                  {service.clientSolutions && service.clientSolutions.length > 0 && (
+                    <div style={{
+                      background: '#F2FAFD',
+                      border: '1px solid #DCE9EE',
+                      borderRadius: 12,
+                      padding: '10px 14px',
+                      marginBottom: 16,
+                    }}>
+                      <div style={{ fontSize: 10, fontWeight: 700, color: '#38A85B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 6 }}>
+                        LIVE CUSTOMER SOLUTION
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                        {service.clientSolutions.map(cs => (
+                          <a
+                            key={cs.url}
+                            href={cs.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 5,
+                              fontSize: 12,
+                              fontWeight: 700,
+                              color: '#102C42',
+                              background: '#FFFFFF',
+                              border: '1px solid #DCE9EE',
+                              padding: '4px 10px',
+                              borderRadius: 999,
+                              textDecoration: 'none',
+                              transition: 'all 0.2s ease',
+                              boxShadow: '0 1px 4px rgba(16, 44, 66, 0.04)'
+                            }}
+                            onMouseEnter={e => {
+                              e.currentTarget.style.borderColor = '#38A85B';
+                              e.currentTarget.style.color = '#38A85B';
+                            }}
+                            onMouseLeave={e => {
+                              e.currentTarget.style.borderColor = '#DCE9EE';
+                              e.currentTarget.style.color = '#102C42';
+                            }}
+                          >
+                            <span>{cs.name}</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Card Bottom ROI & CTA */}

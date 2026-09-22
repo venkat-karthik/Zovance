@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play, X, Compass, HeartHandshake, ShieldCheck, Sparkles, ChevronRight, Pause } from 'lucide-react';
+import { ArrowRight, Play, X, Compass, HeartHandshake, ShieldCheck, Sparkles, ChevronRight, Pause, ExternalLink } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
@@ -591,9 +591,140 @@ export default function HomePage() {
                 <h3 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 800, color: '#102C42', lineHeight: 1.15, marginBottom: 16 }}>
                   Digital platforms engineered to endure.
                 </h3>
-                <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.6, marginBottom: 28 }}>
+                <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.6, marginBottom: 20 }}>
                   High-conversion web platforms, operations hubs, and internal architectures built with sub-second responsiveness.
                 </p>
+
+                {/* Live Customer Deployments */}
+                <div style={{ marginBottom: 24 }}>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: '#38A85B', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 8 }}>
+                    RECENT CUSTOMER SOLUTIONS
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                    <a
+                      href="https://primalane.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5,
+                        fontSize: 12,
+                        fontWeight: 700,
+                        color: '#102C42',
+                        background: '#F2FAFD',
+                        border: '1px solid #DCE9EE',
+                        padding: '5px 12px',
+                        borderRadius: 999,
+                        textDecoration: 'none',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.borderColor = '#38A85B';
+                        e.currentTarget.style.color = '#38A85B';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.borderColor = '#DCE9EE';
+                        e.currentTarget.style.color = '#102C42';
+                      }}
+                    >
+                      <span>Primalane</span>
+                      <ExternalLink size={12} />
+                    </a>
+
+                    <a
+                      href="https://kesarkosmetics.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5,
+                        fontSize: 12,
+                        fontWeight: 700,
+                        color: '#102C42',
+                        background: '#F2FAFD',
+                        border: '1px solid #DCE9EE',
+                        padding: '5px 12px',
+                        borderRadius: 999,
+                        textDecoration: 'none',
+                        transition: 'all 0.2s ease',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.borderColor = '#38A85B';
+                        e.currentTarget.style.color = '#38A85B';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.borderColor = '#DCE9EE';
+                        e.currentTarget.style.color = '#102C42';
+                      }}
+                    >
+                      <span>Kesar Kosmetics</span>
+                      <ExternalLink size={12} />
+                    </a>
+
+                    <a
+                      href="https://alluriresorts.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5,
+                        fontSize: 12,
+                        fontWeight: 700,
+                        color: '#102C42',
+                        background: '#F2FAFD',
+                        border: '1px solid #DCE9EE',
+                        padding: '5px 12px',
+                        borderRadius: 999,
+                        textDecoration: 'none',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.borderColor = '#38A85B';
+                        e.currentTarget.style.color = '#38A85B';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.borderColor = '#DCE9EE';
+                        e.currentTarget.style.color = '#102C42';
+                      }}
+                    >
+                      <span>Alluri Resorts</span>
+                      <ExternalLink size={12} />
+                    </a>
+
+                    <a
+                      href="https://claims-bice.vercel.app/dashboard"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 5,
+                        fontSize: 12,
+                        fontWeight: 700,
+                        color: '#102C42',
+                        background: '#F2FAFD',
+                        border: '1px solid #DCE9EE',
+                        padding: '5px 12px',
+                        borderRadius: 999,
+                        textDecoration: 'none',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.borderColor = '#38A85B';
+                        e.currentTarget.style.color = '#38A85B';
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.borderColor = '#DCE9EE';
+                        e.currentTarget.style.color = '#102C42';
+                      }}
+                    >
+                      <span>Claims App</span>
+                      <ExternalLink size={12} />
+                    </a>
+                  </div>
+                </div>
+
                 <Link to="/services" className="btn-zovance-primary">
                   <span>View Engineering</span>
                   <ArrowRight size={14} />
