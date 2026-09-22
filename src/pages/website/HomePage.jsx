@@ -218,31 +218,29 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Full Horizontal Cinematic Video Player Window */}
+        {/* 100% Edge-to-Edge Full Bleed Horizontal Cinematic Video Canvas */}
         <div
           ref={videoContainerRef}
           style={{
-            width: '100%',
-            maxWidth: '100vw',
-            padding: '0 clamp(12px, 3vw, 36px)',
-            margin: '0 auto',
+            width: '100vw',
             position: 'relative',
+            left: '50%',
+            right: '50%',
+            marginLeft: '-50vw',
+            marginRight: '-50vw',
             zIndex: 2,
+            overflow: 'hidden',
           }}
         >
           <div
-            className="editorial-media-frame animate-scale-in delay-200"
             style={{
               position: 'relative',
               width: '100%',
-              aspectRatio: '21/9',
-              minHeight: 'clamp(280px, 48vw, 680px)',
-              maxHeight: 760,
-              borderRadius: 'clamp(20px, 3vw, 36px)',
-              overflow: 'hidden',
+              minHeight: 'clamp(360px, 56vw, 780px)',
+              maxHeight: 840,
               cursor: 'pointer',
-              boxShadow: '0 25px 60px -15px rgba(16, 44, 66, 0.25), 0 0 0 1px rgba(16, 44, 66, 0.08)',
               background: '#091520',
+              overflow: 'hidden',
             }}
             onClick={togglePlay}
           >
@@ -260,8 +258,7 @@ export default function HomePage() {
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
-                transform: 'scale(1.02)',
-                transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+                transform: 'scale(1.01)',
               }}
             >
               <source
@@ -274,7 +271,7 @@ export default function HomePage() {
             <div style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.35) 0%, rgba(16, 44, 66, 0.1) 40%, rgba(16, 44, 66, 0.75) 100%)',
+              background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.4) 0%, rgba(16, 44, 66, 0.1) 40%, rgba(16, 44, 66, 0.8) 100%)',
               pointerEvents: 'none',
             }} />
 
@@ -285,48 +282,48 @@ export default function HomePage() {
               left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '90%',
-              maxWidth: 880,
+              maxWidth: 960,
               textAlign: 'center',
               color: '#FFFFFF',
               zIndex: 3,
               pointerEvents: 'none',
-              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
+              textShadow: '0 2px 24px rgba(0,0,0,0.6)',
             }}>
               <div style={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                background: 'rgba(255, 255, 255, 0.15)',
+                background: 'rgba(255, 255, 255, 0.16)',
                 backdropFilter: 'blur(12px)',
                 WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                padding: '6px 18px',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
+                padding: '7px 20px',
                 borderRadius: 9999,
                 fontSize: 12,
-                fontWeight: 700,
-                letterSpacing: '0.12em',
+                fontWeight: 800,
+                letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                marginBottom: 16,
+                marginBottom: 18,
               }}>
-                <span className="animate-pulse-ring" style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
+                <span className="animate-pulse-ring" style={{ width: 8, height: 8, borderRadius: '50%', background: '#38A85B' }} />
                 <span>INTELLIGENCE IN MOTION</span>
               </div>
               <h2 style={{
-                fontSize: 'clamp(28px, 4.5vw, 56px)',
+                fontSize: 'clamp(32px, 5.5vw, 68px)',
                 fontWeight: 800,
                 letterSpacing: '-0.035em',
-                lineHeight: 1.1,
-                marginBottom: 14,
+                lineHeight: 1.08,
+                marginBottom: 16,
               }}>
                 Engineering the Future of Work.
               </h2>
               <p style={{
-                fontSize: 'clamp(14px, 1.8vw, 18px)',
-                opacity: 0.9,
-                maxWidth: 600,
+                fontSize: 'clamp(15px, 2vw, 20px)',
+                opacity: 0.95,
+                maxWidth: 680,
                 margin: '0 auto',
                 fontWeight: 400,
-                lineHeight: 1.5,
+                lineHeight: 1.6,
               }}>
                 Autonomous systems running silently 24/7 across conversations, pipelines, and decisions.
               </p>
@@ -338,8 +335,8 @@ export default function HomePage() {
               bottom: 0,
               left: 0,
               right: 0,
-              padding: 'clamp(16px, 3vw, 28px) clamp(16px, 3.5vw, 36px)',
-              background: 'linear-gradient(to top, rgba(9, 21, 32, 0.88) 0%, transparent 100%)',
+              padding: 'clamp(20px, 3.5vw, 36px) clamp(20px, 5vw, 64px)',
+              background: 'linear-gradient(to top, rgba(9, 21, 32, 0.92) 0%, transparent 100%)',
               zIndex: 4,
             }} onClick={(e) => e.stopPropagation()}>
               {/* Interactive Timeline Progress Bar */}
@@ -348,9 +345,9 @@ export default function HomePage() {
                 style={{
                   width: '100%',
                   height: 6,
-                  background: 'rgba(255, 255, 255, 0.25)',
+                  background: 'rgba(255, 255, 255, 0.28)',
                   borderRadius: 999,
-                  marginBottom: 14,
+                  marginBottom: 16,
                   cursor: 'pointer',
                   position: 'relative',
                   overflow: 'hidden',
@@ -384,13 +381,13 @@ export default function HomePage() {
                     onClick={togglePlay}
                     aria-label={isPlayingHero ? 'Pause' : 'Play'}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.22)',
+                      background: 'rgba(255, 255, 255, 0.25)',
                       backdropFilter: 'blur(16px)',
                       WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                      border: '1px solid rgba(255, 255, 255, 0.45)',
                       borderRadius: '50%',
-                      width: 40,
-                      height: 40,
+                      width: 44,
+                      height: 44,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -399,9 +396,9 @@ export default function HomePage() {
                       transition: 'all 0.2s ease',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = '#38A85B'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
                   >
-                    {isPlayingHero ? <Pause size={16} fill="#FFFFFF" /> : <Play size={16} fill="#FFFFFF" style={{ marginLeft: 2 }} />}
+                    {isPlayingHero ? <Pause size={17} fill="#FFFFFF" /> : <Play size={17} fill="#FFFFFF" style={{ marginLeft: 2 }} />}
                   </button>
 
                   {/* Sound / Mute Toggle Button */}
@@ -410,25 +407,25 @@ export default function HomePage() {
                     onClick={toggleSound}
                     aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
                     style={{
-                      background: isMuted ? 'rgba(255, 255, 255, 0.22)' : '#38A85B',
+                      background: isMuted ? 'rgba(255, 255, 255, 0.25)' : '#38A85B',
                       backdropFilter: 'blur(16px)',
                       WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                      border: '1px solid rgba(255, 255, 255, 0.45)',
                       borderRadius: 9999,
-                      padding: '8px 16px',
+                      padding: '9px 18px',
                       display: 'flex',
                       alignItems: 'center',
                       gap: 8,
                       cursor: 'pointer',
                       color: '#FFFFFF',
-                      fontSize: 12,
+                      fontSize: 13,
                       fontWeight: 700,
                       letterSpacing: '0.04em',
                       transition: 'all 0.2s ease',
                     }}
                   >
-                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                    <span>{isMuted ? 'Enable Sound' : 'Audio Live'}</span>
+                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                    <span>{isMuted ? 'Enable Audio' : 'Audio Live'}</span>
                   </button>
 
                   <div style={{ fontSize: 13, color: '#DCE9EE', fontWeight: 600 }}>
@@ -444,22 +441,22 @@ export default function HomePage() {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: 8,
-                      background: 'rgba(255, 255, 255, 0.2)',
+                      background: 'rgba(255, 255, 255, 0.22)',
                       backdropFilter: 'blur(16px)',
                       WebkitBackdropFilter: 'blur(16px)',
-                      padding: '8px 18px',
+                      padding: '9px 20px',
                       borderRadius: 9999,
-                      border: '1px solid rgba(255, 255, 255, 0.35)',
-                      fontSize: 12,
+                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                      fontSize: 13,
                       fontWeight: 700,
                       color: '#FFFFFF',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.borderColor = '#38A85B'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)'}
                   >
-                    <Maximize2 size={13} />
+                    <Maximize2 size={14} />
                     <span>Expand Cinema</span>
                   </button>
                 </div>
