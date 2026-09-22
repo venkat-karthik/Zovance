@@ -29,7 +29,7 @@ export default function HomePage() {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        padding: '130px 24px 60px',
+        padding: 'clamp(150px, 16vw, 180px) 24px 60px',
         overflow: 'hidden',
         background: 'radial-gradient(ellipse at 50% 20%, #F2FAFD 0%, #FFFFFF 85%)',
       }}>

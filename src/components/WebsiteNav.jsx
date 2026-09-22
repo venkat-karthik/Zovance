@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Menu, X, Sparkles } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import BookingModal from './BookingModal';
 
 const navLinks = [
@@ -36,8 +36,8 @@ export default function WebsiteNav() {
           zIndex: 60,
           display: 'flex',
           justifyContent: 'center',
-          padding: scrolled ? '12px 16px' : '20px 24px',
-          transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          padding: scrolled ? '10px 16px' : '16px 20px',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           pointerEvents: 'none',
         }}
       >
@@ -45,23 +45,21 @@ export default function WebsiteNav() {
           style={{
             pointerEvents: 'auto',
             width: '100%',
-            maxWidth: scrolled ? 1040 : 1240,
-            height: scrolled ? 58 : 66,
+            maxWidth: scrolled ? 1040 : 1200,
+            height: scrolled ? 54 : 62,
             borderRadius: 9999,
-            background: scrolled
-              ? 'rgba(255, 255, 255, 0.85)'
-              : 'rgba(255, 255, 255, 0.72)',
+            background: 'rgba(255, 255, 255, 0.85)',
             backdropFilter: 'blur(24px) saturate(180%)',
             WebkitBackdropFilter: 'blur(24px) saturate(180%)',
             border: '1px solid rgba(220, 233, 238, 0.85)',
             boxShadow: scrolled
-              ? '0 16px 36px -10px rgba(16, 44, 66, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.6) inset'
-              : '0 8px 24px -6px rgba(16, 44, 66, 0.06), 0 0 0 1px rgba(255, 255, 255, 0.8) inset',
+              ? '0 12px 30px -10px rgba(16, 44, 66, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.6) inset'
+              : '0 6px 20px -6px rgba(16, 44, 66, 0.05), 0 0 0 1px rgba(255, 255, 255, 0.8) inset',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            padding: '0 clamp(16px, 3vw, 28px)',
-            transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+            padding: '0 clamp(14px, 2.5vw, 24px)',
+            transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
           }}
         >
           {/* Logo with curved badge and pulse dot */}
@@ -72,25 +70,22 @@ export default function WebsiteNav() {
               alignItems: 'center',
               gap: 10,
               textDecoration: 'none',
-              transition: 'transform 0.2s ease',
+              flexShrink: 0,
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.02)')}
-            onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
           >
             <div
               style={{
-                width: 32,
-                height: 32,
-                borderRadius: 10,
+                width: 30,
+                height: 30,
+                borderRadius: 9,
                 background: 'linear-gradient(135deg, #102C42 0%, #193A54 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                position: 'relative',
-                boxShadow: '0 4px 12px rgba(16, 44, 66, 0.2)',
+                boxShadow: '0 4px 10px rgba(16, 44, 66, 0.18)',
               }}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                 <path d="M4 6H20L10 18H20" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                 <circle cx="18" cy="18" r="2.5" fill="#38A85B" />
               </svg>
@@ -108,7 +103,7 @@ export default function WebsiteNav() {
                 ZOVANCE
               </span>
               <span
-                className="hidden lg:inline-block"
+                className="hidden xl:inline-block"
                 style={{
                   fontSize: 11,
                   fontWeight: 600,
@@ -127,11 +122,11 @@ export default function WebsiteNav() {
             className="hidden md:flex"
             style={{
               alignItems: 'center',
-              gap: 6,
-              background: 'rgba(242, 250, 253, 0.7)',
-              padding: '4px 6px',
+              gap: 4,
+              background: 'rgba(242, 250, 253, 0.75)',
+              padding: '4px',
               borderRadius: 9999,
-              border: '1px solid rgba(220, 233, 238, 0.6)',
+              border: '1px solid rgba(220, 233, 238, 0.7)',
             }}
           >
             {navLinks.map((link) => {
@@ -147,11 +142,11 @@ export default function WebsiteNav() {
                     textDecoration: 'none',
                     letterSpacing: '-0.01em',
                     color: isActive ? '#102C42' : '#526673',
-                    padding: '7px 16px',
+                    padding: '6px 16px',
                     borderRadius: 9999,
                     background: isActive ? '#FFFFFF' : 'transparent',
                     boxShadow: isActive ? '0 2px 8px rgba(16, 44, 66, 0.08)' : 'none',
-                    transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
@@ -172,58 +167,54 @@ export default function WebsiteNav() {
             })}
           </nav>
 
-          {/* Right Action CTA Button with dynamic curve */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {/* Right Action CTA Button */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
             <Link
               to="/contact"
-              className="hidden sm:inline-flex"
               style={{
                 background: '#102C42',
                 color: '#FFFFFF',
                 borderRadius: 9999,
-                padding: '9px 20px',
+                padding: '8px 18px',
                 fontSize: 13,
                 fontWeight: 600,
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 7,
-                boxShadow: '0 4px 14px rgba(16, 44, 66, 0.18)',
+                gap: 6,
+                boxShadow: '0 4px 12px rgba(16, 44, 66, 0.16)',
                 transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-1.5px)';
                 e.currentTarget.style.background = '#193A54';
-                e.currentTarget.style.boxShadow = '0 8px 20px rgba(56, 168, 91, 0.25)';
+                e.currentTarget.style.boxShadow = '0 6px 18px rgba(56, 168, 91, 0.25)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.background = '#102C42';
-                e.currentTarget.style.boxShadow = '0 4px 14px rgba(16, 44, 66, 0.18)';
+                e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 44, 66, 0.16)';
               }}
             >
               <span>Let's Connect</span>
               <ArrowRight size={13} />
             </Link>
 
-            {/* Mobile Hamburger Menu Toggle */}
+            {/* Mobile Hamburger Menu Toggle - strictly hidden on desktop md+ */}
             <button
               onClick={() => setOpen(!open)}
-              className="md:hidden"
+              className="flex md:hidden"
               aria-label="Toggle Navigation"
               style={{
                 background: 'rgba(255, 255, 255, 0.9)',
                 border: '1px solid #DCE9EE',
                 borderRadius: 9999,
-                width: 38,
-                height: 38,
-                display: 'flex',
+                width: 36,
+                height: 36,
                 alignItems: 'center',
                 justifyContent: 'center',
                 color: '#102C42',
                 cursor: 'pointer',
-                boxShadow: '0 2px 8px rgba(16, 44, 66, 0.05)',
               }}
             >
               {open ? <X size={18} /> : <Menu size={18} />}
@@ -244,7 +235,7 @@ export default function WebsiteNav() {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            padding: '90px 20px 24px',
+            padding: '84px 20px 24px',
           }}
           onClick={() => setOpen(false)}
         >
@@ -252,13 +243,13 @@ export default function WebsiteNav() {
             onClick={(e) => e.stopPropagation()}
             style={{
               background: '#FFFFFF',
-              borderRadius: 28,
+              borderRadius: 24,
               border: '1px solid #DCE9EE',
-              padding: '24px 20px',
-              boxShadow: '0 24px 48px rgba(16, 44, 66, 0.15)',
+              padding: '20px',
+              boxShadow: '0 20px 40px rgba(16, 44, 66, 0.15)',
               display: 'flex',
               flexDirection: 'column',
-              gap: 12,
+              gap: 10,
             }}
           >
             {navLinks.map((link) => (
@@ -267,8 +258,8 @@ export default function WebsiteNav() {
                 to={link.to}
                 onClick={() => setOpen(false)}
                 style={{
-                  padding: '12px 18px',
-                  borderRadius: 16,
+                  padding: '12px 16px',
+                  borderRadius: 14,
                   fontSize: 15,
                   fontWeight: 600,
                   textDecoration: 'none',
@@ -279,7 +270,7 @@ export default function WebsiteNav() {
                 {link.label}
               </Link>
             ))}
-            <div style={{ paddingTop: 12, borderTop: '1px solid #DCE9EE' }}>
+            <div style={{ paddingTop: 10, borderTop: '1px solid #DCE9EE' }}>
               <Link
                 to="/contact"
                 onClick={() => setOpen(false)}
@@ -287,7 +278,7 @@ export default function WebsiteNav() {
                   background: '#102C42',
                   color: '#FFFFFF',
                   borderRadius: 9999,
-                  padding: '13px 20px',
+                  padding: '12px 20px',
                   fontSize: 14,
                   fontWeight: 600,
                   textDecoration: 'none',
@@ -298,7 +289,7 @@ export default function WebsiteNav() {
                 }}
               >
                 <span>Let's Connect</span>
-                <ArrowRight size={15} />
+                <ArrowRight size={14} />
               </Link>
             </div>
           </div>
