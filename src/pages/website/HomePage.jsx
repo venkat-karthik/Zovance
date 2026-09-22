@@ -162,9 +162,14 @@ export default function HomePage() {
             }}
             onClick={() => openVideo('Watch Our Story')}
           >
-            <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1800&auto=format&fit=crop&q=85"
-              alt="Panoramic alpine lake landscape and modern architectural clarity"
+            {/* Background Ambient Looping Video Canvas */}
+            <video
+              id="hero-ambient-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1800&auto=format&fit=crop&q=85"
               style={{
                 width: '100%',
                 height: '100%',
@@ -173,7 +178,17 @@ export default function HomePage() {
                 transform: 'scale(1.02)',
                 transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
-            />
+            >
+              <source
+                src="https://assets.mixkit.co/videos/preview/mixkit-drone-view-of-a-winding-road-in-a-forest-42861-large.mp4"
+                type="video/mp4"
+              />
+              <img
+                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1800&auto=format&fit=crop&q=85"
+                alt="Panoramic alpine landscape clarity"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </video>
             <div className="media-dark-overlay" />
 
             {/* Apple-style floating controller */}
@@ -194,24 +209,61 @@ export default function HomePage() {
                 <p style={{ fontSize: 'clamp(13px, 2vw, 18px)', fontWeight: 700, letterSpacing: '-0.01em', lineHeight: 1.2 }}>
                   A more human, connected world.
                 </p>
-                <span style={{ fontSize: 'clamp(11px, 1.5vw, 13px)', opacity: 0.85 }}>01:45 Brand Experience Film</span>
+                <span style={{ fontSize: 'clamp(11px, 1.5vw, 13px)', opacity: 0.85 }}>01:45 Brand Experience Film &bull; 4K Ultra HD</span>
               </div>
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(255, 255, 255, 0.22)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                padding: '6px 14px',
-                borderRadius: 9999,
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                fontSize: 12,
-                fontWeight: 600,
-                whiteSpace: 'nowrap',
-              }}>
-                <Play size={12} fill="#FFFFFF" />
-                <span>Play Full Film</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const v = document.getElementById('hero-ambient-video');
+                    if (v) {
+                      if (v.paused) {
+                        v.play();
+                        setIsPlayingHero(true);
+                      } else {
+                        v.pause();
+                        setIsPlayingHero(false);
+                      }
+                    }
+                  }}
+                  aria-label={isPlayingHero ? 'Pause video' : 'Play video'}
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.25)',
+                    backdropFilter: 'blur(16px)',
+                    WebkitBackdropFilter: 'blur(16px)',
+                    border: '1px solid rgba(255, 255, 255, 0.4)',
+                    borderRadius: '50%',
+                    width: 34,
+                    height: 34,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    color: '#FFFFFF',
+                    transition: 'all 0.2s ease',
+                  }}
+                >
+                  {isPlayingHero ? <Pause size={13} fill="#FFFFFF" /> : <Play size={13} fill="#FFFFFF" style={{ marginLeft: 2 }} />}
+                </button>
+
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  background: 'rgba(255, 255, 255, 0.22)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  padding: '7px 16px',
+                  borderRadius: 9999,
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  fontSize: 12,
+                  fontWeight: 600,
+                  whiteSpace: 'nowrap',
+                }}>
+                  <Play size={12} fill="#FFFFFF" />
+                  <span>Watch Full Screen</span>
+                </div>
               </div>
             </div>
           </div>
@@ -559,6 +611,44 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+
+            {/* Panel 4: Enterprise Intelligence & Data Reliability */}
+            <div style={{
+              background: '#FFFFFF',
+              borderRadius: 32,
+              border: '1px solid #DCE9EE',
+              overflow: 'hidden',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(12, 1fr)',
+              alignItems: 'center',
+              boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
+            }}>
+              <div style={{ gridColumn: 'span 12 / span 12', height: 'clamp(240px, 40vw, 420px)' }} className="lg:col-span-7 order-2 lg:order-1">
+                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <img
+                    src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&auto=format&fit=crop&q=80"
+                    alt="Global interconnected data infrastructure and intelligence"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div className="media-dark-overlay" />
+                </div>
+              </div>
+              <div style={{ gridColumn: 'span 12 / span 12', padding: 'clamp(36px, 5vw, 64px)' }} className="lg:col-span-5 order-1 lg:order-2">
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
+                  Enterprise Reliability
+                </span>
+                <h3 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 800, color: '#102C42', lineHeight: 1.15, marginBottom: 16 }}>
+                  Quiet intelligence running 24/7.
+                </h3>
+                <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.6, marginBottom: 28 }}>
+                  Zero-downtime architecture, bank-grade encryption, and real-time observability built for mission-critical peace of mind.
+                </p>
+                <Link to="/services" className="btn-zovance-primary">
+                  <span>Explore Infrastructure</span>
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -591,34 +681,45 @@ export default function HomePage() {
           }}>
             {[
               {
+                tag: 'Operations & Flow',
                 title: 'Smarter Businesses',
-                caption: 'Intelligent automation operating smoothly in the background.',
+                caption: 'Intelligent automation operating quietly behind every customer interaction.',
                 img: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&auto=format&fit=crop&q=80',
+                videoTitle: 'Autonomous Business Operations Demo',
               },
               {
+                tag: 'Conversational AI',
                 title: 'Better Conversations',
-                caption: 'Natural voice systems responding with human-like warmth.',
+                caption: 'Natural voice systems responding with human warmth and zero waiting time.',
                 img: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&auto=format&fit=crop&q=80',
+                videoTitle: 'Voice AI Experience Demo',
               },
               {
+                tag: 'Synchronized Teams',
                 title: 'Connected Work',
-                caption: 'Distributed teams with unified, synchronized workflows.',
+                caption: 'Distributed organizations operating with unified data and seamless handoffs.',
                 img: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=80',
+                videoTitle: 'Unified Team Workflow Showcase',
               },
               {
-                title: 'Intelligent Systems',
-                caption: 'Modern web engineering delivering speed and reliability.',
+                tag: 'Cloud & Systems',
+                title: 'Intelligent Platforms',
+                caption: 'Ultra-fast web platforms and digital hubs engineered for decadal longevity.',
                 img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80',
+                videoTitle: 'High-Performance Platform Architecture',
               },
             ].map((card) => (
               <div
                 key={card.title}
+                onClick={() => openVideo(card.videoTitle)}
                 style={{
                   borderRadius: 24,
                   overflow: 'hidden',
                   background: '#F2FAFD',
                   border: '1px solid #DCE9EE',
+                  cursor: 'pointer',
                   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  position: 'relative',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-4px)';
@@ -629,14 +730,44 @@ export default function HomePage() {
                   e.currentTarget.style.boxShadow = 'none';
                 }}
               >
-                <div style={{ height: 230, overflow: 'hidden' }}>
+                <div style={{ height: 230, overflow: 'hidden', position: 'relative' }}>
                   <img
                     src={card.img}
                     alt={card.title}
                     style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                   />
+                  <div className="media-dark-overlay" />
+                  
+                  {/* Subtle hover play indicator */}
+                  <div style={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    backdropFilter: 'blur(8px)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 4px 12px rgba(16, 44, 66, 0.12)',
+                  }}>
+                    <Play size={14} fill="#102C42" style={{ marginLeft: 2 }} />
+                  </div>
                 </div>
                 <div style={{ padding: '24px 24px 28px' }}>
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: '#38A85B',
+                    display: 'block',
+                    marginBottom: 6,
+                  }}>
+                    {card.tag}
+                  </span>
                   <h4 style={{ fontSize: 18, fontWeight: 700, color: '#102C42', marginBottom: 8 }}>
                     {card.title}
                   </h4>
@@ -840,28 +971,19 @@ export default function HomePage() {
             </div>
 
             <div style={{ position: 'relative', aspectRatio: '16/9', background: '#0D1B2A' }}>
-              <img
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400&auto=format&fit=crop&q=80"
-                alt="Zovance Film"
-                style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }}
-              />
-              <div style={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: '#FFFFFF',
-                textAlign: 'center',
-                padding: 20,
-              }}>
-                <div className="play-btn-circle" style={{ marginBottom: 16 }}>
-                  <Play size={24} style={{ marginLeft: 3 }} fill="#102C42" />
-                </div>
-                <p style={{ fontSize: 16, fontWeight: 700 }}>Zovance Brand Film &bull; High Fidelity Stream</p>
-                <span style={{ fontSize: 13, opacity: 0.8, marginTop: 4 }}>People &bull; Ideas &bull; Impact</span>
-              </div>
+              <video
+                autoPlay
+                controls
+                playsInline
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400&auto=format&fit=crop&q=80"
+              >
+                <source
+                  src="https://assets.mixkit.co/videos/preview/mixkit-drone-view-of-a-winding-road-in-a-forest-42861-large.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support HTML5 video.
+              </video>
             </div>
           </div>
         </div>
