@@ -179,13 +179,8 @@ export default function HomePage() {
               }}
             >
               <source
-                src="https://assets.mixkit.co/videos/preview/mixkit-drone-view-of-a-winding-road-in-a-forest-42861-large.mp4"
+                src="/videos/hero-brand.mp4"
                 type="video/mp4"
-              />
-              <img
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1800&auto=format&fit=crop&q=85"
-                alt="Panoramic alpine landscape clarity"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </video>
             <div className="media-dark-overlay" />
@@ -1217,10 +1212,9 @@ export default function HomePage() {
                 controls
                 playsInline
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1400&auto=format&fit=crop&q=80"
               >
                 <source
-                  src="https://assets.mixkit.co/videos/preview/mixkit-drone-view-of-a-winding-road-in-a-forest-42861-large.mp4"
+                  src="/videos/hero-brand.mp4"
                   type="video/mp4"
                 />
                 Your browser does not support HTML5 video.
