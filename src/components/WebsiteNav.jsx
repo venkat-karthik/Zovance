@@ -168,14 +168,14 @@ export default function WebsiteNav() {
           </nav>
 
           {/* Right Action CTA Button */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
             <Link
               to="/contact"
               style={{
                 background: '#102C42',
                 color: '#FFFFFF',
                 borderRadius: 9999,
-                padding: '8px 18px',
+                padding: '7px clamp(12px, 2.5vw, 18px)',
                 fontSize: 13,
                 fontWeight: 600,
                 textDecoration: 'none',
@@ -184,6 +184,7 @@ export default function WebsiteNav() {
                 gap: 6,
                 boxShadow: '0 4px 12px rgba(16, 44, 66, 0.16)',
                 transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+                whiteSpace: 'nowrap',
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-1.5px)';
@@ -197,7 +198,7 @@ export default function WebsiteNav() {
               }}
             >
               <span>Let's Connect</span>
-              <ArrowRight size={13} />
+              <ArrowRight size={13} className="hidden sm:inline-block" />
             </Link>
 
             {/* Mobile Hamburger Menu Toggle - strictly hidden on desktop md+ */}

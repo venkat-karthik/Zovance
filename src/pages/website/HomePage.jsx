@@ -179,34 +179,38 @@ export default function HomePage() {
             {/* Apple-style floating controller */}
             <div style={{
               position: 'absolute',
-              bottom: 'clamp(20px, 4vw, 36px)',
-              left: 'clamp(20px, 4vw, 36px)',
-              right: 'clamp(20px, 4vw, 36px)',
+              bottom: 'clamp(14px, 3.5vw, 36px)',
+              left: 'clamp(14px, 3.5vw, 36px)',
+              right: 'clamp(14px, 3.5vw, 36px)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              gap: 12,
+              flexWrap: 'wrap',
               color: '#FFFFFF',
               zIndex: 3,
             }}>
               <div>
-                <p style={{ fontSize: 'clamp(14px, 2vw, 18px)', fontWeight: 700, letterSpacing: '-0.01em' }}>
+                <p style={{ fontSize: 'clamp(13px, 2vw, 18px)', fontWeight: 700, letterSpacing: '-0.01em', lineHeight: 1.2 }}>
                   A more human, connected world.
                 </p>
-                <span style={{ fontSize: 13, opacity: 0.85 }}>01:45 Brand Experience Film</span>
+                <span style={{ fontSize: 'clamp(11px, 1.5vw, 13px)', opacity: 0.85 }}>01:45 Brand Experience Film</span>
               </div>
               <div style={{
-                display: 'flex',
+                display: 'inline-flex',
                 alignItems: 'center',
-                gap: 12,
+                gap: 8,
                 background: 'rgba(255, 255, 255, 0.22)',
                 backdropFilter: 'blur(16px)',
-                padding: '8px 18px',
+                WebkitBackdropFilter: 'blur(16px)',
+                padding: '6px 14px',
                 borderRadius: 9999,
                 border: '1px solid rgba(255, 255, 255, 0.3)',
-                fontSize: 13,
+                fontSize: 12,
                 fontWeight: 600,
+                whiteSpace: 'nowrap',
               }}>
-                <Play size={14} fill="#FFFFFF" />
+                <Play size={12} fill="#FFFFFF" />
                 <span>Play Full Film</span>
               </div>
             </div>
@@ -290,7 +294,7 @@ export default function HomePage() {
       }}>
         <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           {/* Big Editorial Architecture Window */}
-          <div className="editorial-media-frame" style={{ aspectRatio: '21/9', minHeight: 380, marginBottom: 48 }}>
+          <div className="editorial-media-frame" style={{ aspectRatio: '21/9', minHeight: 'clamp(220px, 35vw, 420px)', marginBottom: 48 }}>
             <img
               src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&auto=format&fit=crop&q=80"
               alt="Bright modern daylight office environment"
@@ -468,7 +472,7 @@ export default function HomePage() {
                   <ArrowRight size={14} />
                 </Link>
               </div>
-              <div style={{ gridColumn: 'span 12 / span 12', height: 420 }} className="lg:col-span-7">
+              <div style={{ gridColumn: 'span 12 / span 12', height: 'clamp(240px, 40vw, 420px)' }} className="lg:col-span-7">
                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                   <img
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1200&auto=format&fit=crop&q=80"
@@ -491,7 +495,7 @@ export default function HomePage() {
               alignItems: 'center',
               boxShadow: '0 12px 36px rgba(16, 44, 66, 0.04)',
             }}>
-              <div style={{ gridColumn: 'span 12 / span 12', height: 420 }} className="lg:col-span-7 order-2 lg:order-1">
+              <div style={{ gridColumn: 'span 12 / span 12', height: 'clamp(240px, 40vw, 420px)' }} className="lg:col-span-7 order-2 lg:order-1">
                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                   <img
                     src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80"
@@ -544,7 +548,7 @@ export default function HomePage() {
                   <ArrowRight size={14} />
                 </Link>
               </div>
-              <div style={{ gridColumn: 'span 12 / span 12', height: 420 }} className="lg:col-span-7">
+              <div style={{ gridColumn: 'span 12 / span 12', height: 'clamp(240px, 40vw, 420px)' }} className="lg:col-span-7">
                 <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                   <img
                     src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1200&auto=format&fit=crop&q=80"
@@ -665,7 +669,7 @@ export default function HomePage() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(260px, 80vw, 320px), 1fr))',
             gap: 24,
           }}>
             {[
@@ -794,15 +798,16 @@ export default function HomePage() {
           inset: 0,
           background: 'rgba(16, 44, 66, 0.85)',
           backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           zIndex: 100,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          padding: 24,
+          padding: 'clamp(12px, 3vw, 24px)',
         }}>
           <div style={{
             background: '#FFFFFF',
-            borderRadius: 28,
+            borderRadius: 'clamp(18px, 3vw, 28px)',
             overflow: 'hidden',
             maxWidth: 960,
             width: '100%',

@@ -16,7 +16,7 @@ export default function ServicesPage() {
       <section style={{
         maxWidth: 1320,
         margin: '0 auto',
-        padding: 'clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
+        padding: 'clamp(120px, 14vw, 150px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
         textAlign: 'center',
       }}>
         <span style={{

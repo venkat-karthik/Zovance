@@ -48,7 +48,7 @@ export default function ContactPage() {
       <section style={{
         maxWidth: 1320,
         margin: '0 auto',
-        padding: 'clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px) clamp(30px, 4vw, 50px)',
+        padding: 'clamp(120px, 14vw, 150px) clamp(20px, 5vw, 64px) clamp(30px, 4vw, 50px)',
         textAlign: 'center',
       }}>
         <span style={{

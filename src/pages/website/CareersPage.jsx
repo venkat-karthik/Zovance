@@ -16,7 +16,7 @@ export default function CareersPage() {
       <section style={{
         maxWidth: 1320,
         margin: '0 auto',
-        padding: 'clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
+        padding: 'clamp(120px, 14vw, 150px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
         textAlign: 'center',
       }}>
         <span style={{
@@ -58,7 +58,7 @@ export default function CareersPage() {
 
       {/* Workspace Visual Banner */}
       <div style={{ maxWidth: 1320, margin: '0 auto 80px', padding: '0 clamp(20px, 5vw, 64px)' }}>
-        <div className="editorial-media-frame" style={{ aspectRatio: '21/9', minHeight: 320 }}>
+        <div className="editorial-media-frame" style={{ aspectRatio: '21/9', minHeight: 'clamp(200px, 30vw, 360px)' }}>
           <img
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&auto=format&fit=crop&q=80"
             alt="Modern architectural Zovance workspace filled with light"
