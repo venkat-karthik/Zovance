@@ -290,22 +290,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ================= 2. APPLE-STYLE FULL-WIDTH VISION MARQUEE ================= */}
+      {/* ================= 2. APPLE-STYLE FULL-WIDTH VISION MARQUEE (Cinematic Deep Navy) ================= */}
       <section id="vision" style={{
         padding: 'clamp(80px, 12vw, 140px) clamp(20px, 5vw, 64px)',
-        background: '#FFFFFF',
+        background: '#102C42',
+        color: '#FFFFFF',
         textAlign: 'center',
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        <div style={{ maxWidth: 1040, margin: '0 auto' }}>
+        {/* Subtle Ambient Radial Lighting */}
+        <div style={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 'clamp(500px, 70vw, 850px)',
+          height: 350,
+          background: 'radial-gradient(ellipse at center, rgba(56, 168, 91, 0.18) 0%, rgba(62, 159, 208, 0.12) 45%, transparent 75%)',
+          filter: 'blur(60px)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} />
+
+        <div style={{ maxWidth: 1040, margin: '0 auto', position: 'relative', zIndex: 1 }}>
           <span style={{
             fontSize: 12,
             fontWeight: 700,
             letterSpacing: '0.12em',
             color: '#38A85B',
             textTransform: 'uppercase',
-            display: 'block',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
             marginBottom: 20,
+            background: 'rgba(255, 255, 255, 0.08)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
+            padding: '6px 16px',
+            borderRadius: 9999,
           }}>
+            <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#38A85B' }} />
             OUR VISION
           </span>
 
@@ -314,16 +338,18 @@ export default function HomePage() {
             fontWeight: 800,
             lineHeight: 1.08,
             letterSpacing: '-0.035em',
-            color: '#102C42',
+            color: '#FFFFFF',
             marginBottom: 24,
           }}>
             A more human<br />
-            <span className="highlight-green">connected world.</span>
+            <span style={{ color: '#38A85B', fontStyle: 'italic', fontFamily: 'Georgia, serif' }}>
+              connected world.
+            </span>
           </h2>
 
           <p style={{
             fontSize: 'clamp(18px, 2.2vw, 22px)',
-            color: '#526673',
+            color: '#DCE9EE',
             maxWidth: 720,
             margin: '0 auto 48px',
             lineHeight: 1.6,
@@ -331,7 +357,7 @@ export default function HomePage() {
             We believe technology should create real value for people, businesses and the world around us. Not noise, but quiet intelligence that moves humanity forward.
           </p>
 
-          <Link to="/about" className="btn-zovance-ghost">
+          <Link to="/about" className="btn-zovance-green">
             <span>Our Story</span>
             <ArrowRight size={15} />
           </Link>
