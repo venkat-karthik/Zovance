@@ -218,31 +218,31 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* 100% Edge-to-Edge Full Bleed Horizontal Cinematic Video Canvas */}
+        {/* Seamless Full-Bleed Ambient Hero Video Banner */}
         <div
           ref={videoContainerRef}
           style={{
-            width: '100vw',
             position: 'relative',
-            left: '50%',
-            right: '50%',
-            marginLeft: '-50vw',
-            marginRight: '-50vw',
-            zIndex: 2,
+            width: '100%',
+            maxWidth: 1360,
+            margin: '0 auto',
+            borderRadius: 'clamp(20px, 3.5vw, 36px)',
             overflow: 'hidden',
+            boxShadow: '0 24px 64px -16px rgba(16, 44, 66, 0.18)',
+            border: '1px solid #DCE9EE',
+            zIndex: 2,
           }}
         >
           <div
             style={{
               position: 'relative',
               width: '100%',
-              minHeight: 'clamp(360px, 56vw, 780px)',
-              maxHeight: 840,
-              cursor: 'pointer',
+              aspectRatio: '16/9',
+              minHeight: 'clamp(320px, 48vw, 640px)',
+              maxHeight: 700,
               background: '#091520',
               overflow: 'hidden',
             }}
-            onClick={togglePlay}
           >
             {/* Background Ambient Video Canvas */}
             <video
@@ -252,13 +252,11 @@ export default function HomePage() {
               loop
               muted={isMuted}
               playsInline
-              onTimeUpdate={handleTimeUpdate}
               style={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 display: 'block',
-                transform: 'scale(1.01)',
               }}
             >
               <source
@@ -267,127 +265,106 @@ export default function HomePage() {
               />
             </video>
 
-            {/* Gradient Overlays for Readability & Cinematic Depth */}
+            {/* Seamless Soft Contrast Vignette */}
             <div style={{
               position: 'absolute',
               inset: 0,
-              background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.4) 0%, rgba(16, 44, 66, 0.1) 40%, rgba(16, 44, 66, 0.8) 100%)',
+              background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.25) 0%, rgba(16, 44, 66, 0.05) 45%, rgba(16, 44, 66, 0.65) 100%)',
               pointerEvents: 'none',
             }} />
 
-            {/* Centered Large Editorial Headline Overlay on Video */}
+            {/* Integrated Typography Merged on the Video Canvas */}
             <div style={{
               position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              width: '90%',
-              maxWidth: 960,
-              textAlign: 'center',
+              inset: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end',
+              padding: 'clamp(24px, 4vw, 48px)',
               color: '#FFFFFF',
               zIndex: 3,
-              pointerEvents: 'none',
-              textShadow: '0 2px 24px rgba(0,0,0,0.6)',
             }}>
-              <div style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                background: 'rgba(255, 255, 255, 0.16)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.35)',
-                padding: '7px 20px',
-                borderRadius: 9999,
-                fontSize: 12,
-                fontWeight: 800,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                marginBottom: 18,
-              }}>
-                <span className="animate-pulse-ring" style={{ width: 8, height: 8, borderRadius: '50%', background: '#38A85B' }} />
-                <span>INTELLIGENCE IN MOTION</span>
-              </div>
-              <h2 style={{
-                fontSize: 'clamp(32px, 5.5vw, 68px)',
-                fontWeight: 800,
-                letterSpacing: '-0.035em',
-                lineHeight: 1.08,
-                marginBottom: 16,
-              }}>
-                Engineering the Future of Work.
-              </h2>
-              <p style={{
-                fontSize: 'clamp(15px, 2vw, 20px)',
-                opacity: 0.95,
-                maxWidth: 680,
-                margin: '0 auto',
-                fontWeight: 400,
-                lineHeight: 1.6,
-              }}>
-                Autonomous systems running silently 24/7 across conversations, pipelines, and decisions.
-              </p>
-            </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16 }}>
+                <div>
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    background: 'rgba(255, 255, 255, 0.18)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(255, 255, 255, 0.35)',
+                    padding: '5px 14px',
+                    borderRadius: 9999,
+                    fontSize: 11,
+                    fontWeight: 800,
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    marginBottom: 10,
+                  }}>
+                    <span className="animate-pulse-ring" style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
+                    <span>INTELLIGENCE IN MOTION</span>
+                  </div>
 
-            {/* Video Player Bottom Control Bar */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              padding: 'clamp(20px, 3.5vw, 36px) clamp(20px, 5vw, 64px)',
-              background: 'linear-gradient(to top, rgba(9, 21, 32, 0.92) 0%, transparent 100%)',
-              zIndex: 4,
-            }} onClick={(e) => e.stopPropagation()}>
-              {/* Interactive Timeline Progress Bar */}
-              <div
-                onClick={handleSeek}
-                style={{
-                  width: '100%',
-                  height: 6,
-                  background: 'rgba(255, 255, 255, 0.28)',
-                  borderRadius: 999,
-                  marginBottom: 16,
-                  cursor: 'pointer',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  transition: 'height 0.2s ease',
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.height = '8px'}
-                onMouseLeave={(e) => e.currentTarget.style.height = '6px'}
-              >
-                <div style={{
-                  height: '100%',
-                  width: `${videoProgress}%`,
-                  background: 'linear-gradient(90deg, #38A85B, #3E9FD0)',
-                  borderRadius: 999,
-                  transition: 'width 0.1s linear',
-                }} />
-              </div>
+                  <h3 style={{
+                    fontSize: 'clamp(22px, 3.5vw, 38px)',
+                    fontWeight: 800,
+                    letterSpacing: '-0.025em',
+                    lineHeight: 1.15,
+                    marginBottom: 6,
+                    textShadow: '0 2px 14px rgba(0,0,0,0.4)',
+                  }}>
+                    Autonomous systems that move businesses forward.
+                  </h3>
+                  <p style={{
+                    fontSize: 'clamp(13px, 1.6vw, 16px)',
+                    opacity: 0.9,
+                    maxWidth: 580,
+                    lineHeight: 1.5,
+                  }}>
+                    Operating quietly 24/7 across customer inquiries, intelligent workflows, and data pipelines.
+                  </p>
+                </div>
 
-              {/* Bottom Controller Row */}
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 16,
-                flexWrap: 'wrap',
-                color: '#FFFFFF',
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                  {/* Play / Pause Button */}
+                {/* Minimal Discrete Sound Toggle & Expand Button */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <button
                     type="button"
-                    onClick={togglePlay}
-                    aria-label={isPlayingHero ? 'Pause' : 'Play'}
+                    onClick={toggleSound}
+                    aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.25)',
+                      background: isMuted ? 'rgba(255, 255, 255, 0.2)' : '#38A85B',
                       backdropFilter: 'blur(16px)',
                       WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.45)',
+                      border: '1px solid rgba(255, 255, 255, 0.35)',
+                      borderRadius: 9999,
+                      padding: '8px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      cursor: 'pointer',
+                      color: '#FFFFFF',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                    <span>{isMuted ? 'Sound Off' : 'Sound On'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => openVideo('Brand Experience Film')}
+                    aria-label="Expand Cinema Modal"
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(255, 255, 255, 0.35)',
                       borderRadius: '50%',
-                      width: 44,
-                      height: 44,
+                      width: 36,
+                      height: 36,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -395,69 +372,10 @@ export default function HomePage() {
                       color: '#FFFFFF',
                       transition: 'all 0.2s ease',
                     }}
-                    onMouseEnter={(e) => e.currentTarget.style.background = '#38A85B'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.25)'}
-                  >
-                    {isPlayingHero ? <Pause size={17} fill="#FFFFFF" /> : <Play size={17} fill="#FFFFFF" style={{ marginLeft: 2 }} />}
-                  </button>
-
-                  {/* Sound / Mute Toggle Button */}
-                  <button
-                    type="button"
-                    onClick={toggleSound}
-                    aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
-                    style={{
-                      background: isMuted ? 'rgba(255, 255, 255, 0.25)' : '#38A85B',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.45)',
-                      borderRadius: 9999,
-                      padding: '9px 18px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      cursor: 'pointer',
-                      color: '#FFFFFF',
-                      fontSize: 13,
-                      fontWeight: 700,
-                      letterSpacing: '0.04em',
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-                    <span>{isMuted ? 'Enable Audio' : 'Audio Live'}</span>
-                  </button>
-
-                  <div style={{ fontSize: 13, color: '#DCE9EE', fontWeight: 600 }}>
-                    4K Cinematic Film &bull; Autoplays on Scroll
-                  </div>
-                </div>
-
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <button
-                    type="button"
-                    onClick={() => openVideo('Watch Our Story')}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      background: 'rgba(255, 255, 255, 0.22)',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      padding: '9px 20px',
-                      borderRadius: 9999,
-                      border: '1px solid rgba(255, 255, 255, 0.4)',
-                      fontSize: 13,
-                      fontWeight: 700,
-                      color: '#FFFFFF',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease',
-                    }}
                     onMouseEnter={(e) => e.currentTarget.style.borderColor = '#38A85B'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.4)'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)'}
                   >
-                    <Maximize2 size={14} />
-                    <span>Expand Cinema</span>
+                    <Maximize2 size={15} />
                   </button>
                 </div>
               </div>
