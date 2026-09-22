@@ -1,560 +1,228 @@
 import { useState } from 'react';
-import { Zap, Phone, Layers, BarChart3, ArrowRight, CheckCircle2, MessageCircle, Sparkles, Clock, ShieldCheck, Play, ChevronRight, HelpCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, CheckCircle2, Zap, Phone, Layers, Workflow, ShieldCheck } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
-import ClosingCtaBanner from '../../components/ClosingCtaBanner';
-import { useStore } from '../../store/useStore';
-
-const serviceCategories = [
-  {
-    id: 'automation',
-    icon: Zap,
-    title: 'AI & Workflow Automation',
-    subtitle: 'Eliminate manual data entry & repetitive work',
-    tag: 'MOST POPULAR',
-    color: '#FFEDD5',
-    iconColor: '#EA580C',
-    accentBorder: '#FDBA74',
-    pricing: 'Starting at ₹49,999',
-    flow: {
-      input: 'Inbound Lead / Webhook',
-      process: 'AI Agent Reasoning & Enrichment',
-      output: 'Cal Booking + CRM Sync',
-    },
-    beforeAfter: {
-      before: '20+ hours lost / team member / week',
-      after: 'Completed in <2 seconds with 0 human error',
-    },
-    quote: '"Zovance automated our lead qualification on WhatsApp. We save 30 hours a week and our conversion rate doubled."',
-    author: 'Rahul Verma, CEO at EduPrime',
-    features: [
-      'Custom N8N / Zapier / Python API automation pipelines',
-      'AI-powered document & invoice OCR extraction',
-      'Instant CRM enrichment (HubSpot, Salesforce, Pipedrive)',
-      'Automated WhatsApp & Email follow-up sequences',
-      'Real-time automated Slack & WhatsApp digests',
-    ],
-  },
-  {
-    id: 'voice',
-    icon: Phone,
-    title: 'AI Voice Systems',
-    subtitle: '24/7 multilingual inbound & outbound voice agents',
-    tag: 'HIGH ROI',
-    color: '#DBEAFE',
-    iconColor: '#2563EB',
-    accentBorder: '#93C5FD',
-    pricing: 'Starting at ₹79,999',
-    flow: {
-      input: 'Phone Call Ringing',
-      process: 'Voice Synthesis & LLM Dialogue',
-      output: 'Appointment Booked & SMS Sent',
-    },
-    beforeAfter: {
-      before: 'High missed calls & expensive phone team',
-      after: '100% calls answered 24/7 with zero wait time',
-    },
-    quote: '"Our phone lines used to be chaotic. Now the AI voice agent handles 200+ appointment calls a day smoothly in English & Hindi."',
-    author: 'Dr. Suresh Nair, MedCare Hospitals',
-    features: [
-      '24/7 natural-sounding conversational voice callers',
-      'Multilingual support (English, Hindi, SEA languages)',
-      '1-click Google Calendar & PMS booking integration',
-      'Automatic call transcription & sentiment logging',
-      'Inbound customer query resolution & FAQ support',
-    ],
-  },
-  {
-    id: 'web',
-    icon: Layers,
-    title: 'Custom Web Engineering',
-    subtitle: 'High-conversion platforms, web apps & internal tools',
-    tag: 'FULL STACK',
-    color: '#FCE7F3',
-    iconColor: '#DB2777',
-    accentBorder: '#F9A8D4',
-    pricing: 'Starting at ₹89,999',
-    flow: {
-      input: 'Visitor Traffic',
-      process: 'Ultra-Fast React / Next.js Engine',
-      output: '3x to 5x Lead Conversion',
-    },
-    beforeAfter: {
-      before: 'Slow 4s load time & 1.2% conversion rate',
-      after: '<1s speed & 4.8x higher conversion rate',
-    },
-    quote: '"Our luxury booking engine built by Zovance processes reservations in under a second. Highly reliable software."',
-    author: 'Alluri Resorts Management',
-    features: [
-      'High-performance React & Next.js web applications',
-      'Custom e-commerce platforms & Shopify API integrations',
-      'Seamless payment gateways (Stripe, Razorpay, UPI)',
-      'SEO-first architecture & responsive mobile UI',
-      'Custom admin dashboards & client portals',
-    ],
-  },
-  {
-    id: 'audit',
-    icon: BarChart3,
-    title: 'Strategy & Audits',
-    subtitle: 'Deep-dive operations mapping & 90-day AI roadmap',
-    tag: 'EXECUTIVE ADVISORY',
-    color: '#D1FAE5',
-    iconColor: '#059669',
-    accentBorder: '#6EE7B7',
-    pricing: 'Starting at ₹29,999',
-    flow: {
-      input: 'Operations Audit',
-      process: 'Bottleneck Ranking & ROI Model',
-      output: '90-Day Execution Blueprint',
-    },
-    beforeAfter: {
-      before: 'Confusion on AI tools & waste of budget',
-      after: 'Prioritized roadmap with 100% clarity on payback',
-    },
-    quote: '"The 90-day audit showed us exactly which 3 workflows to automate first. The payback was under 3 weeks."',
-    author: 'Anita Joshi, COO at RetailX',
-    features: [
-      'Full business workflow & bottleneck mapping',
-      'Tech stack evaluation & redundancies audit',
-      'Prioritized automation opportunity matrix',
-      'ROI & payback timeline projections',
-      'Monthly executive advisory & coaching sessions',
-    ],
-  },
-];
 
 export default function ServicesPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('automation');
-  const { darkMode } = useStore();
-
-  // Solution Quiz State
-  const [quizStep, setQuizStep] = useState(0);
-  const [quizAnswers, setQuizAnswers] = useState({ goal: '', team: '' });
-
-  const selectedService = serviceCategories.find((s) => s.id === activeTab) || serviceCategories[0];
 
   return (
-    <div className="bg-grid-pattern" style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
+    <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
-      {/* Hero Header */}
+      {/* Header */}
       <section style={{
-        maxWidth: 1280,
+        maxWidth: 1320,
         margin: '0 auto',
-        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 40px)',
+        padding: 'clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
         textAlign: 'center',
-        position: 'relative',
       }}>
-        {/* Glow */}
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 500,
-          height: 300,
-          background: darkMode
-            ? 'radial-gradient(circle, rgba(56, 189, 248, 0.18) 0%, rgba(52, 211, 153, 0.1) 60%, transparent 80%)'
-            : 'radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(52, 211, 153, 0.05) 60%, transparent 80%)',
-          pointerEvents: 'none',
-        }} />
-
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 8,
-          padding: '6px 16px',
-          borderRadius: 9999,
-          background: darkMode ? '#1E293B' : '#ffffff',
-          border: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #E2E8F0',
-          boxShadow: darkMode ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 10px rgba(0,0,0,0.04)',
-          marginBottom: 20,
+        <span style={{
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: '0.12em',
+          color: '#38A85B',
+          textTransform: 'uppercase',
+          display: 'block',
+          marginBottom: 16,
         }}>
-          <Sparkles size={14} color={darkMode ? '#34D399' : '#059669'} />
-          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', color: darkMode ? '#F8FAFC' : '#0F172A', textTransform: 'uppercase' }}>
-            ENGINEERED FOR MEASURABLE ROI
-          </span>
-        </div>
+          WHAT WE DO
+        </span>
 
         <h1 style={{
-          fontSize: 'clamp(36px, 6vw, 68px)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          color: darkMode ? '#F8FAFC' : '#0F172A',
-          lineHeight: 1.05,
-          marginBottom: 20,
+          fontSize: 'clamp(36px, 5.5vw, 68px)',
+          fontWeight: 800,
+          letterSpacing: '-0.035em',
+          color: '#102C42',
+          lineHeight: 1.1,
+          marginBottom: 24,
+          maxWidth: 820,
+          marginLeft: 'auto',
+          marginRight: 'auto',
         }}>
-          Every System We Build Is<br />
-          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Architected to Scale</span>
+          Turning Ideas Into Real Change.
         </h1>
 
         <p style={{
-          fontSize: 'clamp(15px, 2vw, 18px)',
-          color: darkMode ? '#CBD5E1' : '#475569',
-          maxWidth: 600,
-          margin: '0 auto 36px',
-          lineHeight: 1.6,
+          fontSize: 'clamp(16px, 2vw, 19px)',
+          color: '#526673',
+          maxWidth: 680,
+          margin: '0 auto',
+          lineHeight: 1.7,
         }}>
-          We don't sell generic templates. We engineer custom AI pipelines, 24/7 voice agents, and full-stack software tailored for your business.
+          We build technology, products and intelligent systems that help businesses work smarter and communicate better.
         </p>
-
-        {/* Interactive Category Selector Tabs */}
-        <div style={{
-          display: 'inline-flex',
-          gap: 8,
-          padding: 6,
-          background: darkMode ? '#131B2E' : '#ffffff',
-          border: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #E2E8F0',
-          borderRadius: 9999,
-          boxShadow: darkMode ? '0 8px 24px rgba(0,0,0,0.4)' : '0 4px 16px rgba(0,0,0,0.04)',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
-        }}>
-          {serviceCategories.map((cat) => {
-            const isActive = activeTab === cat.id;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => setActiveTab(cat.id)}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  padding: '10px 20px',
-                  borderRadius: 9999,
-                  border: 'none',
-                  fontSize: 13,
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  background: isActive ? (darkMode ? '#38BDF8' : '#0F172A') : 'transparent',
-                  color: isActive ? (darkMode ? '#0F172A' : '#ffffff') : (darkMode ? '#94A3B8' : '#64748B'),
-                  transition: 'all 0.25s ease',
-                }}
-              >
-                <cat.icon size={16} />
-                <span>{cat.title}</span>
-              </button>
-            );
-          })}
-        </div>
       </section>
 
-      {/* Selected Service Hero Card */}
+      {/* Visual Storytelling Areas (NOT a feature table) */}
       <section style={{
-        maxWidth: 1280,
-        margin: '0 auto 60px',
-        padding: '0 clamp(16px, 4vw, 36px)',
+        maxWidth: 1320,
+        margin: '0 auto',
+        padding: '0 clamp(20px, 5vw, 64px) clamp(80px, 10vw, 120px)',
       }}>
-        <div style={{
-          background: darkMode ? '#131B2E' : '#ffffff',
-          border: `2px solid ${darkMode ? 'rgba(56, 189, 248, 0.4)' : selectedService.accentBorder}`,
-          borderRadius: 32,
-          padding: 'clamp(32px, 6vw, 56px)',
-          boxShadow: darkMode ? '0 24px 60px rgba(0, 0, 0, 0.5)' : '0 16px 40px rgba(15, 23, 42, 0.06)',
-          transition: 'all 0.3s ease',
-        }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 64 }}>
+          {/* Area 1: AI & Automation */}
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: 'clamp(24px, 4vw, 48px)',
+            gap: 'clamp(32px, 5vw, 64px)',
             alignItems: 'center',
+            padding: 'clamp(32px, 5vw, 56px)',
+            borderRadius: 32,
+            background: '#F2FAFD',
+            border: '1px solid #DCE9EE',
           }}>
-            {/* Left Content */}
-            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-7">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
-                <div style={{
-                  width: 48,
-                  height: 48,
-                  borderRadius: 16,
-                  background: darkMode ? 'rgba(56, 189, 248, 0.2)' : selectedService.color,
-                  color: darkMode ? '#38BDF8' : selectedService.iconColor,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <selectedService.icon size={24} />
-                </div>
-                <div>
-                  <span style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.12em', color: darkMode ? '#38BDF8' : selectedService.iconColor, textTransform: 'uppercase' }}>
-                    {selectedService.tag}
-                  </span>
-                  <div style={{ fontSize: 13, color: darkMode ? '#94A3B8' : '#64748B', fontWeight: 600 }}>{selectedService.pricing}</div>
-                </div>
-              </div>
-
-              <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 800, color: darkMode ? '#F8FAFC' : '#0F172A', lineHeight: 1.15, marginBottom: 12 }}>
-                {selectedService.title}
+            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-6">
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
+                CAPABILITY 01
+              </span>
+              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 800, color: '#102C42', marginBottom: 16 }}>
+                AI & Automation
               </h2>
-              <p style={{ fontSize: 16, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 28 }}>
-                {selectedService.subtitle}
+              <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.7, marginBottom: 24 }}>
+                Intelligent systems that reduce repetitive work and improve business operations. We connect disparate data, eliminate manual entry, and trigger instant automated decisions with 100% precision.
               </p>
-
-              {/* Before vs After Comparison Badge */}
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: 16,
-                marginBottom: 32,
-              }}>
-                <div style={{
-                  background: darkMode ? 'rgba(239, 68, 68, 0.15)' : '#FEF2F2',
-                  border: darkMode ? '1px solid rgba(239, 68, 68, 0.3)' : '1px solid #FCA5A5',
-                  borderRadius: 16,
-                  padding: 16,
-                }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: darkMode ? '#F87171' : '#DC2626', textTransform: 'uppercase', marginBottom: 4 }}>
-                    ❌ WITHOUT AUTOMATION
-                  </div>
-                  <div style={{ fontSize: 13, color: darkMode ? '#FCA5A5' : '#7F1D1D', fontWeight: 600 }}>
-                    {selectedService.beforeAfter.before}
-                  </div>
-                </div>
-
-                <div style={{
-                  background: darkMode ? 'rgba(16, 185, 129, 0.15)' : '#ECFDF5',
-                  border: darkMode ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid #6EE7B7',
-                  borderRadius: 16,
-                  padding: 16,
-                }}>
-                  <div style={{ fontSize: 11, fontWeight: 800, color: darkMode ? '#34D399' : '#059669', textTransform: 'uppercase', marginBottom: 4 }}>
-                    ✅ WITH ZOVANCE AI
-                  </div>
-                  <div style={{ fontSize: 13, color: darkMode ? '#6EE7B7' : '#064E3B', fontWeight: 700 }}>
-                    {selectedService.beforeAfter.after}
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Button */}
-              <button
-                className="btn-dark-pill"
-                onClick={() => setBookingOpen(true)}
-                style={{
-                  background: darkMode ? '#38BDF8' : '#111827',
-                  color: darkMode ? '#0F172A' : '#ffffff',
-                }}
-              >
-                <span>Book Strategy Call For {selectedService.title}</span>
-                <ArrowRight size={16} />
-              </button>
-            </div>
-
-            {/* Right Visual Flow Diagram & Testimonial Quote */}
-            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-5">
-              
-              {/* Process Flow Graphic Card */}
-              <div style={{
-                background: darkMode ? '#0F1420' : '#FBFBF9',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
-                borderRadius: 24,
-                padding: 24,
-                marginBottom: 20,
-              }}>
-                <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: '0.1em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-                  ⚡ HOW IT WORKS IN REAL-TIME
-                </div>
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <div style={{
-                    background: darkMode ? '#1E293B' : '#ffffff',
-                    border: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid #E2E8F0',
-                    borderRadius: 12,
-                    padding: '10px 14px',
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: darkMode ? '#CBD5E1' : '#475569',
-                  }}>
-                    1. <span style={{ color: darkMode ? '#F8FAFC' : '#0F172A', fontWeight: 700 }}>{selectedService.flow.input}</span>
-                  </div>
-                  <div style={{ textAlign: 'center', color: darkMode ? '#94A3B8' : '#64748B', fontSize: 12 }}>↓</div>
-                  <div style={{
-                    background: darkMode ? '#38BDF8' : '#0F172A',
-                    color: darkMode ? '#0F172A' : '#ffffff',
-                    borderRadius: 12,
-                    padding: '10px 14px',
-                    fontSize: 13,
-                    fontWeight: 700,
-                  }}>
-                    2. 🤖 {selectedService.flow.process}
-                  </div>
-                  <div style={{ textAlign: 'center', color: darkMode ? '#94A3B8' : '#64748B', fontSize: 12 }}>↓</div>
-                  <div style={{
-                    background: darkMode ? 'rgba(34, 197, 94, 0.2)' : '#DCFCE7',
-                    border: darkMode ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid #86EFAC',
-                    color: darkMode ? '#4ADE80' : '#166534',
-                    borderRadius: 12,
-                    padding: '10px 14px',
-                    fontSize: 13,
-                    fontWeight: 700,
-                  }}>
-                    3. ✨ {selectedService.flow.output}
-                  </div>
-                </div>
-              </div>
-
-              {/* Client Quote Overlay */}
-              <div style={{
-                background: darkMode ? 'rgba(30, 41, 59, 0.9)' : selectedService.color,
-                borderRadius: 20,
-                padding: 20,
-                border: darkMode ? '1px solid rgba(255,255,255,0.1)' : `1px solid ${selectedService.accentBorder}`,
-              }}>
-                <p style={{ fontSize: 13, color: darkMode ? '#F8FAFC' : '#0F172A', fontStyle: 'italic', lineHeight: 1.5, marginBottom: 10, fontWeight: 600 }}>
-                  {selectedService.quote}
-                </p>
-                <div style={{ fontSize: 11, fontWeight: 800, color: darkMode ? '#38BDF8' : selectedService.iconColor }}>
-                  — {selectedService.author}
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Feature Checklists Grid Across All Services */}
-      <section style={{
-        maxWidth: 1280,
-        margin: '0 auto',
-        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
-      }}>
-        <div style={{ textAlign: 'center', marginBottom: 44 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
-            COMPLETE TECHNICAL SPECS
-          </div>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
-            What's Included in Every Deployment
-          </h2>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: 24,
-        }}>
-          {serviceCategories.map((srv) => (
-            <div
-              key={srv.id}
-              style={{
-                background: darkMode ? '#131B2E' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
-                borderRadius: 24,
-                padding: 28,
-                boxShadow: darkMode ? '0 12px 30px rgba(0, 0, 0, 0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
-              }}
-            >
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-                <div style={{
-                  width: 36,
-                  height: 36,
-                  borderRadius: 10,
-                  background: darkMode ? 'rgba(56, 189, 248, 0.2)' : srv.color,
-                  color: darkMode ? '#38BDF8' : srv.iconColor,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                  <srv.icon size={18} />
-                </div>
-                <h3 style={{ fontSize: 18, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>{srv.title}</h3>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {srv.features.map((f) => (
-                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <CheckCircle2 size={15} color="#16A34A" />
-                    <span style={{ fontSize: 13, color: darkMode ? '#CBD5E1' : '#334155', fontWeight: 600 }}>{f}</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
+                {['Direct CRM, accounting, and database synchronization', 'Automated document and invoice data extraction', 'Real-time multi-channel lead routing & notifications'].map(item => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#102C42' }}>
+                    <CheckCircle2 size={16} color="#38A85B" />
+                    <span>{item}</span>
                   </div>
                 ))}
               </div>
+              <Link to="/contact" className="btn-zovance-primary">
+                <span>Discuss Automation</span>
+                <ArrowRight size={14} />
+              </Link>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Interactive Solution Finder Widget */}
-      <section style={{
-        maxWidth: 1280,
-        margin: '0 auto 80px',
-        padding: '0 clamp(16px, 4vw, 36px)',
-      }}>
-        <div style={{
-          background: 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
-          borderRadius: 32,
-          padding: 'clamp(32px, 6vw, 56px)',
-          color: '#ffffff',
-          textAlign: 'center',
-          boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.25)',
-        }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: '#38BDF8', textTransform: 'uppercase', marginBottom: 12 }}>
-            INTERACTIVE SOLUTION FINDER
+            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-6">
+              <div className="editorial-media-frame" style={{ aspectRatio: '4/3' }}>
+                <img
+                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&auto=format&fit=crop&q=80"
+                  alt="Modern architectural structure and interconnected systems"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div className="media-dark-overlay" />
+              </div>
+            </div>
           </div>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 700, marginBottom: 16 }}>
-            Not sure which AI system your business needs?
-          </h2>
-          <p style={{ fontSize: 15, color: '#94A3B8', maxWidth: 520, margin: '0 auto 36px', lineHeight: 1.6 }}>
-            Tell us your main operational bottleneck and we will recommend the exact automation build.
-          </p>
 
+          {/* Area 2: Voice AI */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 16,
-            maxWidth: 900,
-            margin: '0 auto 36px',
+            gridTemplateColumns: 'repeat(12, 1fr)',
+            gap: 'clamp(32px, 5vw, 64px)',
+            alignItems: 'center',
+            padding: 'clamp(32px, 5vw, 56px)',
+            borderRadius: 32,
+            background: '#FFFFFF',
+            border: '1px solid #DCE9EE',
           }}>
-            {[
-              { title: 'Too many manual leads & emails', rec: 'AI Workflow Pipeline' },
-              { title: 'High missed calls & phone bookings', rec: '24/7 AI Voice Agent' },
-              { title: 'Slow website & poor conversions', rec: 'Custom Web Platform' },
-              { title: 'Unsure where to start with AI', rec: '90-Day Strategy Audit' },
-            ].map((item, idx) => (
-              <button
-                key={idx}
-                onClick={() => setBookingOpen(true)}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
-                  borderRadius: 16,
-                  padding: 20,
-                  color: '#ffffff',
-                  textAlign: 'left',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = 'rgba(56, 189, 248, 0.2)';
-                  e.currentTarget.style.borderColor = '#38BDF8';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                }}
-              >
-                <div style={{ fontSize: 13, color: '#CBD5E1', marginBottom: 8 }}>{item.title}</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: '#38BDF8', display: 'flex', alignItems: 'center', gap: 6 }}>
-                  <span>Rec: {item.rec}</span>
-                  <ArrowRight size={14} />
-                </div>
-              </button>
-            ))}
+            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-6 order-2 lg:order-1">
+              <div className="editorial-media-frame" style={{ aspectRatio: '4/3' }}>
+                <img
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1000&auto=format&fit=crop&q=80"
+                  alt="Voice AI conversation and customer relationship"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div className="media-dark-overlay" />
+              </div>
+            </div>
+            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-6 order-1 lg:order-2">
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
+                CAPABILITY 02
+              </span>
+              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 800, color: '#102C42', marginBottom: 16 }}>
+                Voice AI
+              </h2>
+              <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.7, marginBottom: 24 }}>
+                Natural AI-powered conversations for customer support, sales, and business communication. Our voice agents speak fluently, handle inbound inquiries 24/7, and book appointments directly into your calendar.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
+                {['Human-like conversational fluency in multiple languages', 'Instant Google Calendar and CRM calendar sync', 'Automatic call transcription, summarization, and sentiment logging'].map(item => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#102C42' }}>
+                    <CheckCircle2 size={16} color="#38A85B" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <Link to="/contact" className="btn-zovance-primary">
+                <span>Explore Voice AI</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
           </div>
 
-          <button
-            className="btn-dark-pill"
-            onClick={() => setBookingOpen(true)}
-            style={{ background: '#ffffff', color: '#0F172A' }}
-          >
-            <span>Book Free 30-Min Discovery Session</span>
-            <ArrowRight size={16} />
-          </button>
+          {/* Area 3: Business Systems & Engineering */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(12, 1fr)',
+            gap: 'clamp(32px, 5vw, 64px)',
+            alignItems: 'center',
+            padding: 'clamp(32px, 5vw, 56px)',
+            borderRadius: 32,
+            background: '#F2FAFD',
+            border: '1px solid #DCE9EE',
+          }}>
+            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-6">
+              <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
+                CAPABILITY 03
+              </span>
+              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 42px)', fontWeight: 800, color: '#102C42', marginBottom: 16 }}>
+                Connected Business Systems
+              </h2>
+              <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.7, marginBottom: 24 }}>
+                Digital platforms that connect people, processes, and information. We build ultra-fast web architectures, internal operation hubs, and bespoke customer portals engineered for performance and longevity.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 32 }}>
+                {['Sub-second load times engineered with React and modern APIs', 'Clean modular architecture with 100% client code ownership', 'Secure payments, custom auth, and enterprise data security'].map(item => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 14, color: '#102C42' }}>
+                    <CheckCircle2 size={16} color="#38A85B" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <Link to="/contact" className="btn-zovance-primary">
+                <span>Build a System</span>
+                <ArrowRight size={14} />
+              </Link>
+            </div>
+            <div style={{ gridColumn: 'span 12 / span 12' }} className="lg:col-span-6">
+              <div className="editorial-media-frame" style={{ aspectRatio: '4/3' }}>
+                <img
+                  src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=1000&auto=format&fit=crop&q=80"
+                  alt="Connected business software system engineering"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div className="media-dark-overlay" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
+      {/* Closing CTA */}
+      <section style={{
+        padding: 'clamp(80px, 10vw, 130px) clamp(20px, 5vw, 64px)',
+        textAlign: 'center',
+        background: '#FFFFFF',
+      }}>
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 50px)', fontWeight: 800, color: '#102C42', marginBottom: 20 }}>
+            Let's build something meaningful.
+          </h2>
+          <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.6, marginBottom: 36 }}>
+            Tell us about your team's operational goals and let's craft the solution together.
+          </p>
+          <Link to="/contact" className="btn-zovance-green" style={{ fontSize: 15, padding: '14px 32px' }}>
+            <span>Let's Connect</span>
+            <ArrowRight size={16} />
+          </Link>
+        </div>
+      </section>
+
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>

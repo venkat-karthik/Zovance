@@ -1,103 +1,85 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ArrowRight, Menu, X, Sun, Moon, Sparkles, ChevronRight } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import BookingModal from './BookingModal';
-import { useStore } from '../store/useStore';
 
 const navLinks = [
-  { to: '/services', label: 'Services' },
-  { to: '/solutions', label: 'Solutions' },
-  { to: '/pricing', label: 'Projects' },
-  { to: '/about', label: 'About' },
-  { to: '/blog', label: 'Blog' },
+  { to: '/', label: 'Home' },
+  { to: '/about', label: 'Our Story' },
+  { to: '/services', label: 'What We Do' },
+  { to: '/careers', label: 'Careers' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 export default function WebsiteNav() {
   const [open, setOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const { pathname } = useLocation();
-  const { darkMode, setDarkMode } = useStore();
 
   return (
     <>
-      <nav
+      <header
+        className="zovance-nav-floating"
         style={{
           position: 'sticky',
           top: 0,
           zIndex: 50,
-          background: darkMode ? 'rgba(8, 11, 19, 0.92)' : 'rgba(251, 251, 249, 0.92)',
-          backdropFilter: 'blur(24px)',
-          WebkitBackdropFilter: 'blur(24px)',
-          borderBottom: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid rgba(0, 0, 0, 0.06)',
-          transition: 'background-color 0.3s ease, border-color 0.3s ease',
+          width: '100%',
         }}
       >
         <div style={{
-          maxWidth: 1280,
+          maxWidth: 1320,
           margin: '0 auto',
-          padding: '0 clamp(16px, 4vw, 36px)',
-          height: 84,
+          padding: '0 clamp(20px, 4vw, 48px)',
+          height: 72,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-          {/* Logo Brand */}
+          {/* Logo Brand: Original minimal wordmark in navy with subtle green accent */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none' }}>
             <div style={{
-              width: 40,
-              height: 40,
-              borderRadius: '50%',
-              background: 'radial-gradient(circle at 30% 30%, #3B82F6, #10B981 60%, #F59E0B 100%)',
-              boxShadow: '0 6px 18px rgba(59, 130, 246, 0.4)',
+              width: 32,
+              height: 32,
+              borderRadius: 8,
+              background: '#102C42',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              flexShrink: 0,
+              position: 'relative',
             }}>
-              <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ffffff', opacity: 0.95 }} />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M4 6H20L10 18H20" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="18" cy="18" r="2.5" fill="#38A85B" />
+              </svg>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10 }}>
               <span style={{
                 fontWeight: 800,
-                fontSize: 22,
-                letterSpacing: '-0.035em',
-                color: darkMode ? '#F8FAFC' : '#0F172A',
-                lineHeight: 1.1,
+                fontSize: 20,
+                letterSpacing: '-0.03em',
+                color: '#102C42',
+                lineHeight: 1,
               }}>
-                Zovance
+                ZOVANCE
               </span>
-              <span style={{
-                fontSize: 9,
-                fontWeight: 800,
-                letterSpacing: '0.14em',
-                color: darkMode ? '#94A3B8' : '#64748B',
-                marginTop: 2,
-                textTransform: 'uppercase',
+              <span className="hidden sm:inline-block" style={{
+                fontSize: 12,
+                fontWeight: 500,
+                letterSpacing: '-0.01em',
+                color: '#526673',
               }}>
-                IDEAS &rarr; IMPACT
+                People. Ideas. Impact.
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation: FLOATING CAPSULE ISLAND BAR */}
-          <div
+          {/* Center minimal links */}
+          <nav
             className="hidden md:flex"
             style={{
-              display: 'flex',
               alignItems: 'center',
-              gap: 4,
-              padding: '5px 6px',
-              borderRadius: 9999,
-              background: darkMode
-                ? 'rgba(15, 23, 42, 0.85)'
-                : 'rgba(255, 255, 255, 0.9)',
-              border: darkMode
-                ? '1px solid rgba(255, 255, 255, 0.12)'
-                : '1px solid #E2E8F0',
-              boxShadow: darkMode
-                ? '0 12px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1)'
-                : '0 10px 28px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255,255,255,0.9)',
-              backdropFilter: 'blur(16px)',
+              gap: 32,
             }}
           >
             {navLinks.map((link) => {
@@ -108,292 +90,119 @@ export default function WebsiteNav() {
                   key={link.to}
                   to={link.to}
                   style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    padding: '9px 20px',
-                    borderRadius: 9999,
-                    fontSize: 15,
-                    fontWeight: 700,
+                    fontSize: 14,
+                    fontWeight: isActive ? 600 : 500,
                     textDecoration: 'none',
                     letterSpacing: '-0.01em',
-                    color: isActive
-                      ? '#ffffff'
-                      : (darkMode ? '#CBD5E1' : '#334155'),
-                    background: isActive
-                      ? 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)'
-                      : 'transparent',
-                    boxShadow: isActive
-                      ? '0 4px 16px rgba(37, 99, 235, 0.4)'
-                      : 'none',
-                    transition: 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+                    color: isActive ? '#102C42' : '#526673',
+                    transition: 'color 0.2s ease',
+                    position: 'relative',
+                    padding: '6px 0',
                   }}
                   onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = darkMode
-                        ? 'rgba(255, 255, 255, 0.1)'
-                        : 'rgba(15, 23, 42, 0.06)';
-                      e.currentTarget.style.color = darkMode ? '#F8FAFC' : '#0F172A';
-                      e.currentTarget.style.transform = 'translateY(-1px)';
-                    }
+                    e.currentTarget.style.color = '#102C42';
                   }}
                   onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.background = 'transparent';
-                      e.currentTarget.style.color = darkMode ? '#CBD5E1' : '#334155';
-                      e.currentTarget.style.transform = 'none';
-                    }
+                    if (!isActive) e.currentTarget.style.color = '#526673';
                   }}
                 >
-                  {isActive && (
-                    <Sparkles size={13} color="#ffffff" style={{ filter: 'drop-shadow(0 0 6px rgba(255,255,255,0.8))' }} />
-                  )}
                   <span>{link.label}</span>
+                  {isActive && (
+                    <span style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 2,
+                      background: '#38A85B',
+                      borderRadius: 1,
+                    }} />
+                  )}
                 </Link>
               );
             })}
-          </div>
+          </nav>
 
-          {/* Right Action Bar */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            {/* Theme Dark/Light Toggle */}
-            <button
-              onClick={() => setDarkMode(!darkMode)}
-              title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          {/* Right Action CTA */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <Link
+              to="/contact"
+              className="hidden sm:inline-flex btn-zovance-primary"
               style={{
-                width: 42,
-                height: 42,
-                borderRadius: '50%',
-                background: darkMode ? '#1E293B' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255,255,255,0.12)' : '1px solid #E2E8F0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                color: darkMode ? '#F59E0B' : '#475569',
-                boxShadow: darkMode ? '0 4px 12px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.04)',
+                fontSize: 13,
+                padding: '10px 22px',
               }}
             >
-              {darkMode ? <Sun size={18} color="#F59E0B" /> : <Moon size={18} color="#475569" />}
-            </button>
+              <span>Let's Connect</span>
+              <ArrowRight size={14} />
+            </Link>
 
-            {/* Book a Call Button */}
+            {/* Mobile Hamburger Menu Toggle */}
             <button
-              className="btn-dark-pill hidden sm:inline-flex"
-              onClick={() => setBookingOpen(true)}
-              style={{
-                padding: '11px 22px',
-                fontSize: 14,
-                fontWeight: 700,
-              }}
-            >
-              <span>Book a Call</span>
-              <ArrowRight size={16} />
-            </button>
-
-            {/* 3-Line Menu Toggle Button (Visible & Interactive on ALL Screens) */}
-            <button
-              type="button"
               onClick={() => setOpen(!open)}
-              aria-label="Toggle Navigation Menu"
+              className="md:hidden"
+              aria-label="Toggle Menu"
               style={{
-                background: darkMode ? '#1E293B' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.16)' : '1px solid #CBD5E1',
-                borderRadius: 9999,
-                width: 42,
-                height: 42,
+                background: 'transparent',
+                border: '1px solid #DCE9EE',
+                borderRadius: 10,
+                width: 40,
+                height: 40,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: darkMode ? '#F8FAFC' : '#0F172A',
+                color: '#102C42',
                 cursor: 'pointer',
-                boxShadow: darkMode ? '0 4px 14px rgba(0,0,0,0.3)' : '0 2px 8px rgba(0,0,0,0.06)',
-                transition: 'all 0.2s ease',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
               }}
             >
               {open ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
-      </nav>
 
-      {/* Right Corner Enterprise Navigation Drawer Sheet (Z-Index 99999) */}
-      {open && (
-        <>
-          {/* Backdrop Blur Overlay */}
+        {/* Mobile dropdown */}
+        {open && (
           <div
-            onClick={() => setOpen(false)}
+            className="md:hidden"
             style={{
-              position: 'fixed',
-              inset: 0,
-              background: 'rgba(0, 0, 0, 0.45)',
-              zIndex: 99998,
-              transition: 'opacity 0.2s ease',
-            }}
-          />
-
-          {/* Right Corner Slide-In Enterprise Sheet */}
-          <div
-            style={{
-              position: 'fixed',
-              top: 0,
-              right: 0,
-              bottom: 0,
-              width: 'clamp(290px, 85vw, 350px)',
-              height: '100vh',
-              overflowY: 'auto',
-              background: darkMode ? '#0B0F17' : '#ffffff',
-              borderLeft: darkMode ? '1px solid rgba(255, 255, 255, 0.12)' : '1px solid #E2E8F0',
-              borderTopLeftRadius: 24,
-              borderBottomLeftRadius: 24,
-              padding: '24px 24px 32px',
-              boxShadow: darkMode
-                ? '-20px 0 60px rgba(0, 0, 0, 0.85)'
-                : '-16px 0 48px rgba(15, 23, 42, 0.18)',
-              zIndex: 99999,
-              display: 'flex',
-              flexDirection: 'column',
-              justify: 'space-between',
-              animation: 'slideInFromRight 0.22s cubic-bezier(0.16, 1, 0.3, 1)',
+              background: '#FFFFFF',
+              borderTop: '1px solid #DCE9EE',
+              padding: '24px 20px 32px',
+              boxShadow: '0 20px 30px rgba(16,44,66,0.06)',
             }}
           >
-            <div>
-              {/* Header Row */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingBottom: 16, borderBottom: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F1F5F9', marginBottom: 20 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <div style={{
-                    width: 36,
-                    height: 36,
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle at 30% 30%, #3B82F6, #10B981 60%, #F59E0B 100%)',
-                    boxShadow: '0 4px 12px rgba(59, 130, 246, 0.35)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}>
-                    <div style={{ width: 9, height: 9, borderRadius: '50%', background: '#ffffff' }} />
-                  </div>
-                  <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <span style={{ fontWeight: 800, fontSize: 18, color: darkMode ? '#F8FAFC' : '#0F172A', lineHeight: 1.1 }}>
-                      Zovance
-                    </span>
-                    <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', color: darkMode ? '#94A3B8' : '#64748B', marginTop: 1 }}>
-                      IDEAS &rarr; IMPACT
-                    </span>
-                  </div>
-                </div>
-
-                <button
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
                   onClick={() => setOpen(false)}
                   style={{
-                    width: 38,
-                    height: 38,
-                    borderRadius: '50%',
-                    background: darkMode ? 'rgba(255,255,255,0.08)' : '#F1F5F9',
-                    border: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: darkMode ? '#F8FAFC' : '#0F172A',
-                    cursor: 'pointer',
+                    fontSize: 16,
+                    fontWeight: 600,
+                    color: pathname === link.to ? '#38A85B' : '#102C42',
+                    textDecoration: 'none',
+                    padding: '8px 0',
                   }}
                 >
-                  <X size={18} />
-                </button>
-              </div>
-
-              {/* Section Header Label */}
-              <div style={{
-                fontSize: 10,
-                fontWeight: 800,
-                letterSpacing: '0.14em',
-                color: darkMode ? '#64748B' : '#94A3B8',
-                textTransform: 'uppercase',
-                marginBottom: 12,
-                paddingLeft: 4,
-              }}>
-                Navigation
-              </div>
-
-              {/* Navigation Links */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                {navLinks.map((link) => {
-                  const isActive = pathname === link.to;
-                  return (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      onClick={() => setOpen(false)}
-                      style={{
-                        fontSize: 15,
-                        fontWeight: 700,
-                        textDecoration: 'none',
-                        color: isActive ? '#ffffff' : (darkMode ? '#CBD5E1' : '#334155'),
-                        background: isActive
-                          ? 'linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%)'
-                          : 'transparent',
-                        padding: '11px 16px',
-                        borderRadius: 14,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justify: 'space-between',
-                        boxShadow: isActive ? '0 4px 14px rgba(37, 99, 235, 0.35)' : 'none',
-                        transition: 'all 0.18s ease',
-                      }}
-                    >
-                      <span>{link.label}</span>
-                      <ChevronRight size={16} opacity={isActive ? 1 : 0.4} color={isActive ? '#ffffff' : (darkMode ? '#94A3B8' : '#64748B')} />
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Bottom Action Footer */}
-            <div style={{ paddingTop: 16, borderTop: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #F1F5F9', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <button
-                className="btn-dark-pill"
-                onClick={() => { setOpen(false); setBookingOpen(true); }}
-                style={{ width: '100%', justifyContent: 'center', padding: '13px 20px', fontSize: 14, fontWeight: 700 }}
-              >
-                <span>Book a Strategy Call</span>
-                <ArrowRight size={16} />
-              </button>
-
-              {/* Theme Toggle Pill */}
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '6px 4px 0' }}>
-                <span style={{ fontSize: 12, fontWeight: 600, color: darkMode ? '#94A3B8' : '#64748B' }}>Theme Mode</span>
-                <button
-                  onClick={() => setDarkMode(!darkMode)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    background: darkMode ? 'rgba(255,255,255,0.08)' : '#F1F5F9',
-                    border: 'none',
-                    borderRadius: 9999,
-                    padding: '6px 14px',
-                    fontSize: 12,
-                    fontWeight: 700,
-                    color: darkMode ? '#F59E0B' : '#475569',
-                    cursor: 'pointer',
-                  }}
+                  {link.label}
+                </Link>
+              ))}
+              <div style={{ paddingTop: 16, borderTop: '1px solid #DCE9EE' }}>
+                <Link
+                  to="/contact"
+                  onClick={() => setOpen(false)}
+                  className="btn-zovance-primary"
+                  style={{ width: '100%', justifyContent: 'center' }}
                 >
-                  {darkMode ? <Sun size={14} color="#F59E0B" /> : <Moon size={14} color="#475569" />}
-                  <span>{darkMode ? 'Dark Mode' : 'Light Mode'}</span>
-                </button>
+                  <span>Let's Connect</span>
+                  <ArrowRight size={15} />
+                </Link>
               </div>
             </div>
           </div>
-        </>
-      )}
+        )}
+      </header>
 
       {/* Booking Modal */}
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />

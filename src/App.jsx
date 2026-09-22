@@ -12,6 +12,7 @@ import BlogPage from './pages/website/BlogPage';
 import BlogDetailPage from './pages/website/BlogDetailPage';
 import AboutPage from './pages/website/AboutPage';
 import ContactPage from './pages/website/ContactPage';
+import CareersPage from './pages/website/CareersPage';
 import AutomationsPage from './pages/website/AutomationsPage';
 
 // Admin Pages
@@ -36,7 +37,7 @@ function App() {
   return (
     <AdminAuthProvider>
       <BrowserRouter>
-        <Suspense fallback={<div style={{ background: '#0a0a0a', minHeight: '100vh' }} />}>
+        <Suspense fallback={<div style={{ background: '#FFFFFF', minHeight: '100vh' }} />}>
           <Routes>
             {/* Public Website - No login required */}
             <Route path="/" element={<HomePage />} />
@@ -47,6 +48,7 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:id" element={<BlogDetailPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/careers" element={<CareersPage />} />
             <Route path="/contact" element={<ContactPage />} />
 
             {/* Admin Login - No protection */}

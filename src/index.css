@@ -1,29 +1,172 @@
 @import "tailwindcss";
 
+:root {
+  --color-cloud-white: #FFFFFF;
+  --color-soft-sky: #F2FAFD;
+  --color-sky-blue: #8FD3F4;
+  --color-deep-sky: #3E9FD0;
+  --color-grass-green: #38A85B;
+  --color-deep-green: #197347;
+  --color-navy: #102C42;
+  --color-slate: #526673;
+  --color-border: #DCE9EE;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 ::selection {
-  background: rgba(56, 189, 248, 0.25);
-  color: #38BDF8;
+  background: rgba(56, 168, 91, 0.18);
+  color: #102C42;
 }
 
 body {
-  background: #FBFBF9;
-  color: #1E293B;
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--color-cloud-white);
+  color: var(--color-navy);
+  font-family: 'Inter', 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.015em;
+  overflow-x: hidden;
 }
 
-.font-serif {
-  font-family: 'Instrument Serif', Georgia, serif;
+/* Zovance Brand Typography Highlights */
+.highlight-green {
+  color: var(--color-grass-green);
 }
 
-/* Impact Gradient Text & Glow Text */
-.impact-gradient {
-  background: linear-gradient(135deg, #22c55e 0%, #14b8a6 35%, #ec4899 80%, #f43f5e 100%);
+.highlight-gradient {
+  background: linear-gradient(135deg, #38A85B 0%, #3E9FD0 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
+}
+
+.highlight-sky {
+  color: var(--color-deep-sky);
+}
+
+/* Video Containers */
+.editorial-media-frame {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 20px 48px -12px rgba(16, 44, 66, 0.08), 0 1px 3px rgba(16, 44, 66, 0.04);
+  border: 1px solid var(--color-border);
+  background: #0d1b2a;
+}
+
+.media-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 44, 66, 0.1) 0%, rgba(16, 44, 66, 0.5) 100%);
+  pointer-events: none;
+}
+
+/* Play Button Pill */
+.play-btn-circle {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-navy);
+  box-shadow: 0 12px 30px rgba(16, 44, 66, 0.18);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+.play-btn-circle:hover {
+  transform: scale(1.08);
+  background: #ffffff;
+  box-shadow: 0 16px 36px rgba(56, 168, 91, 0.25);
+  color: var(--color-grass-green);
+}
+
+/* Minimal Action Buttons */
+.btn-zovance-primary {
+  background: var(--color-navy);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 13px 28px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--color-navy);
+  text-decoration: none;
+}
+.btn-zovance-primary:hover {
+  background: #193a54;
+  border-color: #193a54;
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 24px -4px rgba(16, 44, 66, 0.2);
+}
+
+.btn-zovance-green {
+  background: var(--color-grass-green);
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 13px 28px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--color-grass-green);
+  text-decoration: none;
+}
+.btn-zovance-green:hover {
+  background: #2f914e;
+  border-color: #2f914e;
+  transform: translateY(-1.5px);
+  box-shadow: 0 10px 24px -4px rgba(56, 168, 91, 0.3);
+}
+
+.btn-zovance-ghost {
+  background: transparent;
+  color: var(--color-navy);
+  border-radius: 9999px;
+  padding: 13px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+}
+.btn-zovance-ghost:hover {
+  background: #FFFFFF;
+  border-color: #c2dbe6;
+  transform: translateY(-1.5px);
+}
+
+/* Subtle Glass Floating Header */
+.zovance-nav-floating {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+  transition: all 0.3s ease;
+}
+
+/* Subtle scroll bounce */
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(5px); }
+}
+.animate-subtle-bounce {
+  animation: subtle-float 2.4s ease-in-out infinite;
 }
 
 .glow-text-cyan {

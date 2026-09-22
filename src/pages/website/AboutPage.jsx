@@ -1,142 +1,248 @@
 import { useState } from 'react';
-import { ArrowRight, CheckCircle2, Users, Target, Shield, Heart, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Compass, ShieldCheck, HeartHandshake, Sparkles, CheckCircle2 } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
-import ClosingCtaBanner from '../../components/ClosingCtaBanner';
-import { useStore } from '../../store/useStore';
-
-const values = [
-  {
-    title: 'No Corporate BS',
-    desc: 'We speak plain English, move fast, and build actual working systems rather than presenting 80-page decks.',
-    icon: Target,
-  },
-  {
-    title: 'Result-Driven ROI',
-    desc: 'Every workflow and line of code we ship is measured by time saved, error reduction, or direct revenue growth.',
-    icon: Sparkles,
-  },
-  {
-    title: 'Full Code Ownership',
-    desc: 'You own 100% of your platform, code repositories, and automation blueprints. No vendor lock-in ever.',
-    icon: Shield,
-  },
-  {
-    title: 'Continuous Innovation',
-    desc: 'We obsessively test the latest AI model updates, voice APIs, and autonomous agent frameworks so you stay ahead.',
-    icon: Users,
-  },
-];
 
 export default function AboutPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const { darkMode } = useStore();
 
   return (
-    <div className="bg-grid-pattern" style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
+    <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
       {/* Hero Header */}
       <section style={{
-        maxWidth: 1280,
+        maxWidth: 1320,
         margin: '0 auto',
-        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        padding: 'clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-          OUR MISSION & STORY
-        </div>
-        <h1 style={{
-          fontSize: 'clamp(36px, 6vw, 68px)',
+        <span style={{
+          fontSize: 12,
           fontWeight: 700,
-          letterSpacing: '-0.03em',
-          color: darkMode ? '#F8FAFC' : '#0F172A',
-          lineHeight: 1.05,
-          marginBottom: 24,
+          letterSpacing: '0.12em',
+          color: '#38A85B',
+          textTransform: 'uppercase',
+          display: 'block',
+          marginBottom: 16,
         }}>
-          Student-Built AI For<br />
-          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Real Business Impact</span>
-        </h1>
-        <p style={{
-          fontSize: 'clamp(15px, 2vw, 18px)',
-          color: darkMode ? '#CBD5E1' : '#475569',
-          maxWidth: 640,
-          margin: '0 auto 40px',
-          lineHeight: 1.6,
-        }}>
-          Zovance started as a collective of passionate software engineers and builders obsessed with artificial intelligence. Today, we architect autonomous AI pipelines for forward-thinking brands across India & SEA.
-        </p>
+          OUR STORY
+        </span>
 
-        <button
-          className="btn-dark-pill"
-          onClick={() => setBookingOpen(true)}
-          style={{
-            background: darkMode ? '#38BDF8' : '#111827',
-            color: darkMode ? '#0F172A' : '#ffffff',
-          }}
-        >
-          <span>Meet Our Engineering Team</span>
-          <ArrowRight size={16} />
-        </button>
+        <h1 style={{
+          fontSize: 'clamp(36px, 5.5vw, 68px)',
+          fontWeight: 800,
+          letterSpacing: '-0.035em',
+          color: '#102C42',
+          lineHeight: 1.1,
+          marginBottom: 24,
+          maxWidth: 820,
+          marginLeft: 'auto',
+          marginRight: 'auto',
+        }}>
+          Technology that works with people, for people.
+        </h1>
+
+        <p style={{
+          fontSize: 'clamp(16px, 2vw, 19px)',
+          color: '#526673',
+          maxWidth: 680,
+          margin: '0 auto 40px',
+          lineHeight: 1.7,
+        }}>
+          Zovance is building intelligent automation and AI-powered systems that help businesses work smarter and communicate better. We are driven by curiosity, guided by people, and focused on long-term impact.
+        </p>
       </section>
 
-      {/* Values Grid */}
+      {/* Cinematic Banner */}
+      <div style={{ maxWidth: 1320, margin: '0 auto 80px', padding: '0 clamp(20px, 5vw, 64px)' }}>
+        <div className="editorial-media-frame" style={{ aspectRatio: '21/9', minHeight: 320 }}>
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&auto=format&fit=crop&q=80"
+            alt="Zovance team collaborating in light-filled modern environment"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+          <div className="media-dark-overlay" />
+        </div>
+      </div>
+
+      {/* Chronological Story Timeline */}
       <section style={{
-        maxWidth: 1280,
+        maxWidth: 1100,
         margin: '0 auto',
-        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+        padding: '0 clamp(20px, 5vw, 64px) clamp(80px, 10vw, 120px)',
       }}>
-        <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 12 }}>
-            OUR GUIDING PRINCIPLES
-          </div>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
-            How We Work & Deliver
+        <div style={{ textAlign: 'center', marginBottom: 60 }}>
+          <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', color: '#38A85B', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
+            THE JOURNEY
+          </span>
+          <h2 style={{ fontSize: 'clamp(30px, 4vw, 44px)', fontWeight: 800, color: '#102C42' }}>
+            How We Got Here
           </h2>
         </div>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: 24,
-        }}>
-          {values.map((v) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 48, position: 'relative' }}>
+          {[
+            {
+              phase: 'The Beginning',
+              year: '2023',
+              title: 'A Simple Question',
+              text: 'Why do modern teams spend thousands of hours performing repetitive clerical work when intelligent software exists? We began experimenting with conversational voice models and autonomous workflows to see how much burden we could lift from human shoulders.',
+            },
+            {
+              phase: 'The Idea',
+              year: '2024',
+              title: 'Systems Over Software',
+              text: 'We realized that off-the-shelf software often creates more silos. Businesses do not need another bloated dashboard; they need integrated systems where voice, messaging, CRMs, and APIs speak to one another seamlessly.',
+            },
+            {
+              phase: 'The First Systems',
+              year: '2025',
+              title: 'Real-World Momentum',
+              text: 'From luxury resorts in hospitality to high-volume healthcare practices, our autonomous booking engines and multilingual voice callers began handling hundreds of calls and reservations daily without a single drop.',
+            },
+            {
+              phase: 'Today & What’s Next',
+              year: 'Present',
+              title: 'Building for the Next Decade',
+              text: 'Today, Zovance architects mission-critical digital platforms and automation for forward-thinking enterprises across India and Southeast Asia. We are just getting started.',
+            },
+          ].map((step, idx) => (
             <div
-              key={v.title}
+              key={step.phase}
               style={{
-                background: darkMode ? '#131B2E' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                gap: 28,
+                padding: '36px clamp(20px, 4vw, 36px)',
                 borderRadius: 24,
-                padding: 32,
-                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
+                background: idx % 2 === 0 ? '#F2FAFD' : '#FFFFFF',
+                border: '1px solid #DCE9EE',
               }}
             >
-              <div style={{
-                width: 48,
-                height: 48,
-                borderRadius: 16,
-                background: darkMode ? 'rgba(56, 189, 248, 0.2)' : '#F1F5F9',
-                color: darkMode ? '#38BDF8' : '#0F172A',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: 20,
-              }}>
-                <v.icon size={22} />
+              <div style={{ gridColumn: 'span 12 / span 12' }} className="sm:col-span-4">
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#38A85B', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+                  {step.phase}
+                </span>
+                <p style={{ fontSize: 28, fontWeight: 800, color: '#102C42', marginTop: 4 }}>
+                  {step.year}
+                </p>
               </div>
-              <h3 style={{ fontSize: 18, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 10 }}>
-                {v.title}
-              </h3>
-              <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#64748B', lineHeight: 1.6 }}>
-                {v.desc}
-              </p>
+              <div style={{ gridColumn: 'span 12 / span 12' }} className="sm:col-span-8">
+                <h3 style={{ fontSize: 20, fontWeight: 700, color: '#102C42', marginBottom: 10 }}>
+                  {step.title}
+                </h3>
+                <p style={{ fontSize: 15, color: '#526673', lineHeight: 1.7 }}>
+                  {step.text}
+                </p>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <ClosingCtaBanner onBookCall={() => setBookingOpen(true)} />
+      {/* Our Principles */}
+      <section style={{
+        background: '#F2FAFD',
+        borderTop: '1px solid #DCE9EE',
+        borderBottom: '1px solid #DCE9EE',
+        padding: 'clamp(80px, 10vw, 120px) clamp(20px, 5vw, 64px)',
+      }}>
+        <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: 54 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.12em', color: '#38A85B', textTransform: 'uppercase', display: 'block', marginBottom: 12 }}>
+              OUR FOUNDATION
+            </span>
+            <h2 style={{ fontSize: 'clamp(30px, 4vw, 48px)', fontWeight: 800, color: '#102C42' }}>
+              Our Guiding Principles
+            </h2>
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+            gap: 24,
+          }}>
+            {[
+              {
+                title: 'People First',
+                desc: 'Technology must enrich human potential, dignity, and relationship-building.',
+                icon: HeartHandshake,
+              },
+              {
+                title: 'Meaningful Innovation',
+                desc: 'We engineer solutions that solve measurable operational friction, not vanity metrics.',
+                icon: Sparkles,
+              },
+              {
+                title: 'Long-term Thinking',
+                desc: 'Clean, maintainable architectures built to last and scale without fragile lock-in.',
+                icon: ShieldCheck,
+              },
+              {
+                title: 'Responsible Technology',
+                desc: 'Respecting user privacy, security, and honest communication at every layer.',
+                icon: Compass,
+              },
+            ].map((principle) => {
+              const Icon = principle.icon;
+              return (
+                <div
+                  key={principle.title}
+                  style={{
+                    background: '#FFFFFF',
+                    borderRadius: 24,
+                    padding: 32,
+                    border: '1px solid #DCE9EE',
+                  }}
+                >
+                  <div style={{
+                    width: 44,
+                    height: 44,
+                    borderRadius: 12,
+                    background: '#F2FAFD',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#38A85B',
+                    marginBottom: 20,
+                  }}>
+                    <Icon size={22} />
+                  </div>
+                  <h3 style={{ fontSize: 18, fontWeight: 700, color: '#102C42', marginBottom: 10 }}>
+                    {principle.title}
+                  </h3>
+                  <p style={{ fontSize: 14, color: '#526673', lineHeight: 1.6 }}>
+                    {principle.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Editorial Bottom CTA */}
+      <section style={{
+        padding: 'clamp(80px, 10vw, 130px) clamp(20px, 5vw, 64px)',
+        textAlign: 'center',
+      }}>
+        <div style={{ maxWidth: 700, margin: '0 auto' }}>
+          <h2 style={{ fontSize: 'clamp(32px, 4.5vw, 50px)', fontWeight: 800, color: '#102C42', marginBottom: 20 }}>
+            Let's build a better tomorrow.
+          </h2>
+          <p style={{ fontSize: 16, color: '#526673', lineHeight: 1.6, marginBottom: 36 }}>
+            Connect with us to explore what intelligent systems can do for your business.
+          </p>
+          <Link to="/contact" className="btn-zovance-primary">
+            <span>Let's Connect</span>
+            <ArrowRight size={15} />
+          </Link>
+        </div>
+      </section>
+
       <WebsiteFooter />
       <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
     </div>
