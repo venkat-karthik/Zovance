@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Play, X, Compass, HeartHandshake, ShieldCheck, Sparkles, ChevronRight, Pause, ExternalLink } from 'lucide-react';
+import { ArrowRight, Play, X, Compass, HeartHandshake, ShieldCheck, Sparkles, ChevronRight, Pause, ExternalLink, Volume2, VolumeX, Maximize2 } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
@@ -10,10 +10,85 @@ export default function HomePage() {
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [videoTitle, setVideoTitle] = useState('Our Story & Vision');
   const [isPlayingHero, setIsPlayingHero] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [videoProgress, setVideoProgress] = useState(0);
+  const [videoDuration, setVideoDuration] = useState(0);
+  const videoRef = useRef(null);
+  const videoContainerRef = useRef(null);
 
   const openVideo = (title) => {
     setVideoTitle(title);
     setVideoModalOpen(true);
+  };
+
+  // IntersectionObserver: automatically play/pause and handle sound as user scrolls
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+            video.play().then(() => {
+              setIsPlayingHero(true);
+            }).catch(() => {});
+          } else {
+            video.pause();
+            setIsPlayingHero(false);
+          }
+        });
+      },
+      { threshold: [0.1, 0.35, 0.7] }
+    );
+
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const current = videoRef.current.currentTime;
+      const total = videoRef.current.duration || 1;
+      setVideoProgress((current / total) * 100);
+      setVideoDuration(total);
+    }
+  };
+
+  const toggleSound = (e) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      const nextMuted = !videoRef.current.muted;
+      videoRef.current.muted = nextMuted;
+      setIsMuted(nextMuted);
+    }
+  };
+
+  const togglePlay = (e) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlayingHero(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlayingHero(false);
+      }
+    }
+  };
+
+  const handleSeek = (e) => {
+    e.stopPropagation();
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pos = (e.clientX - rect.left) / rect.width;
+    if (videoRef.current && videoDuration) {
+      videoRef.current.currentTime = pos * videoDuration;
+    }
   };
 
   return (
@@ -143,32 +218,43 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Apple-Style Cinematic Video Canvas Window */}
-        <div style={{
-          maxWidth: 1280,
-          width: '100%',
-          margin: '0 auto',
-          position: 'relative',
-          zIndex: 2,
-        }}>
+        {/* Full Horizontal Cinematic Video Player Window */}
+        <div
+          ref={videoContainerRef}
+          style={{
+            width: '100%',
+            maxWidth: '100vw',
+            padding: '0 clamp(12px, 3vw, 36px)',
+            margin: '0 auto',
+            position: 'relative',
+            zIndex: 2,
+          }}
+        >
           <div
-            className="editorial-media-frame animate-scale-in delay-200 interactive-hover-card"
+            className="editorial-media-frame animate-scale-in delay-200"
             style={{
-              aspectRatio: '16/9',
-              maxHeight: 640,
-              borderRadius: 'clamp(24px, 4vw, 36px)',
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '21/9',
+              minHeight: 'clamp(280px, 48vw, 680px)',
+              maxHeight: 760,
+              borderRadius: 'clamp(20px, 3vw, 36px)',
+              overflow: 'hidden',
               cursor: 'pointer',
+              boxShadow: '0 25px 60px -15px rgba(16, 44, 66, 0.25), 0 0 0 1px rgba(16, 44, 66, 0.08)',
+              background: '#091520',
             }}
-            onClick={() => openVideo('Watch Our Story')}
+            onClick={togglePlay}
           >
-            {/* Background Ambient Looping Video Canvas */}
+            {/* Background Ambient Video Canvas */}
             <video
+              ref={videoRef}
               id="hero-ambient-video"
               autoPlay
               loop
-              muted
+              muted={isMuted}
               playsInline
-              poster="https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=1800&auto=format&fit=crop&q=85"
+              onTimeUpdate={handleTimeUpdate}
               style={{
                 width: '100%',
                 height: '100%',
@@ -183,80 +269,199 @@ export default function HomePage() {
                 type="video/mp4"
               />
             </video>
-            <div className="media-dark-overlay" />
 
-            {/* Apple-style floating controller */}
+            {/* Gradient Overlays for Readability & Cinematic Depth */}
             <div style={{
               position: 'absolute',
-              bottom: 'clamp(14px, 3.5vw, 36px)',
-              left: 'clamp(14px, 3.5vw, 36px)',
-              right: 'clamp(14px, 3.5vw, 36px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 12,
-              flexWrap: 'wrap',
+              inset: 0,
+              background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.35) 0%, rgba(16, 44, 66, 0.1) 40%, rgba(16, 44, 66, 0.75) 100%)',
+              pointerEvents: 'none',
+            }} />
+
+            {/* Centered Large Editorial Headline Overlay on Video */}
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '90%',
+              maxWidth: 880,
+              textAlign: 'center',
               color: '#FFFFFF',
               zIndex: 3,
+              pointerEvents: 'none',
+              textShadow: '0 2px 20px rgba(0,0,0,0.5)',
             }}>
-              <div>
-                <p style={{ fontSize: 'clamp(13px, 2vw, 18px)', fontWeight: 700, letterSpacing: '-0.01em', lineHeight: 1.2 }}>
-                  A more human, connected world.
-                </p>
-                <span style={{ fontSize: 'clamp(11px, 1.5vw, 13px)', opacity: 0.85 }}>01:45 Brand Experience Film &bull; 4K Ultra HD</span>
+              <div style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 8,
+                background: 'rgba(255, 255, 255, 0.15)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                padding: '6px 18px',
+                borderRadius: 9999,
+                fontSize: 12,
+                fontWeight: 700,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                marginBottom: 16,
+              }}>
+                <span className="animate-pulse-ring" style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
+                <span>INTELLIGENCE IN MOTION</span>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const v = document.getElementById('hero-ambient-video');
-                    if (v) {
-                      if (v.paused) {
-                        v.play();
-                        setIsPlayingHero(true);
-                      } else {
-                        v.pause();
-                        setIsPlayingHero(false);
-                      }
-                    }
-                  }}
-                  aria-label={isPlayingHero ? 'Pause video' : 'Play video'}
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.25)',
-                    backdropFilter: 'blur(16px)',
-                    WebkitBackdropFilter: 'blur(16px)',
-                    border: '1px solid rgba(255, 255, 255, 0.4)',
-                    borderRadius: '50%',
-                    width: 34,
-                    height: 34,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    cursor: 'pointer',
-                    color: '#FFFFFF',
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  {isPlayingHero ? <Pause size={13} fill="#FFFFFF" /> : <Play size={13} fill="#FFFFFF" style={{ marginLeft: 2 }} />}
-                </button>
+              <h2 style={{
+                fontSize: 'clamp(28px, 4.5vw, 56px)',
+                fontWeight: 800,
+                letterSpacing: '-0.035em',
+                lineHeight: 1.1,
+                marginBottom: 14,
+              }}>
+                Engineering the Future of Work.
+              </h2>
+              <p style={{
+                fontSize: 'clamp(14px, 1.8vw, 18px)',
+                opacity: 0.9,
+                maxWidth: 600,
+                margin: '0 auto',
+                fontWeight: 400,
+                lineHeight: 1.5,
+              }}>
+                Autonomous systems running silently 24/7 across conversations, pipelines, and decisions.
+              </p>
+            </div>
 
+            {/* Video Player Bottom Control Bar */}
+            <div style={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              padding: 'clamp(16px, 3vw, 28px) clamp(16px, 3.5vw, 36px)',
+              background: 'linear-gradient(to top, rgba(9, 21, 32, 0.88) 0%, transparent 100%)',
+              zIndex: 4,
+            }} onClick={(e) => e.stopPropagation()}>
+              {/* Interactive Timeline Progress Bar */}
+              <div
+                onClick={handleSeek}
+                style={{
+                  width: '100%',
+                  height: 6,
+                  background: 'rgba(255, 255, 255, 0.25)',
+                  borderRadius: 999,
+                  marginBottom: 14,
+                  cursor: 'pointer',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'height 0.2s ease',
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.height = '8px'}
+                onMouseLeave={(e) => e.currentTarget.style.height = '6px'}
+              >
                 <div style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 8,
-                  background: 'rgba(255, 255, 255, 0.22)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  padding: '7px 16px',
-                  borderRadius: 9999,
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  fontSize: 12,
-                  fontWeight: 600,
-                  whiteSpace: 'nowrap',
-                }}>
-                  <Play size={12} fill="#FFFFFF" />
-                  <span>Watch Full Screen</span>
+                  height: '100%',
+                  width: `${videoProgress}%`,
+                  background: 'linear-gradient(90deg, #38A85B, #3E9FD0)',
+                  borderRadius: 999,
+                  transition: 'width 0.1s linear',
+                }} />
+              </div>
+
+              {/* Bottom Controller Row */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 16,
+                flexWrap: 'wrap',
+                color: '#FFFFFF',
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  {/* Play / Pause Button */}
+                  <button
+                    type="button"
+                    onClick={togglePlay}
+                    aria-label={isPlayingHero ? 'Pause' : 'Play'}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.22)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                      borderRadius: '50%',
+                      width: 40,
+                      height: 40,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      color: '#FFFFFF',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.background = '#38A85B'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.22)'}
+                  >
+                    {isPlayingHero ? <Pause size={16} fill="#FFFFFF" /> : <Play size={16} fill="#FFFFFF" style={{ marginLeft: 2 }} />}
+                  </button>
+
+                  {/* Sound / Mute Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={toggleSound}
+                    aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
+                    style={{
+                      background: isMuted ? 'rgba(255, 255, 255, 0.22)' : '#38A85B',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                      borderRadius: 9999,
+                      padding: '8px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      cursor: 'pointer',
+                      color: '#FFFFFF',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      letterSpacing: '0.04em',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                    <span>{isMuted ? 'Enable Sound' : 'Audio Live'}</span>
+                  </button>
+
+                  <div style={{ fontSize: 13, color: '#DCE9EE', fontWeight: 600 }}>
+                    4K Cinematic Film &bull; Autoplays on Scroll
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <button
+                    type="button"
+                    onClick={() => openVideo('Watch Our Story')}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      padding: '8px 18px',
+                      borderRadius: 9999,
+                      border: '1px solid rgba(255, 255, 255, 0.35)',
+                      fontSize: 12,
+                      fontWeight: 700,
+                      color: '#FFFFFF',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#38A85B'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)'}
+                  >
+                    <Maximize2 size={13} />
+                    <span>Expand Cinema</span>
+                  </button>
                 </div>
               </div>
             </div>
