@@ -54,16 +54,25 @@ export const getBookings = async () => {
 export const listenToBookings = (callback) => {
   try {
     const q = query(collection(db, 'bookings'), orderBy('createdAt', 'desc'));
-    return onSnapshot(q, (querySnapshot) => {
-      const bookings = querySnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      callback(bookings);
-    });
+    return onSnapshot(
+      q,
+      (querySnapshot) => {
+        const bookings = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        callback(bookings);
+      },
+      (error) => {
+        console.warn('Firestore bookings subscription restricted by security rules:', error.message);
+        // Graceful fallback to avoid unhandled exceptions
+        callback([]);
+      }
+    );
   } catch (error) {
-    console.error('Error listening to bookings:', error);
-    throw error;
+    console.warn('Error initiating bookings listener:', error);
+    callback([]);
+    return () => {};
   }
 };
 

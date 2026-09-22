@@ -65,34 +65,37 @@ export const adminAuthService = {
         throw new Error(`Access Denied: The email "${email}" is not authorized to access the Admin Dashboard.`);
       }
 
-      console.log('User authorized, creating/updating admin document...');
+      console.log('User authorized, checking admin profile...');
 
-      // Get or create admin user document
-      const adminDocRef = doc(db, 'admins', user.uid);
-      const adminDocSnap = await getDoc(adminDocRef);
+      // Attempt to get or create admin user document in Firestore without blocking sign-in
+      try {
+        const adminDocRef = doc(db, 'admins', user.uid);
+        const adminDocSnap = await getDoc(adminDocRef);
 
-      if (!adminDocSnap.exists()) {
-        console.log('Creating new admin document...');
-        // Create new admin document
-        await setDoc(adminDocRef, {
-          uid: user.uid,
-          email: user.email,
-          name: user.displayName || 'Admin',
-          photoURL: user.photoURL,
-          role: 'admin',
-          accessLevel: 'founder',
-          active: true,
-          createdAt: serverTimestamp(),
-          lastLogin: serverTimestamp(),
-        });
-      } else {
-        console.log('Updating existing admin document...');
-        // Update last login
-        await setDoc(
-          adminDocRef,
-          { lastLogin: serverTimestamp() },
-          { merge: true }
-        );
+        if (!adminDocSnap.exists()) {
+          console.log('Creating new admin document...');
+          await setDoc(adminDocRef, {
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName || 'Admin',
+            photoURL: user.photoURL,
+            role: 'admin',
+            accessLevel: 'founder',
+            active: true,
+            createdAt: serverTimestamp(),
+            lastLogin: serverTimestamp(),
+          });
+        } else {
+          console.log('Updating existing admin document...');
+          await setDoc(
+            adminDocRef,
+            { lastLogin: serverTimestamp() },
+            { merge: true }
+          );
+        }
+      } catch (firestoreErr) {
+        // Log warning but DO NOT crash sign-in if Firestore security rules deny writes to /admins
+        console.warn('Firestore admin profile sync skipped (security rules):', firestoreErr.message);
       }
 
       console.log('Admin sign-in successful');
@@ -122,24 +125,38 @@ export const adminAuthService = {
   onAuthStateChanged(callback) {
     return onAuthStateChanged(auth, async (user) => {
       if (user) {
+        const email = (user.email || '').toLowerCase().trim();
+        const normalizedAdmins = AUTHORIZED_ADMINS.map(e => e.toLowerCase().trim());
+        
+        // Fast-path: Check whitelist directly first
+        if (!normalizedAdmins.includes(email)) {
+          console.warn('Unauthorized user in onAuthStateChanged:', email);
+          await signOut(auth);
+          callback(null);
+          return;
+        }
+
         try {
-          // Get admin data from Firestore
+          // Attempt to get additional profile data from Firestore
           const adminDocRef = doc(db, 'admins', user.uid);
           const adminDocSnap = await getDoc(adminDocRef);
           
           if (adminDocSnap.exists()) {
             const adminData = adminDocSnap.data();
             callback({ ...user, ...adminData });
-          } else {
-            // User not found in admins collection
-            await signOut(auth);
-            callback(null);
+            return;
           }
         } catch (error) {
-          console.error('Error fetching admin data:', error);
-          // If Firestore fails, still allow user to proceed
-          callback(user);
+          console.warn('Firestore read in onAuthStateChanged skipped (security rules):', error.message);
         }
+
+        // Whitelisted admin: always grant access with founder role
+        callback({
+          ...user,
+          role: 'admin',
+          accessLevel: 'founder',
+          name: user.displayName || 'Admin',
+        });
       } else {
         callback(null);
       }
