@@ -6,8 +6,8 @@ const statuses = ['new', 'contacted', 'qualified', 'proposal', 'won', 'lost'];
 const statusLabels = { new: 'New Inquiry', contacted: 'Contacted', qualified: 'Qualified Lead', proposal: 'Proposal Sent', won: 'Closed Won', lost: 'Closed Lost' };
 const statusProbabilities = { new: 0.1, contacted: 0.25, qualified: 0.5, proposal: 0.75, won: 1.0, lost: 0.0 };
 const statusColors = {
-  new: '#38bdf8', contacted: '#818cf8', qualified: '#a78bfa',
-  proposal: '#fbbf24', won: '#4ade80', lost: '#f87171'
+  new: '#3E9FD0', contacted: '#8FD3F4', qualified: '#102C42',
+  proposal: '#F59E0B', won: '#38A85B', lost: '#F43F5E'
 };
 
 export default function CRM() {
@@ -137,47 +137,47 @@ export default function CRM() {
               <Sparkles size={13} /> Automated CRM Command Center
             </span>
           </div>
-          <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', marginBottom: 6 }}>
+          <h1 style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 800, color: '#102C42', letterSpacing: '-0.03em', marginBottom: 6 }}>
             Lead Pipeline & Deal Automations
           </h1>
-          <p style={{ color: '#94a3b8', fontSize: 14 }}>
+          <p style={{ color: '#526673', fontSize: 14 }}>
             Real-time pipeline valuation, instant 1-click WhatsApp/Email outreach, and automated stage tracking.
           </p>
         </div>
 
         {/* Intelligence Metrics Row */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16 }}>
-          <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 12, padding: '12px 18px', minWidth: 140 }}>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total Pipeline</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8', marginTop: 4 }}>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: '14px 20px', minWidth: 140, boxShadow: '0 2px 8px rgba(16,44,66,0.04)' }}>
+            <div style={{ fontSize: 11, color: '#526673', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Total Pipeline</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginTop: 4 }}>
               ₹{(pipelineMetrics.totalValue / 100000).toFixed(1)}L
             </div>
-            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>{leads.length} total deals</div>
+            <div style={{ fontSize: 11, color: '#526673', marginTop: 2 }}>{leads.length} total deals</div>
           </div>
 
-          <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 12, padding: '12px 18px', minWidth: 140 }}>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Weighted Forecast</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: '#818cf8', marginTop: 4 }}>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: '14px 20px', minWidth: 140, boxShadow: '0 2px 8px rgba(16,44,66,0.04)' }}>
+            <div style={{ fontSize: 11, color: '#526673', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Weighted Forecast</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#38A85B', marginTop: 4 }}>
               ₹{(pipelineMetrics.weightedForecast / 100000).toFixed(1)}L
             </div>
-            <div style={{ fontSize: 11, color: '#94a3b8', marginTop: 2 }}>Probability adjusted</div>
+            <div style={{ fontSize: 11, color: '#526673', marginTop: 2 }}>Probability adjusted</div>
           </div>
 
-          <div style={{ background: 'rgba(255, 255, 255, 0.03)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 12, padding: '12px 18px', minWidth: 130 }}>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Active Leads</div>
-            <div style={{ fontSize: 20, fontWeight: 800, color: '#ffffff', marginTop: 4 }}>
+          <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 14, padding: '14px 20px', minWidth: 130, boxShadow: '0 2px 8px rgba(16,44,66,0.04)' }}>
+            <div style={{ fontSize: 11, color: '#526673', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Active Leads</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginTop: 4 }}>
               {pipelineMetrics.activeLeadsCount}
             </div>
-            <div style={{ fontSize: 11, color: '#4ade80', marginTop: 2 }}>{pipelineMetrics.winRate}% win rate</div>
+            <div style={{ fontSize: 11, color: '#38A85B', fontWeight: 600, marginTop: 2 }}>{pipelineMetrics.winRate}% win rate</div>
           </div>
 
           <button
             onClick={() => setShowModal(true)}
             style={{
-              background: 'linear-gradient(135deg, #2563eb, #38bdf8)',
+              background: '#102C42',
               color: '#ffffff',
               border: 'none',
-              borderRadius: 12,
+              borderRadius: 9999,
               padding: '12px 24px',
               fontWeight: 700,
               fontSize: 14,
@@ -185,11 +185,11 @@ export default function CRM() {
               alignItems: 'center',
               gap: 8,
               cursor: 'pointer',
-              boxShadow: '0 8px 24px rgba(37, 99, 235, 0.35)',
+              boxShadow: '0 4px 16px rgba(16, 44, 66, 0.16)',
               transition: 'all 0.2s ease'
             }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(37, 99, 235, 0.45)'; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(37, 99, 235, 0.35)'; }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.background = '#193A54'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.background = '#102C42'; }}
           >
             <Plus size={18} /> Add New Lead
           </button>
@@ -304,9 +304,9 @@ export default function CRM() {
                 onDragOver={handleDragOver}
                 onDrop={() => handleDrop(status)}
                 style={{
-                  background: 'rgba(11, 15, 25, 0.7)',
-                  border: '1px solid rgba(255, 255, 255, 0.07)',
-                  borderRadius: 14,
+                  background: '#F8FAFC',
+                  border: '1px solid #DCE9EE',
+                  borderRadius: 16,
                   padding: 14,
                   minHeight: 480,
                   minWidth: 'clamp(260px, 75vw, 300px)',
@@ -316,15 +316,15 @@ export default function CRM() {
                 }}
               >
                 {/* Column Header */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingBottom: 10, borderBottom: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14, paddingBottom: 10, borderBottom: '1px solid #E2E8F0' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: statusColors[status], boxShadow: `0 0 10px ${statusColors[status]}` }} />
-                    <span style={{ fontSize: 13, fontWeight: 700, color: '#ffffff', letterSpacing: '0.01em' }}>{statusLabels[status]}</span>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: '#94a3b8', background: 'rgba(255, 255, 255, 0.05)', padding: '2px 8px', borderRadius: 999 }}>
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: statusColors[status] }} />
+                    <span style={{ fontSize: 13, fontWeight: 700, color: '#102C42', letterSpacing: '0.01em' }}>{statusLabels[status]}</span>
+                    <span style={{ fontSize: 11, fontWeight: 700, color: '#526673', background: '#EDF4F7', padding: '2px 8px', borderRadius: 999 }}>
                       {statusLeads.length}
                     </span>
                   </div>
-                  <div style={{ fontSize: 11, fontWeight: 600, color: '#64748b' }}>
+                  <div style={{ fontSize: 11, fontWeight: 600, color: '#526673' }}>
                     ₹{(colTotal / 1000).toFixed(0)}K
                   </div>
                 </div>
@@ -332,7 +332,7 @@ export default function CRM() {
                 {/* Cards Container */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
                   {statusLeads.length === 0 ? (
-                    <div style={{ border: '1px dashed rgba(255, 255, 255, 0.08)', borderRadius: 10, padding: 24, textAlign: 'center', color: '#475569', fontSize: 12 }}>
+                    <div style={{ border: '1px dashed #DCE9EE', borderRadius: 12, padding: 24, textAlign: 'center', color: '#8A9CA8', fontSize: 12 }}>
                       Drop deals here
                     </div>
                   ) : (
@@ -343,39 +343,40 @@ export default function CRM() {
                         onDragStart={() => handleDragStart(lead)}
                         onClick={() => setSelectedLead(lead)}
                         style={{
-                          background: 'linear-gradient(135deg, rgba(20, 28, 46, 0.8), rgba(13, 18, 30, 0.9))',
-                          border: '1px solid rgba(255, 255, 255, 0.08)',
+                          background: '#FFFFFF',
+                          border: '1px solid #DCE9EE',
                           borderRadius: 12,
                           padding: 14,
                           cursor: 'pointer',
                           transition: 'all 0.2s ease',
-                          position: 'relative'
+                          position: 'relative',
+                          boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)'
                         }}
                         onMouseEnter={e => {
-                          e.currentTarget.style.transform = 'translateY(-3px)';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
                           e.currentTarget.style.borderColor = statusColors[status];
-                          e.currentTarget.style.boxShadow = `0 10px 24px rgba(0, 0, 0, 0.4), 0 0 16px ${statusColors[status]}20`;
+                          e.currentTarget.style.boxShadow = `0 8px 20px rgba(16, 44, 66, 0.08), 0 0 0 1px ${statusColors[status]}30`;
                         }}
                         onMouseLeave={e => {
                           e.currentTarget.style.transform = 'translateY(0)';
-                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
-                          e.currentTarget.style.boxShadow = 'none';
+                          e.currentTarget.style.borderColor = '#DCE9EE';
+                          e.currentTarget.style.boxShadow = '0 1px 3px rgba(16, 44, 66, 0.04)';
                         }}
                       >
                         {/* Title and Value */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8, marginBottom: 8 }}>
-                          <h4 style={{ fontSize: 14, fontWeight: 700, color: '#ffffff', lineHeight: 1.3, margin: 0 }}>
+                          <h4 style={{ fontSize: 14, fontWeight: 700, color: '#102C42', lineHeight: 1.3, margin: 0 }}>
                             {lead.name}
                           </h4>
                           <span style={{
                             padding: '3px 8px',
                             borderRadius: 6,
-                            background: 'rgba(56, 189, 248, 0.12)',
-                            color: '#38bdf8',
+                            background: '#F0FDF4',
+                            color: '#16A34A',
                             fontSize: 11,
                             fontWeight: 700,
                             whiteSpace: 'nowrap',
-                            border: '1px solid rgba(56, 189, 248, 0.25)'
+                            border: '1px solid #BBF7D0'
                           }}>
                             ₹{(lead.value / 1000).toFixed(0)}K
                           </span>
@@ -383,28 +384,28 @@ export default function CRM() {
 
                         {/* Source & Tags */}
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
-                          <span style={{ fontSize: 10, color: '#94a3b8', background: 'rgba(255, 255, 255, 0.04)', padding: '2px 7px', borderRadius: 4, border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                          <span style={{ fontSize: 10, color: '#526673', background: '#F2FAFD', padding: '2px 7px', borderRadius: 4, border: '1px solid #DCE9EE' }}>
                             {lead.source}
                           </span>
                           {lead.tags && lead.tags.slice(0, 2).map((t, i) => (
-                            <span key={i} style={{ fontSize: 10, color: '#a78bfa', background: 'rgba(167, 139, 250, 0.1)', padding: '2px 7px', borderRadius: 4 }}>
+                            <span key={i} style={{ fontSize: 10, color: '#38A85B', background: '#ECFDF5', padding: '2px 7px', borderRadius: 4, border: '1px solid #A7F3D0' }}>
                               {t}
                             </span>
                           ))}
                         </div>
 
                         {/* Assigned and Actions Bar */}
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', paddingTop: 10, borderTop: '1px solid #F1F5F9' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                             {lead.assigned ? (
                               <>
-                                <div style={{ width: 22, height: 22, borderRadius: '50%', background: 'linear-gradient(135deg, #2563eb, #38bdf8)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>
+                                <div style={{ width: 22, height: 22, borderRadius: '50%', background: '#102C42', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 700, color: '#fff' }}>
                                   {getAssignedMember(lead.assigned)?.avatar || 'M'}
                                 </div>
-                                <span style={{ fontSize: 11, color: '#94a3b8' }}>{getAssignedMember(lead.assigned)?.name?.split(' ')[0]}</span>
+                                <span style={{ fontSize: 11, color: '#526673', fontWeight: 500 }}>{getAssignedMember(lead.assigned)?.name?.split(' ')[0]}</span>
                               </>
                             ) : (
-                              <span style={{ fontSize: 11, color: '#64748b', fontStyle: 'italic' }}>Unassigned</span>
+                              <span style={{ fontSize: 11, color: '#8A9CA8', fontStyle: 'italic' }}>Unassigned</span>
                             )}
                           </div>
 
@@ -415,9 +416,9 @@ export default function CRM() {
                                 onClick={(e) => triggerWhatsAppOutreach(lead, e)}
                                 title="1-Click WhatsApp Discovery Invite"
                                 style={{
-                                  background: 'rgba(74, 222, 128, 0.15)',
-                                  color: '#4ade80',
-                                  border: '1px solid rgba(74, 222, 128, 0.3)',
+                                  background: '#ECFDF5',
+                                  color: '#16A34A',
+                                  border: '1px solid #BBF7D0',
                                   borderRadius: 6,
                                   padding: '4px 8px',
                                   cursor: 'pointer',
@@ -437,9 +438,9 @@ export default function CRM() {
                                 onClick={(e) => triggerEmailOutreach(lead, e)}
                                 title="Send Intro Email"
                                 style={{
-                                  background: 'rgba(56, 189, 248, 0.15)',
-                                  color: '#38bdf8',
-                                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                                  background: '#F0F9FF',
+                                  color: '#0284C7',
+                                  border: '1px solid #BAE6FD',
                                   borderRadius: 6,
                                   padding: '4px 8px',
                                   cursor: 'pointer',
@@ -459,9 +460,9 @@ export default function CRM() {
                                 onClick={(e) => advanceLeadNextStage(lead, e)}
                                 title="Advance to Next Stage"
                                 style={{
-                                  background: 'rgba(255, 255, 255, 0.05)',
-                                  color: '#cbd5e1',
-                                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                                  background: '#F8FAFC',
+                                  color: '#526673',
+                                  border: '1px solid #DCE9EE',
                                   borderRadius: 6,
                                   padding: '4px 6px',
                                   cursor: 'pointer',
@@ -486,24 +487,24 @@ export default function CRM() {
 
       {/* VIEW 2: PIPELINE TABLE VIEW */}
       {viewMode === 'table' && (
-        <div style={{ background: 'rgba(11, 15, 25, 0.8)', border: '1px solid rgba(255, 255, 255, 0.08)', borderRadius: 14, overflow: 'hidden' }}>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, overflow: 'hidden', boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)' }}>
           <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
             <table style={{ width: '100%', minWidth: '760px', borderCollapse: 'collapse', textAlign: 'left' }}>
               <thead>
-                <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', background: 'rgba(255, 255, 255, 0.02)' }}>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Client / Company</th>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Stage & Status</th>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Deal Value</th>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Source</th>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact Info</th>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Assigned Member</th>
-                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Automations</th>
+                <tr style={{ borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Client / Company</th>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Stage & Status</th>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Deal Value</th>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Source</th>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Contact Info</th>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Assigned Member</th>
+                  <th style={{ padding: '14px 18px', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em', textAlign: 'right' }}>Automations</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredLeads.length === 0 ? (
                   <tr>
-                    <td colSpan={7} style={{ padding: 40, textAlign: 'center', color: '#64748b', fontSize: 14 }}>
+                    <td colSpan={7} style={{ padding: 40, textAlign: 'center', color: '#8A9CA8', fontSize: 14 }}>
                       No deals match your search or filter criteria.
                     </td>
                   </tr>
@@ -512,19 +513,19 @@ export default function CRM() {
                     <tr
                       key={lead.id}
                       style={{
-                        borderBottom: idx === filteredLeads.length - 1 ? 'none' : '1px solid rgba(255, 255, 255, 0.05)',
+                        borderBottom: idx === filteredLeads.length - 1 ? 'none' : '1px solid #F1F5F9',
                         transition: 'background 0.15s ease',
                         cursor: 'pointer'
                       }}
                       onClick={() => setSelectedLead(lead)}
-                      onMouseEnter={e => e.currentTarget.style.background = 'rgba(59, 130, 246, 0.06)'}
+                      onMouseEnter={e => e.currentTarget.style.background = '#F8FAFC'}
                       onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
                     >
                       {/* Client */}
                       <td style={{ padding: '14px 18px' }}>
-                        <div style={{ fontWeight: 700, color: '#ffffff', fontSize: 14 }}>{lead.name}</div>
+                        <div style={{ fontWeight: 700, color: '#102C42', fontSize: 14 }}>{lead.name}</div>
                         {lead.notes && (
-                          <div style={{ fontSize: 11, color: '#64748b', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <div style={{ fontSize: 11, color: '#8A9CA8', maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {lead.notes}
                           </div>
                         )}
@@ -536,9 +537,9 @@ export default function CRM() {
                           value={lead.status}
                           onChange={(e) => moveLead(lead.id, e.target.value)}
                           style={{
-                            background: 'rgba(15, 23, 42, 0.9)',
-                            border: `1px solid ${statusColors[lead.status] || '#38bdf8'}40`,
-                            color: statusColors[lead.status] || '#ffffff',
+                            background: '#FFFFFF',
+                            border: `1px solid ${statusColors[lead.status] || '#38A85B'}80`,
+                            color: statusColors[lead.status] || '#102C42',
                             borderRadius: 8,
                             padding: '6px 10px',
                             fontSize: 12,
@@ -554,25 +555,25 @@ export default function CRM() {
                       </td>
 
                       {/* Value */}
-                      <td style={{ padding: '14px 18px', fontWeight: 700, color: '#38bdf8', fontSize: 14 }}>
+                      <td style={{ padding: '14px 18px', fontWeight: 700, color: '#16A34A', fontSize: 14 }}>
                         ₹{lead.value?.toLocaleString() || '0'}
                       </td>
 
                       {/* Source */}
                       <td style={{ padding: '14px 18px' }}>
-                        <span style={{ fontSize: 12, color: '#cbd5e1', background: 'rgba(255, 255, 255, 0.05)', padding: '4px 10px', borderRadius: 6 }}>
+                        <span style={{ fontSize: 12, color: '#526673', background: '#F2FAFD', padding: '4px 10px', borderRadius: 6, border: '1px solid #DCE9EE' }}>
                           {lead.source}
                         </span>
                       </td>
 
                       {/* Contact */}
                       <td style={{ padding: '14px 18px' }}>
-                        <div style={{ fontSize: 12, color: '#ffffff', display: 'flex', alignItems: 'center', gap: 6 }}>
-                          <Phone size={13} color="#38bdf8" /> {lead.contact || 'N/A'}
+                        <div style={{ fontSize: 12, color: '#102C42', display: 'flex', alignItems: 'center', gap: 6 }}>
+                          <Phone size={13} color="#38A85B" /> {lead.contact || 'N/A'}
                         </div>
                         {lead.email && (
-                          <div style={{ fontSize: 11, color: '#94a3b8', display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
-                            <Mail size={13} color="#60a5fa" /> {lead.email}
+                          <div style={{ fontSize: 11, color: '#526673', display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
+                            <Mail size={13} color="#0284C7" /> {lead.email}
                           </div>
                         )}
                       </td>
@@ -583,9 +584,9 @@ export default function CRM() {
                           value={lead.assigned || ''}
                           onChange={(e) => updateLead(lead.id, { assigned: e.target.value ? parseInt(e.target.value) : null })}
                           style={{
-                            background: 'rgba(15, 23, 42, 0.9)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
-                            color: '#e2e8f0',
+                            background: '#FFFFFF',
+                            border: '1px solid #DCE9EE',
+                            color: '#102C42',
                             borderRadius: 8,
                             padding: '6px 10px',
                             fontSize: 12,
@@ -644,32 +645,32 @@ export default function CRM() {
           <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 640 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
               <div>
-                <span style={{ fontSize: 11, fontWeight: 700, color: statusColors[selectedLead.status] || '#38bdf8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: statusColors[selectedLead.status] || '#38A85B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   {statusLabels[selectedLead.status]}
                 </span>
-                <h2 style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', marginTop: 4 }}>{selectedLead.name}</h2>
-                <p style={{ color: '#94a3b8', fontSize: 13, marginTop: 2 }}>Inquiry Source: {selectedLead.source}</p>
+                <h2 style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginTop: 4 }}>{selectedLead.name}</h2>
+                <p style={{ color: '#526673', fontSize: 13, marginTop: 2 }}>Inquiry Source: {selectedLead.source}</p>
               </div>
-              <button onClick={() => setSelectedLead(null)} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: 4 }}>
+              <button onClick={() => setSelectedLead(null)} style={{ background: 'none', border: 'none', color: '#526673', cursor: 'pointer', padding: 4 }}>
                 <X size={20} />
               </button>
             </div>
 
             {/* Instant Automated Actions */}
-            <div style={{ background: 'rgba(56, 189, 248, 0.08)', border: '1px solid rgba(56, 189, 248, 0.2)', borderRadius: 12, padding: 14, marginBottom: 20, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#38bdf8' }}>
+            <div style={{ background: '#F2FAFD', border: '1px solid #DCE9EE', borderRadius: 12, padding: 14, marginBottom: 20, display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: '#102C42' }}>
                 Quick Outreach Automations:
               </div>
               <div style={{ display: 'flex', gap: 10 }}>
                 <button
                   onClick={(e) => triggerWhatsAppOutreach(selectedLead, e)}
-                  style={{ background: '#22c55e', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                  style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
                 >
                   <MessageSquare size={14} /> Send WhatsApp Discovery Invite
                 </button>
                 <button
                   onClick={(e) => triggerEmailOutreach(selectedLead, e)}
-                  style={{ background: '#2563eb', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
+                  style={{ background: '#102C42', color: '#fff', border: 'none', borderRadius: 8, padding: '8px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}
                 >
                   <Mail size={14} /> Email Proposal Template
                 </button>
@@ -801,8 +802,8 @@ export default function CRM() {
         <div className="modal-backdrop" onClick={() => setShowModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()} style={{ maxWidth: 580 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 800, color: '#ffffff' }}>Add New Inquiry / Deal</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#64748b', cursor: 'pointer', padding: 4 }}>
+              <h2 style={{ fontSize: 20, fontWeight: 800, color: '#102C42' }}>Add New Inquiry / Deal</h2>
+              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#526673', cursor: 'pointer', padding: 4 }}>
                 <X size={20} />
               </button>
             </div>
@@ -898,7 +899,7 @@ export default function CRM() {
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                style={{ flex: 1, background: 'transparent', border: '1px solid rgba(255, 255, 255, 0.15)', color: '#cbd5e1', borderRadius: 10, padding: '12px 20px', fontWeight: 600, cursor: 'pointer' }}
+                style={{ flex: 1, background: '#FFFFFF', border: '1px solid #DCE9EE', color: '#526673', borderRadius: 10, padding: '12px 20px', fontWeight: 600, cursor: 'pointer' }}
               >
                 Cancel
               </button>

@@ -37,112 +37,112 @@ export default function Dashboard() {
     <div>
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>
-          Good morning, {currentUser?.name?.split(' ')[0]} 👋
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: '#102C42', letterSpacing: '-0.03em' }}>
+          Good morning, {currentUser?.name?.split(' ')[0] || 'Team'} 👋
         </h1>
-        <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Here's what's happening at Zovance today.</p>
+        <p style={{ color: '#526673', fontSize: 14, marginTop: 4 }}>Here's what's happening across Zovance systems today.</p>
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 12, marginBottom: 24 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(200px,1fr))', gap: 14, marginBottom: 24 }}>
         {stats.map((s, i) => (
-          <div key={s.label} className="fade-in-up" style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: '20px', animationDelay: `${i * 0.1}s` }}>
+          <div key={s.label} className="fade-in-up" style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, padding: '20px', boxShadow: '0 2px 10px rgba(16,44,66,0.04)', animationDelay: `${i * 0.1}s` }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 16 }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: `${s.color}15`, border: `1px solid ${s.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <s.icon size={16} color={s.color} />
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: '#F2FAFD', border: '1px solid #DCE9EE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <s.icon size={16} color="#102C42" />
               </div>
-              <span style={{ fontSize: 11, color: '#4ade80', background: 'rgba(74,222,128,0.1)', padding: '3px 8px', borderRadius: 999 }}>{s.change}</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: '#38A85B', background: 'rgba(56,168,91,0.1)', padding: '3px 8px', borderRadius: 999 }}>{s.change}</span>
             </div>
-            <div style={{ fontSize: 28, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-1px', marginBottom: 4 }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: '#555' }}>{s.label}</div>
+            <div style={{ fontSize: 28, fontWeight: 800, color: '#102C42', letterSpacing: '-0.03em', marginBottom: 4 }}>{s.value}</div>
+            <div style={{ fontSize: 13, color: '#526673', fontWeight: 500 }}>{s.label}</div>
           </div>
         ))}
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 500px), 1fr))', gap: 16, marginBottom: 16 }}>
         {/* Revenue Chart */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, padding: 24, boxShadow: '0 2px 10px rgba(16,44,66,0.04)', minWidth: 0 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div>
-              <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Revenue Trend</h3>
-              <p style={{ fontSize: 12, color: '#555' }}>Last 6 months</p>
+              <h3 style={{ fontSize: 15, fontWeight: 700, color: '#102C42' }}>Revenue Trend</h3>
+              <p style={{ fontSize: 12, color: '#526673' }}>Last 6 months</p>
             </div>
-            <span style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8' }}>{fmt(totalRevenue)}</span>
+            <span style={{ fontSize: 20, fontWeight: 800, color: '#38A85B' }}>{fmt(totalRevenue)}</span>
           </div>
           <div style={{ width: '100%', height: 160, minWidth: 0 }}>
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={revenueData}>
                 <defs>
                   <linearGradient id="rg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#3b82f6" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#38A85B" stopOpacity={0.25} />
+                    <stop offset="100%" stopColor="#38A85B" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#444' }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ background: '#111', border: '1px solid #222', borderRadius: 8, fontSize: 12 }} formatter={(v) => [fmt(v), 'Revenue']} />
-                <Area type="monotone" dataKey="revenue" stroke="#3b82f6" fill="url(#rg)" strokeWidth={2} dot={false} />
+                <XAxis dataKey="month" tick={{ fontSize: 11, fill: '#526673' }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 10, fontSize: 12, boxShadow: '0 8px 24px rgba(16,44,66,0.08)' }} formatter={(v) => [fmt(v), 'Revenue']} />
+                <Area type="monotone" dataKey="revenue" stroke="#38A85B" fill="url(#rg)" strokeWidth={2.5} dot={false} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Pipeline Summary */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Lead Pipeline</h3>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, padding: 24, boxShadow: '0 2px 10px rgba(16,44,66,0.04)', minWidth: 0 }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Lead Pipeline</h3>
           {[
-            { label: 'New', count: leads.filter(l => l.status === 'new').length, color: '#60a5fa' },
-            { label: 'Contacted', count: leads.filter(l => l.status === 'contacted').length, color: '#a78bfa' },
-            { label: 'Qualified', count: leads.filter(l => l.status === 'qualified').length, color: '#3b82f6' },
-            { label: 'Proposal', count: leads.filter(l => l.status === 'proposal').length, color: '#f59e0b' },
-            { label: 'Won', count: wonLeads, color: '#4ade80' },
-            { label: 'Lost', count: leads.filter(l => l.status === 'lost').length, color: '#f87171' },
+            { label: 'New', count: leads.filter(l => l.status === 'new').length, color: '#3E9FD0' },
+            { label: 'Contacted', count: leads.filter(l => l.status === 'contacted').length, color: '#8FD3F4' },
+            { label: 'Qualified', count: leads.filter(l => l.status === 'qualified').length, color: '#102C42' },
+            { label: 'Proposal', count: leads.filter(l => l.status === 'proposal').length, color: '#F59E0B' },
+            { label: 'Won', count: wonLeads, color: '#38A85B' },
+            { label: 'Lost', count: leads.filter(l => l.status === 'lost').length, color: '#F43F5E' },
           ].map(s => (
             <div key={s.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: s.color }} />
-                <span style={{ fontSize: 13, color: '#777' }}>{s.label}</span>
+                <span style={{ fontSize: 13, color: '#526673' }}>{s.label}</span>
               </div>
-              <span style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{s.count}</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: '#102C42' }}>{s.count}</span>
             </div>
           ))}
-          <Link to="/admin/crm" className="safe-touch-target" style={{ display: 'flex', alignItems: 'center', gap: 4, color: '#3b82f6', fontSize: 12, marginTop: 16, textDecoration: 'none' }}>
-            View CRM <ArrowRight size={12} />
+          <Link to="/admin/crm" className="safe-touch-target" style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#38A85B', fontSize: 13, fontWeight: 600, marginTop: 14, textDecoration: 'none' }}>
+            <span>View Full Pipeline</span> <ArrowRight size={13} />
           </Link>
         </div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 400px), 1fr))', gap: 16 }}>
         {/* Recent Projects */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, padding: 24, boxShadow: '0 2px 10px rgba(16,44,66,0.04)', minWidth: 0 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0' }}>Recent Projects</h3>
-            <Link to="/admin/projects" className="safe-touch-target" style={{ fontSize: 11, color: '#3b82f6', textDecoration: 'none' }}>View all</Link>
+            <h3 style={{ fontSize: 15, fontWeight: 700, color: '#102C42' }}>Recent Projects</h3>
+            <Link to="/admin/projects" className="safe-touch-target" style={{ fontSize: 12, fontWeight: 600, color: '#38A85B', textDecoration: 'none' }}>View all</Link>
           </div>
           {projects.map(p => (
-            <Link key={p.id} to={`/admin/projects/${p.id}`} className="safe-touch-target" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #1a1a1a', textDecoration: 'none' }}>
+            <Link key={p.id} to={`/admin/projects/${p.id}`} className="safe-touch-target" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 0', borderBottom: '1px solid #F1F5F9', textDecoration: 'none' }}>
               <div>
-                <div style={{ fontSize: 13, color: '#f0f0f0', fontWeight: 500 }}>{p.name}</div>
-                <div style={{ fontSize: 11, color: '#444', marginTop: 2 }}>₹{p.totalValue?.toLocaleString()}</div>
+                <div style={{ fontSize: 13, color: '#102C42', fontWeight: 600 }}>{p.name}</div>
+                <div style={{ fontSize: 12, color: '#526673', marginTop: 2 }}>₹{p.totalValue?.toLocaleString()}</div>
               </div>
-              <span className={`badge status-${p.status}`} style={{ fontSize: 10 }}>{p.status}</span>
+              <span className={`badge status-${p.status}`} style={{ fontSize: 11 }}>{p.status}</span>
             </Link>
           ))}
           {projects.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '20px', color: '#555', fontSize: 12 }}>No projects yet</div>
+            <div style={{ textAlign: 'center', padding: '24px', color: '#526673', fontSize: 13 }}>No projects yet</div>
           )}
         </div>
 
         {/* Recent Activity */}
-        <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 24, minWidth: 0 }}>
-          <h3 style={{ fontSize: 14, fontWeight: 600, color: '#f0f0f0', marginBottom: 16 }}>Recent Activity</h3>
+        <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, padding: 24, boxShadow: '0 2px 10px rgba(16,44,66,0.04)', minWidth: 0 }}>
+          <h3 style={{ fontSize: 15, fontWeight: 700, color: '#102C42', marginBottom: 16 }}>Recent Platform Activity</h3>
           {recentActivity.map((a, i) => (
             <div key={i} style={{ display: 'flex', gap: 12, marginBottom: 14, alignItems: 'flex-start' }}>
-              <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#1a1a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                {a.type === 'project' ? <CheckCircle size={12} color="#4ade80" /> : a.type === 'finance' ? <DollarSign size={12} color="#3b82f6" /> : <Users size={12} color="#60a5fa" />}
+              <div style={{ width: 30, height: 30, borderRadius: '50%', background: '#F2FAFD', border: '1px solid #DCE9EE', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                {a.type === 'project' ? <CheckCircle size={13} color="#38A85B" /> : a.type === 'finance' ? <DollarSign size={13} color="#102C42" /> : <Users size={13} color="#3E9FD0" />}
               </div>
               <div style={{ flex: 1 }}>
-                <p style={{ fontSize: 12, color: '#ccc', lineHeight: 1.4 }}>{a.text}</p>
-                <p style={{ fontSize: 11, color: '#444', marginTop: 2 }}>{a.time}</p>
+                <p style={{ fontSize: 13, color: '#102C42', lineHeight: 1.4, fontWeight: 500 }}>{a.text}</p>
+                <p style={{ fontSize: 11, color: '#526673', marginTop: 2 }}>{a.time}</p>
               </div>
             </div>
           ))}

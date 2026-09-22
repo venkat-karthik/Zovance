@@ -39,22 +39,36 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
         top: 0,
         zIndex: 45,
         height: 60,
-        background: 'rgba(8, 8, 10, 0.92)',
+        background: 'rgba(255, 255, 255, 0.92)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+        borderBottom: '1px solid #DCE9EE',
         padding: '0 16px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <img src="/logo.png" alt="Zovance Logo" style={{ width: 32, height: 32, objectFit: 'contain', borderRadius: 6 }} />
+          <div style={{
+            width: 30,
+            height: 30,
+            borderRadius: 8,
+            background: 'linear-gradient(135deg, #102C42 0%, #193A54 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(16, 44, 66, 0.15)',
+          }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none">
+              <path d="M4 6H20L10 18H20" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="18" cy="18" r="2.5" fill="#38A85B" />
+            </svg>
+          </div>
           <div>
-            <div style={{ fontWeight: 800, fontSize: 16, letterSpacing: '-0.3px', color: '#fff', lineHeight: 1.1 }}>
-              Zovance<span style={{ color: '#f59e0b' }}>.</span>
+            <div style={{ fontWeight: 800, fontSize: 16, letterSpacing: '-0.3px', color: '#102C42', lineHeight: 1.1 }}>
+              ZOVANCE<span style={{ color: '#38A85B' }}>.</span>
             </div>
-            <div style={{ fontSize: 10, color: '#f59e0b', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <div style={{ fontSize: 10, color: '#38A85B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Admin Hub
             </div>
           </div>
@@ -69,9 +83,9 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
               width: 36,
               height: 36,
               borderRadius: '50%',
-              background: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
-              color: '#fff',
+              background: '#F2FAFD',
+              border: '1px solid #DCE9EE',
+              color: '#102C42',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -86,9 +100,9 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
                 right: 4,
                 width: 8,
                 height: 8,
-                background: '#f87171',
+                background: '#38A85B',
                 borderRadius: '50%',
-                boxShadow: '0 0 8px #f87171'
+                boxShadow: '0 0 6px #38A85B'
               }} />
             )}
           </button>
@@ -98,14 +112,13 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
             width: 34,
             height: 34,
             borderRadius: '50%',
-            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+            background: '#102C42',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             fontSize: 13,
             fontWeight: 700,
             color: '#fff',
-            border: '2px solid rgba(245, 158, 11, 0.4)'
           }}>
             {currentUser?.name ? currentUser.name[0].toUpperCase() : 'A'}
           </div>
@@ -119,14 +132,15 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
         left: 0,
         right: 0,
         height: 68,
-        background: 'rgba(10, 10, 14, 0.94)',
+        background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(24px)',
         WebkitBackdropFilter: 'blur(24px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+        borderTop: '1px solid #DCE9EE',
         display: 'grid',
         gridTemplateColumns: 'repeat(4, 1fr)',
         zIndex: 50,
-        paddingBottom: 'env(safe-area-inset-bottom, 0px)'
+        paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+        boxShadow: '0 -4px 16px rgba(16, 44, 66, 0.05)',
       }}>
         {[
           { label: 'CRM Leads', to: '/admin/crm', icon: FolderKanban, active: pathname === '/admin/crm' && !toolsOpen },
@@ -146,7 +160,7 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
                 justifyContent: 'center',
                 gap: 4,
                 textDecoration: 'none',
-                color: tab.active ? '#f59e0b' : '#888',
+                color: tab.active ? '#38A85B' : '#526673',
                 transition: 'all 0.2s ease',
                 position: 'relative'
               }}
@@ -157,9 +171,9 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
                   top: 0,
                   width: 24,
                   height: 3,
-                  background: '#f59e0b',
+                  background: '#38A85B',
                   borderRadius: '0 0 4px 4px',
-                  boxShadow: '0 2px 8px rgba(245, 158, 11, 0.6)'
+                  boxShadow: '0 2px 8px rgba(56, 168, 91, 0.5)'
                 }} />
               )}
               <Icon size={20} strokeWidth={tab.active ? 2.5 : 1.8} />
@@ -181,7 +195,7 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
             gap: 4,
             background: 'none',
             border: 'none',
-            color: toolsOpen ? '#f59e0b' : '#888',
+            color: toolsOpen ? '#38A85B' : '#526673',
             cursor: 'pointer',
             transition: 'all 0.2s ease',
             position: 'relative'
@@ -193,9 +207,9 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
               top: 0,
               width: 24,
               height: 3,
-              background: '#f59e0b',
+              background: '#38A85B',
               borderRadius: '0 0 4px 4px',
-              boxShadow: '0 2px 8px rgba(245, 158, 11, 0.6)'
+              boxShadow: '0 2px 8px rgba(56, 168, 91, 0.5)'
             }} />
           )}
           <Grid size={20} strokeWidth={toolsOpen ? 2.5 : 1.8} />
@@ -213,7 +227,7 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
           bottom: 68,
           left: 0,
           right: 0,
-          background: '#07070a',
+          background: '#FFFFFF',
           zIndex: 48,
           overflowY: 'auto',
           WebkitOverflowScrolling: 'touch',
@@ -222,10 +236,10 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
             <div>
-              <h2 style={{ fontSize: 22, fontWeight: 800, color: '#ffffff', letterSpacing: '-0.03em', marginBottom: 4 }}>
+              <h2 style={{ fontSize: 22, fontWeight: 800, color: '#102C42', letterSpacing: '-0.03em', marginBottom: 4 }}>
                 Admin Dashboard Hub
               </h2>
-              <p style={{ fontSize: 13, color: '#888' }}>
+              <p style={{ fontSize: 13, color: '#526673' }}>
                 Tap any tool to manage system workflows
               </p>
             </div>
@@ -235,9 +249,9 @@ export default function AdminMobileNav({ currentUser, unreadNotifications, onOpe
                 width: 36,
                 height: 36,
                 borderRadius: '50%',
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: '#fff',
+                background: '#F2FAFD',
+                border: '1px solid #DCE9EE',
+                color: '#102C42',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',

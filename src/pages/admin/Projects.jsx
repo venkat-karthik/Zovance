@@ -63,8 +63,8 @@ export default function Projects() {
       {/* Header */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#f0f0f0', letterSpacing: '-0.5px' }}>Projects</h1>
-          <p style={{ color: '#555', fontSize: 14, marginTop: 4 }}>Manage all projects and their financials</p>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: '#102C42', letterSpacing: '-0.5px' }}>Projects</h1>
+          <p style={{ color: '#526673', fontSize: 14, marginTop: 4 }}>Manage all active enterprise deployments and financial splits</p>
         </div>
         <button className="btn-gold" onClick={() => setShowModal(true)} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <Plus size={16} /> New Project
@@ -74,14 +74,14 @@ export default function Projects() {
       {/* Stats */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: 24 }}>
         {[
-          { label: 'Total Revenue', value: `₹${(totalRevenue / 100000).toFixed(1)}L`, color: '#c9a84c' },
-          { label: 'Projects', value: projects.length, color: '#60a5fa' },
-          { label: 'Approved', value: approvedCount, color: '#4ade80' },
-          { label: 'Fully Paid', value: paidCount, color: '#a78bfa' },
+          { label: 'Total Revenue', value: `₹${(totalRevenue / 100000).toFixed(1)}L`, color: '#16A34A' },
+          { label: 'Projects', value: projects.length, color: '#102C42' },
+          { label: 'Approved', value: approvedCount, color: '#38A85B' },
+          { label: 'Fully Paid', value: paidCount, color: '#0284C7' },
         ].map(s => (
-          <div key={s.label} style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, padding: 16 }}>
-            <div style={{ fontSize: 28, fontWeight: 700, color: s.color, letterSpacing: '-1px', marginBottom: 4 }}>{s.value}</div>
-            <div style={{ fontSize: 12, color: '#555' }}>{s.label}</div>
+          <div key={s.label} style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, padding: 18, boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)' }}>
+            <div style={{ fontSize: 28, fontWeight: 800, color: s.color, letterSpacing: '-1px', marginBottom: 4 }}>{s.value}</div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: '#526673' }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -89,65 +89,65 @@ export default function Projects() {
       {/* Search & Filter */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 24 }}>
         <div style={{ flex: 1, position: 'relative' }}>
-          <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#444' }} />
+          <Search size={16} style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: '#8A9CA8' }} />
           <input
             type="text"
             placeholder="Search projects..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="input"
-            style={{ paddingLeft: 40 }}
+            style={{ paddingLeft: 42 }}
           />
         </div>
-        <button style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 8, padding: '10px 14px', color: '#666', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
-          <Filter size={16} /> Filter
+        <button style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 12, padding: '10px 16px', color: '#102C42', fontWeight: 600, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6 }}>
+          <Filter size={16} color="#526673" /> Filter
         </button>
       </div>
 
       {/* Projects Table */}
-      <div style={{ background: '#111', border: '1px solid #1e1e1e', borderRadius: 12, overflow: 'hidden' }}>
+      <div style={{ background: '#FFFFFF', border: '1px solid #DCE9EE', borderRadius: 16, overflow: 'hidden', boxShadow: '0 1px 3px rgba(16, 44, 66, 0.04)' }}>
         <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', minWidth: 0 }}>
           <table style={{ width: '100%', minWidth: '700px', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid #1a1a1a', background: '#0e0e0e' }}>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Project</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Client</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Value</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Payment</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
-                <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Team</th>
-                <th style={{ padding: '12px 16px', textAlign: 'center', fontSize: 12, fontWeight: 600, color: '#666', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Action</th>
+              <tr style={{ borderBottom: '1px solid #DCE9EE', background: '#F8FAFC' }}>
+                <th style={{ padding: '14px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Project</th>
+                <th style={{ padding: '14px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Client</th>
+                <th style={{ padding: '14px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Value</th>
+                <th style={{ padding: '14px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Payment</th>
+                <th style={{ padding: '14px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Status</th>
+                <th style={{ padding: '14px 18px', textAlign: 'left', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Team</th>
+                <th style={{ padding: '14px 18px', textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#526673', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {filteredProjects.map(p => (
                 <tr key={p.id} className="table-row">
-                  <td style={{ padding: '14px 16px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#f0f0f0' }}>{p.name}</div>
-                    <div style={{ fontSize: 11, color: '#444', marginTop: 2 }}>Created {new Date(p.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</div>
+                  <td style={{ padding: '14px 18px' }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#102C42' }}>{p.name}</div>
+                    <div style={{ fontSize: 11, color: '#8A9CA8', marginTop: 2 }}>Created {new Date(p.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</div>
                   </td>
-                  <td style={{ padding: '14px 16px', fontSize: 13, color: '#888' }}>{getClientName(p.clientId)}</td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <div style={{ fontSize: 13, fontWeight: 600, color: '#c9a84c' }}>₹{(p.totalValue / 100000).toFixed(1)}L</div>
+                  <td style={{ padding: '14px 18px', fontSize: 13, color: '#526673' }}>{getClientName(p.clientId)}</td>
+                  <td style={{ padding: '14px 18px' }}>
+                    <div style={{ fontSize: 13, fontWeight: 700, color: '#16A34A' }}>₹{(p.totalValue / 100000).toFixed(1)}L</div>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
+                  <td style={{ padding: '14px 18px' }}>
                     <span className="badge" style={{ background: `${paymentColors[p.paymentStatus]}15`, color: paymentColors[p.paymentStatus], border: `1px solid ${paymentColors[p.paymentStatus]}30` }}>
                       {paymentStatuses[p.paymentStatus]}
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
+                  <td style={{ padding: '14px 18px' }}>
                     <span className="badge" style={{ background: `${projectColors[p.status]}15`, color: projectColors[p.status], border: `1px solid ${projectColors[p.status]}30` }}>
                       {projectStatuses[p.status]}
                     </span>
                   </td>
-                  <td style={{ padding: '14px 16px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                      <Users size={14} color="#666" />
-                      <span style={{ fontSize: 12, color: '#888' }}>{p.teamMembers?.length || 0}</span>
+                  <td style={{ padding: '14px 18px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <Users size={14} color="#526673" />
+                      <span style={{ fontSize: 12, color: '#526673', fontWeight: 600 }}>{p.teamMembers?.length || 0}</span>
                     </div>
                   </td>
-                  <td style={{ padding: '14px 16px', textAlign: 'center' }}>
-                    <Link to={`/admin/projects/${p.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#c9a84c', textDecoration: 'none', fontSize: 12, fontWeight: 500 }}>
+                  <td style={{ padding: '14px 18px', textAlign: 'center' }}>
+                    <Link to={`/admin/projects/${p.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#102C42', textDecoration: 'none', fontSize: 12, fontWeight: 700 }}>
                       View <ChevronRight size={14} />
                     </Link>
                   </td>
@@ -159,7 +159,7 @@ export default function Projects() {
 
         {filteredProjects.length === 0 && (
           <div style={{ padding: '40px 20px', textAlign: 'center' }}>
-            <p style={{ color: '#555', fontSize: 14 }}>No projects found. Create one to get started.</p>
+            <p style={{ color: '#8A9CA8', fontSize: 14 }}>No projects found. Create one to get started.</p>
           </div>
         )}
       </div>
@@ -169,8 +169,8 @@ export default function Projects() {
         <div className="modal-backdrop" onClick={() => setShowModal(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 20, fontWeight: 700, color: '#f0f0f0' }}>Create New Project</h2>
-              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#666', cursor: 'pointer', padding: 4 }}>
+              <h2 style={{ fontSize: 20, fontWeight: 800, color: '#102C42' }}>Create New Project</h2>
+              <button onClick={() => setShowModal(false)} style={{ background: 'none', border: 'none', color: '#526673', cursor: 'pointer', padding: 4 }}>
                 <X size={18} />
               </button>
             </div>
