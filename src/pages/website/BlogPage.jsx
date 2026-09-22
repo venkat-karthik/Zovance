@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Clock, User, Tag } from 'lucide-react';
+import { ArrowRight, Clock, User, Tag, Sparkles } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
-import { useStore } from '../../store/useStore';
 
 const articles = [
   {
@@ -22,7 +21,7 @@ const articles = [
     category: 'Workflow Automation',
     date: 'Aug 28, 2026',
     readTime: '7 min read',
-    excerpt: 'How leading e-commerce and hospitality brands automate lead qualification and booking workflows directly inside WhatsApp.',
+    excerpt: 'How leading e-commerce and hospitality brands automate lead qualification, sales inquiries, and booking workflows directly inside WhatsApp.',
   },
   {
     id: 'voice-ai-for-inbound-calls',
@@ -36,41 +35,59 @@ const articles = [
 
 export default function BlogPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const { darkMode } = useStore();
 
   return (
-    <div className="bg-grid-pattern" style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
+    <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
       {/* Header */}
       <section style={{
         maxWidth: 1280,
         margin: '0 auto',
-        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        padding: 'clamp(56px, 8vw, 96px) clamp(20px, 5vw, 48px) clamp(36px, 5vw, 60px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-          INSIGHTS & GUIDES
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          background: '#F2FAFD',
+          border: '1px solid #DCE9EE',
+          borderRadius: 999,
+          padding: '6px 16px',
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          color: '#102C42',
+          textTransform: 'uppercase',
+          marginBottom: 20
+        }}>
+          <Sparkles size={14} color="#38A85B" />
+          <span>ENGINEERING INSIGHTS & CASE STUDIES</span>
         </div>
+
         <h1 style={{
           fontSize: 'clamp(36px, 6vw, 68px)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          color: darkMode ? '#F8FAFC' : '#0F172A',
-          lineHeight: 1.05,
-          marginBottom: 24,
+          fontWeight: 800,
+          letterSpacing: '-0.035em',
+          color: '#102C42',
+          lineHeight: 1.08,
+          marginBottom: 20,
         }}>
           AI Automation & Engineering<br />
-          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Knowledge Hub</span>
+          <span style={{ color: '#38A85B', fontStyle: 'italic', fontFamily: 'Georgia, serif' }}>
+            Knowledge Hub
+          </span>
         </h1>
+
         <p style={{
-          fontSize: 'clamp(15px, 2vw, 18px)',
-          color: darkMode ? '#CBD5E1' : '#475569',
-          maxWidth: 580,
+          fontSize: 'clamp(16px, 2vw, 19px)',
+          color: '#526673',
+          maxWidth: 620,
           margin: '0 auto',
           lineHeight: 1.6,
         }}>
-          In-depth architectural guides, automation blueprints, and case studies written by our engineering team.
+          In-depth architectural guides, automation blueprints, and production case studies written directly by our senior engineering team.
         </p>
       </section>
 
@@ -78,55 +95,89 @@ export default function BlogPage() {
       <section style={{
         maxWidth: 1280,
         margin: '0 auto',
-        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+        padding: '0 clamp(20px, 5vw, 48px) clamp(60px, 8vw, 100px)',
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: 28,
         }}>
           {articles.map((art) => (
             <div
               key={art.id}
+              className="card-3d"
               style={{
-                background: darkMode ? '#131B2E' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+                background: '#FFFFFF',
+                border: '1px solid #DCE9EE',
                 borderRadius: 24,
-                padding: 32,
+                padding: 'clamp(24px, 3.5vw, 36px)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: '0 4px 20px rgba(16, 44, 66, 0.04)',
                 transition: 'all 0.3s ease',
               }}
             >
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: darkMode ? '#60A5FA' : '#2563EB', padding: '4px 10px', background: darkMode ? 'rgba(59, 130, 246, 0.15)' : '#DBEAFE', borderRadius: 999 }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 800,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: '#38A85B',
+                    background: '#F2FAFD',
+                    border: '1px solid #DCE9EE',
+                    padding: '4px 12px',
+                    borderRadius: 999,
+                  }}>
                     {art.category}
                   </span>
-                  <span style={{ fontSize: 12, color: darkMode ? '#94A3B8' : '#64748B' }}>
-                    {art.readTime}
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 600, color: '#526673' }}>
+                    <Clock size={13} />
+                    <span>{art.readTime}</span>
+                  </div>
                 </div>
 
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 12, lineHeight: 1.3 }}>
-                  {art.title}
-                </h3>
+                <h2 style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginBottom: 14, lineHeight: 1.3 }}>
+                  <Link
+                    to={`/blog/${art.id}`}
+                    style={{ color: 'inherit', textDecoration: 'none' }}
+                  >
+                    {art.title}
+                  </Link>
+                </h2>
 
-                <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 24 }}>
+                <p style={{ fontSize: 14, color: '#526673', lineHeight: 1.6, marginBottom: 28 }}>
                   {art.excerpt}
                 </p>
               </div>
 
-              <div style={{ borderTop: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0', paddingTop: 20, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontSize: 12, color: darkMode ? '#94A3B8' : '#64748B' }}>{art.date}</span>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                borderTop: '1px solid #F2FAFD',
+                paddingTop: 20
+              }}>
+                <span style={{ fontSize: 12, color: '#526673', fontWeight: 600 }}>
+                  {art.date}
+                </span>
+
                 <Link
                   to={`/blog/${art.id}`}
-                  style={{ fontSize: 13, fontWeight: 700, color: darkMode ? '#38BDF8' : '#0F172A', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 6 }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: 13,
+                    fontWeight: 700,
+                    color: '#102C42',
+                    textDecoration: 'none',
+                  }}
                 >
                   <span>Read Article</span>
-                  <ArrowRight size={14} />
+                  <ArrowRight size={14} color="#38A85B" />
                 </Link>
               </div>
             </div>

@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { ArrowRight, Zap, Code2, Cpu, Globe, MessageCircle, Database, Lock, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { ArrowRight, Zap, Code2, Cpu, Globe, MessageCircle, Database, Lock, RefreshCw, CheckCircle2, Sparkles, Check } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
-import { useStore } from '../../store/useStore';
 
 const templates = [
   {
     title: 'WhatsApp Lead Qualifier & Scheduler',
     category: 'Sales Automation',
     desc: 'Automatically responds to inbound WhatsApp messages, qualifies budget & timeline, and books meetings into Google Calendar.',
-    tools: ['WhatsApp Business API', 'OpenAI GPT-4', 'Google Calendar', 'N8N'],
+    tools: ['WhatsApp Business API', 'OpenAI GPT-4o', 'Google Calendar', 'N8N'],
     timeSaved: '15 hrs / week',
   },
   {
@@ -52,85 +51,116 @@ const templates = [
 ];
 
 const integrations = [
-  'WhatsApp', 'OpenAI', 'N8N', 'Zapier', 'Stripe', 'HubSpot', 'Salesforce', 'Make.com', 'PostgreSQL', 'Google Cloud', 'Shopify', 'Twilio'
+  'WhatsApp Business', 'OpenAI GPT-4o', 'N8N', 'Zapier', 'Stripe', 'HubSpot', 'Salesforce', 'Make.com', 'PostgreSQL', 'Google Cloud', 'Shopify', 'Twilio'
 ];
 
 export default function AutomationsPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const { darkMode } = useStore();
 
   return (
-    <div className="bg-grid-pattern" style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
+    <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
       {/* Header */}
       <section style={{
         maxWidth: 1280,
         margin: '0 auto',
-        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        padding: 'clamp(56px, 8vw, 96px) clamp(20px, 5vw, 48px) clamp(36px, 5vw, 60px)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-          AUTOMATION PIPELINES
+        <div style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 8,
+          background: '#F2FAFD',
+          border: '1px solid #DCE9EE',
+          borderRadius: 999,
+          padding: '6px 16px',
+          fontSize: 12,
+          fontWeight: 700,
+          letterSpacing: '0.08em',
+          color: '#102C42',
+          textTransform: 'uppercase',
+          marginBottom: 20
+        }}>
+          <Sparkles size={14} color="#38A85B" />
+          <span>PRODUCTION AUTOMATION PIPELINES</span>
         </div>
+
         <h1 style={{
           fontSize: 'clamp(36px, 6vw, 68px)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          color: darkMode ? '#F8FAFC' : '#0F172A',
-          lineHeight: 1.05,
-          marginBottom: 24,
+          fontWeight: 800,
+          letterSpacing: '-0.035em',
+          color: '#102C42',
+          lineHeight: 1.08,
+          marginBottom: 20,
         }}>
           Pre-Built & Custom<br />
-          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>AI Workflow Templates</span>
+          <span style={{ color: '#38A85B', fontStyle: 'italic', fontFamily: 'Georgia, serif' }}>
+            AI Workflow Templates
+          </span>
         </h1>
+
         <p style={{
-          fontSize: 'clamp(15px, 2vw, 18px)',
-          color: darkMode ? '#CBD5E1' : '#475569',
-          maxWidth: 580,
+          fontSize: 'clamp(16px, 2vw, 19px)',
+          color: '#526673',
+          maxWidth: 620,
           margin: '0 auto 40px',
           lineHeight: 1.6,
         }}>
-          Explore production-tested automation workflows engineered to connect your favorite apps and eliminate repetitive manual tasks.
+          Explore production-tested automation workflows engineered to connect your favorite business apps, eliminate repetitive friction, and generate revenue on autopilot.
         </p>
 
-        <button
-          className="btn-dark-pill"
-          onClick={() => setBookingOpen(true)}
-          style={{
-            background: darkMode ? '#38BDF8' : '#111827',
-            color: darkMode ? '#0F172A' : '#ffffff',
-          }}
-        >
-          <span>Build Custom Workflow</span>
-          <ArrowRight size={16} />
-        </button>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 16 }}>
+          <button
+            className="btn-zovance-primary"
+            onClick={() => setBookingOpen(true)}
+            style={{
+              padding: '14px 28px',
+              borderRadius: 999,
+              fontWeight: 700,
+              fontSize: 15,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              cursor: 'pointer',
+            }}
+          >
+            <span>Deploy Custom Pipeline</span>
+            <ArrowRight size={16} />
+          </button>
+        </div>
       </section>
 
-      {/* Integration Logos Bar */}
+      {/* Integrations Ribbon */}
       <section style={{
-        background: darkMode ? '#131B2E' : '#ffffff',
-        borderTop: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0',
-        borderBottom: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0',
-        padding: '24px clamp(16px, 4vw, 36px)',
-        marginBottom: 60,
+        maxWidth: 1280,
+        margin: '0 auto',
+        padding: '0 clamp(20px, 5vw, 48px) 48px',
       }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-            NATIVELY CONNECTED WITH 100+ APPS & PLATFORMS
+        <div style={{
+          background: '#F2FAFD',
+          border: '1px solid #DCE9EE',
+          borderRadius: 24,
+          padding: '24px 32px',
+          textAlign: 'center'
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#526673', marginBottom: 16 }}>
+            NATIVE INTEGRATIONS SUPPORTED ACROSS YOUR ENTIRE STACK
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 10 }}>
             {integrations.map((tool) => (
               <span
                 key={tool}
                 style={{
+                  background: '#FFFFFF',
+                  border: '1px solid #DCE9EE',
+                  borderRadius: 999,
+                  padding: '6px 16px',
                   fontSize: 13,
                   fontWeight: 700,
-                  color: darkMode ? '#F8FAFC' : '#334155',
-                  padding: '6px 16px',
-                  borderRadius: 999,
-                  background: darkMode ? '#1E293B' : '#F1F5F9',
-                  border: darkMode ? '1px solid rgba(255, 255, 255, 0.1)' : '1px solid #E2E8F0',
+                  color: '#102C42',
+                  boxShadow: '0 2px 8px rgba(16, 44, 66, 0.04)'
                 }}
               >
                 {tool}
@@ -140,58 +170,81 @@ export default function AutomationsPage() {
         </div>
       </section>
 
-      {/* Automation Workflow Cards Grid */}
+      {/* Templates Grid */}
       <section style={{
         maxWidth: 1280,
         margin: '0 auto',
-        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+        padding: '0 clamp(20px, 5vw, 48px) clamp(60px, 8vw, 100px)',
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
           gap: 28,
         }}>
-          {templates.map((tmpl) => (
+          {templates.map((tpl) => (
             <div
-              key={tmpl.title}
+              key={tpl.title}
+              className="card-3d"
               style={{
-                background: darkMode ? '#131B2E' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+                background: '#FFFFFF',
+                border: '1px solid #DCE9EE',
                 borderRadius: 24,
-                padding: 32,
+                padding: 'clamp(24px, 3.5vw, 32px)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
+                boxShadow: '0 4px 20px rgba(16, 44, 66, 0.04)',
                 transition: 'all 0.3s ease',
               }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: darkMode ? '#60A5FA' : '#2563EB', padding: '4px 10px', background: darkMode ? 'rgba(59, 130, 246, 0.15)' : '#DBEAFE', borderRadius: 999 }}>
-                    {tmpl.category}
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 800,
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    color: '#38A85B',
+                    background: '#F2FAFD',
+                    border: '1px solid #DCE9EE',
+                    padding: '4px 12px',
+                    borderRadius: 999,
+                  }}>
+                    {tpl.category}
                   </span>
-                  <span style={{ fontSize: 12, fontWeight: 700, color: darkMode ? '#34D399' : '#16A34A' }}>
-                    ⚡ {tmpl.timeSaved}
-                  </span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, color: '#102C42' }}>
+                    <Zap size={14} color="#38A85B" />
+                    <span>{tpl.timeSaved}</span>
+                  </div>
                 </div>
 
-                <h3 style={{ fontSize: 20, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 12 }}>
-                  {tmpl.title}
+                <h3 style={{ fontSize: 20, fontWeight: 800, color: '#102C42', marginBottom: 12, lineHeight: 1.3 }}>
+                  {tpl.title}
                 </h3>
 
-                <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 24 }}>
-                  {tmpl.desc}
+                <p style={{ fontSize: 14, color: '#526673', lineHeight: 1.6, marginBottom: 24 }}>
+                  {tpl.desc}
                 </p>
 
                 <div style={{ marginBottom: 28 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 10 }}>
-                    INTEGRATED TECH STACK:
+                  <div style={{ fontSize: 11, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#526673', marginBottom: 8 }}>
+                    Connected Stack:
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                    {tmpl.tools.map((t) => (
-                      <span key={t} style={{ fontSize: 11, fontWeight: 600, color: darkMode ? '#CBD5E1' : '#475569', background: darkMode ? '#0F1420' : '#FBFBF9', border: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0', borderRadius: 6, padding: '4px 8px' }}>
-                        {t}
+                    {tpl.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 700,
+                          background: '#F2FAFD',
+                          color: '#102C42',
+                          padding: '4px 10px',
+                          borderRadius: 8,
+                          border: '1px solid #DCE9EE',
+                        }}
+                      >
+                        {tool}
                       </span>
                     ))}
                   </div>
@@ -199,16 +252,26 @@ export default function AutomationsPage() {
               </div>
 
               <button
-                className="btn-dark-pill"
                 onClick={() => setBookingOpen(true)}
+                className="btn-zovance-white"
                 style={{
                   width: '100%',
                   justifyContent: 'center',
-                  background: darkMode ? '#38BDF8' : '#111827',
-                  color: darkMode ? '#0F172A' : '#ffffff',
+                  padding: '12px 20px',
+                  borderRadius: 999,
+                  fontWeight: 700,
+                  fontSize: 13,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                  cursor: 'pointer',
+                  border: '1px solid #DCE9EE',
+                  background: '#FFFFFF',
+                  color: '#102C42',
+                  boxShadow: '0 2px 8px rgba(16, 44, 66, 0.04)',
                 }}
               >
-                <span>Deploy This Workflow</span>
+                <span>Request This Pipeline</span>
                 <ArrowRight size={14} />
               </button>
             </div>
