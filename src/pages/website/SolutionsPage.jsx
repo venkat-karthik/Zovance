@@ -1,222 +1,291 @@
 import { useState } from 'react';
-import { ArrowRight, CheckCircle2, Building2, ShoppingCart, Stethoscope, Home, Landmark, Headset } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Building2, ShoppingCart, Stethoscope, Home, Landmark, Headset, Sparkles, TrendingUp, Bot, Workflow, Layers, ShieldCheck } from 'lucide-react';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
 import ClosingCtaBanner from '../../components/ClosingCtaBanner';
-import { useStore } from '../../store/useStore';
 
 const industries = [
   {
     id: 'hospitality',
     icon: Building2,
     title: 'Hospitality & Resorts',
-    tag: 'Hotel & Villa Tech',
-    desc: 'Instant booking engines, 24/7 guest WhatsApp concierge, automated check-in flows, and billing sync.',
+    tag: 'Guest Concierge & Direct Booking',
+    desc: 'Instant booking engines, 24/7 guest WhatsApp concierge, automated check-in flows, and PMS reservation sync.',
     metrics: '350+ monthly bookings automated | <1s availability search',
-    color: '#FFEDD5',
-    accent: '#EA580C',
-    features: ['WhatsApp guest assistant', 'Direct booking engine', 'PMS & Stripe payment sync', 'Automated feedback collection'],
+    color: '#F0FDF4',
+    accent: '#38A85B',
+    borderColor: '#BBF7D0',
+    features: ['24/7 WhatsApp guest concierge', 'Direct zero-commission booking engine', 'PMS & payment gateway sync', 'Automated guest feedback collection'],
   },
   {
     id: 'ecommerce',
     icon: ShoppingCart,
-    title: 'E-Commerce & Retail',
-    tag: 'Conversion & Retention AI',
+    title: 'E-Commerce & D2C Brands',
+    tag: 'Cart Recovery & Retention',
     desc: 'High-conversion storefronts, AI customer support, cart recovery follow-ups, and automated inventory sync.',
-    metrics: '4.8x conversion boost | 99.9% uptime SLA',
-    color: '#DBEAFE',
-    accent: '#2563EB',
-    features: ['AI product recommendation engine', 'WhatsApp order status & shipping tracking', '1-click checkout flow', 'Inventory ERP sync'],
+    metrics: '24% average cart recovery boost | 99.9% uptime SLA',
+    color: '#FFF7ED',
+    accent: '#EA580C',
+    borderColor: '#FFEDD5',
+    features: ['Automated cart abandonment WhatsApp/call sequence', 'WhatsApp order status & shipping tracking', '1-click checkout conversion flow', 'Inventory ERP sync'],
   },
   {
     id: 'healthcare',
     icon: Stethoscope,
-    title: 'Healthcare & Clinics',
-    tag: 'Patient Booking & Reminders',
+    title: 'Healthcare & Medical Clinics',
+    tag: 'Patient Intake & Voice Booking',
     desc: 'Multilingual voice agents for appointment scheduling, patient intake automation, and prescription notification reminders.',
     metrics: '60% reduction in call wait times | 0 missed appointments',
-    color: '#FCE7F3',
-    accent: '#DB2777',
-    features: ['24/7 voice appointment booking', 'HIPAA-compliant data handling', 'Automated SMS / WhatsApp reminders', 'EMR calendar sync'],
+    color: '#F2FAFD',
+    accent: '#3E9FD0',
+    borderColor: '#DCE9EE',
+    features: ['24/7 voice appointment booking agent', 'HIPAA-compliant data handling', 'Automated SMS / WhatsApp reminders', 'EMR calendar synchronization'],
   },
   {
     id: 'realestate',
     icon: Home,
-    title: 'Real Estate & Property',
+    title: 'Real Estate & Property Developers',
     tag: 'Inbound Lead Qualification',
-    desc: 'Instant lead response within 30 seconds, automated virtual tour scheduling, and CRM buyer matching.',
+    desc: 'Instant lead response within 30 seconds, automated virtual tour scheduling, and CRM buyer budget matching.',
     metrics: '5x faster lead response time | 3.2x tour booking rate',
-    color: '#D1FAE5',
-    accent: '#059669',
-    features: ['Instant WhatsApp property brochure sender', 'Buyer budget & location qualification', 'Agent calendar auto-booking', 'Property portal lead parsing'],
+    color: '#F0FDF4',
+    accent: '#16A34A',
+    borderColor: '#BBF7D0',
+    features: ['Instant WhatsApp property brochure sender', 'Buyer budget & location qualification bot', 'Agent calendar auto-booking', '99acres / Magicbricks lead ingestion'],
   },
   {
     id: 'finance',
     icon: Landmark,
-    title: 'Financial & Legal Services',
-    tag: 'Document OCR & Compliance',
+    title: 'Financial & Legal Firms',
+    tag: 'Document OCR & Client Intake',
     desc: 'AI document parsing, client onboarding workflows, automated KYC checks, and invoice reconciliation.',
     metrics: '90% faster document processing | 100% audit trail',
-    color: '#FEF3C7',
-    accent: '#D97706',
-    features: ['Automated bank statement & invoice OCR', 'KYC & client onboarding portal', 'CRM & QuickBooks integration', 'Audit log tracking'],
+    color: '#F8FAFC',
+    accent: '#102C42',
+    borderColor: '#DCE9EE',
+    features: ['Automated bank statement & invoice OCR', 'KYC & client onboarding portal', 'CRM & QuickBooks integration', 'Tamper-evident audit log tracking'],
   },
   {
     id: 'support',
     icon: Headset,
     title: 'Customer Support & BPO',
-    tag: 'Omnichannel AI Support',
-    desc: 'Autonomous multi-channel AI agents that resolve 70%+ of customer tickets instantly across Web, WhatsApp, and Email.',
+    tag: 'Omnichannel Voice & Chat',
+    desc: 'Autonomous multi-channel AI agents that resolve 70%+ of customer tickets instantly across Web, WhatsApp, and Phone.',
     metrics: '70%+ instant resolution rate | 24/7 coverage',
-    color: '#EDE9FE',
-    accent: '#7C3AED',
-    features: ['Omnichannel bot deployment', 'Live human agent hand-off', 'Knowledge base auto-training', 'CSAT & sentiment analytics'],
+    color: '#F0F9FF',
+    accent: '#0284C7',
+    borderColor: '#BAE6FD',
+    features: ['Omnichannel bot deployment', 'Live human agent transfer with context', 'Knowledge base auto-training', 'CSAT & sentiment analytics'],
   },
 ];
 
 export default function SolutionsPage() {
   const [bookingOpen, setBookingOpen] = useState(false);
-  const { darkMode } = useStore();
 
   return (
-    <div className="bg-grid-pattern" style={{ background: darkMode ? '#080B13' : '#FBFBF9', color: darkMode ? '#F8FAFC' : '#0F172A', minHeight: '100vh', overflowX: 'hidden', transition: 'background-color 0.3s ease, color 0.3s ease' }}>
+    <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
       {/* Header */}
       <section style={{
-        maxWidth: 1280,
+        maxWidth: 1320,
         margin: '0 auto',
-        padding: 'clamp(50px, 8vw, 90px) clamp(16px, 4vw, 36px) clamp(30px, 4vw, 50px)',
+        padding: 'clamp(120px, 14vw, 160px) clamp(20px, 5vw, 64px) clamp(40px, 5vw, 60px)',
         textAlign: 'center',
+        position: 'relative'
       }}>
-        <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', color: darkMode ? '#94A3B8' : '#64748B', textTransform: 'uppercase', marginBottom: 16 }}>
-          INDUSTRY SOLUTIONS
-        </div>
-        <h1 style={{
-          fontSize: 'clamp(36px, 6vw, 68px)',
-          fontWeight: 700,
-          letterSpacing: '-0.03em',
-          color: darkMode ? '#F8FAFC' : '#0F172A',
-          lineHeight: 1.05,
-          marginBottom: 24,
-        }}>
-          Tailored AI Systems Built For<br />
-          <span className="impact-gradient font-serif" style={{ fontStyle: 'italic' }}>Your Industry</span>
-        </h1>
-        <p style={{
-          fontSize: 'clamp(15px, 2vw, 18px)',
-          color: darkMode ? '#CBD5E1' : '#475569',
-          maxWidth: 580,
-          margin: '0 auto 40px',
-          lineHeight: 1.6,
-        }}>
-          Whether you run a resort, an e-commerce brand, a medical clinic, or a law firm, we build solutions tuned to your specific domain.
-        </p>
+        {/* Atmosphere Glow */}
+        <div style={{
+          position: 'absolute',
+          top: '20%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 'clamp(500px, 75vw, 900px)',
+          height: 380,
+          background: 'radial-gradient(ellipse at center, rgba(143, 211, 244, 0.4) 0%, rgba(56, 168, 91, 0.12) 50%, transparent 80%)',
+          filter: 'blur(70px)',
+          pointerEvents: 'none',
+          zIndex: 0,
+        }} />
 
-        <button
-          className="btn-dark-pill"
-          onClick={() => setBookingOpen(true)}
-          style={{
-            background: darkMode ? '#38BDF8' : '#111827',
-            color: darkMode ? '#0F172A' : '#ffffff',
-          }}
-        >
-          <span>Schedule Industry Discovery Call</span>
-          <ArrowRight size={16} />
-        </button>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <span style={{
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: '0.12em',
+            color: '#38A85B',
+            textTransform: 'uppercase',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            marginBottom: 16,
+            background: '#F2FAFD',
+            border: '1px solid #DCE9EE',
+            padding: '6px 16px',
+            borderRadius: 9999,
+          }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
+            INDUSTRY SPECIFIC SYSTEMS
+          </span>
+
+          <h1 style={{
+            fontSize: 'clamp(38px, 6vw, 72px)',
+            fontWeight: 800,
+            letterSpacing: '-0.035em',
+            color: '#102C42',
+            lineHeight: 1.08,
+            marginBottom: 20,
+            maxWidth: 880,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+          }}>
+            Tailored AI Systems Built For <br />
+            <span className="highlight-gradient">Your Exact Industry.</span>
+          </h1>
+
+          <p style={{
+            fontSize: 'clamp(16px, 2vw, 20px)',
+            color: '#526673',
+            maxWidth: 680,
+            margin: '0 auto 36px',
+            lineHeight: 1.6,
+          }}>
+            Whether you run a resort, an e-commerce brand, a healthcare clinic, or a property development firm, we build systems tuned precisely to your unit economics.
+          </p>
+
+          <button
+            onClick={() => setBookingOpen(true)}
+            className="btn-zovance-primary"
+            style={{ fontSize: 15, padding: '14px 32px' }}
+          >
+            <span>Schedule Industry Discovery Call</span>
+            <ArrowRight size={15} />
+          </button>
+        </div>
       </section>
 
-      {/* Industry Solutions Grid */}
+      {/* Industry Solutions 3D Cards Grid */}
       <section style={{
-        maxWidth: 1280,
+        maxWidth: 1320,
         margin: '0 auto',
-        padding: '0 clamp(16px, 4vw, 36px) clamp(60px, 8vw, 100px)',
+        padding: '0 clamp(20px, 5vw, 64px) clamp(80px, 12vw, 140px)',
       }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(280px, 45vw, 380px), 1fr))',
           gap: 28,
-        }}>
+        }} className="perspective-container">
           {industries.map((ind) => (
             <div
               key={ind.id}
+              className="card-3d"
               style={{
-                background: darkMode ? '#131B2E' : '#ffffff',
-                border: darkMode ? '1px solid rgba(255, 255, 255, 0.08)' : '1px solid #E2E8F0',
+                background: '#FFFFFF',
+                border: '1px solid #DCE9EE',
                 borderRadius: 24,
-                padding: 32,
+                padding: 'clamp(28px, 4vw, 36px)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                boxShadow: darkMode ? '0 12px 30px rgba(0,0,0,0.4)' : '0 4px 20px rgba(0,0,0,0.03)',
-                transition: 'all 0.3s ease',
+                boxShadow: '0 8px 24px rgba(16, 44, 66, 0.04)',
+                position: 'relative',
               }}
             >
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                   <div style={{
-                    width: 48,
-                    height: 48,
+                    width: 50,
+                    height: 50,
                     borderRadius: 16,
-                    background: darkMode ? 'rgba(56, 189, 248, 0.2)' : ind.color,
-                    color: darkMode ? '#38BDF8' : ind.accent,
+                    background: ind.color,
+                    border: `1px solid ${ind.borderColor}`,
+                    color: ind.accent,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
                     <ind.icon size={24} />
                   </div>
-                  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: darkMode ? '#94A3B8' : '#64748B' }}>
+                  <span style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                    color: ind.accent,
+                    background: ind.color,
+                    border: `1px solid ${ind.borderColor}`,
+                    padding: '4px 10px',
+                    borderRadius: 999,
+                  }}>
                     {ind.tag}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: 22, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A', marginBottom: 12 }}>
+                <h3 style={{ fontSize: 22, fontWeight: 800, color: '#102C42', letterSpacing: '-0.02em', marginBottom: 12 }}>
                   {ind.title}
                 </h3>
 
-                <p style={{ fontSize: 14, color: darkMode ? '#CBD5E1' : '#475569', lineHeight: 1.6, marginBottom: 24 }}>
+                <p style={{ fontSize: 14, color: '#526673', lineHeight: 1.6, marginBottom: 24 }}>
                   {ind.desc}
                 </p>
 
+                {/* Verified Metrics Badge */}
                 <div style={{
-                  background: darkMode ? '#0F1420' : '#FBFBF9',
-                  border: darkMode ? '1px solid rgba(255,255,255,0.08)' : '1px solid #E2E8F0',
-                  borderRadius: 16,
-                  padding: 16,
+                  background: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  borderRadius: 14,
+                  padding: '12px 16px',
                   marginBottom: 24,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 10,
                 }}>
-                  <div style={{ fontSize: 11, fontWeight: 700, color: darkMode ? '#34D399' : '#16A34A', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 4 }}>
-                    VERIFIED METRICS
-                  </div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: darkMode ? '#F8FAFC' : '#0F172A' }}>
-                    {ind.metrics}
+                  <TrendingUp size={16} color="#38A85B" style={{ flexShrink: 0 }} />
+                  <div>
+                    <div style={{ fontSize: 10, fontWeight: 700, color: '#38A85B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                      VERIFIED OUTCOME
+                    </div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: '#102C42', marginTop: 2 }}>
+                      {ind.metrics}
+                    </div>
                   </div>
                 </div>
 
+                {/* Key Capabilities Bullet Points */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 28 }}>
                   {ind.features.map((f) => (
                     <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                      <CheckCircle2 size={16} color="#16A34A" />
-                      <span style={{ fontSize: 13, color: darkMode ? '#CBD5E1' : '#334155', fontWeight: 600 }}>{f}</span>
+                      <CheckCircle2 size={16} color="#38A85B" style={{ flexShrink: 0 }} />
+                      <span style={{ fontSize: 13, color: '#102C42', fontWeight: 600 }}>{f}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <button
-                className="btn-white-pill"
                 onClick={() => setBookingOpen(true)}
                 style={{
                   width: '100%',
+                  background: '#102C42',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: 9999,
+                  padding: '12px 20px',
+                  fontSize: 13,
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
                   justifyContent: 'center',
-                  background: darkMode ? '#1E293B' : '#ffffff',
-                  color: darkMode ? '#F8FAFC' : '#0F172A',
-                  borderColor: darkMode ? 'rgba(255,255,255,0.15)' : '#E2E8F0',
+                  gap: 8,
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 14px rgba(16, 44, 66, 0.12)'
                 }}
+                onMouseEnter={e => e.currentTarget.style.background = '#38A85B'}
+                onMouseLeave={e => e.currentTarget.style.background = '#102C42'}
               >
-                <span>Deploy For {ind.title}</span>
+                <span>Deploy System for {ind.title.split(' ')[0]}</span>
                 <ArrowRight size={14} />
               </button>
             </div>

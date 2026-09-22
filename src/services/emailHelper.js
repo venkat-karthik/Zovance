@@ -4,7 +4,7 @@
 // 2. FormSubmit.co (Frontend Form Client AJAX endpoint)
 // This guarantees that you will ALWAYS receive your inquiries immediately with zero dropped emails!
 
-const OFFICIAL_EMAIL = 'zovance6@gmail.com';
+const OFFICIAL_EMAIL = 'zovance1@gmail.com';
 
 /**
  * Sends a notification email when a Contact Inquiry is submitted.

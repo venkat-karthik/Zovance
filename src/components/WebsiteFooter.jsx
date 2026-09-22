@@ -119,31 +119,27 @@ export default function WebsiteFooter() {
             </div>
           </div>
 
-          {/* Column 4: Portals & Connect */}
+          {/* Column 4: Connect & Direct Channels */}
           <div>
             <p style={{ fontSize: 12, fontWeight: 700, color: '#102C42', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 16 }}>
-              Connect & Portals
+              Connect
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 18 }}>
-              <Link
-                to="/admin/login"
-                style={{
-                  fontSize: 13,
-                  fontWeight: 600,
-                  color: '#38A85B',
-                  textDecoration: 'none',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 6,
-                }}
-              >
-                <span>Enterprise Admin Hub &rarr;</span>
-              </Link>
               <a
-                href="mailto:contact@zovance.com"
-                style={{ fontSize: 13, color: '#526673', textDecoration: 'none' }}
+                href="mailto:zovance1@gmail.com"
+                style={{ fontSize: 13, color: '#526673', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#102C42')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#526673')}
               >
-                contact@zovance.com
+                zovance1@gmail.com
+              </a>
+              <a
+                href="tel:+918309827125"
+                style={{ fontSize: 13, color: '#526673', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#102C42')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#526673')}
+              >
+                +91 83098 27125
               </a>
             </div>
 
@@ -175,7 +171,7 @@ export default function WebsiteFooter() {
           </div>
         </div>
 
-        {/* Sub-footer copyright & legal line */}
+        {/* Sub-footer copyright & legal line WITH Admin Login link at the very bottom right */}
         <div style={{
           paddingTop: 24,
           display: 'flex',
@@ -189,10 +185,42 @@ export default function WebsiteFooter() {
           <div>
             &copy; {new Date().getFullYear()} Zovance Technologies Private Limited. All rights reserved.
           </div>
-          <div style={{ display: 'flex', gap: 20 }}>
-            <Link to="/about" style={{ color: '#526673', textDecoration: 'none' }}>Privacy Policy</Link>
-            <Link to="/about" style={{ color: '#526673', textDecoration: 'none' }}>Terms of Service</Link>
-            <Link to="/about" style={{ color: '#526673', textDecoration: 'none' }}>Security Disclosures</Link>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 18 }}>
+            <Link to="/about" style={{ color: '#526673', textDecoration: 'none', transition: 'color 0.2s ease' }}>Privacy Policy</Link>
+            <Link to="/about" style={{ color: '#526673', textDecoration: 'none', transition: 'color 0.2s ease' }}>Terms of Service</Link>
+            <Link to="/about" style={{ color: '#526673', textDecoration: 'none', transition: 'color 0.2s ease' }}>Security Disclosures</Link>
+            
+            {/* The requested bottom-most admin login link */}
+            <span style={{ color: '#DCE9EE' }}>|</span>
+            <Link
+              to="/admin/login"
+              style={{
+                color: '#526673',
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 5,
+                fontSize: 11,
+                fontWeight: 600,
+                padding: '3px 10px',
+                borderRadius: 999,
+                background: '#FFFFFF',
+                border: '1px solid #DCE9EE',
+                transition: 'all 0.2s ease',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = '#102C42';
+                e.currentTarget.style.color = '#102C42';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '#DCE9EE';
+                e.currentTarget.style.color = '#526673';
+              }}
+              title="Restricted Administrator Console"
+            >
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#38A85B' }} />
+              Admin Portal
+            </Link>
           </div>
         </div>
       </div>

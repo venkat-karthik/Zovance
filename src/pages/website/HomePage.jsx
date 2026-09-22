@@ -650,6 +650,86 @@ export default function HomePage() {
               </div>
             </div>
           </div>
+
+          {/* Outpero-Style Quick Access to New Specific Capabilities */}
+          <div style={{
+            marginTop: 48,
+            background: '#FFFFFF',
+            border: '1px solid #DCE9EE',
+            borderRadius: 24,
+            padding: ' clamp(24px, 4vw, 36px)',
+            boxShadow: '0 10px 30px rgba(16, 44, 66, 0.04)'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16, marginBottom: 24 }}>
+              <div>
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#38A85B', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+                  EXPANDED SPECIFICATION CATALOG
+                </span>
+                <h3 style={{ fontSize: 22, fontWeight: 800, color: '#102C42', marginTop: 4 }}>
+                  Turnkey AI & Voice Implementations
+                </h3>
+              </div>
+              <Link to="/services" style={{ fontSize: 13, fontWeight: 700, color: '#102C42', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+                <span>View all 19 capabilities</span>
+                <ArrowRight size={14} color="#38A85B" />
+              </Link>
+            </div>
+
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+              gap: 16
+            }}>
+              {[
+                { title: 'WhatsApp Business Automation', tag: 'AI & Automation', desc: 'Replies, qualifies & follow-ups autonomously.' },
+                { title: 'Inbound & Outbound AI Voice', tag: 'AI Voice', desc: 'Answers calls in <3s, human fluency.' },
+                { title: 'Cart & Payment Reminders', tag: 'Revenue Recovery', desc: 'Recovers abandoned carts via WhatsApp & calls.' },
+                { title: 'Operational Automation Audit', tag: 'Strategy & ROI', desc: 'Maps every operational leak with ROI estimates.' },
+              ].map((item, i) => (
+                <Link
+                  key={i}
+                  to="/services"
+                  style={{
+                    background: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: 16,
+                    padding: '18px 20px',
+                    textDecoration: 'none',
+                    transition: 'all 0.25s ease',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = '#38A85B';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(16, 44, 66, 0.06)';
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = '#E2E8F0';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <div>
+                    <span style={{ fontSize: 10, fontWeight: 700, color: '#38A85B', textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: 6 }}>
+                      {item.tag}
+                    </span>
+                    <h4 style={{ fontSize: 15, fontWeight: 700, color: '#102C42', marginBottom: 6, lineHeight: 1.3 }}>
+                      {item.title}
+                    </h4>
+                    <p style={{ fontSize: 12, color: '#526673', lineHeight: 1.5 }}>
+                      {item.desc}
+                    </p>
+                  </div>
+                  <div style={{ marginTop: 14, fontSize: 12, fontWeight: 600, color: '#102C42', display: 'flex', alignItems: 'center', gap: 4 }}>
+                    <span>Explore</span>
+                    <span style={{ color: '#38A85B' }}>&rarr;</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -13,7 +13,7 @@ import {
 import { db } from '../config/firebase';
 import { sendBookingInquiryEmail } from './emailHelper';
 
-const ADMIN_EMAIL = 'zovance6@gmail.com';
+const ADMIN_EMAIL = 'zovance1@gmail.com';
 
 // Add a new booking and send email notification
 export const addBooking = async (bookingData) => {

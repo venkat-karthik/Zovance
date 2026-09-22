@@ -237,9 +237,21 @@ export default function ContactPage() {
                       <Mail size={18} />
                     </div>
                     <div>
-                      <span style={{ fontSize: 12, color: '#526673', display: 'block' }}>Email</span>
-                      <a href="mailto:contact@zovance.com" style={{ fontSize: 15, fontWeight: 600, color: '#102C42', textDecoration: 'none' }}>
-                        contact@zovance.com
+                      <span style={{ fontSize: 12, color: '#526673', display: 'block' }}>Official Email</span>
+                      <a href="mailto:zovance1@gmail.com" style={{ fontSize: 15, fontWeight: 600, color: '#102C42', textDecoration: 'none' }}>
+                        zovance1@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 10, background: '#F2FAFD', border: '1px solid #DCE9EE', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38A85B' }}>
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <span style={{ fontSize: 12, color: '#526673', display: 'block' }}>Direct Helpline & WhatsApp</span>
+                      <a href="tel:+918309827125" style={{ fontSize: 15, fontWeight: 600, color: '#102C42', textDecoration: 'none' }}>
+                        +91 83098 27125
                       </a>
                     </div>
                   </div>

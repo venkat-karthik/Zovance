@@ -113,7 +113,7 @@ export default function BookingModal({ isOpen, onClose }) {
             </p>
 
             <a
-              href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Zovance Discovery Call: ' + (submittedData?.name || 'Client'))}&details=${encodeURIComponent('Meeting with Zovance AI Engineering Team.\n\nClient Name: ' + (submittedData?.name || '') + '\nPhone: ' + (submittedData?.phone || '') + '\nAgenda: ' + (submittedData?.message || 'Discovery & Architecture Consultation') + '\n\nNote: Click "Add Google Meet video conferencing" inside Google Calendar to attach the instant video meeting link.\n\nOfficial Email: zovance6@gmail.com\nPhone: +91 83098 27125')}&dates=${submittedData?.date ? submittedData.date.replace(/-/g, '') + 'T090000Z/' + submittedData.date.replace(/-/g, '') + 'T100000Z' : ''}&add=zovance6@gmail.com`}
+              href={`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Zovance Discovery Call: ' + (submittedData?.name || 'Client'))}&details=${encodeURIComponent('Meeting with Zovance AI Engineering Team.\n\nClient Name: ' + (submittedData?.name || '') + '\nPhone: ' + (submittedData?.phone || '') + '\nAgenda: ' + (submittedData?.message || 'Discovery & Architecture Consultation') + '\n\nNote: Click "Add Google Meet video conferencing" inside Google Calendar to attach the instant video meeting link.\n\nOfficial Email: zovance1@gmail.com\nPhone: +91 83098 27125')}&dates=${submittedData?.date ? submittedData.date.replace(/-/g, '') + 'T090000Z/' + submittedData.date.replace(/-/g, '') + 'T100000Z' : ''}&add=zovance1@gmail.com`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
