@@ -126,7 +126,7 @@ export default function AdminLogin() {
         {/* Info Box */}
         <div style={{ background: '#F8FAFC', border: '1px solid #DCE9EE', borderRadius: 14, padding: 14, marginTop: 24 }}>
           <p style={{ fontSize: 12, color: '#526673', lineHeight: 1.6, margin: 0 }}>
-            <strong style={{ color: '#102C42' }}>Restricted Portal:</strong> Access is guarded by Google OAuth whitelist (@zovance.com & @velfound.com corporate credentials).
+            <strong style={{ color: '#102C42' }}>Restricted Portal:</strong> Access is guarded by Google OAuth whitelist (authorized admin accounts including <code style={{ color: '#102C42', fontWeight: 600 }}>karthikvenkat316@gmail.com</code>, <code style={{ color: '#102C42', fontWeight: 600 }}>zovance1@gmail.com</code> & corporate credentials).
           </p>
         </div>
 

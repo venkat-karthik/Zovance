@@ -52,12 +52,13 @@ export const adminAuthService = {
       ]);
       
       const user = result.user;
-      const email = user.email;
+      const email = (user.email || '').toLowerCase().trim();
 
       console.log('User signed in:', email);
 
-      // Check if user is authorized admin
-      if (!AUTHORIZED_ADMINS.includes(email)) {
+      // Check if user is authorized admin (case-insensitive)
+      const normalizedAdmins = AUTHORIZED_ADMINS.map(e => e.toLowerCase().trim());
+      if (!normalizedAdmins.includes(email)) {
         console.warn('Unauthorized admin attempt:', email);
         // Sign out unauthorized user
         await signOut(auth);
