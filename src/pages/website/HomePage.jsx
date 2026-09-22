@@ -21,44 +21,52 @@ export default function HomePage() {
     setVideoModalOpen(true);
   };
 
-  // IntersectionObserver: automatically play/pause and handle sound as user scrolls
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Seamless scroll-driven video playback (scrubs video smoothly as user scrolls)
   useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
+    const handleScroll = () => {
+      const container = videoContainerRef.current;
+      const video = videoRef.current;
+      if (!container || !video) return;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
-            video.play().then(() => {
-              setIsPlayingHero(true);
-            }).catch(() => {});
-          } else {
-            video.pause();
-            setIsPlayingHero(false);
-          }
-        });
-      },
-      { threshold: [0.1, 0.35, 0.7] }
-    );
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
 
-    if (videoContainerRef.current) {
-      observer.observe(videoContainerRef.current);
-    }
+      // Calculate how far through the viewport the video is
+      const start = windowHeight;
+      const end = -rect.height;
+      const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
+
+      setScrollProgress(progress);
+
+      // Scrub the video position based on scroll progress if duration is loaded
+      if (video.duration && !isNaN(video.duration)) {
+        const targetTime = progress * video.duration;
+        if (Math.abs(video.currentTime - targetTime) > 0.05) {
+          video.currentTime = targetTime;
+        }
+      }
+
+      // Also ensure video plays smoothly when in viewport
+      if (rect.top < windowHeight * 0.9 && rect.bottom > windowHeight * 0.1) {
+        if (video.paused) {
+          video.play().catch(() => {});
+        }
+      } else {
+        if (!video.paused) {
+          video.pause();
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const current = videoRef.current.currentTime;
-      const total = videoRef.current.duration || 1;
-      setVideoProgress((current / total) * 100);
-      setVideoDuration(total);
-    }
-  };
 
   const toggleSound = (e) => {
     e.stopPropagation();
@@ -260,7 +268,7 @@ export default function HomePage() {
               }}
             >
               <source
-                src="/videos/hero-brand.mp4"
+                src="/videos/cover-video.mp4"
                 type="video/mp4"
               />
             </video>
@@ -1334,7 +1342,7 @@ export default function HomePage() {
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               >
                 <source
-                  src="/videos/hero-brand.mp4"
+                  src="/videos/cover-video.mp4"
                   type="video/mp4"
                 />
                 Your browser does not support HTML5 video.
