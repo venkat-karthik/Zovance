@@ -100,16 +100,14 @@ export default function HomePage() {
         ref={videoContainerRef}
         style={{
           position: 'relative',
-          minHeight: '85vh',
-          height: 'clamp(550px, 85vh, 920px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
+          width: '100%',
+          height: '100vh',
+          minHeight: '600px',
           overflow: 'hidden',
-          background: '#0a1622',
+          background: '#FFFFFF',
         }}
       >
-        {/* Full-Bleed Ambient Video (Bright, crisp, and no video player UI) */}
+        {/* Full-Bleed Ambient Video (100% natural, crisp, zero dark/blue overlays) */}
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -129,7 +127,6 @@ export default function HomePage() {
               objectFit: 'cover',
               objectPosition: 'center',
               display: 'block',
-              filter: 'brightness(1.08) contrast(1.04)',
             }}
           >
             <source
@@ -137,45 +134,6 @@ export default function HomePage() {
               type="video/mp4"
             />
           </video>
-
-          {/* Minimal soft blend at the bottom into the next section */}
-          <div style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: 120,
-            background: 'linear-gradient(to top, #102C42 0%, rgba(16, 44, 66, 0.4) 50%, transparent 100%)',
-            pointerEvents: 'none',
-          }} />
-        </div>
-
-        {/* Scroll Indicator */}
-        <div style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
-          <a
-            href="#vision"
-            className="animate-subtle-bounce"
-            style={{
-              fontSize: 12,
-              fontWeight: 600,
-              color: '#FFFFFF',
-              textDecoration: 'none',
-              letterSpacing: '0.06em',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              background: 'rgba(16, 44, 66, 0.65)',
-              backdropFilter: 'blur(10px)',
-              WebkitBackdropFilter: 'blur(10px)',
-              padding: '8px 18px',
-              borderRadius: 9999,
-              border: '1px solid rgba(255, 255, 255, 0.25)',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-            }}
-          >
-            <span>Explore Zovance</span>
-            <span style={{ color: '#38A85B', fontSize: 14 }}>↓</span>
-          </a>
         </div>
       </section>
 
