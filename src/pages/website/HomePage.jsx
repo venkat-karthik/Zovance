@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Play, X, Compass, HeartHandshake, ShieldCheck, Sparkles, ChevronRight, Pause, ExternalLink, Volume2, VolumeX, Maximize2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
-import ServicesNeuralCore from '../../components/ServicesNeuralCore';
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [bookingOpen, setBookingOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [videoTitle, setVideoTitle] = useState('Our Story & Vision');
@@ -35,17 +36,13 @@ export default function HomePage() {
     }, 50);
   };
 
-  // Close story and trigger smooth auto-scroll handoff to #services
+  // Close story and trigger smooth transition to Solutions neural core
   const handleStoryEnd = () => {
     setStoryCollapsing(true);
     setTimeout(() => {
       setIsStoryPlaying(false);
       setStoryCollapsing(false);
-      // Smooth handoff to #services
-      const servicesEl = document.getElementById('services');
-      if (servicesEl) {
-        servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      navigate('/solutions');
     }, 600);
   };
 
@@ -390,9 +387,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* ================= INTERACTIVE NEURAL / CIRCUIT CORE SERVICES SECTION ================= */}
-      <ServicesNeuralCore />
 
       {/* ================= 5. A GLIMPSE INTO ZOVANCE (Gallery Carousel) ================= */}
       <section style={{
