@@ -507,27 +507,96 @@ export default function ServicesNeuralCore() {
                 </p>
               </div>
 
-              {/* Circuit Bus Decorative SVG Strip with Active Laser Energy Pulse */}
-              <div style={{ position: 'relative', width: '100%', height: 32, overflow: 'hidden', margin: '4px 0' }}>
-                <svg width="100%" height="32" viewBox="0 0 800 32" fill="none" preserveAspectRatio="none">
-                  {/* Subtle Static Bus Line */}
-                  <path d="M0 16 H330 L360 4 H440 L470 16 H800" stroke="rgba(0, 240, 255, 0.25)" strokeWidth="1.5" />
-                  
-                  {/* Dynamic Laser Energy Flowing Trace */}
-                  <path 
-                    d="M0 16 H330 L360 4 H440 L470 16 H800" 
-                    stroke={activeService.accent || '#00f0ff'} 
-                    strokeWidth="2.5" 
-                    className="circuit-pulse-line" 
-                    strokeLinecap="round"
-                    filter="drop-shadow(0 0 6px rgba(0, 240, 255, 0.8))"
+              {/* Circuit Bus Decorative SVG Strip with Active Aurora Waves & Moving Pulses */}
+              <div style={{ position: 'relative', width: '100%', height: 50, overflow: 'hidden', margin: '2px 0' }}>
+                <svg width="100%" height="50" viewBox="0 0 800 50" fill="none" preserveAspectRatio="none">
+                  <defs>
+                    {/* Aurora Linear Gradient */}
+                    <linearGradient id="auroraLineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#00f0ff" stopOpacity="0.8" />
+                      <stop offset="35%" stopColor="#38bdf8" stopOpacity="0.9" />
+                      <stop offset="65%" stopColor="#a855f7" stopOpacity="0.9" />
+                      <stop offset="100%" stopColor="#38A85B" stopOpacity="0.8" />
+                    </linearGradient>
+
+                    {/* Aurora Glow Filter */}
+                    <filter id="auroraGlow" x="-20%" y="-100%" width="140%" height="300%">
+                      <feGaussianBlur stdDeviation="3.5" result="blur" />
+                      <feMerge>
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="blur" />
+                        <feMergeNode in="SourceGraphic" />
+                      </feMerge>
+                    </filter>
+                  </defs>
+
+                  {/* Subtle Static Baseline */}
+                  <path d="M0 25 H330 L360 12 H440 L470 25 H800" stroke="rgba(0, 240, 255, 0.18)" strokeWidth="1.5" />
+
+                  {/* 1. Underlying Luminous Aurora Wave Mist (sine undulation) */}
+                  <path
+                    d="M0 25 Q 50 18, 100 25 T 200 25 T 300 25 L 360 12 Q 400 6, 440 12 L 500 25 Q 550 32, 600 25 T 700 25 T 800 25"
+                    stroke="url(#auroraLineGrad)"
+                    strokeWidth="4"
+                    strokeOpacity="0.35"
+                    filter="url(#auroraGlow)"
+                    fill="none"
                   />
 
-                  {/* High Frequency Central Bridge */}
-                  <path d="M360 4 H440" stroke="#00f0ff" strokeWidth="3" filter="drop-shadow(0 0 8px #00f0ff)" />
-                  <circle cx="360" cy="4" r="3.5" fill="#00f0ff" />
-                  <circle cx="440" cy="4" r="3.5" fill="#00f0ff" />
-                  <circle cx="400" cy="4" r="4.5" fill="#FFFFFF" filter="drop-shadow(0 0 10px #FFFFFF)" />
+                  {/* 2. Fast Traveling Aurora Sine Wave Stream */}
+                  <path
+                    d="M0 25 Q 40 20, 80 25 T 160 25 T 240 25 T 320 25 L 360 12 Q 400 8, 440 12 L 480 25 Q 520 20, 560 25 T 640 25 T 720 25 T 800 25"
+                    stroke="url(#auroraLineGrad)"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeDasharray="40 140"
+                    style={{
+                      animation: 'circuit-energy-flow 3.5s linear infinite',
+                    }}
+                    filter="url(#auroraGlow)"
+                  />
+
+                  {/* 3. Primary Moving Dot with Aurora Energy Core */}
+                  <path 
+                    d="M0 25 H330 L360 12 H440 L470 25 H800" 
+                    stroke={activeService.accent || '#00f0ff'} 
+                    strokeWidth="3" 
+                    className="circuit-pulse-line" 
+                    strokeLinecap="round"
+                    filter="url(#auroraGlow)"
+                  />
+
+                  {/* Reverse Counter-Pulse Aurora Ripple for natural flowing wave feel */}
+                  <path 
+                    d="M800 25 H470 L440 12 H360 L330 25 H0" 
+                    stroke="#a855f7" 
+                    strokeWidth="2" 
+                    strokeDasharray="25 220"
+                    style={{
+                      animation: 'circuit-energy-flow 5s linear infinite reverse',
+                    }}
+                    strokeLinecap="round"
+                    filter="url(#auroraGlow)"
+                  />
+
+                  {/* Center High-Frequency Bridge with Aurora Waves */}
+                  <path d="M360 12 H440" stroke="#00f0ff" strokeWidth="3.5" filter="drop-shadow(0 0 10px #00f0ff)" />
+
+                  {/* Node 1 & Node 2 with Aurora Halo Waves */}
+                  <g>
+                    {/* Concentric Aurora Wave Rings on left bridge node */}
+                    <circle cx="360" cy="12" r="8" fill="rgba(0, 240, 255, 0.15)" stroke="rgba(0, 240, 255, 0.4)" strokeWidth="1" className="animate-aurora-pulse" />
+                    <circle cx="360" cy="12" r="3.5" fill="#00f0ff" filter="drop-shadow(0 0 6px #00f0ff)" />
+
+                    {/* Concentric Aurora Wave Rings on right bridge node */}
+                    <circle cx="440" cy="12" r="8" fill="rgba(168, 85, 247, 0.15)" stroke="rgba(168, 85, 247, 0.4)" strokeWidth="1" className="animate-aurora-pulse" style={{ animationDelay: '1.1s' }} />
+                    <circle cx="440" cy="12" r="3.5" fill="#a855f7" filter="drop-shadow(0 0 6px #a855f7)" />
+
+                    {/* Center Core Apex Pulse with multi-layered Aurora Wave Rings */}
+                    <circle cx="400" cy="12" r="14" fill="radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, transparent 70%)" />
+                    <circle cx="400" cy="12" r="9" fill="none" stroke="rgba(56, 168, 91, 0.5)" strokeWidth="1.2" className="animate-aurora-pulse" style={{ animationDelay: '0.6s' }} />
+                    <circle cx="400" cy="12" r="5" fill="#FFFFFF" filter="drop-shadow(0 0 10px #FFFFFF) drop-shadow(0 0 18px #00f0ff)" />
+                  </g>
                 </svg>
               </div>
 
