@@ -4,21 +4,60 @@ import { ArrowRight, Play, X, Compass, HeartHandshake, ShieldCheck, Sparkles, Ch
 import WebsiteNav from '../../components/WebsiteNav';
 import WebsiteFooter from '../../components/WebsiteFooter';
 import BookingModal from '../../components/BookingModal';
+import ServicesNeuralCore from '../../components/ServicesNeuralCore';
 
 export default function HomePage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [videoTitle, setVideoTitle] = useState('Our Story & Vision');
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [isStoryPlaying, setIsStoryPlaying] = useState(false);
+  const [storyCollapsing, setStoryCollapsing] = useState(false);
+
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
+  const storyVideoRef = useRef(null);
 
   const openVideo = (title) => {
     setVideoTitle(title);
     setVideoModalOpen(true);
   };
 
-  // IntersectionObserver: automatically play/pause as user scrolls into view
+  // Trigger full-screen cinematic "Our Story" sequence
+  const startStorySequence = () => {
+    setIsStoryPlaying(true);
+    setStoryCollapsing(false);
+    setTimeout(() => {
+      if (storyVideoRef.current) {
+        storyVideoRef.current.currentTime = 0;
+        storyVideoRef.current.play().catch(() => {});
+      }
+    }, 50);
+  };
+
+  // Close story and trigger smooth auto-scroll handoff to #services
+  const handleStoryEnd = () => {
+    setStoryCollapsing(true);
+    setTimeout(() => {
+      setIsStoryPlaying(false);
+      setStoryCollapsing(false);
+      // Smooth handoff to #services
+      const servicesEl = document.getElementById('services');
+      if (servicesEl) {
+        servicesEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 600);
+  };
+
+  // Quick Skip button
+  const handleSkipStory = () => {
+    if (storyVideoRef.current) {
+      storyVideoRef.current.pause();
+    }
+    handleStoryEnd();
+  };
+
+  // IntersectionObserver: automatically play/pause ambient hero as user scrolls into view
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -51,7 +90,84 @@ export default function HomePage() {
 
   return (
     <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
-      <WebsiteNav />
+      <WebsiteNav onOurStoryClick={startStorySequence} />
+
+      {/* ================= CINEMATIC "OUR STORY" VIDEO NARRATIVE SEQUENCE ================= */}
+      {isStoryPlaying && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 100,
+            background: '#000000',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            overflow: 'hidden',
+            opacity: storyCollapsing ? 0 : 1,
+            transform: storyCollapsing ? 'translateY(8%) scale(0.96)' : 'translateY(0) scale(1)',
+            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
+          {/* Edge-to-edge pure video without native controls */}
+          <video
+            ref={storyVideoRef}
+            src="/videos/our-story-transition.mp4"
+            autoPlay
+            playsInline
+            onEnded={handleStoryEnd}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block',
+              background: '#000000',
+            }}
+          />
+
+          {/* Minimalist discreet Skip button */}
+          <button
+            onClick={handleSkipStory}
+            aria-label="Skip to services"
+            style={{
+              position: 'absolute',
+              top: 28,
+              right: 28,
+              zIndex: 10,
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              border: '1px solid rgba(255, 255, 255, 0.22)',
+              color: 'rgba(255, 255, 255, 0.75)',
+              padding: '8px 18px',
+              borderRadius: 9999,
+              fontSize: 12,
+              fontWeight: 600,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = '#FFFFFF';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+              e.currentTarget.style.borderColor = '#00f0ff';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = 'rgba(255, 255, 255, 0.75)';
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.22)';
+            }}
+          >
+            <span>Skip</span>
+            <span style={{ fontSize: 13, color: '#00f0ff' }}>→</span>
+          </button>
+        </div>
+      )}
 
       {/* ================= 1. PURE PRISTINE CINEMATIC VISUAL HERO STAGE ================= */}
       <section
@@ -98,6 +214,65 @@ export default function HomePage() {
               type="video/mp4"
             />
           </video>
+        </div>
+
+        {/* Floating Narrative Trigger Button ("Our Story") */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 36,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            zIndex: 5,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+          }}
+        >
+          <button
+            onClick={startStorySequence}
+            className="animate-subtle-bounce"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 10,
+              background: 'rgba(16, 44, 66, 0.75)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(255, 255, 255, 0.35)',
+              color: '#FFFFFF',
+              padding: '12px 26px',
+              borderRadius: 9999,
+              fontSize: 14,
+              fontWeight: 700,
+              letterSpacing: '0.04em',
+              cursor: 'pointer',
+              boxShadow: '0 8px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(56, 168, 91, 0.25)',
+              transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.borderColor = '#38A85B';
+              e.currentTarget.style.background = '#102C42';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
+              e.currentTarget.style.background = 'rgba(16, 44, 66, 0.75)';
+            }}
+          >
+            <span
+              style={{
+                width: 8,
+                height: 8,
+                borderRadius: '50%',
+                background: '#38A85B',
+                boxShadow: '0 0 10px #38A85B',
+              }}
+            />
+            <span>Our Story</span>
+            <ArrowRight size={15} color="#38A85B" />
+          </button>
         </div>
       </section>
 
@@ -168,10 +343,14 @@ export default function HomePage() {
             We believe technology should create real value for people, businesses and the world around us. Not noise, but quiet intelligence that moves humanity forward.
           </p>
 
-          <Link to="/about" className="btn-zovance-green">
+          <button
+            onClick={startStorySequence}
+            className="btn-zovance-green"
+            style={{ cursor: 'pointer', border: 'none' }}
+          >
             <span>Our Story</span>
             <ArrowRight size={15} />
-          </Link>
+          </button>
         </div>
       </section>
 
@@ -288,6 +467,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ================= INTERACTIVE NEURAL / CIRCUIT CORE SERVICES SECTION ================= */}
+      <ServicesNeuralCore />
 
       {/* ================= 4. WHAT WE DO (Apple-Style Giant Media Showcase Panels) ================= */}
       <section style={{

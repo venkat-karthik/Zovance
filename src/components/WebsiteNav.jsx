@@ -11,7 +11,7 @@ const navLinks = [
   { to: '/contact', label: 'Contact' },
 ];
 
-export default function WebsiteNav() {
+export default function WebsiteNav({ onOurStoryClick }) {
   const [open, setOpen] = useState(false);
   const [bookingOpen, setBookingOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -132,10 +132,18 @@ export default function WebsiteNav() {
             {navLinks.map((link) => {
               const isActive = pathname === link.to;
 
+              const handleClick = (e) => {
+                if (link.to === '/about' && onOurStoryClick) {
+                  e.preventDefault();
+                  onOurStoryClick();
+                }
+              };
+
               return (
                 <Link
                   key={link.to}
                   to={link.to}
+                  onClick={handleClick}
                   style={{
                     fontSize: 13,
                     fontWeight: isActive ? 600 : 500,
@@ -257,7 +265,13 @@ export default function WebsiteNav() {
               <Link
                 key={link.to}
                 to={link.to}
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  setOpen(false);
+                  if (link.to === '/about' && onOurStoryClick) {
+                    e.preventDefault();
+                    onOurStoryClick();
+                  }
+                }}
                 style={{
                   padding: '12px 16px',
                   borderRadius: 14,
