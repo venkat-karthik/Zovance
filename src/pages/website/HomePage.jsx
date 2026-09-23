@@ -9,10 +9,7 @@ export default function HomePage() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
   const [videoTitle, setVideoTitle] = useState('Our Story & Vision');
-  const [isPlayingHero, setIsPlayingHero] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
-  const [videoProgress, setVideoProgress] = useState(0);
-  const [videoDuration, setVideoDuration] = useState(0);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const videoRef = useRef(null);
   const videoContainerRef = useRef(null);
 
@@ -21,25 +18,26 @@ export default function HomePage() {
     setVideoModalOpen(true);
   };
 
-  // IntersectionObserver: automatically play/pause and handle sound as user scrolls
+  // IntersectionObserver: automatically play/pause as user scrolls into view
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    if (video.readyState >= 2) {
+      setIsVideoLoaded(true);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
-            video.play().then(() => {
-              setIsPlayingHero(true);
-            }).catch(() => {});
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+            video.play().catch(() => {});
           } else {
             video.pause();
-            setIsPlayingHero(false);
           }
         });
       },
-      { threshold: [0.1, 0.35, 0.7] }
+      { threshold: [0.1, 0.2, 0.6] }
     );
 
     if (videoContainerRef.current) {
@@ -50,46 +48,6 @@ export default function HomePage() {
       observer.disconnect();
     };
   }, []);
-
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const current = videoRef.current.currentTime;
-      const total = videoRef.current.duration || 1;
-      setVideoProgress((current / total) * 100);
-      setVideoDuration(total);
-    }
-  };
-
-  const toggleSound = (e) => {
-    e.stopPropagation();
-    if (videoRef.current) {
-      const nextMuted = !videoRef.current.muted;
-      videoRef.current.muted = nextMuted;
-      setIsMuted(nextMuted);
-    }
-  };
-
-  const togglePlay = (e) => {
-    e.stopPropagation();
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlayingHero(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlayingHero(false);
-      }
-    }
-  };
-
-  const handleSeek = (e) => {
-    e.stopPropagation();
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pos = (e.clientX - rect.left) / rect.width;
-    if (videoRef.current && videoDuration) {
-      videoRef.current.currentTime = pos * videoDuration;
-    }
-  };
 
   return (
     <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
@@ -104,7 +62,7 @@ export default function HomePage() {
           height: '100vh',
           minHeight: '600px',
           overflow: 'hidden',
-          background: '#FFFFFF',
+          background: '#dce8ea', // Matches the video's bright ambient tone so there's zero harsh white/black flicker
         }}
       >
         {/* Full-Bleed Ambient Video (100% natural, crisp, zero dark/blue overlays) */}
@@ -121,12 +79,18 @@ export default function HomePage() {
             loop
             muted
             playsInline
+            preload="auto"
+            onLoadedData={() => setIsVideoLoaded(true)}
+            onCanPlay={() => setIsVideoLoaded(true)}
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'center',
               display: 'block',
+              opacity: isVideoLoaded ? 1 : 0,
+              transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+              willChange: 'opacity',
             }}
           >
             <source
