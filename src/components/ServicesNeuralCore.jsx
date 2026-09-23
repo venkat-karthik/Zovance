@@ -140,37 +140,31 @@ export default function ServicesNeuralCore() {
         borderTop: '1px solid rgba(0, 240, 255, 0.15)',
       }}
     >
+      {/* Dynamic Aurora Waves & Atmospheric Lights */}
+      <div className="aurora-mesh-container">
+        <div className="aurora-curtain-1" />
+        <div className="aurora-curtain-2" />
+        <div className="aurora-ribbon" />
+        <div className="aurora-beam" />
+      </div>
+
       {/* Background Cybernetic Grid */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           backgroundImage: `
-            linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px)
+            linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px)
           `,
           backgroundSize: '48px 48px',
-          opacity: 0.7,
+          opacity: 0.8,
           pointerEvents: 'none',
+          zIndex: 1,
         }}
       />
 
-      {/* Ambient Sci-Fi Glow Orbs */}
-      <div
-        style={{
-          position: 'absolute',
-          top: '25%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 'clamp(500px, 60vw, 900px)',
-          height: 'clamp(500px, 60vw, 900px)',
-          background: 'radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(56, 189, 248, 0.05) 45%, transparent 70%)',
-          filter: 'blur(90px)',
-          pointerEvents: 'none',
-        }}
-      />
-
-      <div style={{ maxWidth: 1320, margin: '0 auto', position: 'relative', zIndex: 2 }}>
+      <div style={{ maxWidth: 1320, margin: '0 auto', position: 'relative', zIndex: 3 }}>
         {/* Section Header */}
         <div style={{ textAlign: 'center', marginBottom: 'clamp(40px, 6vw, 64px)' }}>
           <div
@@ -513,14 +507,27 @@ export default function ServicesNeuralCore() {
                 </p>
               </div>
 
-              {/* Circuit Bus Decorative SVG Strip */}
-              <div style={{ position: 'relative', width: '100%', height: 26, overflow: 'hidden' }}>
-                <svg width="100%" height="26" viewBox="0 0 800 26" fill="none" preserveAspectRatio="none">
-                  <path d="M0 13 H340 L360 3 H440 L460 13 H800" stroke="rgba(0, 240, 255, 0.3)" strokeWidth="1.5" />
-                  <path d="M360 3 H440" stroke="#00f0ff" strokeWidth="2.5" />
-                  <circle cx="360" cy="3" r="3" fill="#00f0ff" />
-                  <circle cx="440" cy="3" r="3" fill="#00f0ff" />
-                  <circle cx="400" cy="3" r="4" fill="#FFFFFF" />
+              {/* Circuit Bus Decorative SVG Strip with Active Laser Energy Pulse */}
+              <div style={{ position: 'relative', width: '100%', height: 32, overflow: 'hidden', margin: '4px 0' }}>
+                <svg width="100%" height="32" viewBox="0 0 800 32" fill="none" preserveAspectRatio="none">
+                  {/* Subtle Static Bus Line */}
+                  <path d="M0 16 H330 L360 4 H440 L470 16 H800" stroke="rgba(0, 240, 255, 0.25)" strokeWidth="1.5" />
+                  
+                  {/* Dynamic Laser Energy Flowing Trace */}
+                  <path 
+                    d="M0 16 H330 L360 4 H440 L470 16 H800" 
+                    stroke={activeService.accent || '#00f0ff'} 
+                    strokeWidth="2.5" 
+                    className="circuit-pulse-line" 
+                    strokeLinecap="round"
+                    filter="drop-shadow(0 0 6px rgba(0, 240, 255, 0.8))"
+                  />
+
+                  {/* High Frequency Central Bridge */}
+                  <path d="M360 4 H440" stroke="#00f0ff" strokeWidth="3" filter="drop-shadow(0 0 8px #00f0ff)" />
+                  <circle cx="360" cy="4" r="3.5" fill="#00f0ff" />
+                  <circle cx="440" cy="4" r="3.5" fill="#00f0ff" />
+                  <circle cx="400" cy="4" r="4.5" fill="#FFFFFF" filter="drop-shadow(0 0 10px #FFFFFF)" />
                 </svg>
               </div>
 
@@ -541,37 +548,67 @@ export default function ServicesNeuralCore() {
                     <div
                       key={sub.name}
                       style={{
-                        background: 'rgba(12, 29, 45, 0.75)',
-                        border: '1px solid rgba(0, 240, 255, 0.18)',
-                        borderRadius: 18,
-                        padding: 22,
+                        background: 'rgba(12, 29, 45, 0.85)',
+                        border: '1px solid rgba(0, 240, 255, 0.22)',
+                        borderRadius: 20,
+                        padding: 24,
                         position: 'relative',
-                        transition: 'all 0.3s ease',
+                        transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 240, 255, 0.04) inset',
+                        overflow: 'hidden',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.borderColor = '#00f0ff';
-                        e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 240, 255, 0.2)';
-                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.borderColor = activeService.accent || '#00f0ff';
+                        e.currentTarget.style.boxShadow = `0 12px 32px rgba(0, 0, 0, 0.5), 0 0 28px ${activeService.accent || '#00f0ff'}44, 0 0 20px ${activeService.accent || '#00f0ff'}15 inset`;
+                        e.currentTarget.style.transform = 'translateY(-4px)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.borderColor = 'rgba(0, 240, 255, 0.18)';
-                        e.currentTarget.style.boxShadow = 'none';
+                        e.currentTarget.style.borderColor = 'rgba(0, 240, 255, 0.22)';
+                        e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.35), 0 0 20px rgba(0, 240, 255, 0.04) inset';
                         e.currentTarget.style.transform = 'none';
                       }}
                     >
+                      {/* Subtle Ambient Aurora Light Accent in Card Top Right */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: -30,
+                          right: -30,
+                          width: 80,
+                          height: 80,
+                          borderRadius: '50%',
+                          background: `radial-gradient(circle, ${activeService.accent || '#00f0ff'}33 0%, transparent 70%)`,
+                          filter: 'blur(20px)',
+                          pointerEvents: 'none',
+                        }}
+                      />
+
                       {/* Node Header */}
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
-                        <span style={{ fontSize: 10, fontWeight: 800, color: '#00f0ff', letterSpacing: '0.1em' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+                        <span style={{ fontSize: 10, fontWeight: 800, color: activeService.accent || '#00f0ff', letterSpacing: '0.12em' }}>
                           SUB-NODE 0{idx + 1}
                         </span>
-                        <Zap size={14} color="#00f0ff" />
+                        <div
+                          style={{
+                            width: 26,
+                            height: 26,
+                            borderRadius: '50%',
+                            background: 'rgba(0, 240, 255, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            border: '1px solid rgba(0, 240, 255, 0.25)',
+                          }}
+                        >
+                          <Zap size={13} color={activeService.accent || '#00f0ff'} />
+                        </div>
                       </div>
 
-                      <h5 style={{ fontSize: 16, fontWeight: 700, color: '#FFFFFF', marginBottom: 8, letterSpacing: '-0.01em' }}>
+                      <h5 style={{ fontSize: 17, fontWeight: 700, color: '#FFFFFF', marginBottom: 8, letterSpacing: '-0.015em' }}>
                         {sub.name}
                       </h5>
 
-                      <p style={{ fontSize: 13, color: '#9bb1c1', lineHeight: 1.55, marginBottom: 16 }}>
+                      <p style={{ fontSize: 13.5, color: '#9bb1c1', lineHeight: 1.6, marginBottom: 18 }}>
                         {sub.desc}
                       </p>
 
@@ -586,8 +623,8 @@ export default function ServicesNeuralCore() {
                               color: '#8FD3F4',
                               background: 'rgba(0, 240, 255, 0.08)',
                               border: '1px solid rgba(0, 240, 255, 0.2)',
-                              padding: '3px 10px',
-                              borderRadius: 6,
+                              padding: '4px 10px',
+                              borderRadius: 8,
                             }}
                           >
                             {tag}

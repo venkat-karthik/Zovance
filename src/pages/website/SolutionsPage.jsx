@@ -94,29 +94,23 @@ export default function SolutionsPage() {
     <div style={{ background: '#02070c', color: '#FFFFFF', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav theme="dark" />
 
-      {/* Hero Header with Cybernetic Dark Theme */}
+      {/* Hero Header with Cybernetic Dark Theme & Aurora Waves */}
       <section style={{
         maxWidth: 1320,
         margin: '0 auto',
         padding: 'clamp(130px, 16vw, 175px) clamp(20px, 5vw, 64px) clamp(50px, 6vw, 80px)',
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        {/* Cybernetic Atmosphere Glow */}
-        <div style={{
-          position: 'absolute',
-          top: '20%',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          width: 'clamp(500px, 75vw, 900px)',
-          height: 420,
-          background: 'radial-gradient(ellipse at center, rgba(0, 240, 255, 0.25) 0%, rgba(56, 189, 248, 0.1) 45%, transparent 75%)',
-          filter: 'blur(80px)',
-          pointerEvents: 'none',
-          zIndex: 0,
-        }} />
+        {/* Dynamic Fluid Aurora Backdrop */}
+        <div className="aurora-mesh-container">
+          <div className="aurora-curtain-1" style={{ opacity: 0.6 }} />
+          <div className="aurora-curtain-2" style={{ opacity: 0.5 }} />
+          <div className="aurora-beam" />
+        </div>
 
-        <div className="animate-fade-up" style={{ position: 'relative', zIndex: 1 }}>
+        <div className="animate-fade-up" style={{ position: 'relative', zIndex: 2 }}>
           <span style={{
             fontSize: 11,
             fontWeight: 800,
@@ -133,7 +127,7 @@ export default function SolutionsPage() {
             borderRadius: 9999,
             boxShadow: '0 0 20px rgba(0, 240, 255, 0.2)',
           }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00f0ff', boxShadow: '0 0 10px #00f0ff' }} />
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#00f0ff', boxShadow: '0 0 10px #00f0ff', animation: 'pulse-ring 2s infinite' }} />
             INTELLIGENT SOLUTIONS & ARCHITECTURE
           </span>
 
@@ -149,12 +143,7 @@ export default function SolutionsPage() {
             marginRight: 'auto',
           }}>
             Turnkey Systems Engineered For{' '}
-            <span style={{
-              background: 'linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #38A85B 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              display: 'inline-block',
-            }}>
+            <span className="text-shimmer-aurora" style={{ display: 'inline-block' }}>
               Autonomous Scale.
             </span>
           </h1>
