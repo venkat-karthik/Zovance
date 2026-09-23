@@ -21,52 +21,44 @@ export default function HomePage() {
     setVideoModalOpen(true);
   };
 
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  // Seamless scroll-driven video playback (scrubs video smoothly as user scrolls)
+  // IntersectionObserver: automatically play/pause and handle sound as user scrolls
   useEffect(() => {
-    const handleScroll = () => {
-      const container = videoContainerRef.current;
-      const video = videoRef.current;
-      if (!container || !video) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-      const rect = container.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+            video.play().then(() => {
+              setIsPlayingHero(true);
+            }).catch(() => {});
+          } else {
+            video.pause();
+            setIsPlayingHero(false);
+          }
+        });
+      },
+      { threshold: [0.1, 0.35, 0.7] }
+    );
 
-      // Calculate how far through the viewport the video is
-      const start = windowHeight;
-      const end = -rect.height;
-      const progress = Math.max(0, Math.min(1, (start - rect.top) / (start - end)));
-
-      setScrollProgress(progress);
-
-      // Scrub the video position based on scroll progress if duration is loaded
-      if (video.duration && !isNaN(video.duration)) {
-        const targetTime = progress * video.duration;
-        if (Math.abs(video.currentTime - targetTime) > 0.05) {
-          video.currentTime = targetTime;
-        }
-      }
-
-      // Also ensure video plays smoothly when in viewport
-      if (rect.top < windowHeight * 0.9 && rect.bottom > windowHeight * 0.1) {
-        if (video.paused) {
-          video.play().catch(() => {});
-        }
-      } else {
-        if (!video.paused) {
-          video.pause();
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    if (videoContainerRef.current) {
+      observer.observe(videoContainerRef.current);
+    }
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
     };
   }, []);
+
+  const handleTimeUpdate = () => {
+    if (videoRef.current) {
+      const current = videoRef.current.currentTime;
+      const total = videoRef.current.duration || 1;
+      setVideoProgress((current / total) * 100);
+      setVideoDuration(total);
+    }
+  };
 
   const toggleSound = (e) => {
     e.stopPropagation();
@@ -103,20 +95,63 @@ export default function HomePage() {
     <div style={{ background: '#FFFFFF', color: '#102C42', minHeight: '100vh', overflowX: 'hidden' }}>
       <WebsiteNav />
 
-      {/* ================= 1. APPLE-STYLE HERO STAGE ================= */}
-      <section style={{
-        position: 'relative',
-        minHeight: '94vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: 'clamp(150px, 16vw, 180px) 24px 60px',
-        overflow: 'hidden',
-        background: 'radial-gradient(ellipse at 50% 20%, #F2FAFD 0%, #FFFFFF 85%)',
-      }}>
-        {/* Atmosphere ambient glow */}
+      {/* ================= 1. APPLE-STYLE FULL CINEMATIC VIDEO HERO STAGE ================= */}
+      <section
+        ref={videoContainerRef}
+        style={{
+          position: 'relative',
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          padding: 'clamp(140px, 16vw, 180px) 24px 80px',
+          overflow: 'hidden',
+          background: '#091520',
+          color: '#FFFFFF',
+        }}
+      >
+        {/* Full Background Video Behind Headline & Content */}
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          overflow: 'hidden',
+        }}>
+          <video
+            ref={videoRef}
+            id="hero-ambient-video"
+            autoPlay
+            loop
+            muted={isMuted}
+            playsInline
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center',
+              display: 'block',
+              transform: 'scale(1.03)',
+            }}
+          >
+            <source
+              src="/videos/hero-brand.mp4"
+              type="video/mp4"
+            />
+          </video>
+
+          {/* Deep Cinematic Contrast Overlays so text pops crisply */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.72) 0%, rgba(16, 44, 66, 0.45) 40%, rgba(9, 21, 32, 0.88) 100%)',
+            backdropFilter: 'blur(1px)',
+            WebkitBackdropFilter: 'blur(1px)',
+          }} />
+        </div>
+
+        {/* Ambient Top Glow */}
         <div style={{
           position: 'absolute',
           top: '-10%',
@@ -124,53 +159,66 @@ export default function HomePage() {
           transform: 'translateX(-50%)',
           width: 'clamp(500px, 80vw, 1000px)',
           height: 'clamp(350px, 45vw, 600px)',
-          background: 'radial-gradient(ellipse at center, rgba(143, 211, 244, 0.45) 0%, rgba(56, 168, 91, 0.12) 50%, transparent 80%)',
-          filter: 'blur(70px)',
+          background: 'radial-gradient(ellipse at center, rgba(56, 168, 91, 0.22) 0%, rgba(62, 159, 208, 0.15) 50%, transparent 80%)',
+          filter: 'blur(80px)',
           pointerEvents: 'none',
-          zIndex: 0,
+          zIndex: 1,
         }} />
 
-        <div className="animate-fade-up" style={{ maxWidth: 960, margin: '0 auto', position: 'relative', zIndex: 2, marginBottom: 44 }}>
+        {/* Hero Content Right on Top of Video */}
+        <div className="animate-fade-up" style={{ maxWidth: 960, margin: '0 auto', position: 'relative', zIndex: 2 }}>
           {/* Subtle brand tag */}
           <div className="shimmer-badge animate-levitate" style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: 8,
             fontSize: 12,
-            fontWeight: 700,
-            letterSpacing: '0.12em',
+            fontWeight: 800,
+            letterSpacing: '0.14em',
             color: '#38A85B',
             textTransform: 'uppercase',
-            marginBottom: 20,
-            border: '1px solid #DCE9EE',
-            padding: '6px 16px',
+            marginBottom: 24,
+            background: 'rgba(255, 255, 255, 0.14)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
+            padding: '7px 20px',
             borderRadius: 9999,
-            boxShadow: '0 2px 12px rgba(56, 168, 91, 0.12)',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
           }}>
             <span className="animate-pulse-ring" style={{ width: 8, height: 8, borderRadius: '50%', background: '#38A85B' }} />
             <span>ZOVANCE SYSTEMS</span>
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(46px, 7vw, 84px)',
+            fontSize: 'clamp(46px, 7.5vw, 88px)',
             fontWeight: 800,
             lineHeight: 1.04,
             letterSpacing: '-0.04em',
-            color: '#102C42',
-            marginBottom: 20,
+            color: '#FFFFFF',
+            marginBottom: 24,
+            textShadow: '0 2px 28px rgba(0,0,0,0.6)',
           }}>
             Ideas for a<br />
-            <span className="highlight-gradient">Brighter Tomorrow.</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #38A85B 0%, #8FD3F4 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              display: 'inline-block',
+            }}>
+              Brighter Tomorrow.
+            </span>
           </h1>
 
           <p style={{
-            fontSize: 'clamp(18px, 2.4vw, 22px)',
-            color: '#526673',
-            maxWidth: 620,
-            margin: '0 auto 36px',
-            lineHeight: 1.5,
+            fontSize: 'clamp(18px, 2.4vw, 23px)',
+            color: '#DCE9EE',
+            maxWidth: 680,
+            margin: '0 auto 40px',
+            lineHeight: 1.55,
             letterSpacing: '-0.01em',
             fontWeight: 400,
+            textShadow: '0 2px 14px rgba(0,0,0,0.5)',
           }}>
             Building technology that makes work simpler, smarter, and more human.
           </p>
@@ -181,11 +229,12 @@ export default function HomePage() {
             justifyContent: 'center',
             gap: 16,
             flexWrap: 'wrap',
+            marginBottom: 40,
           }}>
             <Link
               to="/about"
-              className="btn-zovance-primary"
-              style={{ fontSize: 15, padding: '14px 32px' }}
+              className="btn-zovance-green"
+              style={{ fontSize: 15, padding: '14px 34px' }}
             >
               <span>Our Story</span>
               <ArrowRight size={15} />
@@ -197,16 +246,17 @@ export default function HomePage() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 12,
-                background: 'rgba(255, 255, 255, 0.8)',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid #DCE9EE',
+                background: 'rgba(255, 255, 255, 0.16)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                border: '1px solid rgba(255, 255, 255, 0.35)',
                 borderRadius: 9999,
                 padding: '8px 24px 8px 10px',
                 cursor: 'pointer',
-                color: '#102C42',
+                color: '#FFFFFF',
                 fontWeight: 600,
                 fontSize: 14,
-                boxShadow: '0 4px 16px rgba(16, 44, 66, 0.04)',
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
                 transition: 'all 0.25s ease',
               }}
               onMouseEnter={(e) => {
@@ -215,196 +265,93 @@ export default function HomePage() {
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.borderColor = '#DCE9EE';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)';
               }}
             >
-              <div className="play-btn-circle" style={{ width: 40, height: 40 }}>
+              <div className="play-btn-circle" style={{ width: 40, height: 40, background: '#FFFFFF' }}>
                 <Play size={15} style={{ marginLeft: 2 }} fill="#102C42" />
               </div>
               <span>Watch Brand Film</span>
             </button>
           </div>
-        </div>
 
-        {/* Seamless Full-Bleed Ambient Hero Video Banner */}
-        <div
-          ref={videoContainerRef}
-          style={{
-            position: 'relative',
-            width: '100%',
-            maxWidth: 1360,
-            margin: '0 auto',
-            borderRadius: 'clamp(20px, 3.5vw, 36px)',
-            overflow: 'hidden',
-            boxShadow: '0 24px 64px -16px rgba(16, 44, 66, 0.18)',
-            border: '1px solid #DCE9EE',
-            zIndex: 2,
-          }}
-        >
-          <div
-            style={{
-              position: 'relative',
-              width: '100%',
-              aspectRatio: '16/9',
-              minHeight: 'clamp(320px, 48vw, 640px)',
-              maxHeight: 700,
-              background: '#091520',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Background Ambient Video Canvas */}
-            <video
-              ref={videoRef}
-              id="hero-ambient-video"
-              autoPlay
-              loop
-              muted={isMuted}
-              playsInline
+          {/* Discreet Audio & Video Status Controls directly in Hero */}
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 12,
+            background: 'rgba(9, 21, 32, 0.55)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
+            padding: '6px 16px',
+            borderRadius: 9999,
+          }}>
+            <button
+              type="button"
+              onClick={togglePlay}
+              aria-label={isPlayingHero ? 'Pause background video' : 'Play background video'}
               style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                display: 'block',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                fontSize: 12,
+                fontWeight: 600,
               }}
             >
-              <source
-                src="/videos/cover-video.mp4"
-                type="video/mp4"
-              />
-            </video>
+              {isPlayingHero ? <Pause size={13} fill="#FFFFFF" /> : <Play size={13} fill="#FFFFFF" />}
+              <span>{isPlayingHero ? 'Video Live' : 'Video Paused'}</span>
+            </button>
 
-            {/* Seamless Soft Contrast Vignette */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              background: 'linear-gradient(180deg, rgba(16, 44, 66, 0.25) 0%, rgba(16, 44, 66, 0.05) 45%, rgba(16, 44, 66, 0.65) 100%)',
-              pointerEvents: 'none',
-            }} />
+            <span style={{ width: 1, height: 14, background: 'rgba(255, 255, 255, 0.25)' }} />
 
-            {/* Integrated Typography Merged on the Video Canvas */}
-            <div style={{
-              position: 'absolute',
-              inset: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              padding: 'clamp(24px, 4vw, 48px)',
-              color: '#FFFFFF',
-              zIndex: 3,
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16 }}>
-                <div>
-                  <div style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 8,
-                    background: 'rgba(255, 255, 255, 0.18)',
-                    backdropFilter: 'blur(12px)',
-                    WebkitBackdropFilter: 'blur(12px)',
-                    border: '1px solid rgba(255, 255, 255, 0.35)',
-                    padding: '5px 14px',
-                    borderRadius: 9999,
-                    fontSize: 11,
-                    fontWeight: 800,
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    marginBottom: 10,
-                  }}>
-                    <span className="animate-pulse-ring" style={{ width: 7, height: 7, borderRadius: '50%', background: '#38A85B' }} />
-                    <span>INTELLIGENCE IN MOTION</span>
-                  </div>
-
-                  <h3 style={{
-                    fontSize: 'clamp(22px, 3.5vw, 38px)',
-                    fontWeight: 800,
-                    letterSpacing: '-0.025em',
-                    lineHeight: 1.15,
-                    marginBottom: 6,
-                    textShadow: '0 2px 14px rgba(0,0,0,0.4)',
-                  }}>
-                    Autonomous systems that move businesses forward.
-                  </h3>
-                  <p style={{
-                    fontSize: 'clamp(13px, 1.6vw, 16px)',
-                    opacity: 0.9,
-                    maxWidth: 580,
-                    lineHeight: 1.5,
-                  }}>
-                    Operating quietly 24/7 across customer inquiries, intelligent workflows, and data pipelines.
-                  </p>
-                </div>
-
-                {/* Minimal Discrete Sound Toggle & Expand Button */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                  <button
-                    type="button"
-                    onClick={toggleSound}
-                    aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
-                    style={{
-                      background: isMuted ? 'rgba(255, 255, 255, 0.2)' : '#38A85B',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.35)',
-                      borderRadius: 9999,
-                      padding: '8px 16px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 8,
-                      cursor: 'pointer',
-                      color: '#FFFFFF',
-                      fontSize: 12,
-                      fontWeight: 700,
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
-                    <span>{isMuted ? 'Sound Off' : 'Sound On'}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => openVideo('Brand Experience Film')}
-                    aria-label="Expand Cinema Modal"
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.2)',
-                      backdropFilter: 'blur(16px)',
-                      WebkitBackdropFilter: 'blur(16px)',
-                      border: '1px solid rgba(255, 255, 255, 0.35)',
-                      borderRadius: '50%',
-                      width: 36,
-                      height: 36,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      cursor: 'pointer',
-                      color: '#FFFFFF',
-                      transition: 'all 0.2s ease',
-                    }}
-                    onMouseEnter={(e) => e.currentTarget.style.borderColor = '#38A85B'}
-                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.35)'}
-                  >
-                    <Maximize2 size={15} />
-                  </button>
-                </div>
-              </div>
-            </div>
+            <button
+              type="button"
+              onClick={toggleSound}
+              aria-label={isMuted ? 'Unmute Sound' : 'Mute Sound'}
+              style={{
+                background: isMuted ? 'transparent' : '#38A85B',
+                border: 'none',
+                cursor: 'pointer',
+                color: '#FFFFFF',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                fontSize: 12,
+                fontWeight: 700,
+                padding: '4px 10px',
+                borderRadius: 999,
+                transition: 'all 0.2s ease',
+              }}
+            >
+              {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
+              <span>{isMuted ? 'Sound Off' : 'Sound On'}</span>
+            </button>
           </div>
         </div>
 
         {/* Scroll Indicator */}
-        <div style={{ marginTop: 40, position: 'relative', zIndex: 2 }}>
+        <div style={{ position: 'absolute', bottom: 24, left: '50%', transform: 'translateX(-50%)', zIndex: 2 }}>
           <a
             href="#vision"
             className="animate-subtle-bounce"
             style={{
               fontSize: 12,
               fontWeight: 600,
-              color: '#526673',
+              color: '#DCE9EE',
               textDecoration: 'none',
               letterSpacing: '0.06em',
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(8px)',
+              padding: '6px 14px',
+              borderRadius: 9999,
             }}
           >
             <span>Explore the story</span>
@@ -1342,7 +1289,7 @@ export default function HomePage() {
                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               >
                 <source
-                  src="/videos/cover-video.mp4"
+                  src="/videos/hero-brand.mp4"
                   type="video/mp4"
                 />
                 Your browser does not support HTML5 video.
